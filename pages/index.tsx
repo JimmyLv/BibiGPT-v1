@@ -65,7 +65,6 @@ const Home: NextPage = () => {
           className="bg-black border mx-auto sm:mt-10 mt-7 p-3 border-gray-500 rounded-lg w-3/4 outline-white outline-1"
           placeholder="https://techcrunch.com/2023/01/23/spotify-cuts-6-of-its-workforce-impacting-600-people/"
         />
-        {/* TODO: Add loading logic */}
         <button
           className="bg-green-500 mx-auto w-1/3 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-bold text-lg hover:bg-green-400 transition"
           onClick={generateSummary}
@@ -74,15 +73,17 @@ const Home: NextPage = () => {
         </button>
         {summary && (
           <div>
-            <h2 className="text-3xl sm:text-5xl mt-12 text-center">Summary</h2>
-            <p className="mt-5 max-w-3xl mx-auto">{summary}</p>
+            <h2 className="text-3xl sm:text-5xl mt-12 text-center font-bold">
+              Summary
+            </h2>
+            <p className="mt-6 max-w-3xl mx-auto text-lg leading-7">
+              {summary}
+            </p>
           </div>
         )}
       </main>
     </div>
   );
 };
-
-// TODO: Add a try one of our links below (put 3 cards here)
 
 export default Home;
