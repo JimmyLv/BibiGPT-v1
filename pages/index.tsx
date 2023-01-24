@@ -1,86 +1,66 @@
+import { Poppins } from "@next/font/google";
+import clsx from "clsx";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
+import Github from "../components/GitHub";
+
+const poppins = Poppins({ weight: "800", subsets: ["latin"] });
 
 const Home: NextPage = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
+    <div className="flex flex-col max-w-5xl mx-auto pt-20 min-h-screen">
       <Head>
         <title>News summarizer</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{" "}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
+      <div className="flex justify-between">
+        <Link className="flex items-center space-x-3" href="/">
+          <Image src="/write.png" alt="logo" width={40} height={40} />
+          <h2 className={clsx("text-2xl", poppins.className)}>
+            News summarizer.
+          </h2>
+        </Link>
+        <a
+          href="https://github.com/Nutlope?tab=repositories"
+          rel="noreferrer noopener"
+          target="_blank"
+        >
+          <Github />
+        </a>
+      </div>
+      <main className="flex flex-col max-w-5xl mx-auto justify-center content-center mt-20 flex-1">
+        <h1 className="max-w-5xl text-3xl sm:text-7xl font-bold text-center">
+          Summarize any <span className="text-orange-500">TechCrunch</span>{" "}
+          article in seconds
         </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{" "}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
+        <div className="flex justify-between mt-10 sm:flex-row flex-col">
+          <img
+            src="clear-typewriter.png"
+            alt="writer"
+            className="w-[500px] relative"
+          />
+          <div className="flex-1">
+            <p className="text-xl sm:text-2xl mt-10">
+              Simply <span className="text-orange-500">copy and paste</span> the
+              article link below.
             </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+            <input
+              type="text"
+              className="bg-black border mx-auto w-full sm:mt-10 mt-7 p-3 border-gray-500 rounded-lg"
+              placeholder="https://techcrunch.com/2023/01/23/spotify-cuts-6-of-its-workforce-impacting-600-people/"
+            />
+            <button className="bg-orange-500 mx-auto w-full sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-bold text-lg hover:bg-orange-400 transition">
+              Summarize
+            </button>
+          </div>
         </div>
       </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
     </div>
   );
 };
+
+// Or try one of our links below (put 3 cards here)
 
 export default Home;
