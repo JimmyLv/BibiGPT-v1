@@ -22,10 +22,29 @@ const Home: NextPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ article }),
+      body: JSON.stringify({ url: article }),
     });
-    const data = await response.json();
-    setSummary(data.text);
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    // This data is a ReadableStream
+    const data = response.body;
+    if (!data) {
+      return;
+    }
+
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      setSummary((prev) => prev + chunkValue);
+    }
   };
 
   return (

@@ -1,21 +1,20 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest } from "next/server";
 import { parse } from "node-html-parser";
+import { OpenAIStream } from "../../utils/OpenAIStream";
 
-type Data = {
-  text: string;
+export const config = {
+  runtime: "edge",
 };
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  const url = req.body.article;
+export default async function handler(req: NextRequest) {
+  const { url } = (await req.json()) as {
+    url?: string;
+  };
 
   if (!url) {
-    return res.status(400).json({ text: "No article in the request" });
+    return new Response("No prompt in the request", { status: 400 });
   }
 
-  console.log({ url });
   const response = await fetch(url, {
     method: "GET",
   });
@@ -38,22 +37,10 @@ export default async function handler(
     frequency_penalty: 0,
     presence_penalty: 0,
     max_tokens: 200,
-    stream: false,
+    stream: true,
     n: 1,
   };
 
-  const openAIresponse = await fetch("https://api.openai.com/v1/completions", {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
-    },
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
-
-  const json = await openAIresponse.json();
-
-  console.log({ json });
-
-  res.status(200).json({ text: json.choices[0].text });
+  const stream = await OpenAIStream(payload);
+  return new Response(stream);
 }
