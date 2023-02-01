@@ -12,11 +12,12 @@ const poppins = Poppins({ weight: "800", subsets: ["latin"] });
 const Home: NextPage = () => {
   const [article, setArticle] = useState<string>("");
   const [summary, setSummary] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
-  console.log({ article });
   console.log({ summary });
 
   const generateSummary = async () => {
+    setLoading(true);
     const response = await fetch("/api/summarize", {
       method: "POST",
       headers: {
@@ -45,19 +46,20 @@ const Home: NextPage = () => {
       const chunkValue = decoder.decode(value);
       setSummary((prev) => prev + chunkValue);
     }
+    setLoading(false);
   };
 
   return (
     <div className="flex flex-col max-w-5xl mx-auto pt-20 min-h-screen">
       <Head>
-        <title>News summarizer</title>
+        <title>TechCrunch summarizer</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex justify-between">
         <Link className="flex items-center space-x-3" href="/">
           <Image src="/edit.png" alt="logo" width={34} height={34} />
           <h2 className={clsx("text-3xl", poppins.className)}>
-            <span className="text-green-500">News</span> summarizer.
+            <span className="text-green-500">TechCrunch</span> summarizer.
           </h2>
         </Link>
         <a
@@ -82,21 +84,40 @@ const Home: NextPage = () => {
           value={article}
           onChange={(e) => setArticle(e.target.value)}
           className="bg-black border mx-auto sm:mt-10 mt-7 p-3 border-gray-500 rounded-lg w-3/4 outline-white outline-1"
-          placeholder="https://techcrunch.com/2023/01/23/spotify-cuts-6-of-its-workforce-impacting-600-people/"
+          placeholder="https://techcrunch.com/2023/01/31/google-fi-customer-data-breach"
         />
-        <button
-          className="bg-green-500 mx-auto w-1/3 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-bold text-lg hover:bg-green-400 transition"
-          onClick={generateSummary}
-        >
-          Summarize
-        </button>
+        {!loading && (
+          <button
+            className="bg-green-500 mx-auto w-1/3 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition"
+            onClick={generateSummary}
+          >
+            Summarize
+          </button>
+        )}
+        {loading && (
+          <button
+            className="bg-green-500 mx-auto w-1/3 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition"
+            onClick={generateSummary}
+            disabled
+          >
+            ...
+          </button>
+        )}
         {summary && (
-          <div>
+          <div className="mb-10">
             <h2 className="text-3xl sm:text-5xl mt-12 text-center font-bold">
               Summary
             </h2>
             <p className="mt-6 max-w-3xl mx-auto text-lg leading-7">
-              {summary}
+              {summary.split(".").map((sentence, index) => (
+                <div>
+                  {sentence.length > 0 && (
+                    <li key={index} className="list-disc mb-2">
+                      {sentence}
+                    </li>
+                  )}
+                </div>
+              ))}
             </p>
           </div>
         )}

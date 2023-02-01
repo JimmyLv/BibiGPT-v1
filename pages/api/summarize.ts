@@ -27,7 +27,7 @@ export default async function handler(req: NextRequest) {
     .replace(/(\r\n|\n|\r)/gm, "")
     .replace(/(\r\t|\t|\r)/gm, "");
 
-  const prompt = `Summarize the following news article in a few sentences: ${text}`;
+  const prompt = `Summarize the following news article in a few sentences and do not start with a period: ${text}`;
 
   const payload = {
     model: "text-davinci-003",
