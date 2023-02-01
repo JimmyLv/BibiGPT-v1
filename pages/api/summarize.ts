@@ -22,7 +22,6 @@ export default async function handler(req: NextRequest) {
   const data = await response.text();
   const root = parse(data);
   const body = root.querySelector(".article-content");
-  console.log({ body });
   const text = body!.innerText
     .replace(/(\r\n|\n|\r)/gm, "")
     .replace(/(\r\t|\t|\r)/gm, "");

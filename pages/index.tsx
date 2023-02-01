@@ -1,14 +1,8 @@
-import { Poppins } from "@next/font/google";
-import clsx from "clsx";
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import Footer from "../components/Footer";
-import Github from "../components/GitHub";
-
-const poppins = Poppins({ weight: "800", subsets: ["latin"] });
+import Header from "../components/Header";
 
 const Home: NextPage = () => {
   const [article, setArticle] = useState<string>("");
@@ -31,7 +25,6 @@ const Home: NextPage = () => {
       throw new Error(response.statusText);
     }
 
-    // This data is a ReadableStream
     const data = response.body;
     if (!data) {
       return;
@@ -56,21 +49,7 @@ const Home: NextPage = () => {
         <title>TechCrunch summarizer</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex justify-between">
-        <Link className="flex items-center space-x-3" href="/">
-          <Image src="/edit.png" alt="logo" width={34} height={34} />
-          <h2 className={clsx("text-3xl", poppins.className)}>
-            <span className="text-green-500">TechCrunch</span> summarizer.
-          </h2>
-        </Link>
-        <a
-          href="https://github.com/Nutlope?tab=repositories"
-          rel="noreferrer noopener"
-          target="_blank"
-        >
-          <Github />
-        </a>
-      </div>
+      <Header />
       <main className="flex flex-col max-w-5xl mx-auto justify-center content-center mt-20 flex-1">
         <h1 className="max-w-5xl text-3xl sm:text-7xl font-bold text-center">
           Summarize any <span className="text-green-500">TechCrunch</span>{" "}
