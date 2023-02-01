@@ -5,6 +5,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import Footer from "../components/Footer";
 import Github from "../components/GitHub";
 
 const poppins = Poppins({ weight: "800", subsets: ["latin"] });
@@ -122,6 +123,7 @@ const Home: NextPage = () => {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 };

@@ -2,7 +2,7 @@
 
 - [x] Make it work with edge functions and streaming instead of just serverless
 - [x] Add loading logic and make summary look nicer by splitting into more paragraphs
-- [ ] Add a footer
+- [x] Add a footer
 - [ ] Maybe summarize with bullet points? Maybe I should have a toggle that toggles between this
 - [ ] Parse URL to make sure it includes techcrunch.com. new URL(string) - make sure it's valid and host name is techcrunch
 - [ ] Make it work for featured articles – why isn't it?
