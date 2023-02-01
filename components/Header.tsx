@@ -16,7 +16,7 @@ export default function Header() {
         </h2>
       </Link>
       <a
-        href="https://github.com/Nutlope?tab=repositories"
+        href="https://github.com/Nutlope/news-summarizer"
         rel="noreferrer noopener"
         target="_blank"
       >

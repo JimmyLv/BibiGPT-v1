@@ -46,7 +46,7 @@ const Home: NextPage = () => {
   return (
     <div className="flex flex-col max-w-5xl mx-auto pt-20 min-h-screen">
       <Head>
-        <title>TechCrunch summarizer</title>
+        <title>TechCrunch Summarizer</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />

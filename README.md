@@ -4,8 +4,8 @@
 - [x] Add loading logic and make summary look nicer by splitting into more paragraphs
 - [x] Add a footer
 - [x] Maybe summarize with bullet points? Maybe I should have a toggle that toggles between this
+- [x] Fix SEO and OG image
 - [ ] Fix mobile styles
-- [ ] Fix SEO and OG image
 - [ ] techcrunch.com, make it work with a dynamic slug can use [[...slug]].tsx
 
 # Todos v2
