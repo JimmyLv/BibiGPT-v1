@@ -6,9 +6,12 @@ export const config = {
 };
 
 export default async function handler(req: Request) {
+  console.log("started");
   const { url } = (await req.json()) as {
     url?: string;
   };
+
+  console.log("url is, ", url);
 
   if (!url) {
     return new Response("No prompt in the request", { status: 400 });
@@ -19,13 +22,19 @@ export default async function handler(req: Request) {
       method: "GET",
     });
 
+    console.log("response status is, ", response.status);
+
     const data = await response.text();
+
+    console.log("data is, ", data);
+
     const root = parse(data);
     const body = root.querySelector(".article-content");
     const text = body!.innerText
       .replace(/(\r\n|\n|\r)/gm, "")
       .replace(/(\r\t|\t|\r)/gm, "");
 
+    console.log("text is, ", text);
     const prompt = `Summarize the following news article in a few sentences and do not start with a period: ${text}`;
 
     const payload = {
