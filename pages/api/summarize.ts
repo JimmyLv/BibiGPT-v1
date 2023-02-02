@@ -5,6 +5,10 @@ export const config = {
   runtime: "edge",
 };
 
+if (!process.env.OPENAI_API_KEY) {
+  throw new Error("Missing env var from OpenAI");
+}
+
 export default async function handler(req: Request) {
   console.log("started");
   const { url } = (await req.json()) as {
