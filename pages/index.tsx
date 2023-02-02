@@ -13,7 +13,7 @@ const Home: NextPage = () => {
 
   const generateSummary = async () => {
     setLoading(true);
-    const response = await fetch("/api/summarize", {
+    const response = await fetch("/api/serverless-summarize", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,22 +25,25 @@ const Home: NextPage = () => {
       throw new Error(response.statusText);
     }
 
-    const data = response.body;
-    if (!data) {
-      return;
-    }
-
-    const reader = data.getReader();
-    const decoder = new TextDecoder();
-    let done = false;
-
-    while (!done) {
-      const { value, done: doneReading } = await reader.read();
-      done = doneReading;
-      const chunkValue = decoder.decode(value);
-      setSummary((prev) => prev + chunkValue);
-    }
+    let answer = await response.json();
+    setSummary(answer.choices[0].text);
     setLoading(false);
+
+    // const data = response.body;
+    // if (!data) {
+    //   return;
+    // }
+
+    // const reader = data.getReader();
+    // const decoder = new TextDecoder();
+    // let done = false;
+
+    // while (!done) {
+    //   const { value, done: doneReading } = await reader.read();
+    //   done = doneReading;
+    //   const chunkValue = decoder.decode(value);
+    //   setSummary((prev) => prev + chunkValue);
+    // }
   };
 
   return (
