@@ -1,6 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { parse } from "node-html-parser";
 
+if (!process.env.OPENAI_API_KEY) {
+  throw new Error("Missing env var from OpenAI");
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
