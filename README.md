@@ -8,13 +8,18 @@
 - [x] Make it work for featured articles – why isn't it?
 - [x] techcrunch.com, make it work with a dynamic slug can use [[...slug]].tsx
 - [x] Fix mobile styles
+- [x] Make sure the summary text looks good
+- [ ] Do a "share URL" thing
+- [ ] Maybe add framer motion to animate down OR handle the text moving up somehow – why wasn't this an issue with others like twitterbio?
+- [ ] Add better loading spinner
 
 # Todos v2
 
+- [ ] Make the bullet points into cards
 - [ ] Cache with upstash redis
-- [ ] Setup log drain
+- [ ] Handle errors more gracefully – especially with the featured thing
+- [ ] Setup log drain on Vercel to see what sites are working
 - [ ] Maybe show article title and author?
-- [ ] Do a "share URL" thing
 
 # Todos v3
 

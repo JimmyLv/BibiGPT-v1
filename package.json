@@ -12,7 +12,8 @@
     "next": "latest",
     "node-html-parser": "^6.1.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.0"
   },
   "devDependencies": {
     "@types/node": "18.11.3",

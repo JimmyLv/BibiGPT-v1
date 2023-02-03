@@ -2,9 +2,9 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-
 export const Home: NextPage = () => {
   const router = useRouter();
   const urlState = router.query.slug;
@@ -39,7 +39,7 @@ export const Home: NextPage = () => {
     });
 
     if (!response.ok) {
-      throw new Error(response.statusText);
+      console.log("error", response.statusText);
     }
 
     const data = response.body;
@@ -61,13 +61,13 @@ export const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex flex-col max-w-5xl mx-auto sm:pt-20 pt-10 min-h-screen">
+    <div className="flex flex-col max-w-5xl mx-auto sm:pt-12 pt-8 min-h-screen">
       <Head>
         <title>TechCrunch Summarizer</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <main className="flex flex-col max-w-5xl mx-auto justify-center content-center sm:mt-12 flex-1 px-2">
+      <main className="flex flex-col max-w-5xl mx-auto justify-center content-center sm:mt-28 mt-10 flex-1 px-2">
         <h1 className="max-w-5xl text-4xl sm:text-7xl font-bold text-center">
           Summarize any <span className="text-green-500">TechCrunch</span>{" "}
           article in seconds
@@ -85,7 +85,7 @@ export const Home: NextPage = () => {
         />
         {!loading && (
           <button
-            className="bg-green-500 mx-auto sm:w-1/3 w-full sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition"
+            className="bg-green-500 mx-auto sm:w-1/3 w-3/4 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition"
             onClick={() => generateSummary(true)}
           >
             Summarize
@@ -100,8 +100,13 @@ export const Home: NextPage = () => {
             ...
           </button>
         )}
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          toastOptions={{ duration: 2000 }}
+        />
         {summary && (
-          <div className="mb-10">
+          <div className="mb-10 px-4">
             <h2 className="text-3xl sm:text-5xl mt-12 text-center font-bold">
               Summary
             </h2>
@@ -113,6 +118,19 @@ export const Home: NextPage = () => {
                   )}
                 </div>
               ))}
+              {!loading && (
+                <button
+                  className="bg-white text-black px-3 py-2 rounded-lg flex justify-center align-center mx-auto mt-5 font-semibold"
+                  onClick={() => {
+                    navigator.clipboard.writeText(summary);
+                    toast("Summary copied to clipboard", {
+                      icon: "✂️",
+                    });
+                  }}
+                >
+                  📧 Share Summary
+                </button>
+              )}
             </div>
           </div>
         )}
