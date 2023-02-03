@@ -7,7 +7,7 @@
 - [x] Fix SEO and OG image
 - [x] Make it work for featured articles – why isn't it?
 - [x] techcrunch.com, make it work with a dynamic slug can use [[...slug]].tsx
-- [ ] Fix mobile styles
+- [x] Fix mobile styles
 
 # Todos v2
 

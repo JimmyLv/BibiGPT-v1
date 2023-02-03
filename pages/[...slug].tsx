@@ -61,31 +61,31 @@ export const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex flex-col max-w-5xl mx-auto pt-20 min-h-screen">
+    <div className="flex flex-col max-w-5xl mx-auto sm:pt-20 pt-10 min-h-screen">
       <Head>
         <title>TechCrunch Summarizer</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <main className="flex flex-col max-w-5xl mx-auto justify-center content-center mt-20 flex-1">
-        <h1 className="max-w-5xl text-3xl sm:text-7xl font-bold text-center">
+      <main className="flex flex-col max-w-5xl mx-auto justify-center content-center sm:mt-12 flex-1 px-2">
+        <h1 className="max-w-5xl text-4xl sm:text-7xl font-bold text-center">
           Summarize any <span className="text-green-500">TechCrunch</span>{" "}
           article in seconds
         </h1>
-        <p className="text-xl sm:text-2xl mt-10 text-center">
+        <p className="text-lg sm:text-2xl mt-10 text-center">
           Copy and paste any <span className="text-green-500">TechCrunch </span>
-          article link below.
+          article below.
         </p>
         <input
           type="text"
           value={curArticle}
           onChange={(e) => setCurArticle(e.target.value)}
-          className="bg-black border mx-auto sm:mt-10 mt-7 p-3 border-gray-500 rounded-lg w-3/4 outline-white outline-1"
+          className="bg-black border mx-auto sm:mt-7 mt-10 p-3 border-gray-500 rounded-lg sm:w-3/4 w-full outline-white outline-1"
           placeholder="https://techcrunch.com/2023/01/31/google-fi-customer-data-breach"
         />
         {!loading && (
           <button
-            className="bg-green-500 mx-auto w-1/3 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition"
+            className="bg-green-500 mx-auto sm:w-1/3 w-full sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition"
             onClick={() => generateSummary(true)}
           >
             Summarize
