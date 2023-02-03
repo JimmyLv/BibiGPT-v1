@@ -24,15 +24,10 @@ export const Home: NextPage = () => {
   }, [url]);
 
   const curUrl = String(curArticle.split(".com")[1]);
-  // console.log({ urlState });
-  // console.log({ curArticle });
-  // console.log({ url });
-  // console.log({ curUrl });
 
   const generateSummary = async (changeRouter: boolean) => {
-    // The fact that this is different than curUrl will lead to race conditions
     if (changeRouter) {
-      router.replace(curUrl); // update url
+      router.replace(curUrl);
     }
     setLoading(true);
     const response = await fetch("/api/summarize", {
