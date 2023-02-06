@@ -9,21 +9,22 @@
 - [x] techcrunch.com, make it work with a dynamic slug can use [[...slug]].tsx
 - [x] Fix mobile styles
 - [x] Make sure the summary text looks good
-- [ ] Do a "share URL" thing
-- [ ] Maybe add framer motion to animate down OR handle the text moving up somehow – why wasn't this an issue with others like twitterbio?
-- [ ] Add better loading spinner
+- [x] Do a "share URL" thing
+- [x] Create shareable links
 
 # Todos v2
 
-- [ ] Make the bullet points into cards
-- [ ] Cache with upstash redis
-- [ ] Handle errors more gracefully – especially with the featured thing
-- [ ] Setup log drain on Vercel to see what sites are working
-- [ ] Maybe show article title and author?
+- [ ] Go over the logic for handling slugs to clean it up
+- [ ] Maybe add framer motion to animate down OR handle the text moving up somehow
+- [ ] Fix issue with it splitting on a string that is telling it about a funding amount
+- [ ] Add better loading spinner
+- [ ] Make the bullet points into cards, make it look nicer
+- [ ] Cache with upstash redis – pair with andreas
 
 # Todos v3
 
-- [ ] Create shareable links
+- [ ] Maybe show article title and author?
+- [ ] Setup log drain on Vercel to see what sites are working
 - [ ] Parse URL to make sure it includes techcrunch.com. new URL(string) - make sure it's valid and host name is techcrunch
 - [ ] Add a "try one of these options": Add a try one of our links below (put 3 cards here)
 - [ ] Make sure to have clean URLs, remove query params

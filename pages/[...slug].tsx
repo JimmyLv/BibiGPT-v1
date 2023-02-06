@@ -15,11 +15,16 @@ export const Home: NextPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [curArticle, setCurArticle] = useState<string>("");
 
+  console.log({ summary });
+
   // TODO: Figure out a better way to do this that involves using router state
   useEffect(() => {
     setCurArticle(url);
     if (url.length > 0) {
       generateSummary(false);
+    }
+    if (!urlState) {
+      setSummary("");
     }
   }, [url]);
 
@@ -29,6 +34,7 @@ export const Home: NextPage = () => {
     if (changeRouter) {
       router.replace(curUrl);
     }
+    setTimeout(() => {}, 1000);
     setLoading(true);
     const response = await fetch("/api/summarize", {
       method: "POST",
@@ -120,7 +126,7 @@ export const Home: NextPage = () => {
               ))}
               {!loading && (
                 <button
-                  className="bg-white text-black px-3 py-2 rounded-lg flex justify-center align-center mx-auto mt-5 font-semibold"
+                  className="bg-white text-black p-3 flex justify-center align-center mx-auto mt-10 font-semibold w-1/3 border-gray-500 rounded-2xl z-10 text-lg hover:bg-grey-200 transition"
                   onClick={() => {
                     navigator.clipboard.writeText(summary);
                     toast("Summary copied to clipboard", {
