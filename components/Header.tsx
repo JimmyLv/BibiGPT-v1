@@ -8,10 +8,10 @@ const poppins = Poppins({ weight: "800", subsets: ["latin"] });
 
 export default function Header() {
   return (
-    <div className="flex justify-between sm:px-3 px-3 items-center">
+    <div className="flex items-center justify-between px-3 sm:px-3">
       <Link className="flex items-center space-x-3" href="/">
         <Image src="/edit.png" alt="logo" width={34} height={34} />
-        <h2 className={clsx("sm:text-3xl text-lg", poppins.className)}>
+        <h2 className={clsx("text-lg sm:text-3xl", poppins.className)}>
           <span className="text-green-500">TechCrunch</span> summarizer
         </h2>
       </Link>
