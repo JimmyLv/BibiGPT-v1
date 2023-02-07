@@ -31,13 +31,22 @@ export const Home: NextPage = () => {
 
   const curUrl = String(curArticle.split(".com")[1]);
 
-  function changeRouter() {
-    if (curArticle) {
+  const generateSummary = async (url?: string) => {
+    setSummary("");
+    console.log({ url });
+    if (url) {
+      if (!url.includes("techcrunch.com")) {
+        toast.error("Please enter a valid TechCrunch article");
+        return;
+      }
+      setCurArticle(url);
+    } else {
+      if (!curArticle.includes("techcrunch.com")) {
+        toast.error("Please enter a valid TechCrunch article");
+        return;
+      }
       router.replace(curUrl);
     }
-  }
-
-  const generateSummary = async (url?: string) => {
     setLoading(true);
     const response = await fetch("/api/summarize", {
       method: "POST",
@@ -91,25 +100,22 @@ export const Home: NextPage = () => {
           value={curArticle}
           onChange={(e) => setCurArticle(e.target.value)}
           className="bg-black border mx-auto sm:mt-7 mt-10 p-3 border-gray-500 rounded-lg sm:w-3/4 w-full outline-white outline-1"
-          placeholder="https://techcrunch.com/2023/01/31/google-fi-customer-data-breach"
+          // placeholder="https://techcrunch.com/2023/01/31/google-fi-customer-data-breach"
         />
         {!loading && (
           <button
             className="bg-green-500 mx-auto sm:w-1/3 w-3/4 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition"
-            onClick={() => {
-              changeRouter();
-              generateSummary();
-            }}
+            onClick={() => generateSummary()}
           >
             Summarize
           </button>
         )}
         {loading && (
           <button
-            className="bg-green-500 mx-auto w-1/3 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition"
+            className="bg-green-500 mx-auto w-1/3 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition cursor-not-allowed"
             disabled
           >
-            <LoadingDots color="white" />
+            <LoadingDots />
           </button>
         )}
         <Toaster

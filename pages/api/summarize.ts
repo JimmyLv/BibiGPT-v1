@@ -31,7 +31,7 @@ export default async function handler(req: Request) {
       .replace(/(\r\n|\n|\r)/gm, "")
       .replace(/(\r\t|\t|\r)/gm, "");
 
-    const prompt = `Summarize the following news article in three or four sentences and do not start with a period. Your response should be in JSON: ${text}`;
+    const prompt = `Summarize the following news article in a few sentences: ${text}`;
 
     const payload = {
       model: "text-davinci-003",

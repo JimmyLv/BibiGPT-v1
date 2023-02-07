@@ -1,23 +1,11 @@
-import styles from "../styles/loading-dots.module.css";
+import Image from "next/image";
 
-const LoadingDots = ({
-  color = "#000",
-  style = "small",
-}: {
-  color: string;
-  style: string;
-}) => {
+const LoadingDots = () => {
   return (
-    <span className={style == "small" ? styles.loading2 : styles.loading}>
-      <span style={{ backgroundColor: color }} />
-      <span style={{ backgroundColor: color }} />
-      <span style={{ backgroundColor: color }} />
-    </span>
+    <div className="flex justify-center items-center text-white">
+      <Image src="/blocks-wave.svg" alt="Loading..." width={28} height={28} />
+    </div>
   );
 };
 
 export default LoadingDots;
-
-LoadingDots.defaultProps = {
-  style: "small",
-};
