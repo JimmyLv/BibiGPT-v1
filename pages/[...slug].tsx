@@ -104,6 +104,7 @@ export const Home: NextPage = () => {
         />
         {!loading && (
           <button
+            type="submit"
             className="bg-green-500 mx-auto sm:w-1/3 w-3/4 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition"
             onClick={() => generateSummary()}
           >
