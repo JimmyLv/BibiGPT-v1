@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import LoadingDots from "../components/LoadingDots";
 
 export const Home: NextPage = () => {
   const router = useRouter();
@@ -108,7 +109,7 @@ export const Home: NextPage = () => {
             className="bg-green-500 mx-auto w-1/3 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition"
             disabled
           >
-            ...
+            <LoadingDots color="white" />
           </button>
         )}
         <Toaster
@@ -122,7 +123,7 @@ export const Home: NextPage = () => {
               Summary
             </h2>
             <div className="mt-6 max-w-3xl mx-auto text-lg leading-7">
-              {summary.split(".").map((sentence, index) => (
+              {summary.split(". ").map((sentence, index) => (
                 <div key={index}>
                   {sentence.length > 0 && (
                     <li className="list-disc mb-2">{sentence}</li>
