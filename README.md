@@ -21,22 +21,20 @@
 - [x] Set the state of article when it's coming from techcrunch and make button disabled
 - [x] Deal with issue of putting in a second article after a first has been summarized. The summary isn't being cleared
 - [x] Try the prompt where you are a summary generator thing to test accuracy
+- [x] Parse URL to make sure it includes techcrunch.com. new URL(string) - make sure it's valid and host name is techcrunch
 - [x] Don't move the text up but just keep going down
-- [ ] Make the bullet points into cards, make it look nicer
+- [x] Make UI look nicer
+- [ ] Write descriptive README, record Twitter video, and announce
 
 # Todos v3
 
-- [ ] Make a whole section for the article summary on the bottom or another screen
 - [ ] Add rate limiting with Upstash
+- [ ] Add buttons/icons after article summary to copy summary, share link ect...
 - [ ] Cache with upstash redis – pair with andreas
 - [ ] Add auth to API route
 - [ ] Add framer motion, specifically the resizable container so everything moves nicely
-- [ ] Come up with a prompt where it always starts with a complete sentence, maybe just filter to start on a capital letter
+- [ ] Filter output to only start on a capital letter to eleminate bad prompts
 - [ ] Ignore italic text
 - [ ] Make enter work
 - [ ] Maybe show article title and author?
-- [ ] Setup log drain on Vercel to see what sites are working
-- [ ] Parse URL to make sure it includes techcrunch.com. new URL(string) - make sure it's valid and host name is techcrunch
 - [ ] Add a "try one of these options": Add a try one of our links below (put 3 cards here)
-- [ ] Make sure to have clean URLs, remove query params
-- [ ] Maybe a slider for how long to make the summary

@@ -87,7 +87,7 @@ export const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <main className="mx-auto mt-10 flex max-w-5xl flex-1 flex-col items-center justify-center px-2 sm:mt-40">
+      <main className="mx-auto mt-10 flex max-w-5xl flex-1 flex-col justify-center px-2 sm:mt-40">
         <h1 className="max-w-5xl text-center text-4xl font-bold sm:text-7xl">
           Summarize any{" "}
           <span className="relative whitespace-nowrap text-[#3290EE]">
@@ -118,7 +118,7 @@ export const Home: NextPage = () => {
         )}
         {loading && (
           <button
-            className="z-10 mx-auto mt-7 w-1/3 cursor-not-allowed rounded-2xl border-gray-500 bg-green-500 p-3 text-lg font-medium transition hover:bg-green-400 sm:mt-10"
+            className="z-10 mx-auto mt-7 w-3/4 cursor-not-allowed rounded-2xl border-gray-500 bg-green-500 p-3 text-lg font-medium transition hover:bg-green-400 sm:mt-10 sm:w-1/3"
             disabled
           >
             <LoadingDots />
@@ -131,7 +131,7 @@ export const Home: NextPage = () => {
         />
         {summary && (
           <div className="mb-10 px-4">
-            <h2 className="mt-12 text-center text-3xl font-bold sm:text-5xl">
+            <h2 className="mx-auto mt-16 max-w-3xl border-t border-gray-600 pt-8 text-center text-3xl font-bold sm:text-5xl">
               Summary
             </h2>
             <div className="mx-auto mt-6 max-w-3xl text-lg leading-7">
@@ -142,10 +142,10 @@ export const Home: NextPage = () => {
                   )}
                 </div>
               ))}
-              {!loading && (
+              {/* {!loading && (
                 <div className="text-md mx-auto flex items-center justify-center space-x-3">
                   <button
-                    className="align-center hover:bg-grey-200 z-10 mx-auto mt-10 flex max-w-fit justify-center rounded-2xl border-gray-500 bg-white p-3 text-lg font-semibold text-black transition"
+                    className="hover:bg-grey-200 z-10 mx-auto mt-10 flex max-w-fit justify-center rounded-2xl border-gray-500 bg-white p-3 text-lg font-semibold text-black transition"
                     onClick={() => {
                       navigator.clipboard.writeText(
                         "https://techcrunchsummary.com/" +
@@ -159,7 +159,7 @@ export const Home: NextPage = () => {
                     Share Summary Link
                   </button>
                   <button
-                    className="align-center hover:bg-grey-200 z-10 mx-auto mt-10 flex max-w-fit justify-center rounded-2xl border-gray-500 bg-white p-3 text-lg font-semibold text-black transition"
+                    className="hover:bg-grey-200 z-10 mx-auto mt-10 flex max-w-fit justify-center rounded-2xl border-gray-500 bg-white p-3 text-lg font-semibold text-black transition"
                     onClick={() => {
                       navigator.clipboard.writeText(summary);
                       toast("Summary copied to clipboard", {
@@ -170,7 +170,7 @@ export const Home: NextPage = () => {
                     Copy Summary
                   </button>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         )}
