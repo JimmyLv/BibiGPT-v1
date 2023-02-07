@@ -6,6 +6,7 @@ import { Toaster, toast } from "react-hot-toast";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LoadingDots from "../components/LoadingDots";
+import SquigglyLines from "../components/SquigglyLines";
 
 export const Home: NextPage = () => {
   const router = useRouter();
@@ -80,18 +81,22 @@ export const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex flex-col max-w-5xl mx-auto sm:pt-12 pt-8 min-h-screen">
+    <div className="mx-auto flex min-h-screen max-w-5xl flex-col pt-8 sm:pt-12">
       <Head>
         <title>TechCrunch Summarizer</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <main className="flex flex-col max-w-5xl mx-auto justify-center content-center sm:mt-28 mt-10 flex-1 px-2">
-        <h1 className="max-w-5xl text-4xl sm:text-7xl font-bold text-center">
-          Summarize any <span className="text-green-500">TechCrunch</span>{" "}
+      <main className="mx-auto mt-10 flex max-w-5xl flex-1 flex-col items-center justify-center px-2 sm:mt-40">
+        <h1 className="max-w-5xl text-center text-4xl font-bold sm:text-7xl">
+          Summarize any{" "}
+          <span className="relative whitespace-nowrap text-[#3290EE]">
+            <SquigglyLines />
+            <span className="relative text-green-500">TechCrunch</span>
+          </span>{" "}
           article in seconds
         </h1>
-        <p className="text-lg sm:text-2xl mt-10 text-center">
+        <p className="mt-10 text-center text-lg text-gray-500 sm:text-2xl">
           Copy and paste any <span className="text-green-500">TechCrunch </span>
           article below.
         </p>
@@ -99,13 +104,13 @@ export const Home: NextPage = () => {
           type="text"
           value={curArticle}
           onChange={(e) => setCurArticle(e.target.value)}
-          className="bg-black border mx-auto sm:mt-7 mt-10 p-3 border-gray-500 rounded-lg sm:w-3/4 w-full outline-white outline-1"
+          className="mx-auto mt-10 w-full rounded-lg border border-gray-500 bg-black p-3 outline-1 outline-white sm:mt-7 sm:w-3/4"
           // placeholder="https://techcrunch.com/2023/01/31/google-fi-customer-data-breach"
         />
         {!loading && (
           <button
             type="submit"
-            className="bg-green-500 mx-auto sm:w-1/3 w-3/4 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition"
+            className="z-10 mx-auto mt-7 w-3/4 rounded-2xl border-gray-500 bg-green-500 p-3 text-lg font-medium transition hover:bg-green-400 sm:mt-10 sm:w-1/3"
             onClick={() => generateSummary()}
           >
             Summarize
@@ -113,7 +118,7 @@ export const Home: NextPage = () => {
         )}
         {loading && (
           <button
-            className="bg-green-500 mx-auto w-1/3 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition cursor-not-allowed"
+            className="z-10 mx-auto mt-7 w-1/3 cursor-not-allowed rounded-2xl border-gray-500 bg-green-500 p-3 text-lg font-medium transition hover:bg-green-400 sm:mt-10"
             disabled
           >
             <LoadingDots />
@@ -126,29 +131,45 @@ export const Home: NextPage = () => {
         />
         {summary && (
           <div className="mb-10 px-4">
-            <h2 className="text-3xl sm:text-5xl mt-12 text-center font-bold">
+            <h2 className="mt-12 text-center text-3xl font-bold sm:text-5xl">
               Summary
             </h2>
-            <div className="mt-6 max-w-3xl mx-auto text-lg leading-7">
+            <div className="mx-auto mt-6 max-w-3xl text-lg leading-7">
               {summary.split(". ").map((sentence, index) => (
                 <div key={index}>
                   {sentence.length > 0 && (
-                    <li className="list-disc mb-2">{sentence}</li>
+                    <li className="mb-2 list-disc">{sentence}</li>
                   )}
                 </div>
               ))}
               {!loading && (
-                <button
-                  className="bg-white text-black p-3 flex justify-center align-center mx-auto mt-10 font-semibold w-1/3 border-gray-500 rounded-2xl z-10 text-lg hover:bg-grey-200 transition"
-                  onClick={() => {
-                    navigator.clipboard.writeText(summary);
-                    toast("Summary copied to clipboard", {
-                      icon: "✂️",
-                    });
-                  }}
-                >
-                  📧 Share Summary
-                </button>
+                <div className="text-md mx-auto flex items-center justify-center space-x-3">
+                  <button
+                    className="align-center hover:bg-grey-200 z-10 mx-auto mt-10 flex max-w-fit justify-center rounded-2xl border-gray-500 bg-white p-3 text-lg font-semibold text-black transition"
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        "https://techcrunchsummary.com/" +
+                          (urlState as string[]).join("/")
+                      );
+                      toast("Link copied to clipboard", {
+                        icon: "🔗",
+                      });
+                    }}
+                  >
+                    Share Summary Link
+                  </button>
+                  <button
+                    className="align-center hover:bg-grey-200 z-10 mx-auto mt-10 flex max-w-fit justify-center rounded-2xl border-gray-500 bg-white p-3 text-lg font-semibold text-black transition"
+                    onClick={() => {
+                      navigator.clipboard.writeText(summary);
+                      toast("Summary copied to clipboard", {
+                        icon: "✂️",
+                      });
+                    }}
+                  >
+                    Copy Summary
+                  </button>
+                </div>
               )}
             </div>
           </div>
