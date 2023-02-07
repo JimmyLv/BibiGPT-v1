@@ -15,11 +15,11 @@ export default async function handler(req: Request) {
   };
 
   if (!url) {
-    console.log("No prompt in the request");
+    return new Response("No prompt in the request", { status: 500 });
   }
 
   try {
-    const response = await fetch(url!, {
+    const response = await fetch(url, {
       method: "GET",
     });
 

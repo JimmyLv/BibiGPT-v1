@@ -5,47 +5,50 @@ import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+
 export const Home: NextPage = () => {
   const router = useRouter();
   const urlState = router.query.slug;
-  let url = urlState
-    ? "https://techcrunch.com/" + (urlState as string[]).join("/")
-    : "";
   const [summary, setSummary] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [curArticle, setCurArticle] = useState<string>("");
 
   console.log({ summary });
 
-  // TODO: Figure out a better way to do this that involves using router state
   useEffect(() => {
-    setCurArticle(url);
-    if (url.length > 0) {
-      generateSummary(false);
+    if (
+      urlState &&
+      router.isReady &&
+      typeof urlState !== "string" &&
+      urlState.every((subslug: string) => typeof subslug === "string")
+    ) {
+      generateSummary(
+        "https://techcrunch.com/" + (urlState as string[]).join("/")
+      );
     }
-    if (!urlState) {
-      setSummary("");
-    }
-  }, [url]);
+  }, [router.isReady, urlState]);
 
   const curUrl = String(curArticle.split(".com")[1]);
 
-  const generateSummary = async (changeRouter: boolean) => {
-    if (changeRouter) {
+  function changeRouter() {
+    if (curArticle) {
       router.replace(curUrl);
     }
-    setTimeout(() => {}, 1000);
+  }
+
+  const generateSummary = async (url?: string) => {
     setLoading(true);
     const response = await fetch("/api/summarize", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ url }),
+      body: JSON.stringify({ url: url ? url : curArticle }),
     });
 
     if (!response.ok) {
       console.log("error", response.statusText);
+      return;
     }
 
     const data = response.body;
@@ -92,7 +95,10 @@ export const Home: NextPage = () => {
         {!loading && (
           <button
             className="bg-green-500 mx-auto sm:w-1/3 w-3/4 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition"
-            onClick={() => generateSummary(true)}
+            onClick={() => {
+              changeRouter();
+              generateSummary();
+            }}
           >
             Summarize
           </button>
@@ -100,7 +106,6 @@ export const Home: NextPage = () => {
         {loading && (
           <button
             className="bg-green-500 mx-auto w-1/3 sm:mt-10 mt-7 p-3 border-gray-500 rounded-2xl z-10 font-medium text-lg hover:bg-green-400 transition"
-            onClick={() => generateSummary(true)}
             disabled
           >
             ...

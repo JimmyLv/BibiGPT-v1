@@ -14,11 +14,13 @@
 
 # Todos v2
 
-- [ ] Go over the logic for handling slugs to clean it up
-- [ ] Maybe add framer motion to animate down OR handle the text moving up somehow
+- [x] Go over the logic for handling slugs to clean it up
 - [ ] Fix issue with it splitting on a string that is telling it about a funding amount
+- [ ] Maybe add framer motion to animate down OR handle the text moving up somehow
 - [ ] Add better loading spinner
 - [ ] Make the bullet points into cards, make it look nicer
+- [ ] Better error handling on frontend
+- [ ] Make enter work
 - [ ] Cache with upstash redis – pair with andreas
 
 # Todos v3
