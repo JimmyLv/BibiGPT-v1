@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@next/font": "^13.1.5",
+    "@vercel/analytics": "^0.1.8",
     "clsx": "^1.2.1",
     "eventsource-parser": "^0.1.0",
     "framer-motion": "^9.0.1",
