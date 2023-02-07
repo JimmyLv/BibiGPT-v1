@@ -91,11 +91,11 @@ export const Home: NextPage = () => {
             <SquigglyLines />
             <span className="relative text-green-500">TechCrunch</span>
           </span>{" "}
-          article in seconds
+          article with AI
         </h1>
         <p className="mt-10 text-center text-lg text-gray-500 sm:text-2xl">
           Copy and paste any <span className="text-green-500">TechCrunch </span>
-          article below.
+          article link below.
         </p>
         <input
           type="text"
