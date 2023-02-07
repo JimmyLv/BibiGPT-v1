@@ -15,8 +15,6 @@ export const Home: NextPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [curArticle, setCurArticle] = useState<string>("");
 
-  console.log({ summary });
-
   useEffect(() => {
     if (
       urlState &&
@@ -34,7 +32,6 @@ export const Home: NextPage = () => {
 
   const generateSummary = async (url?: string) => {
     setSummary("");
-    console.log({ url });
     if (url) {
       if (!url.includes("techcrunch.com")) {
         toast.error("Please enter a valid TechCrunch article");
@@ -105,7 +102,6 @@ export const Home: NextPage = () => {
           value={curArticle}
           onChange={(e) => setCurArticle(e.target.value)}
           className="mx-auto mt-10 w-full rounded-lg border border-gray-500 bg-black p-3 outline-1 outline-white sm:mt-7 sm:w-3/4"
-          // placeholder="https://techcrunch.com/2023/01/31/google-fi-customer-data-breach"
         />
         {!loading && (
           <button
@@ -149,35 +145,6 @@ export const Home: NextPage = () => {
                   )}
                 </div>
               ))}
-              {/* {!loading && (
-                <div className="text-md mx-auto flex items-center justify-center space-x-3">
-                  <button
-                    className="hover:bg-grey-200 z-10 mx-auto mt-10 flex max-w-fit justify-center rounded-2xl border-gray-500 bg-white p-3 text-lg font-semibold text-black transition"
-                    onClick={() => {
-                      navigator.clipboard.writeText(
-                        "https://techcrunchsummary.com/" +
-                          (urlState as string[]).join("/")
-                      );
-                      toast("Link copied to clipboard", {
-                        icon: "🔗",
-                      });
-                    }}
-                  >
-                    Share Summary Link
-                  </button>
-                  <button
-                    className="hover:bg-grey-200 z-10 mx-auto mt-10 flex max-w-fit justify-center rounded-2xl border-gray-500 bg-white p-3 text-lg font-semibold text-black transition"
-                    onClick={() => {
-                      navigator.clipboard.writeText(summary);
-                      toast("Summary copied to clipboard", {
-                        icon: "✂️",
-                      });
-                    }}
-                  >
-                    Copy Summary
-                  </button>
-                </div>
-              )} */}
             </div>
           </div>
         )}
