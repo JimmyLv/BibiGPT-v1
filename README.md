@@ -10,6 +10,16 @@ This project uses the [OpenAI GPT-3 API](https://openai.com/api/) (specifically,
 
 Video coming soon on how I built it from scratch!
 
+## Saving costs
+
+Projects like this can get expensive so in order to save costs if you want to make your own version and share it publicly, I recommend three things:
+
+1. Implement rate limiting so people can't abuse your site
+2. Implement caching to avoid expensive AI re-generations
+3. Use `text-curie-001` instead of `text-dacinci-003` in the `summarize` edge function
+
+I'm going to be implementing 1 & 2 for this repo very soon so keep an eye out on that!
+
 ## Running Locally
 
 After cloning the repo, go to [OpenAI](https://beta.openai.com/account/api-keys) to make an account and put your API key in a file called `.env`.
