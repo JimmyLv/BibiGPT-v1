@@ -19,6 +19,7 @@ export const Home: NextPage = () => {
     if (
       urlState &&
       router.isReady &&
+      !curArticle &&
       typeof urlState !== "string" &&
       urlState.every((subslug: string) => typeof subslug === "string")
     ) {
@@ -105,7 +106,6 @@ export const Home: NextPage = () => {
         />
         {!loading && (
           <button
-            type="submit"
             className="z-10 mx-auto mt-7 w-3/4 rounded-2xl border-gray-500 bg-green-500 p-3 text-lg font-medium transition hover:bg-green-400 sm:mt-10 sm:w-1/3"
             onClick={() => generateSummary()}
           >

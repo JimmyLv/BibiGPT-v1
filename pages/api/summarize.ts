@@ -31,12 +31,12 @@ export default async function handler(req: Request) {
       .replace(/(\r\n|\n|\r)/gm, "")
       .replace(/(\r\t|\t|\r)/gm, "");
 
-    const prompt = `I want you to act like a news article summarizer. I will input a news article and your job is to convert them into a useful summary of a few sentences. Do not repeat sentences and make sure all sentences are clear and complete: "${text}"`;
+    const prompt = `I want you to act like a news article summarizer. I will input text from a news article and your job is to convert it into a useful summary of a few sentences. Do not repeat sentences and make sure all sentences are clear and complete: "${text}"`;
 
     const payload = {
       model: "text-davinci-003",
       prompt,
-      temperature: 0.7,
+      temperature: 0.5,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
