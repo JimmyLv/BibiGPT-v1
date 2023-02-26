@@ -1,4 +1,4 @@
-# [b.jimmylv.cn](https://b.jimmylv.cn/)
+# [b.jimmylv.cn](https://b.jimmylv.cn/) 哔哩哔哩视频一键总结
 
 This project summarizes 哔哩哔哩 videos for you using AI.
 
@@ -6,7 +6,7 @@ This project summarizes 哔哩哔哩 videos for you using AI.
 
 ## How it works
 
-This project uses the [OpenAI GPT-3 API](https://openai.com/api/) (specifically, text-davinci-003) and [Vercel Edge functions](https://vercel.com/features/edge-functions) with streaming. It fetches the content on a Techcrunch article, sends it in a prompt to the GPT-3 API to summarize it via a Vercel Edge function, then streams the response back to the application.
+This project uses the [OpenAI GPT-3 API](https://openai.com/api/) (specifically, text-davinci-003) and [Vercel Edge functions](https://vercel.com/features/edge-functions) with streaming. It fetches the content on a Bilibili video, sends it in a prompt to the GPT-3 API to summarize it via a Vercel Edge function, then streams the response back to the application.
 
 Video coming soon on how I built it from scratch!
 

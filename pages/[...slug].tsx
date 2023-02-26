@@ -13,35 +13,35 @@ export const Home: NextPage = () => {
   const urlState = router.query.slug;
   const [summary, setSummary] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [curArticle, setCurArticle] = useState<string>("");
+  const [curVideo, setCurVideo] = useState<string>("");
 
   useEffect(() => {
     if (
       urlState &&
       router.isReady &&
-      !curArticle &&
+      !curVideo &&
       typeof urlState !== "string" &&
       urlState.every((subslug: string) => typeof subslug === "string")
     ) {
       generateSummary(
-        "https://techcrunch.com/" + (urlState as string[]).join("/")
+        "https://bilibili.com/" + (urlState as string[]).join("/")
       );
     }
   }, [router.isReady, urlState]);
 
-  const curUrl = String(curArticle.split(".com")[1]);
+  const curUrl = String(curVideo.split(".com")[1]);
 
   const generateSummary = async (url?: string) => {
     setSummary("");
     if (url) {
-      if (!url.includes("techcrunch.com")) {
-        toast.error("Please enter a valid 哔哩哔哩 article");
+      if (!url.includes("bilibili.com")) {
+        toast.error("Please enter a valid 哔哩哔哩 video");
         return;
       }
-      setCurArticle(url);
+      setCurVideo(url);
     } else {
-      if (!curArticle.includes("techcrunch.com")) {
-        toast.error("Please enter a valid 哔哩哔哩 article");
+      if (!curVideo.includes("bilibili.com")) {
+        toast.error("Please enter a valid 哔哩哔哩 video");
         return;
       }
       router.replace(curUrl);
@@ -52,7 +52,7 @@ export const Home: NextPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ url: url ? url : curArticle }),
+      body: JSON.stringify({ url: url ? url : curVideo }),
     });
 
     if (!response.ok) {
@@ -90,7 +90,7 @@ export const Home: NextPage = () => {
           target="_blank"
           rel="noreferrer"
           className="mx-auto mb-5 hidden max-w-fit rounded-full border border-gray-800 px-4 py-1 text-gray-500 transition duration-300 ease-in-out hover:scale-105 hover:border-gray-700 md:block"
-          href="https://twitter.com/nutlope/status/1622988173155368960"
+          href="https://space.bilibili.com/37648256"
         >
           You can also go to a Bilibili video and change the suffix "
           <span className="text-pink-400">.com</span>" into "
@@ -108,16 +108,16 @@ export const Home: NextPage = () => {
             <SquigglyLines />
             <span className="relative text-pink-400	">哔哩哔哩</span>
           </span>{" "}
-          article with AI
+          video with AI
         </h1>
         <p className="mt-10 text-center text-lg text-gray-500 sm:text-2xl">
           Copy and paste any <span className="text-pink-400	">哔哩哔哩 </span>
-          article link below.
+          video link below. 👇
         </p>
         <input
           type="text"
-          value={curArticle}
-          onChange={(e) => setCurArticle(e.target.value)}
+          value={curVideo}
+          onChange={(e) => setCurVideo(e.target.value)}
           className="mx-auto mt-10 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-slate-100 dark:ring-0 dark:placeholder:text-slate-500 dark:focus:ring-2"
         />
         {!loading && (
@@ -125,7 +125,7 @@ export const Home: NextPage = () => {
             className="z-10 mx-auto mt-7 w-3/4 rounded-2xl border-gray-500 bg-sky-400 p-3 text-lg font-medium text-white transition hover:bg-sky-500 sm:mt-10 sm:w-1/3"
             onClick={() => generateSummary()}
           >
-            Summarize
+            一键总结（三连）
           </button>
         )}
         {loading && (
@@ -154,7 +154,7 @@ export const Home: NextPage = () => {
               Summary
             </h2>
             <div className="mx-auto mt-6 max-w-3xl text-lg leading-7">
-              {summary.split(". ").map((sentence, index) => (
+              {summary.split("- ").map((sentence, index) => (
                 <div key={index}>
                   {sentence.length > 0 && (
                     <li className="mb-2 list-disc">{sentence}</li>
