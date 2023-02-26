@@ -35,13 +35,13 @@ export const Home: NextPage = () => {
     setSummary("");
     if (url) {
       if (!url.includes("techcrunch.com")) {
-        toast.error("Please enter a valid TechCrunch article");
+        toast.error("Please enter a valid 哔哩哔哩 article");
         return;
       }
       setCurArticle(url);
     } else {
       if (!curArticle.includes("techcrunch.com")) {
-        toast.error("Please enter a valid TechCrunch article");
+        toast.error("Please enter a valid 哔哩哔哩 article");
         return;
       }
       router.replace(curUrl);
@@ -81,7 +81,7 @@ export const Home: NextPage = () => {
   return (
     <div className="mx-auto flex min-h-screen max-w-5xl flex-col pt-8 sm:pt-12">
       <Head>
-        <title>TechCrunch Summarizer</title>
+        <title>哔哩哔哩视频一键总结</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
@@ -92,30 +92,37 @@ export const Home: NextPage = () => {
           className="mx-auto mb-5 hidden max-w-fit rounded-full border border-gray-800 px-4 py-1 text-gray-500 transition duration-300 ease-in-out hover:scale-105 hover:border-gray-700 md:block"
           href="https://twitter.com/nutlope/status/1622988173155368960"
         >
-          You can also go to a Techcrunch article and add "summary" after
-          "techcrunch" in the URL
+          You can also go to a Bilibili video and change the suffix "
+          <span className="text-pink-400">.com</span>" into "
+          <span className="text-sky-400">jimmylv.cn</span>" in the URL.
+          <br />
+          e.g. www.bilibili.
+          <span className="text-pink-400 line-through">com</span>
+          /video/BV1k84y1e7fW 👉 www.bilibili.
+          <span className="text-sky-400 underline">jimmylv.cn</span>
+          /video/BV1k84y1e7fW
         </a>
         <h1 className="max-w-5xl text-center text-4xl font-bold sm:text-7xl">
           Summarize any{" "}
           <span className="relative whitespace-nowrap text-[#3290EE]">
             <SquigglyLines />
-            <span className="relative text-green-500">TechCrunch</span>
+            <span className="relative text-pink-400	">哔哩哔哩</span>
           </span>{" "}
           article with AI
         </h1>
         <p className="mt-10 text-center text-lg text-gray-500 sm:text-2xl">
-          Copy and paste any <span className="text-green-500">TechCrunch </span>
+          Copy and paste any <span className="text-pink-400	">哔哩哔哩 </span>
           article link below.
         </p>
         <input
           type="text"
           value={curArticle}
           onChange={(e) => setCurArticle(e.target.value)}
-          className="mx-auto mt-10 w-full rounded-lg border border-gray-500 bg-black p-3 outline-1 outline-white sm:mt-7 sm:w-3/4"
+          className="mx-auto mt-10 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-slate-100 dark:ring-0 dark:placeholder:text-slate-500 dark:focus:ring-2"
         />
         {!loading && (
           <button
-            className="z-10 mx-auto mt-7 w-3/4 rounded-2xl border-gray-500 bg-green-500 p-3 text-lg font-medium transition hover:bg-green-400 sm:mt-10 sm:w-1/3"
+            className="z-10 mx-auto mt-7 w-3/4 rounded-2xl border-gray-500 bg-sky-400 p-3 text-lg font-medium text-white transition hover:bg-sky-500 sm:mt-10 sm:w-1/3"
             onClick={() => generateSummary()}
           >
             Summarize
@@ -123,7 +130,7 @@ export const Home: NextPage = () => {
         )}
         {loading && (
           <button
-            className="z-10 mx-auto mt-7 w-3/4 cursor-not-allowed rounded-2xl border-gray-500 bg-green-500 p-3 text-lg font-medium transition hover:bg-green-400 sm:mt-10 sm:w-1/3"
+            className="z-10 mx-auto mt-7 w-3/4 cursor-not-allowed rounded-2xl border-gray-500 bg-sky-400 p-3 text-lg font-medium transition hover:bg-sky-500 sm:mt-10 sm:w-1/3"
             disabled
           >
             <div className="flex items-center justify-center text-white">

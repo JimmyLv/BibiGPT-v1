@@ -1,8 +1,8 @@
-# [TechCrunchSummary.com](https://www.techcrunchsummary.com/)
+# [b.jimmylv.cn](https://b.jimmylv.cn/)
 
-This project summarizes TechCrunch articles for you using AI.
+This project summarizes 哔哩哔哩 videos for you using AI.
 
-[![TechCrunch Summary Tool](./public/screenshot.png)](https://www.techcrunchsummary.com)
+[![哔哩哔哩视频总结工具](./public/screenshot.png)](https://b.jimmylv.cn)
 
 ## How it works
 

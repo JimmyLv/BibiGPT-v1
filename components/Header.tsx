@@ -10,15 +10,15 @@ export default function Header() {
     <div className="flex items-center justify-between px-3 sm:px-3">
       <a
         className="flex items-center space-x-3"
-        href="https://www.techcrunchsummary.com"
+        href="https://b.jimmylv.cn"
       >
         <Image src="/edit.png" alt="logo" width={34} height={34} />
         <h2 className={clsx("text-lg sm:text-3xl", poppins.className)}>
-          <span className="text-green-500">TechCrunch</span> summarizer
+          <span className="text-pink-400	">哔哩哔哩</span> 视频总结器
         </h2>
       </a>
       <a
-        href="https://github.com/Nutlope/news-summarizer"
+        href="https://github.com/JimmyLv/chat-bilibili-video"
         rel="noreferrer noopener"
         target="_blank"
         className=""

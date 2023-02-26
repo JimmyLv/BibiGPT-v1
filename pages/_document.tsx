@@ -2,10 +2,10 @@ import Document, { Head, Html, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
   render() {
-    let description = "Summarize TechCrunch articles in seconds.";
-    let ogimage = "https://www.techcrunchsummary.com/og-image.png";
+    let description = "Summarize 哔哩哔哩 articles in seconds.";
+    let ogimage = "https://b.jimmylv.cn/og-image.png";
     let sitename = "techcrunchsummary.com";
-    let title = "TechCrunch Summarizer";
+    let title = "哔哩哔哩 Summarizer";
 
     return (
       <Html lang="en">
@@ -21,7 +21,7 @@ class MyDocument extends Document {
           <meta property="og:image" content={ogimage} />
           <meta name="twitter:image" content={ogimage} />
         </Head>
-        <body className="bg-black text-white">
+        <body className="bg-white text-gray-700">
           <Main />
           <NextScript />
         </body>
