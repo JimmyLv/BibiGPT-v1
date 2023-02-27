@@ -89,7 +89,7 @@ export const Home: NextPage = () => {
   return (
     <div className="mx-auto flex min-h-screen max-w-5xl flex-col pt-8 sm:pt-10">
       <Head>
-        <title>哔哩哔哩 · 视频字幕一键总结</title>
+        <title>哔哩哔哩 · 视频内容一键总结</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
@@ -116,7 +116,7 @@ export const Home: NextPage = () => {
             <SquigglyLines />
             <span className="relative text-pink-400	">哔哩哔哩</span>
           </span>{" "}
-          视频字幕 <br />
+          视频内容 <br />
           <div className="mt-4">Powered by GPT-3 AI</div>
         </h1>
         <p className="mt-10 text-center text-lg text-gray-500 sm:text-2xl">
