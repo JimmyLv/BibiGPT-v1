@@ -21,11 +21,12 @@ export default async function handler(req: Request) {
   }
 
   try {
-    const matchResult = url.match(/\/video\/(.*)/);
+    const matchResult = url.match(/\/video\/([^\/\?]+)/);
     let bvId: string | undefined;
     if (matchResult) {
-      bvId = matchResult[1].replace("/", "");
+      bvId = matchResult[1];
     }
+    // console.log("========url========", url, matchResult, bvId);
     const response = await fetch(
       `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`,
       {

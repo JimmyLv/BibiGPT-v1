@@ -32,7 +32,6 @@ export const Home: NextPage = () => {
   }, [router.isReady, urlState]);
 
   const curUrl = String(curVideo.split(".com")[1]);
-  console.log('========curUrl========', curUrl)
 
   const generateSummary = async (url?: string) => {
     setSummary("");
