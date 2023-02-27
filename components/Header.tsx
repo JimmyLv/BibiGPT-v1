@@ -14,7 +14,7 @@ export default function Header() {
       >
         <Image src="/video.png" alt="logo" width={50} height={50} />
         <h2 className={clsx("text-lg sm:text-3xl", poppins.className)}>
-          <span className="text-pink-400	">哔哩哔哩</span> 视频总结器
+          <span className="text-pink-400	">哔哩哔哩</span> BiliGPT
         </h2>
       </a>
       <a

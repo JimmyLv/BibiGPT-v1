@@ -89,7 +89,7 @@ export const Home: NextPage = () => {
   return (
     <div className="mx-auto flex min-h-screen max-w-5xl flex-col pt-8 sm:pt-12">
       <Head>
-        <title>哔哩哔哩视频一键总结</title>
+        <title>哔哩哔哩 · 视频字幕一键总结</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
@@ -100,27 +100,29 @@ export const Home: NextPage = () => {
           className="mx-auto mb-5 hidden max-w-fit rounded-full border border-gray-800 px-4 py-1 text-gray-500 transition duration-300 ease-in-out hover:scale-105 hover:border-gray-700 md:block"
           href="https://space.bilibili.com/37648256"
         >
-          You can also go to a Bilibili video and change the suffix "
-          <span className="text-pink-400">.com</span>" into "
-          <span className="text-sky-400">jimmylv.cn</span>" in the URL.
+          你只需要把任意 Bilibili 视频 URL 中的后缀 "
+          <span className="text-pink-400">.com</span>" 改成我的域名 "
+          <span className="text-sky-400">jimmylv.cn</span>" 就行啦！
           <br />
-          e.g. www.bilibili.
+          比如 www.bilibili.
           <span className="text-pink-400 line-through">com</span>
           /video/BV1k84y1e7fW 👉 www.bilibili.
           <span className="text-sky-400 underline">jimmylv.cn</span>
           /video/BV1k84y1e7fW
         </a>
         <h1 className="max-w-5xl text-center text-4xl font-bold sm:text-7xl">
-          Summarize any{" "}
+          一键总结{" "}
           <span className="relative whitespace-nowrap text-[#3290EE]">
             <SquigglyLines />
             <span className="relative text-pink-400	">哔哩哔哩</span>
           </span>{" "}
-          video with AI
+          视频字幕 <br />
+          <div className="mt-4">Powered by GPT-3 AI</div>
         </h1>
         <p className="mt-10 text-center text-lg text-gray-500 sm:text-2xl">
-          Copy and paste any <span className="text-pink-400	">哔哩哔哩 </span>
-          video link below. 👇
+          在下面的输入框，直接复制粘贴{" "}
+          <span className="text-pink-400	">哔哩哔哩 </span>
+          视频链接 👇
         </p>
         <details>
           <summary className="mt-10 flex cursor-pointer items-center space-x-3	">
@@ -142,7 +144,9 @@ export const Home: NextPage = () => {
               <span className="text-sky-400 hover:text-sky-600">
                 也可以使用自己的 API Key
               </span>{" "}
-              <code>（帮我省钱，不然就给我打钱哦 🤣）</code>
+              <a href="/wechat.jpg" target="_blank" rel="noopener noreferrer">
+                （帮我省钱，不然就真的「给我打钱」哦 🤣）
+              </a>
             </p>
           </summary>
           <div className="text-lg text-slate-700 dark:text-slate-400">
@@ -150,7 +154,7 @@ export const Home: NextPage = () => {
               value={apiKey}
               onChange={(e) => setAPIKey(e.target.value)}
               className="mx-auto my-4 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder={"填你的 OpenAI API Key: sk-xxx"}
+              placeholder={"填你的 OpenAI API Key: sk-xxxxx"}
             />
             <p className="relin-paragraph-target mt-1 text-base text-slate-500">
               如何获取你自己的 OpenAI API{" "}
