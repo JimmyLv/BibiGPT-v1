@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="mt-5 mb-3 flex h-16 w-full flex-col items-center justify-between space-y-3 px-3 pt-4 text-center text-slate-400 sm:mb-0 sm:h-20 sm:flex-row sm:pt-2">
       <div>
-        Powered by{" "}
+        Thanks to {" "}
         <a
           href="https://openai.com/"
           target="_blank"
@@ -25,9 +25,9 @@ export default function Footer() {
       </div>
       <div className="flex space-x-4 pb-4 sm:pb-0">
         <Link
-          href="https://twitter.com/nutlope"
+          href="https://twitter.com/Jimmy_JingLv"
           className="group"
-          aria-label="TaxPal on Twitter"
+          aria-label="JimmyLv on Twitter"
         >
           <svg
             aria-hidden="true"
@@ -37,9 +37,9 @@ export default function Footer() {
           </svg>
         </Link>
         <Link
-          href="https://github.com/Nutlope/news-summarizer"
+          href="https://github.com/JimmyLv"
           className="group"
-          aria-label="TaxPal on GitHub"
+          aria-label="JimmyLv on GitHub"
         >
           <svg
             aria-hidden="true"

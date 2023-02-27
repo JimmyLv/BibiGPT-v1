@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/ios",
+      "destination": "https://www.icloud.com/shortcuts/634a3eb0c7794d3aa2df2e5fb62c851d",
+      "permanent": true
+    }
+  ]
+}
