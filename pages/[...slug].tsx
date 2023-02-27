@@ -143,10 +143,10 @@ export const Home: NextPage = () => {
             </svg>
             <p className="text-left font-medium">
               <span className="text-sky-400 hover:text-sky-600">
-                也可以使用自己的 API Key
+                请使用自己的 API Key
               </span>{" "}
               <a href="/wechat.jpg" target="_blank" rel="noopener noreferrer">
-                （帮我省钱，不然就真的「给我打钱」哦 🤣）
+                （我的账号没钱了，也可以就真的「给我打钱」哦 🤣）
               </a>
             </p>
           </summary>
