@@ -87,7 +87,7 @@ export const Home: NextPage = () => {
   };
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-5xl flex-col pt-8 sm:pt-12">
+    <div className="mx-auto flex min-h-screen max-w-5xl flex-col pt-8 sm:pt-10">
       <Head>
         <title>哔哩哔哩 · 视频字幕一键总结</title>
         <link rel="icon" href="/favicon.ico" />
@@ -98,7 +98,7 @@ export const Home: NextPage = () => {
           target="_blank"
           rel="noreferrer"
           className="mx-auto mb-5 hidden max-w-fit rounded-full border border-gray-800 px-4 py-1 text-gray-500 transition duration-300 ease-in-out hover:scale-105 hover:border-gray-700 md:block"
-          href="https://space.bilibili.com/37648256"
+          href="https://www.bilibili.com/video/BV1fX4y1Q7Ux/"
         >
           你只需要把任意 Bilibili 视频 URL 中的后缀 "
           <span className="text-pink-400">.com</span>" 改成我的域名 "
@@ -205,8 +205,8 @@ export const Home: NextPage = () => {
           toastOptions={{ duration: 4000 }}
         />
         {summary && (
-          <div className="mb-10 px-4">
-            <h2 className="mx-auto mt-16 max-w-3xl border-t border-gray-600 pt-8 text-center text-3xl font-bold sm:text-5xl">
+          <div className="mb-8 px-4">
+            <h2 className="mx-auto mt-8 max-w-3xl border-t border-gray-600 pt-8 text-center text-3xl font-bold sm:text-5xl">
               【📝 总结】
             </h2>
             <div className="mx-auto mt-6 max-w-3xl text-lg leading-7">
