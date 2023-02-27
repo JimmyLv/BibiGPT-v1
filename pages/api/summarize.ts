@@ -13,7 +13,7 @@ if (!process.env.OPENAI_API_KEY) {
 export default async function handler(req: Request) {
   const { url, apiKey } = (await req.json()) as {
     url?: string;
-    apiKey?: string
+    apiKey?: string;
   };
 
   if (!url) {
@@ -24,7 +24,7 @@ export default async function handler(req: Request) {
     const matchResult = url.match(/\/video\/(.*)/);
     let bvId: string | undefined;
     if (matchResult) {
-      bvId = matchResult[1];
+      bvId = matchResult[1].replace("/", "");
     }
     const response = await fetch(
       `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`,
