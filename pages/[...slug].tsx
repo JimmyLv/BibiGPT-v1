@@ -57,6 +57,7 @@ export const Home: NextPage = () => {
 
     if (!response.ok) {
       console.log("error", response.statusText);
+      toast.error("啊叻？视频字幕不见了？！");
       return;
     }
 
@@ -151,7 +152,7 @@ export const Home: NextPage = () => {
         {summary && (
           <div className="mb-10 px-4">
             <h2 className="mx-auto mt-16 max-w-3xl border-t border-gray-600 pt-8 text-center text-3xl font-bold sm:text-5xl">
-              【总结】
+              【📝 总结】
             </h2>
             <div className="mx-auto mt-6 max-w-3xl text-lg leading-7">
               {summary.split("- ").map((sentence, index) => (

@@ -35,6 +35,9 @@ export default async function handler(req: Request) {
     const title = res.data.title;
     const subtitleUrl = res.data.subtitle?.list?.[0]?.subtitle_url;
     console.log("subtitle_url", subtitleUrl);
+    if (!subtitleUrl) {
+      return new Response("No subtitle in the video", { status: 500 });
+    }
 
     const subtitleResponse = await fetch(subtitleUrl);
     const subtitles = await subtitleResponse.json();
@@ -46,7 +49,7 @@ export default async function handler(req: Request) {
         timestamp: item.from,
       };
     });
-    console.log("========transcripts========", transcripts);
+    // console.log("========transcripts========", transcripts);
     const text = getChunckedTranscripts(transcripts, transcripts);
     const prompt = getSummaryPrompt(title, text);
 
