@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
+import { useLocalStorage } from "react-use";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import SquigglyLines from "../components/SquigglyLines";
@@ -14,6 +15,7 @@ export const Home: NextPage = () => {
   const [summary, setSummary] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [curVideo, setCurVideo] = useState<string>("");
+  const [apiKey, setAPIKey] = useLocalStorage<string>("user-openai-apikey");
 
   useEffect(() => {
     if (
@@ -52,12 +54,17 @@ export const Home: NextPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ url: url ? url : curVideo }),
+      body: JSON.stringify({ url: url ? url : curVideo, apiKey }),
     });
 
     if (!response.ok) {
       console.log("error", response.statusText);
-      toast.error("啊叻？视频字幕不见了？！");
+      if (response.status === 501) {
+        toast.error("啊叻？视频字幕不见了？！");
+      } else {
+        toast.error(response.statusText);
+      }
+      setLoading(false);
       return;
     }
 
@@ -115,11 +122,55 @@ export const Home: NextPage = () => {
           Copy and paste any <span className="text-pink-400	">哔哩哔哩 </span>
           video link below. 👇
         </p>
+        <details>
+          <summary className="mt-10 flex cursor-pointer items-center space-x-3	">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="h-6 w-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <p className="text-left font-medium">
+              <span className="text-sky-400 hover:text-sky-600">
+                也可以使用自己的 API Key
+              </span>{" "}
+              <code>（帮我省钱，不然就给我打钱哦 🤣）</code>
+            </p>
+          </summary>
+          <div className="text-lg text-slate-700 dark:text-slate-400">
+            <input
+              value={apiKey}
+              onChange={(e) => setAPIKey(e.target.value)}
+              className="mx-auto my-4 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder={"填你的 OpenAI API Key: sk-xxx"}
+            />
+            <p className="relin-paragraph-target mt-1 text-base text-slate-500">
+              如何获取你自己的 OpenAI API{" "}
+              <a
+                href="https://platform.openai.com/account/api-keys"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 mb-6 font-semibold text-sky-500 dark:text-sky-400"
+              >
+                https://platform.openai.com/account/api-keys
+              </a>
+            </p>
+          </div>
+        </details>
         <input
           type="text"
           value={curVideo}
           onChange={(e) => setCurVideo(e.target.value)}
           className="mx-auto mt-10 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder={"输入我的 bilibili.com 视频链接"}
         />
         {!loading && (
           <button
@@ -147,7 +198,7 @@ export const Home: NextPage = () => {
         <Toaster
           position="top-center"
           reverseOrder={false}
-          toastOptions={{ duration: 2000 }}
+          toastOptions={{ duration: 4000 }}
         />
         {summary && (
           <div className="mb-10 px-4">

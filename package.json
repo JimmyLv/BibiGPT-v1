@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@next/font": "^13.1.5",
+    "@types/lodash": "^4.14.191",
     "@vercel/analytics": "^0.1.8",
     "clsx": "^1.2.1",
     "eventsource-parser": "^0.1.0",
@@ -16,6 +17,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
+    "react-use": "^17.4.0",
     "react-use-measure": "^2.1.1"
   },
   "devDependencies": {
@@ -23,6 +25,7 @@
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "autoprefixer": "^10.4.12",
+    "lodash": "^4.17.21",
     "postcss": "^8.4.18",
     "prettier": "^2.8.3",
     "prettier-plugin-tailwindcss": "^0.2.2",

@@ -5,6 +5,7 @@ import {
 } from "eventsource-parser";
 
 export interface OpenAIStreamPayload {
+  api_key?: string;
   model: string;
   prompt: string;
   temperature: number;
@@ -16,20 +17,30 @@ export interface OpenAIStreamPayload {
   n: number;
 }
 
-export async function OpenAIStream(payload: OpenAIStreamPayload) {
+function checkApiKey(str :string) {
+  var pattern = /^sk-[A-Za-z0-9]{48}$/;
+  return pattern.test(str);
+}
+
+export async function OpenAIStream(payload: OpenAIStreamPayload, apiKey?: string) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
+  const openai_api_key = apiKey || process.env.OPENAI_API_KEY || '';
 
-  let counter = 0;
+  if(!checkApiKey(openai_api_key)) {
+    throw new Error('OpenAI API Key Format Error')
+  }
 
   const res = await fetch("https://api.openai.com/v1/completions", {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
+      Authorization: `Bearer ${openai_api_key ?? ""}`,
     },
     method: "POST",
     body: JSON.stringify(payload),
   });
+
+  let counter = 0;
 
   const stream = new ReadableStream({
     async start(controller) {

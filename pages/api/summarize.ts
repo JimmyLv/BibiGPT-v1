@@ -1,3 +1,4 @@
+import { omitBy } from "lodash";
 import { OpenAIStream } from "../../utils/OpenAIStream";
 import { getChunckedTranscripts, getSummaryPrompt } from "../../utils/prompt";
 
@@ -10,8 +11,9 @@ if (!process.env.OPENAI_API_KEY) {
 }
 
 export default async function handler(req: Request) {
-  const { url } = (await req.json()) as {
+  const { url, apiKey } = (await req.json()) as {
     url?: string;
+    apiKey?: string
   };
 
   if (!url) {
@@ -32,11 +34,11 @@ export default async function handler(req: Request) {
     );
     const res = await response.json();
     // @ts-ignore
-    const title = res.data.title;
-    const subtitleUrl = res.data.subtitle?.list?.[0]?.subtitle_url;
+    const title = res.data?.title;
+    const subtitleUrl = res.data?.subtitle?.list?.[0]?.subtitle_url;
     console.log("subtitle_url", subtitleUrl);
     if (!subtitleUrl) {
-      return new Response("No subtitle in the video", { status: 500 });
+      return new Response("No subtitle in the video", { status: 501 });
     }
 
     const subtitleResponse = await fetch(subtitleUrl);
@@ -65,10 +67,10 @@ export default async function handler(req: Request) {
       n: 1,
     };
 
-    const stream = await OpenAIStream(payload);
+    const stream = await OpenAIStream(payload, apiKey);
     return new Response(stream);
-  } catch (e: any) {
-    console.log({ e });
-    return new Response(e, { status: 500 });
+  } catch (error: any) {
+    console.log(error);
+    return new Response(error, { status: 500 });
   }
 }
