@@ -2,10 +2,10 @@ import Document, { Head, Html, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
   render() {
-    let description = "Summarize 哔哩哔哩 articles in seconds.";
+    let description = "Summarize 哔哩哔哩 videos in seconds.";
     let ogimage = "https://b.jimmylv.cn/og-image.png";
-    let sitename = "techcrunchsummary.com";
-    let title = "哔哩哔哩 Summarizer";
+    let sitename = "b.jimmylv.cn";
+    let title = "哔哩哔哩 · 视频内容一键总结";
 
     return (
       <Html lang="en">
