@@ -8,6 +8,7 @@ import { useLocalStorage } from "react-use";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import SquigglyLines from "../components/SquigglyLines";
+import { fetchWithTimeout } from "../utils/fetchWithTimeout";
 
 export const Home: NextPage = () => {
   const router = useRouter();
@@ -49,7 +50,7 @@ export const Home: NextPage = () => {
       router.replace(curUrl);
     }
     setLoading(true);
-    const response = await fetch("/api/summarize", {
+    const response = await fetchWithTimeout("/api/summarize", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
