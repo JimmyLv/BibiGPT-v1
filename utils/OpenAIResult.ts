@@ -22,7 +22,7 @@ function checkApiKey(str: string) {
   return pattern.test(str);
 }
 
-export async function OpenAIStream(
+export async function OpenAIResult(
   payload: OpenAIStreamPayload,
   apiKey?: string
 ) {
@@ -47,6 +47,15 @@ export async function OpenAIStream(
     throw new Error("OpenAI API " + res.statusText);
   }
 
+  if (!payload.stream) {
+    const result = await res.json();
+    const answer = result.choices[0].text;
+    if (answer.startsWith("\n\n")) {
+      return answer.substring(2);
+    }
+    return answer;
+  }
+
   let counter = 0;
 
   const stream = new ReadableStream({
@@ -63,6 +72,7 @@ export async function OpenAIStream(
           try {
             const json = JSON.parse(data);
             const text = json.choices[0].text;
+            console.log("=====text====", text);
             if (counter < 2 && (text.match(/\n/) || []).length) {
               // this is a prefix character (i.e., "\n\n"), do nothing
               return;

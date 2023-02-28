@@ -1,4 +1,7 @@
-import { OpenAIStream } from "../../utils/OpenAIStream";
+import { NextResponse } from "next/server";
+import { Redis } from "@upstash/redis";
+import type { NextFetchEvent, NextRequest } from "next/server";
+import { OpenAIResult } from "../../utils/OpenAIResult";
 import { getChunckedTranscripts, getSummaryPrompt } from "../../utils/prompt";
 
 export const config = {
@@ -9,23 +12,20 @@ if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI");
 }
 
-export default async function handler(req: Request, res: Response) {
-  const { url, apiKey } = (await req.json()) as {
-    url?: string;
+export default async function handler(
+  req: NextRequest,
+  context: NextFetchEvent
+) {
+  const { bvId, apiKey } = (await req.json()) as {
+    bvId: string;
     apiKey?: string;
   };
 
-  if (!url) {
-    return new Response("No prompt in the request", { status: 500 });
+  if (!bvId) {
+    return new Response("No bvid in the request", { status: 500 });
   }
 
   try {
-    const matchResult = url.match(/\/video\/([^\/\?]+)/);
-    let bvId: string | undefined;
-    if (matchResult) {
-      bvId = matchResult[1];
-    }
-    // console.log("========url========", url, matchResult, bvId);
     const response = await fetch(
       `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`,
       {
@@ -37,7 +37,7 @@ export default async function handler(req: Request, res: Response) {
     const title = res.data?.title;
     const subtitleUrl = res.data?.subtitle?.list?.[0]?.subtitle_url;
     apiKey && console.log("========use user key========");
-    console.log("bvid_url", url);
+    console.log("bvid", bvId);
     console.log("subtitle_url", subtitleUrl);
     if (!subtitleUrl) {
       return new Response("No subtitle in the video", { status: 501 });
@@ -58,21 +58,28 @@ export default async function handler(req: Request, res: Response) {
     const prompt = getSummaryPrompt(title, text);
 
     const payload = {
-      model: 'text-davinci-003',
+      model: "text-davinci-003",
       prompt,
       temperature: 0.5,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
       max_tokens: apiKey ? 400 : 300,
-      stream: true,
+      stream: false,
       n: 1,
     };
 
-    const stream = await OpenAIStream(payload, apiKey);
-    return new Response(stream);
+    const result = await OpenAIResult(payload, apiKey);
+    console.log("result", result);
+    const redis = Redis.fromEnv();
+    const data = await redis.set(bvId, result);
+    console.log(`bvId ${bvId} cached:`, data);
+
+    return NextResponse.json(result);
   } catch (error: any) {
     console.log(error);
-    return new Response(error);
+    return NextResponse.json({
+      errorMessage: error.message,
+    });
   }
 }

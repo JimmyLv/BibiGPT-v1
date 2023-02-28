@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Toaster, toast } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { useLocalStorage } from "react-use";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -48,13 +48,23 @@ export const Home: NextPage = () => {
       }
       router.replace(curUrl);
     }
+
+    const videoUrl = url ? url : curVideo;
+    const matchResult = videoUrl.match(/\/video\/([^\/\?]+)/);
+    let bvId: string | undefined;
+    if (matchResult) {
+      bvId = matchResult[1];
+    } else {
+      return toast.error("暂不支持此视频链接");
+    }
+
     setLoading(true);
     const response = await fetch("/api/summarize", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ url: url ? url : curVideo, apiKey }),
+      body: JSON.stringify({ bvId, apiKey }),
     });
 
     if (!response.ok) {
@@ -68,22 +78,18 @@ export const Home: NextPage = () => {
       return;
     }
 
-    const data = response.body;
-    if (!data) {
+    // await readStream(response, setSummary);
+    const result = await response.json();
+    if (result.errorMessage) {
+      setLoading(false);
+      toast.error(result.errorMessage);
       return;
     }
-
-    const reader = data.getReader();
-    const decoder = new TextDecoder();
-    let done = false;
-
-    while (!done) {
-      const { value, done: doneReading } = await reader.read();
-      done = doneReading;
-      const chunkValue = decoder.decode(value);
-      setSummary((prev) => prev + chunkValue);
-    }
+    setSummary(result);
     setLoading(false);
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }, 10);
   };
 
   return (
