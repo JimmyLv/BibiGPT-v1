@@ -2,7 +2,7 @@ import Document, { Head, Html, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
   render() {
-    let description = "Summarize 哔哩哔哩 videos in seconds.";
+    let description = "B 站视频内容一键总结（支持 iOS 快捷指令）";
     let ogimage = "https://b.jimmylv.cn/og-image.png";
     let sitename = "b.jimmylv.cn";
     let title = "哔哩哔哩 · 视频内容一键总结";
@@ -10,7 +10,10 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link rel="icon" href="/favicon.ico" />
+          <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐣</text></svg>"
+          />
           <meta name="description" content={description} />
           <meta property="og:site_name" content={sitename} />
           <meta property="og:description" content={description} />
