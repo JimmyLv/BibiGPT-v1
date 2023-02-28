@@ -9,6 +9,12 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import SquigglyLines from "../components/SquigglyLines";
 
+let isSecureContext = false
+
+if (typeof window !== 'undefined') {
+  isSecureContext = window.isSecureContext
+}
+
 export const Home: NextPage = () => {
   const router = useRouter();
   const urlState = router.query.slug;
@@ -212,10 +218,31 @@ export const Home: NextPage = () => {
         />
         {summary && (
           <div className="mb-8 px-4">
-            <h2 className="mx-auto mt-8 max-w-3xl border-t border-gray-600 pt-8 text-center text-3xl font-bold sm:text-5xl">
-              【📝 总结】
-            </h2>
-            <div className="mx-auto mt-6 max-w-3xl text-lg leading-7">
+            <h3 className="m-8 mx-auto max-w-3xl border-t border-gray-600 pt-8 text-center text-2xl font-bold sm:text-4xl">
+              <a
+                href={curVideo}
+                className="hover:text-pink-600"
+                target="_blank"
+                rel="noreferrer"
+              >
+                【📝 总结】
+              </a>
+            </h3>
+            <div
+              className="mx-auto mt-6 max-w-3xl cursor-copy rounded-xl border bg-white p-4 text-lg leading-7 shadow-md transition hover:bg-gray-50"
+              onClick={() => {
+                if (!isSecureContext) {
+                  toast("复制错误", {
+                    icon: "❌",
+                  });
+                  return;
+                }
+                navigator.clipboard.writeText(summary);
+                toast("复制成功", {
+                  icon: "✂️",
+                });
+              }}
+            >
               {summary.split("- ").map((sentence, index) => (
                 <div key={index}>
                   {sentence.length > 0 && (
