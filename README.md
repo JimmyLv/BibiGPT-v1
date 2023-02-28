@@ -1,6 +1,8 @@
-# [b.jimmylv.cn](https://b.jimmylv.cn/) 哔哩哔哩视频一键总结
+# [b.jimmylv.cn](https://b.jimmylv.cn/) 哔哩哔哩 · 视频内容一键总结
 
-This project summarizes 哔哩哔哩 videos for you using AI.
+This project summarizes Bilibili videos for you using AI.
+
+🤯 Inspired by [Nutlope/news-summarizer](https://github.com/Nutlope/news-summarizer) & [zhengbangbo/chat-simplifier](https://github.com/zhengbangbo/chat-simplifier/) & [lxfater/BilibiliSummary](https://github.com/lxfater/BilibiliSummary)
 
 [![哔哩哔哩视频总结工具](./public/screenshot.png)](https://b.jimmylv.cn)
 
