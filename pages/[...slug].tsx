@@ -49,7 +49,7 @@ export const Home: NextPage = () => {
       router.replace(curUrl);
     }
     setLoading(true);
-    const response = await fetch("/api/summarize", {
+    const response = await fetch("/api/chatgpt", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,6 +66,17 @@ export const Home: NextPage = () => {
       }
       setLoading(false);
       return;
+    }
+
+    const answer = await response.json();
+    console.log("========client data========", answer);
+    if (answer.response || answer.error) {
+      if (answer.error) {
+        toast.error(answer.error);
+      }
+      setSummary(answer.response);
+      setLoading(false)
+      return
     }
 
     const data = response.body;

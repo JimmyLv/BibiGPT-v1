@@ -1,10 +1,10 @@
 
 export function getSummaryPrompt(title: string,transcript: any) {
-    return `标题: "${title
+    return `视频标题: "${title
       .replace(/\n+/g, " ")
       .trim()}"\n视频字幕: "${truncateTranscript(transcript)
       .replace(/\n+/g, " ")
-      .trim()}"\n我希望你是一名专业的视频内容编辑，帮我总结视频的内容精华。请你将视频字幕文本进行总结，然后以无序列表的方式返回，不要超过5条。记得不要重复句子，确保所有的句子都足够精简，清晰完整，祝你好运！`;
+      .trim()}"\n\n请帮我用中文总结上述文本，以有序列表的格式返回，不要超过5条，确保每个句子都足够精简和清晰。`;
   }
 
   // Seems like 15,000 bytes is the limit for the prompt
