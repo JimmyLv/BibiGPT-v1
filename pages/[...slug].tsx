@@ -37,13 +37,13 @@ export const Home: NextPage = () => {
     setSummary("");
     if (url) {
       if (!url.includes("bilibili.com")) {
-        toast.error("Please enter a valid 哔哩哔哩 video");
+        toast.error("请输入哔哩哔哩视频长链接，暂不支持b23.tv或av号");
         return;
       }
       setCurVideo(url);
     } else {
       if (!curVideo.includes("bilibili.com")) {
-        toast.error("Please enter a valid 哔哩哔哩 video");
+        toast.error("请输入哔哩哔哩视频长链接，暂不支持b23.tv或av号");
         return;
       }
       router.replace(curUrl);
