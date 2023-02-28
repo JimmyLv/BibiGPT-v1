@@ -9,10 +9,10 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import SquigglyLines from "../components/SquigglyLines";
 
-let isSecureContext = false
+let isSecureContext = false;
 
-if (typeof window !== 'undefined') {
-  isSecureContext = window.isSecureContext
+if (typeof window !== "undefined") {
+  isSecureContext = window.isSecureContext;
 }
 
 export const Home: NextPage = () => {
@@ -39,6 +39,10 @@ export const Home: NextPage = () => {
 
   const curUrl = String(curVideo.split(".com")[1]);
 
+  const onFormSubmit = async (e: any) => {
+    e.preventDefault();
+    await generateSummary();
+  };
   const generateSummary = async (url?: string) => {
     setSummary("");
     if (url) {
@@ -181,36 +185,38 @@ export const Home: NextPage = () => {
             </p>
           </div>
         </details>
-        <input
-          type="text"
-          value={curVideo}
-          onChange={(e) => setCurVideo(e.target.value)}
-          className="mx-auto mt-10 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder={"输入我的 bilibili.com 视频链接"}
-        />
-        {!loading && (
-          <button
-            className="z-10 mx-auto mt-7 w-3/4 rounded-2xl border-gray-500 bg-sky-400 p-3 text-lg font-medium text-white transition hover:bg-sky-500 sm:mt-10 sm:w-1/3"
-            onClick={() => generateSummary()}
-          >
-            一键总结（三连）
-          </button>
-        )}
-        {loading && (
-          <button
-            className="z-10 mx-auto mt-7 w-3/4 cursor-not-allowed rounded-2xl border-gray-500 bg-sky-400 p-3 text-lg font-medium transition hover:bg-sky-500 sm:mt-10 sm:w-1/3"
-            disabled
-          >
-            <div className="flex items-center justify-center text-white">
-              <Image
-                src="/loading.svg"
-                alt="Loading..."
-                width={28}
-                height={28}
-              />
-            </div>
-          </button>
-        )}
+        <form onSubmit={onFormSubmit} className="grid place-items-center">
+          <input
+            type="text"
+            value={curVideo}
+            onChange={(e) => setCurVideo(e.target.value)}
+            className="mx-auto mt-10 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder={"输入 bilibili.com 视频链接，按下「回车」"}
+          />
+          {!loading && (
+            <button
+              className="z-10 mx-auto mt-7 w-3/4 rounded-2xl border-gray-500 bg-sky-400 p-3 text-lg font-medium text-white transition hover:bg-sky-500 sm:mt-10 sm:w-1/3"
+              type="submit"
+            >
+              一键总结（三连）
+            </button>
+          )}
+          {loading && (
+            <button
+              className="z-10 mx-auto mt-7 w-3/4 cursor-not-allowed rounded-2xl border-gray-500 bg-sky-400 p-3 text-lg font-medium transition hover:bg-sky-500 sm:mt-10 sm:w-1/3"
+              disabled
+            >
+              <div className="flex items-center justify-center text-white">
+                <Image
+                  src="/loading.svg"
+                  alt="Loading..."
+                  width={28}
+                  height={28}
+                />
+              </div>
+            </button>
+          )}
+        </form>
         <Toaster
           position="top-center"
           reverseOrder={false}
