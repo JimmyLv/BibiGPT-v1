@@ -1,4 +1,3 @@
-import { omitBy } from "lodash";
 import { OpenAIStream } from "../../utils/OpenAIStream";
 import { getChunckedTranscripts, getSummaryPrompt } from "../../utils/prompt";
 
@@ -10,7 +9,7 @@ if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI");
 }
 
-export default async function handler(req: Request) {
+export default async function handler(req: Request, res: Response) {
   const { url, apiKey } = (await req.json()) as {
     url?: string;
     apiKey?: string;
@@ -37,6 +36,8 @@ export default async function handler(req: Request) {
     // @ts-ignore
     const title = res.data?.title;
     const subtitleUrl = res.data?.subtitle?.list?.[0]?.subtitle_url;
+    apiKey && console.log("========use user key========");
+    console.log("bvid_url", url);
     console.log("subtitle_url", subtitleUrl);
     if (!subtitleUrl) {
       return new Response("No subtitle in the video", { status: 501 });
@@ -57,13 +58,13 @@ export default async function handler(req: Request) {
     const prompt = getSummaryPrompt(title, text);
 
     const payload = {
-      model: "text-davinci-003",
+      model: apiKey ? "text-davinci-003" : "text-curie-001",
       prompt,
       temperature: 0.5,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
-      max_tokens: 400,
+      max_tokens: 300,
       stream: true,
       n: 1,
     };
@@ -72,6 +73,6 @@ export default async function handler(req: Request) {
     return new Response(stream);
   } catch (error: any) {
     console.log(error);
-    return new Response(error, { status: 500 });
+    return new Response(error);
   }
 }

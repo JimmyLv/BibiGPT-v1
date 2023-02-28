@@ -8,7 +8,6 @@ import { useLocalStorage } from "react-use";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import SquigglyLines from "../components/SquigglyLines";
-import { fetchWithTimeout } from "../utils/fetchWithTimeout";
 
 export const Home: NextPage = () => {
   const router = useRouter();
@@ -50,7 +49,7 @@ export const Home: NextPage = () => {
       router.replace(curUrl);
     }
     setLoading(true);
-    const response = await fetchWithTimeout("/api/summarize", {
+    const response = await fetch("/api/summarize", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +58,7 @@ export const Home: NextPage = () => {
     });
 
     if (!response.ok) {
-      console.log("error", response.statusText);
+      console.log("error", response);
       if (response.status === 501) {
         toast.error("啊叻？视频字幕不见了？！");
       } else {

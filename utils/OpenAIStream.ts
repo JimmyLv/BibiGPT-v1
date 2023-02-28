@@ -17,18 +17,21 @@ export interface OpenAIStreamPayload {
   n: number;
 }
 
-function checkApiKey(str :string) {
+function checkApiKey(str: string) {
   var pattern = /^sk-[A-Za-z0-9]{48}$/;
   return pattern.test(str);
 }
 
-export async function OpenAIStream(payload: OpenAIStreamPayload, apiKey?: string) {
+export async function OpenAIStream(
+  payload: OpenAIStreamPayload,
+  apiKey?: string
+) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
-  const openai_api_key = apiKey || process.env.OPENAI_API_KEY || '';
+  const openai_api_key = apiKey || process.env.OPENAI_API_KEY || "";
 
-  if(!checkApiKey(openai_api_key)) {
-    throw new Error('OpenAI API Key Format Error')
+  if (!checkApiKey(openai_api_key)) {
+    throw new Error("OpenAI API Key Format Error");
   }
 
   const res = await fetch("https://api.openai.com/v1/completions", {
@@ -39,6 +42,10 @@ export async function OpenAIStream(payload: OpenAIStreamPayload, apiKey?: string
     method: "POST",
     body: JSON.stringify(payload),
   });
+
+  if (res.status !== 200) {
+    throw new Error("OpenAI API " + res.statusText);
+  }
 
   let counter = 0;
 
