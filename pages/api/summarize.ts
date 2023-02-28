@@ -58,7 +58,7 @@ export default async function handler(req: Request, res: Response) {
     const prompt = getSummaryPrompt(title, text);
 
     const payload = {
-      model: apiKey ? "text-davinci-003" : "text-curie-001",
+      model: 'text-davinci-003',
       prompt,
       temperature: 0.5,
       top_p: 1,
