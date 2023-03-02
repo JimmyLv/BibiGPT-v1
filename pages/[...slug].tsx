@@ -258,7 +258,7 @@ export const Home: NextPage = () => {
                   });
                   return;
                 }
-                navigator.clipboard.writeText(summary);
+                navigator.clipboard.writeText(summary + '\n\n via #BiliGPT b.jimmylv.cn');
                 toast("复制成功", {
                   icon: "✂️",
                 });
