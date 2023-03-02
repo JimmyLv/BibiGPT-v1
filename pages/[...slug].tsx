@@ -7,7 +7,7 @@ import { useLocalStorage } from "react-use";
 import Sentence from "../components/Sentence";
 import SquigglyLines from "../components/SquigglyLines";
 import { useSummarize } from "../hooks/useSummarize";
-import { checkoutUrl } from "../utils/constants";
+import { CHECKOUT_URL } from "../utils/constants";
 import { extractTimestamp } from "../utils/extractTimestamp";
 
 let isSecureContext = false;
@@ -170,7 +170,7 @@ export const Home: NextPage = () => {
             （终于，支持
             <a
               className="text-pink-400 hover:underline"
-              href={checkoutUrl}
+              href={CHECKOUT_URL}
               target="_blank"
               rel="noopener noreferrer"
             >

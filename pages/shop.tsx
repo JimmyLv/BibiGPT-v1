@@ -1,16 +1,16 @@
 import SquigglyLines from "../components/SquigglyLines";
-import { checkoutUrl } from "../utils/constants";
+import { CHECKOUT_URL, RATE_LIMIT_COUNT } from "../utils/constants";
 
 export default () => {
   return (
     <div>
       <h2 className="mt-10 max-w-5xl pb-10 text-center text-4xl font-bold sm:text-7xl">
-        伤不起了啊，每天仅限 5 次，请点击
+        伤不起了啊，每天仅限 {RATE_LIMIT_COUNT} 次，请点击
         <span className="relative whitespace-nowrap text-[#3290EE]">
           <SquigglyLines />
           <a
             className="relative text-pink-400 hover:underline"
-            href={checkoutUrl}
+            href={CHECKOUT_URL}
           >
             点击购买
           </a>
@@ -29,7 +29,7 @@ export default () => {
         </div>
       </h2>
       <div className="min-h-screen min-w-fit border-2 border-purple-700">
-        <iframe src={checkoutUrl} width="100%" height="1024px"></iframe>
+        <iframe src={CHECKOUT_URL} width="100%" height="1024px"></iframe>
       </div>
     </div>
   );

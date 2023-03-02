@@ -1,7 +1,8 @@
-import { NextResponse } from "next/server";
-import type { NextFetchEvent, NextRequest } from "next/server";
-import { Redis } from "@upstash/redis";
 import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+import type { NextFetchEvent, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import { RATE_LIMIT_COUNT } from "./utils/constants";
 import { isDev } from "./utils/env";
 
 const redis = Redis.fromEnv();
@@ -12,7 +13,7 @@ const ratelimit = new Ratelimit({
     token: process.env.UPSTASH_RATE_REDIS_REST_TOKEN,
   }),
   // 速率限制算法 https://github.com/upstash/ratelimit#ratelimiting-algorithms
-  limiter: Ratelimit.fixedWindow(5, "1 d"),
+  limiter: Ratelimit.fixedWindow(RATE_LIMIT_COUNT, "1 d"),
   analytics: true, // <- Enable analytics
 });
 
