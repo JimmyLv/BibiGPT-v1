@@ -44,6 +44,8 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
     licenseKeys?.includes(apiKey.toLowerCase())
   ) {
     const { remaining } = await ratelimit.limit(apiKey.toLowerCase());
+    // TODO: log to hit licenseKey
+    console.log(`!!!!!!!!! {short-xxxx-licenseKey}, remaining: ${remaining} ========`);
     if (remaining === 0) {
       return NextResponse.redirect(new URL("/shop", req.url));
     }
