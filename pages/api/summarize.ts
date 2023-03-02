@@ -1,4 +1,3 @@
-import find from "lodash";
 import { NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
