@@ -4,7 +4,8 @@ import {
   ReconnectInterval,
 } from "eventsource-parser";
 
-export type ChatGPTAgent = "user" | "system";
+// TODO: maybe chat with video?
+export type ChatGPTAgent = "user" | "system" | "assistant";
 
 export interface ChatGPTMessage {
   role: ChatGPTAgent;
@@ -42,7 +43,10 @@ export async function OpenAIResult(
 ) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
-  const openai_api_key = apiKey || process.env.OPENAI_API_KEY || "";
+  const myApiKeyList = process.env.OPENAI_API_KEY;
+  const luckyApiKey = myApiKeyList?.split(",").sort(() => Math.random() - 0.5)[0]
+
+  const openai_api_key = apiKey || luckyApiKey || "";
 
   if (!checkApiKey(openai_api_key)) {
     throw new Error("OpenAI API Key Format Error");
