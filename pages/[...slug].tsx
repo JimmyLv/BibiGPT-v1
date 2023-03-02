@@ -8,6 +8,7 @@ import Sentence from "../components/Sentence";
 import SquigglyLines from "../components/SquigglyLines";
 import { useSummarize } from "../hooks/useSummarize";
 import { checkoutUrl } from "../utils/constants";
+import { extractTimestamp } from "../utils/extractTimestamp";
 
 let isSecureContext = false;
 
@@ -79,6 +80,18 @@ export const Home: NextPage = () => {
     await generateSummary();
   };
 
+  const summaryArray = summary.split("- ");
+  const formattedSummary = summaryArray
+    .map((s) => {
+      const matchResult = s.match(/\s*(\d+\.\d+)(.*)/);
+      if (matchResult) {
+        const { formattedContent, timestamp } = extractTimestamp(matchResult);
+        return timestamp + formattedContent;
+      }
+      return s;
+    })
+    .join("\n- ");
+
   const handleCopy = () => {
     if (!isSecureContext) {
       toast("复制错误", {
@@ -86,7 +99,10 @@ export const Home: NextPage = () => {
       });
       return;
     }
-    navigator.clipboard.writeText(summary + "\n\n via #BiliGPT b.jimmylv.cn");
+    // todo: update the timestamp
+    navigator.clipboard.writeText(
+      formattedSummary + "\n\n via #BiliGPT b.jimmylv.cn @吕立青_JimmyLv"
+    );
     toast("复制成功", {
       icon: "✂️",
     });
@@ -240,7 +256,7 @@ export const Home: NextPage = () => {
             </a>
           </h3>
           <div className="mx-auto mt-6 max-w-3xl rounded-xl border-2 bg-white p-4 text-lg leading-7 shadow-md transition hover:bg-gray-50">
-            {summary.split("- ").map((sentence, index) => (
+            {summaryArray.map((sentence, index) => (
               <div key={index}>
                 {sentence.length > 0 && (
                   <Sentence bvId={currentBvId} sentence={sentence} />

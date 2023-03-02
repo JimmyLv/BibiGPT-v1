@@ -17,9 +17,9 @@ const ratelimit = new Ratelimit({
 });
 
 export async function middleware(req: NextRequest, context: NextFetchEvent) {
-  // if (isDev) {
-  //   return NextResponse.next();
-  // }
+  if (isDev) {
+    return NextResponse.next();
+  }
 
   const { bvId, apiKey } = await req.json();
   const result = await redis.get<string>(bvId);
@@ -45,14 +45,16 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
   ) {
     const { remaining } = await ratelimit.limit(apiKey.toLowerCase());
     // TODO: log to hit licenseKey
-    console.log(`!!!!!!!!! {short-xxxx-licenseKey}, remaining: ${remaining} ========`);
+    console.log(
+      `!!!!!!!!! {short-xxxx-licenseKey}, remaining: ${remaining} ========`
+    );
     if (remaining === 0) {
       return NextResponse.redirect(new URL("/shop", req.url));
     }
   }
 
   // TODO: unique to a user (userid, email etc) instead of IP
-  const identifier = req.ip ?? "127.0.0.3";
+  const identifier = req.ip ?? "127.0.0.5";
   const { success, remaining } = await ratelimit.limit(identifier);
   console.log(`======== ip ${identifier}, remaining: ${remaining} ========`);
   if (!apiKey && !success) {
