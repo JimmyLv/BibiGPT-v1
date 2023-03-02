@@ -33,12 +33,12 @@ export default async function handler(
   // @ts-ignore
   const title = res.data?.title;
   const subtitleList = res.data?.subtitle?.list;
-  if (subtitleList && subtitleList.length < 1) {
+  if (!subtitleList || subtitleList?.length === 0) {
     return new Response("No subtitle in the video", { status: 501 });
   }
   const betterSubtitle =
     subtitleList.find(({ lan }: { lan: string }) => lan === "zh-CN") ||
-    subtitleList?.[0];
+    subtitleList[0];
   const subtitleUrl = betterSubtitle?.subtitle_url;
   console.log("subtitle_url", subtitleUrl);
 
@@ -57,7 +57,6 @@ export default async function handler(
   const prompt = getSummaryPrompt(title, text);
 
   try {
-
     apiKey && console.log("========use user key========");
     const payload = {
       model: "gpt-3.5-turbo",
