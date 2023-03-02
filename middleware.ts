@@ -1,10 +1,23 @@
 import { NextResponse } from "next/server";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { Redis } from "@upstash/redis";
+import { Ratelimit } from "@upstash/ratelimit";
+
+const redis = Redis.fromEnv();
+
+const ratelimit = new Ratelimit({
+  redis: redis,
+  limiter: Ratelimit.slidingWindow(5, "1 d"),
+});
 
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
   const { bvId } = await req.json();
-  const redis = Redis.fromEnv();
+  // TODO: unique to a user (userid, email etc) instead of IP
+  const ip = req.ip ?? "127.0.0.1";
+  const { success } = await ratelimit.limit(ip);
+  if (!success) {
+    return NextResponse.redirect(new URL("/blocked", req.url));
+  }
 
   const result = await redis.get<string>(bvId);
   if (result) {
