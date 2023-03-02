@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { useLocalStorage } from "react-use";
+import Sentence from "../components/Sentence";
 import SquigglyLines from "../components/SquigglyLines";
 import { useSummarize } from "../hooks/useSummarize";
 
@@ -75,6 +76,19 @@ export const Home: NextPage = () => {
   const onFormSubmit = async (e: any) => {
     e.preventDefault();
     await generateSummary();
+  };
+
+  const handleCopy = () => {
+    if (!isSecureContext) {
+      toast("复制错误", {
+        icon: "❌",
+      });
+      return;
+    }
+    navigator.clipboard.writeText(summary + "\n\n via #BiliGPT b.jimmylv.cn");
+    toast("复制成功", {
+      icon: "✂️",
+    });
   };
 
   return (
@@ -215,26 +229,13 @@ export const Home: NextPage = () => {
             </a>
           </h3>
           <div
-            className="mx-auto mt-6 max-w-3xl cursor-copy rounded-xl border bg-white p-4 text-lg leading-7 shadow-md transition hover:bg-gray-50"
-            onClick={() => {
-              if (!isSecureContext) {
-                toast("复制错误", {
-                  icon: "❌",
-                });
-                return;
-              }
-              navigator.clipboard.writeText(
-                summary + "\n\n via #BiliGPT b.jimmylv.cn"
-              );
-              toast("复制成功", {
-                icon: "✂️",
-              });
-            }}
+            className="mx-auto mt-6 max-w-3xl rounded-xl border bg-white p-4 text-lg leading-7 shadow-md transition hover:bg-gray-50"
+            // onClick={handleCopy}
           >
             {summary.split("- ").map((sentence, index) => (
               <div key={index}>
                 {sentence.length > 0 && (
-                  <li className="mb-2 list-disc">{sentence}</li>
+                  <Sentence bvId={currentBvId} sentence={sentence} />
                 )}
               </div>
             ))}

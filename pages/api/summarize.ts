@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
+import { isDev } from "../../utils/env";
 import { OpenAIResult } from "../../utils/OpenAIResult";
 import { getChunckedTranscripts, getSummaryPrompt } from "../../utils/prompt";
 
@@ -47,9 +48,8 @@ export default async function handler(
   // @ts-ignore
   const transcripts = subtitles.body.map((item, index) => {
     return {
-      text: item.content,
+      text: `${item.from}: ${item.content}`,
       index,
-      timestamp: item.from,
     };
   });
   // console.log("========transcripts========", transcripts);
@@ -58,6 +58,7 @@ export default async function handler(
 
   try {
     apiKey && console.log("========use user key========");
+    isDev && console.log("prompt", prompt);
     const payload = {
       model: "gpt-3.5-turbo",
       messages: [{ role: "user" as const, content: prompt }],
@@ -71,6 +72,7 @@ export default async function handler(
     };
 
     const result = await OpenAIResult(payload, apiKey);
+    // TODO: add better logging when dev or prod
     console.log("result", result);
     const redis = Redis.fromEnv();
     const data = await redis.set(bvId, result);

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { Redis } from "@upstash/redis";
 import { Ratelimit } from "@upstash/ratelimit";
+import { isDev } from "./utils/env";
 
 const redis = Redis.fromEnv();
 
@@ -16,6 +17,10 @@ const ratelimit = new Ratelimit({
 });
 
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
+  if (isDev) {
+    return NextResponse.next();
+  }
+
   const { bvId, apiKey } = await req.json();
   const result = await redis.get<string>(bvId);
   if (result) {
