@@ -18,9 +18,9 @@ This project uses the [OpenAI GPT-3.5 API](https://openai.com/api/) (specificall
 
 Projects like this can get expensive so in order to save costs if you want to make your own version and share it publicly, I recommend three things:
 
-[ ] 1. Implement rate limiting so people can't abuse your site
-[x] 2. Implement caching to avoid expensive AI re-generations
-[x] 3. Use `text-curie-001` instead of `text-dacinci-003` in the `summarize` edge function
+- [ ] 1. Implement rate limiting so people can't abuse your site
+- [x] 2. Implement caching to avoid expensive AI re-generations
+- [x] 3. Use `text-curie-001` instead of `text-dacinci-003` in the `summarize` edge function
 
 ## Running Locally
 
