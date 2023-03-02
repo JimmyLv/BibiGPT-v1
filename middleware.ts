@@ -16,6 +16,15 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
   const identifier = req.ip ?? "127.0.0.3";
   const { success, remaining } = await ratelimit.limit(identifier);
   console.log(`======== ip ${identifier}, remaining: ${remaining} ========`);
+
+  // note: not forgot to set USER_LICENSE_KEYS env var
+  if (process.env.USER_LICENSE_KEYS?.includes(apiKey)) {
+    const { remaining } = await ratelimit.limit(apiKey);
+    if (remaining === 0) {
+      return NextResponse.redirect(new URL("/blocked", req.url));
+    }
+  }
+
   if (!apiKey && !success) {
     return NextResponse.redirect(new URL("/blocked", req.url));
   }
