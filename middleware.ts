@@ -13,8 +13,9 @@ const ratelimit = new Ratelimit({
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
   const { bvId } = await req.json();
   // TODO: unique to a user (userid, email etc) instead of IP
-  const ip = req.ip ?? "127.0.0.1";
-  const { success } = await ratelimit.limit(ip);
+  const identifier = req.ip ?? "127.0.0.2";
+  const { success, remaining } = await ratelimit.limit(identifier);
+  console.log(`======== ip ${identifier}, remaining: ${remaining} ========`);
   if (!success) {
     return NextResponse.redirect(new URL("/blocked", req.url));
   }

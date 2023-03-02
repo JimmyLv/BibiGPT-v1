@@ -78,10 +78,16 @@ export const Home: NextPage = () => {
       body: JSON.stringify({ bvId, apiKey }),
     });
 
+    if (response.redirected) {
+      window.location.href = response.url;
+    }
+
     if (!response.ok) {
       console.log("error", response);
       if (response.status === 501) {
         toast.error("啊叻？视频字幕不见了？！");
+      } else if (response.status === 504) {
+        toast.error("网站访问量大，每日限额使用 5 次哦！");
       } else {
         toast.error(response.statusText);
       }
