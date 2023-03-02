@@ -110,7 +110,6 @@ export const Home: NextPage = () => {
     <div className="mx-auto flex min-h-screen max-w-5xl flex-col pt-8 sm:pt-10">
       <Head>
         <title>哔哩哔哩 · 视频内容一键总结</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
       <main className="mx-auto mt-10 flex max-w-5xl flex-1 flex-col justify-center px-2 sm:mt-40">
