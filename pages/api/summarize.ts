@@ -26,12 +26,11 @@ export default async function handler(
   }
 
   try {
-    const response = await fetch(
-      `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`,
-      {
-        method: "GET",
-      }
-    );
+    const requestUrl = `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`;
+    console.log(`fetch`, requestUrl);
+    const response = await fetch(requestUrl, {
+      method: "GET",
+    });
     const res = await response.json();
     // @ts-ignore
     const title = res.data?.title;
@@ -43,7 +42,6 @@ export default async function handler(
       subtitleList.find(({ lan }: { lan: string }) => lan === "zh-CN") ||
       subtitleList?.[0];
     const subtitleUrl = betterSubtitle?.subtitle_url;
-    console.log("bvid", bvId);
     console.log("subtitle_url", subtitleUrl);
 
     const subtitleResponse = await fetch(subtitleUrl);
