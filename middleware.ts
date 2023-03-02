@@ -23,7 +23,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
 
   const { bvId, apiKey } = await req.json();
   const result = await redis.get<string>(bvId);
-  if (!result) {
+  if (result) {
     console.log("hit cache for ", bvId);
     return NextResponse.json(result);
   }
@@ -59,8 +59,4 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
 
 export const config = {
   matcher: "/api/summarize",
-  unstable_allowDynamic: [
-    "node_modules/undici/lib/core/util.js", // allows a single file
-    // '/node_modules/function-bind/**', // use a glob to allow anything in the function-bind 3rd party module
-  ],
 };
