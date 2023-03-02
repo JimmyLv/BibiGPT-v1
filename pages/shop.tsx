@@ -1,8 +1,7 @@
 import SquigglyLines from "../components/SquigglyLines";
+import { checkoutUrl } from "../utils/constants";
 
 export default () => {
-  const checkoutUrl =
-    "https://jimmylv.lemonsqueezy.com/checkout/buy/1ddaaa34-05eb-4db6-8c48-3ac0faed1b94";
   return (
     <div>
       <h1 className="max-w-5xl pb-10 text-center text-4xl font-bold sm:text-7xl">
@@ -11,7 +10,7 @@ export default () => {
           <SquigglyLines />
           <a
             className="relative text-pink-400 hover:underline"
-            href="https://jimmylv.lemonsqueezy.com/checkout/buy/1ddaaa34-05eb-4db6-8c48-3ac0faed1b94"
+            href={checkoutUrl}
           >
             点击购买
           </a>

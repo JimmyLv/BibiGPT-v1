@@ -7,6 +7,7 @@ import { useLocalStorage } from "react-use";
 import Sentence from "../components/Sentence";
 import SquigglyLines from "../components/SquigglyLines";
 import { useSummarize } from "../hooks/useSummarize";
+import { checkoutUrl } from "../utils/constants";
 
 let isSecureContext = false;
 
@@ -149,11 +150,21 @@ export const Home: NextPage = () => {
           <p className="text-left font-medium">
             <span className="text-sky-400 hover:text-sky-600">
               请使用自己的 API Key
-            </span>{" "}
-            <a href="/wechat.jpg" target="_blank" rel="noopener noreferrer">
-              （我的账号可能很快没钱了，也可以就真的{" "}
+            </span>
+            （终于，支持
+            <a
+              className="text-pink-400 hover:underline"
+              href={checkoutUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              「购买次数」
+            </a>
+            啦！
+            <a href="/shop" target="_blank" rel="noopener noreferrer">
+              也可以真的
               <span className="text-pink-400 hover:underline">
-                「给我打钱」
+                「给我打赏」
               </span>
               哦 🤣）
             </a>
