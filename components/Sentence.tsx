@@ -29,6 +29,8 @@ export default function Sentence({
       <li className="mb-2 list-disc">
         <a
           href={`${encodeURI(`${baseUrl}/?t=${seconds}`)}`}
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-sky-400 hover:text-sky-600"
         >
           {timestamp}
