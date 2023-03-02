@@ -8,9 +8,11 @@
   "dependencies": {
     "@next/font": "^13.1.5",
     "@types/lodash": "^4.14.191",
+    "@upstash/ratelimit": "^0.3.8",
     "@upstash/redis": "^1.20.1",
     "@vercel/analytics": "^0.1.8",
     "clsx": "^1.2.1",
+    "crisp-sdk-web": "^1.0.13",
     "eventsource-parser": "^0.1.0",
     "framer-motion": "^9.0.1",
     "next": "latest",

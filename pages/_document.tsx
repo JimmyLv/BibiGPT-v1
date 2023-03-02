@@ -1,4 +1,9 @@
+import { Crisp } from "crisp-sdk-web";
 import Document, { Head, Html, Main, NextScript } from "next/document";
+
+if (typeof window !== "undefined") {
+  Crisp.configure("ed6ccc61-9363-4712-abc9-f61cb6726ec6");
+}
 
 class MyDocument extends Document {
   render() {
