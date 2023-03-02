@@ -28,7 +28,7 @@ export default function Sentence({
     return (
       <li className="mb-2 list-disc">
         <a
-          href={`${baseUrl}/?t=${encodeURIComponent(timestamp)}`}
+          href={`${encodeURI(`${baseUrl}/?t=${seconds}`)}`}
           className="text-sky-400 hover:text-sky-600"
         >
           {timestamp}
