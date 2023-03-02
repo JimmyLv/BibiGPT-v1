@@ -17,6 +17,12 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
   const { success, remaining } = await ratelimit.limit(identifier);
   console.log(`======== ip ${identifier}, remaining: ${remaining} ========`);
 
+  const result = await redis.get<string>(bvId);
+  if (result) {
+    console.log("hit cache for ", bvId);
+    return NextResponse.json(result);
+  }
+
   // note: not forgot to set USER_LICENSE_KEYS env var
   if (process.env.USER_LICENSE_KEYS?.includes(apiKey)) {
     const { remaining } = await ratelimit.limit(apiKey);
@@ -27,12 +33,6 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
   if (!apiKey && !success) {
     return NextResponse.redirect(new URL("/blocked", req.url));
-  }
-
-  const result = await redis.get<string>(bvId);
-  if (result) {
-    console.log("hit cache for ", bvId);
-    return NextResponse.json(result);
   }
 }
 
