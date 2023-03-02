@@ -40,4 +40,4 @@ Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_mediu
 
 ## Support -> Contact Me
 
-![](/public/wechat.jpg)
+![](./public/wechat.jpg)
