@@ -7,7 +7,9 @@ const redis = Redis.fromEnv();
 
 const ratelimit = new Ratelimit({
   redis: redis,
-  limiter: Ratelimit.slidingWindow(5, "1 d"),
+  // 速率限制算法 https://github.com/upstash/ratelimit#ratelimiting-algorithms
+  limiter: Ratelimit.fixedWindow(5, "1 d"),
+  analytics: true // <- Enable analytics
 });
 
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
