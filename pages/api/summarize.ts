@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
+import fetchSubtitle from "../../utils/fetchSubtitle";
 import { OpenAIResult } from "../../utils/OpenAIResult";
 import { getChunckedTranscripts, getSummaryPrompt } from "../../utils/prompt";
 
@@ -16,49 +17,25 @@ export default async function handler(
   req: NextRequest,
   context: NextFetchEvent
 ) {
+  // TODO: rename the bvId to cache id?
   const { bvId, apiKey } = (await req.json()) as {
     bvId: string;
     apiKey?: string;
   };
 
-  if (!bvId) {
-    return new Response("No bvid in the request", { status: 500 });
-  }
-  const requestUrl = `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`;
-  console.log(`fetch`, requestUrl);
-  const response = await fetch(requestUrl, {
-    method: "GET",
-  });
-  const res = await response.json();
-  // @ts-ignore
-  const title = res.data?.title;
-  const subtitleList = res.data?.subtitle?.list;
-  if (subtitleList && subtitleList.length < 1) {
-    return new Response("No subtitle in the video", { status: 501 });
-  }
-  const betterSubtitle =
-    subtitleList.find(({ lan }: { lan: string }) => lan === "zh-CN") ||
-    subtitleList?.[0];
-  const subtitleUrl = betterSubtitle?.subtitle_url;
-  console.log("subtitle_url", subtitleUrl);
-
-  const subtitleResponse = await fetch(subtitleUrl);
-  const subtitles = await subtitleResponse.json();
-  // @ts-ignore
-  const transcripts = subtitles.body.map((item, index) => {
-    return {
-      text: item.content,
-      index,
-      timestamp: item.from,
-    };
-  });
-  // console.log("========transcripts========", transcripts);
-  const text = getChunckedTranscripts(transcripts, transcripts);
-  const prompt = getSummaryPrompt(title, text);
+  apiKey && console.log("========use user key========");
 
   try {
+    const video = await fetchSubtitle(bvId);
+    if (!video?.transcripts) {
+      return new Response("No subtitle in the video", { status: 501 });
+    }
 
-    apiKey && console.log("========use user key========");
+    const { title, transcripts } = video;
+    // console.log("========transcripts========", transcripts);
+    const smallerTranscripts = getChunckedTranscripts(transcripts, transcripts);
+    const prompt = getSummaryPrompt(title, smallerTranscripts);
+
     const payload = {
       model: "gpt-3.5-turbo",
       messages: [{ role: "user" as const, content: prompt }],

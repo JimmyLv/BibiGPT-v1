@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
+interface BodyParams {
+  bvId: string;
+  // prompt: string;
+  apiKey: string | undefined;
+}
+
 export function useSummarize() {
   const [loading, setLoading] = useState(false);
   const [summary, setSummary] = useState<string>("");
@@ -9,7 +15,7 @@ export function useSummarize() {
     setSummary("");
   };
 
-  const summarize = async (bvId: string, apiKey: string | undefined) => {
+  const summarize = async (bodyParams: BodyParams) => {
     setSummary("");
     setLoading(true);
 
@@ -20,7 +26,7 @@ export function useSummarize() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bvId, apiKey }),
+        body: JSON.stringify(bodyParams),
       });
 
       if (response.redirected) {
@@ -29,9 +35,7 @@ export function useSummarize() {
 
       if (!response.ok) {
         console.log("error", response);
-        if (response.status === 501) {
-          toast.error("啊叻？视频字幕不见了？！");
-        } else if (response.status === 504) {
+        if (response.status === 504) {
           toast.error("网站访问量大，每日限额使用 5 次哦！");
         } else {
           toast.error(response.statusText);

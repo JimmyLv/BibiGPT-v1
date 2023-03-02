@@ -10,6 +10,7 @@ export function getSummaryPrompt(title: string,transcript: any) {
   // Seems like 15,000 bytes is the limit for the prompt
   const limit = 7000; // 1000 is a buffer
 
+  // copy from [lxfater/BilibiliSummary](https://github.com/lxfater/BilibiliSummary), already rename to getSmallSizeTranscripts
   export function getChunckedTranscripts(textData: { text: any; index: any; }[], textDataOriginal: any[]) {
 
     // [Thought Process]

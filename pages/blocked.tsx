@@ -6,7 +6,7 @@ export default () => {
   return (
     <div>
       <h1 className="max-w-5xl pb-10 text-center text-4xl font-bold sm:text-7xl">
-        伤不起了啊，每天仅限5次，如果有需求请点击
+        伤不起了啊，每天仅限10次，如果有需求请点击
         <span className="relative whitespace-nowrap text-[#3290EE]">
           <SquigglyLines />
           <a

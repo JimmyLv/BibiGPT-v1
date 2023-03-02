@@ -67,7 +67,8 @@ export const Home: NextPage = () => {
       return toast.error("暂不支持此视频链接");
     }
 
-    await summarize(bvId, apiKey);
+    await summarize({ bvId, apiKey });
+
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }, 10);
