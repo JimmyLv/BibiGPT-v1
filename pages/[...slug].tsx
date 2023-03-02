@@ -137,7 +137,7 @@ export const Home: NextPage = () => {
             <span className="relative text-pink-400	">哔哩哔哩</span>
           </span>{" "}
           视频内容 <br />
-          <div className="mt-4">Powered by GPT-3 AI</div>
+          <div className="mt-4">Powered by GPT-3.5 AI</div>
         </h1>
         <p className="mt-10 text-center text-lg text-gray-500 sm:text-2xl">
           在下面的输入框，直接复制粘贴{" "}
