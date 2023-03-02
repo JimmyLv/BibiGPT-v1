@@ -122,7 +122,7 @@ export const Home: NextPage = () => {
         >
           你只需要把任意 Bilibili 视频 URL 中的后缀 "
           <span className="text-pink-400">.com</span>" 改成我的域名 "
-          <span className="text-sky-400">jimmylv.cn</span>" 就行啦！
+          <span className="text-sky-400">jimmylv.cn</span>" 就行啦！😉
           <br />
           比如 www.bilibili.
           <span className="text-pink-400 line-through">com</span>
@@ -140,8 +140,15 @@ export const Home: NextPage = () => {
           <div className="mt-4">Powered by GPT-3.5 AI</div>
         </h1>
         <p className="mt-10 text-center text-lg text-gray-500 sm:text-2xl">
-          在下面的输入框，直接复制粘贴{" "}
-          <span className="text-pink-400	">哔哩哔哩 </span>
+          在下面的输入框，直接复制粘贴
+          <a
+            className="text-sky-400"
+            href="https://www.bilibili.com/video/BV1fX4y1Q7Ux/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {" bilibili.com "}
+          </a>
           视频链接 👇
         </p>
         <details>
@@ -165,7 +172,11 @@ export const Home: NextPage = () => {
                 请使用自己的 API Key
               </span>{" "}
               <a href="/wechat.jpg" target="_blank" rel="noopener noreferrer">
-                （我的账号可能很快没钱了，也可以就真的 <span className="text-pink-400 hover:underline">「给我打钱」</span>哦 🤣）
+                （我的账号可能很快没钱了，也可以就真的{" "}
+                <span className="text-pink-400 hover:underline">
+                  「给我打钱」
+                </span>
+                哦 🤣）
               </a>
             </p>
           </summary>
