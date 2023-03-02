@@ -19,7 +19,7 @@ export const Home: NextPage = () => {
   const router = useRouter();
   const urlState = router.query.slug;
   const [summary, setSummary] = useState<string>("");
-  const [bvId, setBvId] = useState<string>("");
+  const [currentBvId, setCurrentBvId] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [curVideo, setCurVideo] = useState<string>("");
   const [apiKey, setAPIKey] = useLocalStorage<string>("user-openai-apikey");
@@ -64,8 +64,10 @@ export const Home: NextPage = () => {
     validateUrl(url);
     const videoUrl = url ? url : curVideo;
     const matchResult = videoUrl.match(/\/video\/([^\/\?]+)/);
+    let bvId: string | undefined;
     if (matchResult) {
-      setBvId(matchResult[1]);
+      bvId = matchResult[1];
+      setCurrentBvId(matchResult[1]);
     } else {
       return toast.error("暂不支持此视频链接");
     }
@@ -233,7 +235,7 @@ export const Home: NextPage = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                {`【📝 总结：${bvId}】`}
+                {`【📝 总结：${currentBvId}】`}
               </a>
             </h3>
             <div
