@@ -1,4 +1,4 @@
-import { find } from "lodash";
+import find from "lodash";
 import { NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
@@ -40,7 +40,9 @@ export default async function handler(
     if (subtitleList && subtitleList.length < 1) {
       return new Response("No subtitle in the video", { status: 501 });
     }
-    const betterSubtitle = find(subtitleList, { lan: "zh-CN" }) || subtitleList?.[0]
+    const betterSubtitle =
+      subtitleList.find(({ lan }: { lan: string }) => lan === "zh-CN") ||
+      subtitleList?.[0];
     const subtitleUrl = betterSubtitle?.subtitle_url;
     console.log("bvid", bvId);
     console.log("subtitle_url", subtitleUrl);
