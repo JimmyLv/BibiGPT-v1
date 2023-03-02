@@ -192,7 +192,7 @@ export const Home: NextPage = () => {
             className="z-10 mx-auto mt-7 w-3/4 rounded-2xl border-gray-500 bg-sky-400 p-3 text-lg font-medium text-white transition hover:bg-sky-500 sm:mt-10 sm:w-1/3"
             type="submit"
           >
-            一键总结（三连）
+            一键总结
           </button>
         )}
         {loading && (
@@ -228,10 +228,7 @@ export const Home: NextPage = () => {
               {`【📝 总结：${currentBvId}】`}
             </a>
           </h3>
-          <div
-            className="mx-auto mt-6 max-w-3xl rounded-xl border bg-white p-4 text-lg leading-7 shadow-md transition hover:bg-gray-50"
-            // onClick={handleCopy}
-          >
+          <div className="mx-auto mt-6 max-w-3xl rounded-xl border bg-white p-4 text-lg leading-7 shadow-md transition hover:bg-gray-50">
             {summary.split("- ").map((sentence, index) => (
               <div key={index}>
                 {sentence.length > 0 && (
@@ -239,6 +236,22 @@ export const Home: NextPage = () => {
                 )}
               </div>
             ))}
+          </div>
+          <div className="mx-auto mt-6 flex max-w-3xl flex-row-reverse gap-x-4">
+            <a
+              className="min-w-fit cursor-pointer rounded-lg bg-pink-400 px-4 py-1 text-center font-medium text-white hover:bg-pink-400/80"
+              href="https://space.bilibili.com/37648256"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              一键(三连+关注)
+            </a>
+            <button
+              className="w-24 cursor-pointer rounded-lg bg-sky-400 px-2 py-1 font-medium text-white hover:bg-sky-400/80"
+              onClick={handleCopy}
+            >
+              一键复制
+            </button>
           </div>
         </div>
       )}
