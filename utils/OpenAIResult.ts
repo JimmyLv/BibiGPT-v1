@@ -4,10 +4,16 @@ import {
   ReconnectInterval,
 } from "eventsource-parser";
 
+export type ChatGPTAgent = "user" | "system";
+
+export interface ChatGPTMessage {
+  role: ChatGPTAgent;
+  content: string;
+}
 export interface OpenAIStreamPayload {
   api_key?: string;
   model: string;
-  prompt: string;
+  messages: ChatGPTMessage[];
   temperature: number;
   top_p: number;
   frequency_penalty: number;
@@ -22,6 +28,14 @@ function checkApiKey(str: string) {
   return pattern.test(str);
 }
 
+function formatResult(result: any) {
+  const answer = result.choices[0].message?.content || "";
+  if (answer.startsWith("\n\n")) {
+    return answer.substring(2);
+  }
+  return answer;
+}
+
 export async function OpenAIResult(
   payload: OpenAIStreamPayload,
   apiKey?: string
@@ -34,7 +48,7 @@ export async function OpenAIResult(
     throw new Error("OpenAI API Key Format Error");
   }
 
-  const res = await fetch("https://api.openai.com/v1/completions", {
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${openai_api_key ?? ""}`,
@@ -49,11 +63,7 @@ export async function OpenAIResult(
 
   if (!payload.stream) {
     const result = await res.json();
-    const answer = result.choices[0].text;
-    if (answer.startsWith("\n\n")) {
-      return answer.substring(2);
-    }
-    return answer;
+    return formatResult(result);
   }
 
   let counter = 0;
@@ -71,7 +81,7 @@ export async function OpenAIResult(
           }
           try {
             const json = JSON.parse(data);
-            const text = json.choices[0].text;
+            const text = formatResult(json);
             console.log("=====text====", text);
             if (counter < 2 && (text.match(/\n/) || []).length) {
               // this is a prefix character (i.e., "\n\n"), do nothing

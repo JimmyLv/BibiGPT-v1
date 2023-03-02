@@ -58,8 +58,8 @@ export default async function handler(
     const prompt = getSummaryPrompt(title, text);
 
     const payload = {
-      model: "text-davinci-003",
-      prompt,
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user" as const, content: prompt }],
       temperature: 0.5,
       top_p: 1,
       frequency_penalty: 0,
