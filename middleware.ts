@@ -39,6 +39,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
 
   // licenseKeys
   if (
+    apiKey &&
     !apiKey.startsWith(`sk-`) &&
     licenseKeys?.includes(apiKey.toLowerCase())
   ) {
