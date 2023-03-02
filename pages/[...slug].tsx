@@ -96,7 +96,7 @@ export const Home: NextPage = () => {
       <a
         target="_blank"
         rel="noreferrer"
-        className="mx-auto mb-5 hidden max-w-fit rounded-full border border-gray-800 px-4 py-1 text-gray-500 transition duration-300 ease-in-out hover:scale-105 hover:border-gray-700 md:block"
+        className="mx-auto mb-5 hidden max-w-fit rounded-full border-2 border-dashed px-4 py-1 text-gray-500 transition duration-300 ease-in-out hover:scale-105 hover:border-gray-700 md:block"
         href="https://www.bilibili.com/video/BV1fX4y1Q7Ux/"
       >
         你只需要把任意 Bilibili 视频 URL 中的后缀 "
@@ -218,7 +218,7 @@ export const Home: NextPage = () => {
       />
       {summary && (
         <div className="mb-8 px-4">
-          <h3 className="m-8 mx-auto max-w-3xl border-t border-gray-600 pt-8 text-center text-2xl font-bold sm:text-4xl">
+          <h3 className="m-8 mx-auto max-w-3xl border-t-2 border-dashed pt-8 text-center text-2xl font-bold sm:text-4xl">
             <a
               href={curVideo}
               className="hover:text-pink-600 hover:underline"
@@ -228,7 +228,7 @@ export const Home: NextPage = () => {
               {`【📝 总结：${currentBvId}】`}
             </a>
           </h3>
-          <div className="mx-auto mt-6 max-w-3xl rounded-xl border bg-white p-4 text-lg leading-7 shadow-md transition hover:bg-gray-50">
+          <div className="mx-auto mt-6 max-w-3xl rounded-xl border-2 bg-white p-4 text-lg leading-7 shadow-md transition hover:bg-gray-50">
             {summary.split("- ").map((sentence, index) => (
               <div key={index}>
                 {sentence.length > 0 && (
@@ -237,7 +237,7 @@ export const Home: NextPage = () => {
               </div>
             ))}
           </div>
-          <div className="mx-auto mt-6 flex max-w-3xl flex-row-reverse gap-x-4">
+          <div className="mx-auto mt-7 flex max-w-3xl flex-row-reverse gap-x-4">
             <a
               className="min-w-fit cursor-pointer rounded-lg bg-pink-400 px-4 py-1 text-center font-medium text-white hover:bg-pink-400/80"
               href="https://space.bilibili.com/37648256"
