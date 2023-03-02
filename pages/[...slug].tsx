@@ -44,8 +44,7 @@ export const Home: NextPage = () => {
     e.preventDefault();
     await generateSummary();
   };
-  const generateSummary = async (url?: string) => {
-    setSummary("");
+  const validateUrl = (url?: string) => {
     if (url) {
       if (!url.includes("bilibili.com")) {
         toast.error("请输入哔哩哔哩视频长链接，暂不支持b23.tv或av号");
@@ -59,7 +58,10 @@ export const Home: NextPage = () => {
       }
       router.replace(curUrl);
     }
-
+  };
+  const generateSummary = async (url?: string) => {
+    setSummary("");
+    validateUrl(url);
     const videoUrl = url ? url : curVideo;
     const matchResult = videoUrl.match(/\/video\/([^\/\?]+)/);
     if (matchResult) {
