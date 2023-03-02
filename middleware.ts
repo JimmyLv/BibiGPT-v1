@@ -16,21 +16,33 @@ const ratelimit = new Ratelimit({
   analytics: true, // <- Enable analytics
 });
 
-export async function middleware(req: NextRequest, ev: NextFetchEvent) {
-  if (isDev) {
-    return NextResponse.next();
-  }
+export async function middleware(req: NextRequest, context: NextFetchEvent) {
+  // if (isDev) {
+  //   return NextResponse.next();
+  // }
 
   const { bvId, apiKey } = await req.json();
   const result = await redis.get<string>(bvId);
-  if (result) {
+  if (!result) {
     console.log("hit cache for ", bvId);
     return NextResponse.json(result);
   }
 
-  // note: not forgot to set USER_LICENSE_KEYS env var
-  if (process.env.USER_LICENSE_KEYS?.includes(apiKey)) {
-    const { remaining } = await ratelimit.limit(apiKey);
+  const response = await fetch(`https://api.lemonsqueezy.com/v1/license-keys`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.LEMON_API_KEY ?? ""}`,
+    },
+  });
+  const keysData = await response.json();
+  const licenseKeys = keysData.data?.map((i: any) => i.attributes.key);
+
+  // licenseKeys
+  if (
+    !apiKey.startsWith(`sk-`) &&
+    licenseKeys?.includes(apiKey.toLowerCase())
+  ) {
+    const { remaining } = await ratelimit.limit(apiKey.toLowerCase());
     if (remaining === 0) {
       return NextResponse.redirect(new URL("/shop", req.url));
     }
@@ -47,4 +59,8 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 export const config = {
   matcher: "/api/summarize",
+  unstable_allowDynamic: [
+    "node_modules/undici/lib/core/util.js", // allows a single file
+    // '/node_modules/function-bind/**', // use a glob to allow anything in the function-bind 3rd party module
+  ],
 };
