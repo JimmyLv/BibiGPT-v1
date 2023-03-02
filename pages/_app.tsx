@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>哔哩哔哩 · 视频内容一键总结</title>
       </Head>
       <Header />
-      <main className="mx-auto mt-10 flex max-w-5xl flex-1 flex-col justify-center px-2 sm:mt-40">
+      <main className="mx-auto flex max-w-5xl flex-1 flex-col justify-center px-2">
         <Component {...pageProps} />
         <Analytics />
       </main>

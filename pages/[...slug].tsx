@@ -93,7 +93,7 @@ export const Home: NextPage = () => {
   };
 
   return (
-    <>
+    <div className="mt-10 sm:mt-40">
       <a
         target="_blank"
         rel="noreferrer"
@@ -266,7 +266,7 @@ export const Home: NextPage = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
