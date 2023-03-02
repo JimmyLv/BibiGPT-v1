@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { useLocalStorage } from "react-use";
 import SquigglyLines from "../components/SquigglyLines";
+import { useSummarize } from "../hooks/useSummarize";
 
 let isSecureContext = false;
 
@@ -15,32 +16,27 @@ if (typeof window !== "undefined") {
 export const Home: NextPage = () => {
   const router = useRouter();
   const urlState = router.query.slug;
-  const [summary, setSummary] = useState<string>("");
-  const [currentBvId, setCurrentBvId] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
   const [curVideo, setCurVideo] = useState<string>("");
+  const [currentBvId, setCurrentBvId] = useState<string>("");
   const [apiKey, setAPIKey] = useLocalStorage<string>("user-openai-apikey");
+  const { loading, summary, resetSummary, summarize } = useSummarize();
 
   useEffect(() => {
-    if (
+    const isValidatedUrl =
       urlState &&
       router.isReady &&
       !curVideo &&
       typeof urlState !== "string" &&
-      urlState.every((subslug: string) => typeof subslug === "string")
-    ) {
+      urlState.every((subslug: string) => typeof subslug === "string");
+
+    if (isValidatedUrl) {
       generateSummary(
-        "https://bilibili.com/" + (urlState as string[]).join("/")
+        `https://bilibili.com/${(urlState as string[]).join("/")}`
       );
     }
+    // TODO: find reason to trigger twice
   }, [router.isReady, urlState]);
 
-  const curUrl = String(curVideo.split(".com")[1]);
-
-  const onFormSubmit = async (e: any) => {
-    e.preventDefault();
-    await generateSummary();
-  };
   const validateUrl = (url?: string) => {
     if (url) {
       if (!url.includes("bilibili.com")) {
@@ -53,12 +49,14 @@ export const Home: NextPage = () => {
         toast.error("请输入哔哩哔哩视频长链接，暂不支持b23.tv或av号");
         return;
       }
+      const curUrl = String(curVideo.split(".com")[1]);
       router.replace(curUrl);
     }
   };
   const generateSummary = async (url?: string) => {
-    setSummary("");
+    resetSummary();
     validateUrl(url);
+
     const videoUrl = url ? url : curVideo;
     const matchResult = videoUrl.match(/\/video\/([^\/\?]+)/);
     let bvId: string | undefined;
@@ -69,44 +67,14 @@ export const Home: NextPage = () => {
       return toast.error("暂不支持此视频链接");
     }
 
-    setLoading(true);
-    const response = await fetch("/api/summarize", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ bvId, apiKey }),
-    });
-
-    if (response.redirected) {
-      window.location.href = response.url;
-    }
-
-    if (!response.ok) {
-      console.log("error", response);
-      if (response.status === 501) {
-        toast.error("啊叻？视频字幕不见了？！");
-      } else if (response.status === 504) {
-        toast.error("网站访问量大，每日限额使用 5 次哦！");
-      } else {
-        toast.error(response.statusText);
-      }
-      setLoading(false);
-      return;
-    }
-
-    // await readStream(response, setSummary);
-    const result = await response.json();
-    if (result.errorMessage) {
-      setLoading(false);
-      toast.error(result.errorMessage);
-      return;
-    }
-    setSummary(result);
-    setLoading(false);
+    await summarize(bvId, apiKey);
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }, 10);
+  };
+  const onFormSubmit = async (e: any) => {
+    e.preventDefault();
+    await generateSummary();
   };
 
   return (
