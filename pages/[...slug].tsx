@@ -165,7 +165,7 @@ export const Home: NextPage = () => {
                 请使用自己的 API Key
               </span>{" "}
               <a href="/wechat.jpg" target="_blank" rel="noopener noreferrer">
-                （我的账号没钱了，也可以就真的「给我打钱」哦 🤣）
+                （我的账号可能很快没钱了，也可以就真的 <span className="text-pink-400 hover:underline">「给我打钱」</span>哦 🤣）
               </a>
             </p>
           </summary>
