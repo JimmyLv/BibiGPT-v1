@@ -65,7 +65,7 @@ export async function OpenAIResult(
   });
 
   if (res.status !== 200) {
-    throw new Error("OpenAI API " + res.statusText);
+    throw new Error("OpenAI API: " + res.statusText);
   }
 
   if (!payload.stream) {
