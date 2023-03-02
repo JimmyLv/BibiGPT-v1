@@ -28,6 +28,10 @@ function checkApiKey(str: string) {
   var pattern = /^sk-[A-Za-z0-9]{48}$/;
   return pattern.test(str);
 }
+const sample = (arr: any[] = []) => {
+  const len = arr === null ? 0 : arr.length;
+  return len ? arr[Math.floor(Math.random() * len)] : undefined;
+};
 
 function formatResult(result: any) {
   const answer = result.choices[0].message?.content || "";
@@ -44,8 +48,7 @@ export async function OpenAIResult(
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
   const myApiKeyList = process.env.OPENAI_API_KEY;
-  const luckyApiKey = myApiKeyList?.split(",").sort(() => Math.random() - 0.5)[0]
-
+  const luckyApiKey = sample(myApiKeyList?.split(","));
   const openai_api_key = apiKey || luckyApiKey || "";
 
   if (!checkApiKey(openai_api_key)) {
