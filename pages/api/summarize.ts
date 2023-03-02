@@ -1,3 +1,4 @@
+import { find } from "lodash";
 import { NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
@@ -35,13 +36,14 @@ export default async function handler(
     const res = await response.json();
     // @ts-ignore
     const title = res.data?.title;
-    const subtitleUrl = res.data?.subtitle?.list?.[0]?.subtitle_url;
-    apiKey && console.log("========use user key========");
-    console.log("bvid", bvId);
-    console.log("subtitle_url", subtitleUrl);
-    if (!subtitleUrl) {
+    const subtitleList = res.data?.subtitle?.list;
+    if (subtitleList && subtitleList.length < 1) {
       return new Response("No subtitle in the video", { status: 501 });
     }
+    const betterSubtitle = find(subtitleList, { lan: "zh-CN" }) || subtitleList?.[0]
+    const subtitleUrl = betterSubtitle?.subtitle_url;
+    console.log("bvid", bvId);
+    console.log("subtitle_url", subtitleUrl);
 
     const subtitleResponse = await fetch(subtitleUrl);
     const subtitles = await subtitleResponse.json();
@@ -57,6 +59,7 @@ export default async function handler(
     const text = getChunckedTranscripts(transcripts, transcripts);
     const prompt = getSummaryPrompt(title, text);
 
+    apiKey && console.log("========use user key========");
     const payload = {
       model: "gpt-3.5-turbo",
       messages: [{ role: "user" as const, content: prompt }],

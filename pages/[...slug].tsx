@@ -242,7 +242,7 @@ export const Home: NextPage = () => {
             <h3 className="m-8 mx-auto max-w-3xl border-t border-gray-600 pt-8 text-center text-2xl font-bold sm:text-4xl">
               <a
                 href={curVideo}
-                className="hover:text-pink-600"
+                className="hover:text-pink-600 hover:underline"
                 target="_blank"
                 rel="noreferrer"
               >
