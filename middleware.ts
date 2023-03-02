@@ -32,7 +32,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
   if (process.env.USER_LICENSE_KEYS?.includes(apiKey)) {
     const { remaining } = await ratelimit.limit(apiKey);
     if (remaining === 0) {
-      return NextResponse.redirect(new URL("/blocked", req.url));
+      return NextResponse.redirect(new URL("/shop", req.url));
     }
   }
 
@@ -41,7 +41,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
   const { success, remaining } = await ratelimit.limit(identifier);
   console.log(`======== ip ${identifier}, remaining: ${remaining} ========`);
   if (!apiKey && !success) {
-    return NextResponse.redirect(new URL("/blocked", req.url));
+    return NextResponse.redirect(new URL("/shop", req.url));
   }
 }
 
