@@ -20,7 +20,7 @@ export default function Sentence({
           href={`${encodeURI(`${baseUrl}/?t=${seconds}`)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sky-400 hover:text-sky-600"
+          className="z-10 text-sky-400 hover:text-sky-600"
         >
           {timestamp}
         </a>
