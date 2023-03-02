@@ -1,6 +1,7 @@
-import { NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import pRetry from "p-retry";
 import { isDev } from "../../utils/env";
 import { OpenAIResult } from "../../utils/OpenAIResult";
 import { getChunckedTranscripts, getSummaryPrompt } from "../../utils/prompt";
@@ -12,6 +13,21 @@ export const config = {
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI");
 }
+
+const run = async (bvId: string) => {
+  const requestUrl = `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`;
+  console.log(`fetch`, requestUrl);
+  const response = await fetch(requestUrl, {
+    method: "GET",
+  });
+  const json = await response.json();
+  const subtitleList = json.data?.subtitle?.list;
+  if (!subtitleList || subtitleList?.length < 1) {
+    throw new Error(response.statusText);
+  }
+
+  return json;
+};
 
 export default async function handler(
   req: NextRequest,
@@ -25,16 +41,19 @@ export default async function handler(
   if (!bvId) {
     return new Response("No bvid in the request", { status: 500 });
   }
-  const requestUrl = `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`;
-  console.log(`fetch`, requestUrl);
-  const response = await fetch(requestUrl, {
-    method: "GET",
+  const res = await pRetry(() => run(bvId), {
+    onFailedAttempt: (error) => {
+      console.log(
+        `Attempt ${error.attemptNumber} failed. There are ${error.retriesLeft} retries left.`
+      );
+    },
+    retries: 3,
   });
-  const res = await response.json();
   // @ts-ignore
   const title = res.data?.title;
   const subtitleList = res.data?.subtitle?.list;
-  if (!subtitleList || subtitleList?.length === 0) {
+  if (!subtitleList || subtitleList?.length < 1) {
+    console.error("No subtitle in the video: ", bvId);
     return new Response("No subtitle in the video", { status: 501 });
   }
   const betterSubtitle =
@@ -54,10 +73,10 @@ export default async function handler(
   });
   // console.log("========transcripts========", transcripts);
   const text = getChunckedTranscripts(transcripts, transcripts);
-  const prompt = getSummaryPrompt(title, text);
+  const prompt = getSummaryPrompt(title, text, true);
 
   try {
-    apiKey && console.log("========use user key========");
+    apiKey && console.log("========use user apiKey========");
     isDev && console.log("prompt", prompt);
     const payload = {
       model: "gpt-3.5-turbo",
