@@ -39,7 +39,7 @@ export default function Header() {
           <span className="relin-paragraph-target text-slate-500">(iOS版)</span>
         </a>
         <a
-          href="https://github.com/JimmyLv/chat-bilibili-video"
+          href="https://github.com/JimmyLv/BiliGPT"
           rel="noreferrer noopener"
           target="_blank"
           className=""
