@@ -191,7 +191,7 @@ export const Home: NextPage = () => {
             value={apiKey}
             onChange={(e) => setAPIKey(e.target.value)}
             className="mx-auto my-4 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder={"填你的 OpenAI API Key: sk-xxxxx"}
+            placeholder={"填你的 OpenAI API Key: sk-xxxxxx 或者购买的 License Key: xxx-CCDE-xxx"}
           />
           <p className="relin-paragraph-target mt-1 text-base text-slate-500">
             如何获取你自己的 OpenAI API{" "}
