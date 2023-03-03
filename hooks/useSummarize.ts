@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { RATE_LIMIT_COUNT } from "../utils/constants";
 
 export function useSummarize() {
   const [loading, setLoading] = useState(false);
@@ -30,9 +31,9 @@ export function useSummarize() {
       if (!response.ok) {
         console.log("error", response);
         if (response.status === 501) {
-          toast.error("啊叻？视频字幕不见了？！");
+          toast.error("啊叻？视频字幕不见了？！\n（这个视频太短了...\n或者还没有字幕哦！）");
         } else if (response.status === 504) {
-          toast.error("网站访问量大，每日限额使用 5 次哦！");
+          toast.error(`网站访问量大，每日限额使用 ${RATE_LIMIT_COUNT} 次哦！`);
         } else {
           toast.error(response.statusText);
         }

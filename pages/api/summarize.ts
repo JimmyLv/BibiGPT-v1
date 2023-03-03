@@ -23,7 +23,7 @@ const run = async (bvId: string) => {
   const json = await response.json();
   const subtitleList = json.data?.subtitle?.list;
   if (!subtitleList || subtitleList?.length < 1) {
-    throw new Error(response.statusText);
+    throw new Error('no subtitle');
   }
 
   return json;
@@ -41,14 +41,19 @@ export default async function handler(
   if (!bvId) {
     return new Response("No bvid in the request", { status: 500 });
   }
-  const res = await pRetry(() => run(bvId), {
-    onFailedAttempt: (error) => {
-      console.log(
-        `Attempt ${error.attemptNumber} failed. There are ${error.retriesLeft} retries left.`
-      );
-    },
-    retries: 3,
-  });
+  let res
+  try {
+    res = await pRetry(() => run(bvId), {
+      onFailedAttempt: (error) => {
+        console.log(
+          `Attempt ${error.attemptNumber} failed. There are ${error.retriesLeft} retries left.`
+        );
+      },
+      retries: 3,
+    });
+  } catch (e) {
+    return new Response("No subtitle in the video", { status: 501 });
+  }
   // @ts-ignore
   const title = res.data?.title;
   const subtitleList = res.data?.subtitle?.list;
@@ -99,7 +104,7 @@ export default async function handler(
 
     return NextResponse.json(result);
   } catch (error: any) {
-    console.log(error);
+    console.log('API error', error, error.message);
     return NextResponse.json({
       errorMessage: error.message,
     });
