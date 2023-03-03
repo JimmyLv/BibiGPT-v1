@@ -1,5 +1,3 @@
-import { ratelimit } from "./upstash";
-
 export async function activeLicenseKey(licenseKey: string, bvId?: string) {
   // https://docs.lemonsqueezy.com/help/licensing/license-api
   const response = await fetch(
