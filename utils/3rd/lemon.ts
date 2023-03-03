@@ -8,7 +8,10 @@ export async function checkLicenseKey(licenseKey: string) {
     },
   });
   const keysData = await response.json();
-  const licenseKeys = keysData.data?.map((i: any) => i.attributes.key);
+  const licenseKeys = keysData.data?.map((i: any) => {
+    console.log("========i.attributes========", i.attributes);
+    return i.attributes.key;
+  });
 
   if (licenseKeys?.includes(licenseKey.toLowerCase())) {
     // TODO: change to supabase after implement user-login
