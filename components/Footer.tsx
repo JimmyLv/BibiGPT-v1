@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="mt-5 mb-3 flex h-16 w-full flex-col items-center justify-between space-y-3 px-3 pt-4 text-center text-slate-400 sm:mb-0 sm:h-20 sm:flex-row sm:pt-2">
       <div>
-        Thanks to {" "}
+        Thanks to{" "}
         <a
           href="https://openai.com/"
           target="_blank"
@@ -24,6 +24,13 @@ export default function Footer() {
         </a>
       </div>
       <div className="flex space-x-4 pb-4 sm:pb-0">
+        <Link
+          href="https://github.com/JimmyLv/BiliGPT/wiki/%E9%9A%90%E7%A7%81%E5%A3%B0%E6%98%8E"
+          className="group"
+          aria-label="隐私声明"
+        >
+          Privacy Statement
+        </Link>
         <Link
           href="https://twitter.com/Jimmy_JingLv"
           className="group"
