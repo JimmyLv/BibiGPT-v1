@@ -1,7 +1,7 @@
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { activeLicenseKey } from "./utils/3rd/lemon";
+import { activateLicenseKey, validateLicenseKey } from "./utils/3rd/lemon";
 import { checkOpenaiApiKey } from "./utils/3rd/openai";
 import { ratelimit } from "./utils/3rd/upstash";
 import { isDev } from "./utils/env";
@@ -9,7 +9,7 @@ import { isDev } from "./utils/env";
 const redis = Redis.fromEnv();
 
 export async function middleware(req: NextRequest, context: NextFetchEvent) {
-  const { apiKey, bvId, ...rest } = await req.json();
+  const { apiKey, bvId } = await req.json();
   const result = await redis.get<string>(bvId);
   if (!isDev && result) {
     console.log("hit cache for ", bvId);
@@ -23,7 +23,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
     }
 
     // 3. something-invalid-sdalkjfasncs-key
-    if (!(await activeLicenseKey(apiKey, bvId))) {
+    if (!(await validateLicenseKey(apiKey, bvId))) {
       return NextResponse.redirect(new URL("/shop", req.url));
     }
   }
