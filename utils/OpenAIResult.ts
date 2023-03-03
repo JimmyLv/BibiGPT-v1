@@ -3,6 +3,7 @@ import {
   ParsedEvent,
   ReconnectInterval,
 } from "eventsource-parser";
+import { checkOpenaiApiKey } from "./3rd/openai";
 
 // TODO: maybe chat with video?
 export type ChatGPTAgent = "user" | "system" | "assistant";
@@ -24,10 +25,6 @@ export interface OpenAIStreamPayload {
   n: number;
 }
 
-function checkApiKey(str: string) {
-  var pattern = /^sk-[A-Za-z0-9]{48}$/;
-  return pattern.test(str);
-}
 const sample = (arr: any[] = []) => {
   const len = arr === null ? 0 : arr.length;
   return len ? arr[Math.floor(Math.random() * len)] : undefined;
@@ -49,11 +46,13 @@ export async function OpenAIResult(
   const decoder = new TextDecoder();
   const myApiKeyList = process.env.OPENAI_API_KEY;
   const luckyApiKey = sample(myApiKeyList?.split(","));
-  const openai_api_key = apiKey || luckyApiKey || "";
+  const openai_api_key = checkOpenaiApiKey(apiKey || "") ? apiKey : luckyApiKey || "";
 
-  if (!checkApiKey(openai_api_key)) {
+/* // don't need to validate anymore, already verified in middleware
+  if (!checkOpenaiApiKey(openai_api_key)) {
     throw new Error("OpenAI API Key Format Error");
   }
+*/
 
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
