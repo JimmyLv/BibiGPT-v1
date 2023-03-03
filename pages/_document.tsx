@@ -28,15 +28,10 @@ class MyDocument extends Document {
           <meta name="twitter:description" content={description} />
           <meta property="og:image" content={ogimage} />
           <meta name="twitter:image" content={ogimage} />
-          <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css"
-            rel="stylesheet"
-          />
         </Head>
         <body className="bg-white text-gray-700">
           <Main />
           <NextScript />
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
         </body>
       </Html>
     );

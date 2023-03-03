@@ -177,7 +177,7 @@ export const Home: NextPage = () => {
               「购买次数」
             </a>
             啦！
-            <a href="/shop" target="_blank" rel="noopener noreferrer">
+            <a href="/wechat.jpg" target="_blank" rel="noopener noreferrer">
               也可以真的
               <span className="text-pink-400 hover:underline">
                 「给我打赏」

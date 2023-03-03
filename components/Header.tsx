@@ -45,7 +45,7 @@ export default function Header() {
           target="_blank"
           className="flex items-center space-x-2"
         >
-          🔥 给我提反馈？
+          🔥 <span className="hidden sm:block">给我提</span>反馈？
         </a>
         <a
           href="https://b.jimmylv.cn/ios"
