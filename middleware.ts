@@ -28,7 +28,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
     }
   }
   // TODO: unique to a user (userid, email etc) instead of IP
-  const identifier = req.ip ?? "127.0.0.6";
+  const identifier = req.ip ?? "127.0.0.7";
   const { success, remaining } = await ratelimit.limit(identifier);
   console.log(`======== ip ${identifier}, remaining: ${remaining} ========`);
   if (!apiKey && !success) {

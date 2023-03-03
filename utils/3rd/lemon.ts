@@ -15,5 +15,5 @@ export async function activeLicenseKey(licenseKey: string, bvId?: string) {
     }
   );
   const result = await response.json();
-  return result.actived;
+  return result.activated;
 }
