@@ -15,8 +15,16 @@ export function extractTimestamp(matchResult: RegExpMatchArray) {
   }
 
   const content = matchResult[2];
-  const formattedContent = content?.startsWith(":")
-    ? content.substring(1)
-    : content;
+  let formattedContent = content;
+  try {
+    formattedContent = (content && /^[:：秒]/.test(content))
+      ? content.substring(1)
+      : content;
+    formattedContent = (formattedContent && !/^ /.test(formattedContent))
+      ? ' ' + formattedContent
+      : formattedContent;
+  }catch(e){
+    console.log('handle text after time error', e);
+  }
   return { timestamp, formattedContent };
 }
