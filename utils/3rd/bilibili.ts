@@ -22,7 +22,7 @@ export async function fetchSubtitle(bvId: string) {
         `Attempt ${error.attemptNumber} failed. There are ${error.retriesLeft} retries left.`
       );
     },
-    retries: 3,
+    retries: 2,
   });
   // @ts-ignore
   const title = res.data?.title;
