@@ -5,7 +5,7 @@ export default () => {
   return (
     <div>
       <h2 className="mt-10 max-w-5xl pb-10 text-center text-4xl font-bold sm:text-7xl">
-        伤不起了啊！每天都能用 {RATE_LIMIT_COUNT} 次，请点击
+        次数用完啦！每天都能用 {RATE_LIMIT_COUNT} 次，请点击
         <span className="relative whitespace-nowrap text-[#3290EE]">
           <SquigglyLines />
           <a

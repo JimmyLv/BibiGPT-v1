@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
@@ -19,10 +20,16 @@ if (typeof window !== "undefined") {
 export const Home: NextPage = () => {
   const router = useRouter();
   const urlState = router.query.slug;
+  const searchParams = useSearchParams();
+  const licenseKey = searchParams.get("license_key");
   const [curVideo, setCurVideo] = useState<string>("");
   const [currentBvId, setCurrentBvId] = useState<string>("");
-  const [apiKey, setAPIKey] = useLocalStorage<string>("user-openai-apikey");
+  const [userKey, setUserKey] = useLocalStorage<string>("user-openai-apikey");
   const { loading, summary, resetSummary, summarize } = useSummarize();
+
+  useEffect(() => {
+    licenseKey && setUserKey(licenseKey);
+  }, [licenseKey]);
 
   useEffect(() => {
     const isValidatedUrl =
@@ -70,7 +77,7 @@ export const Home: NextPage = () => {
       return toast.error("暂不支持此视频链接");
     }
 
-    await summarize(bvId, apiKey);
+    await summarize(bvId, userKey);
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }, 10);
@@ -188,22 +195,26 @@ export const Home: NextPage = () => {
         </summary>
         <div className="text-lg text-slate-700 dark:text-slate-400">
           <input
-            value={apiKey}
-            onChange={(e) => setAPIKey(e.target.value)}
+            value={userKey}
+            onChange={(e) => setUserKey(e.target.value)}
             className="mx-auto my-4 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder={"填你的 OpenAI API Key: sk-xxxxxx 或者购买的 License Key: xxx-CCDE-xxx"}
+            placeholder={
+              "填你的 OpenAI API Key: sk-xxxxxx 或者购买的 License Key: xxx-CCDE-xxx"
+            }
           />
-          <p className="relin-paragraph-target mt-1 text-base text-slate-500">
-            如何获取你自己的 OpenAI API{" "}
-            <a
-              href="https://platform.openai.com/account/api-keys"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 mb-6 font-semibold text-sky-500 dark:text-sky-400"
-            >
-              https://platform.openai.com/account/api-keys
-            </a>
-          </p>
+          <div className="relin-paragraph-target mt-1 text-base text-slate-500">
+            <div>
+              如何获取你自己的 License Key
+              <a
+                href={CHECKOUT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 mb-6 pl-2 font-semibold text-sky-500 dark:text-sky-400"
+              >
+                https://shop.jimmylv.cn
+              </a>
+            </div>
+          </div>
         </div>
       </details>
       <form onSubmit={onFormSubmit} className="grid place-items-center">
