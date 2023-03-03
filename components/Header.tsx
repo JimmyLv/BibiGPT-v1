@@ -29,6 +29,24 @@ export default function Header() {
         </a>
       </div>
       <div className="flex items-center space-x-5">
+        <div
+          id="tooltip-light"
+          role="tooltip"
+          className="tooltip invisible absolute z-10 inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 opacity-0 shadow-sm"
+        >
+          那可太感谢了！
+          <div className="tooltip-arrow" data-popper-arrow></div>
+        </div>
+        <a
+          data-tooltip-target="tooltip-feedback"
+          data-tooltip-style="light"
+          href="https://jimmylv.feishu.cn/share/base/form/shrcn9PwPzGGGiJCnH0JNfM1P3b"
+          rel="noreferrer noopener"
+          target="_blank"
+          className="flex items-center space-x-2"
+        >
+          🔥 给我提反馈？
+        </a>
         <a
           href="https://b.jimmylv.cn/ios"
           rel="noreferrer noopener"
