@@ -1,13 +1,16 @@
+import { sample } from "lodash";
+
 const run = async (bvId: string) => {
   const requestUrl = `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`;
   console.log(`fetch`, requestUrl);
+  const sessdata = sample(process.env.BILIBILI_SESSION_TOKEN?.split(","));
   const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
     "User-Agent":
       "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
     Host: "api.bilibili.com",
-    Cookie: `SESSDATA=${process.env.BILIBILI_SESSION_TOKEN}`,
+    Cookie: `SESSDATA=${sessdata}`,
   };
   const response = await fetch(requestUrl, {
     method: "GET",
