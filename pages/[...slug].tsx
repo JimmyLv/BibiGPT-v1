@@ -90,7 +90,7 @@ export const Home: NextPage = () => {
   const summaryArray = summary.split("- ");
   const formattedSummary = summaryArray
     .map((s) => {
-      const matchResult = s.match(/\s*(\d+\.\d+)(.*)/);
+      const matchResult = s.match(/\s*(\d+[\.:]\d+)(.*)/);
       if (matchResult) {
         const { formattedContent, timestamp } = extractTimestamp(matchResult);
         return timestamp + formattedContent;
