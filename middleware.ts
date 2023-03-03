@@ -1,7 +1,7 @@
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { activateLicenseKey, validateLicenseKey } from "./utils/3rd/lemon";
+import { validateLicenseKey } from "./utils/3rd/lemon";
 import { checkOpenaiApiKey } from "./utils/3rd/openai";
 import { ratelimit } from "./utils/3rd/upstash";
 import { isDev } from "./utils/env";

@@ -1,32 +1,38 @@
-import pRetry from "p-retry";
-
 const run = async (bvId: string) => {
   const requestUrl = `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`;
   console.log(`fetch`, requestUrl);
+  const headers = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    "User-Agent":
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+    Host: "api.bilibili.com",
+    Cookie: `SESSDATA=${process.env.BILIBILI_SESSION_TOKEN}`,
+  };
   const response = await fetch(requestUrl, {
     method: "GET",
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    headers,
+    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
   });
   const json = await response.json();
-  const subtitleList = json.data?.subtitle?.list;
-  if (!subtitleList || subtitleList?.length < 1) {
-    throw new Error("no subtitle");
-  }
-
-  return json;
+  // return json.data.View;
+  return json.data;
 };
 
 export async function fetchSubtitle(bvId: string) {
-  const res = await pRetry(() => run(bvId), {
-    onFailedAttempt: (error) => {
-      console.log(
-        `Attempt ${error.attemptNumber} failed. There are ${error.retriesLeft} retries left.`
-      );
-    },
-    retries: 2,
-  });
+  // const res = await pRetry(async () => await run(bvId), {
+  //   onFailedAttempt: (error) => {
+  //     console.log(
+  //       `Attempt ${error.attemptNumber} failed. There are ${error.retriesLeft} retries left.`
+  //     );
+  //   },
+  //   retries: 2,
+  // });
   // @ts-ignore
-  const title = res.data?.title;
-  const subtitleList = res.data?.subtitle?.list;
+  const res = await run(bvId);
+  const title = res?.title;
+  const subtitleList = res?.subtitle?.list;
   if (!subtitleList || subtitleList?.length < 1) {
     return { title, subtitles: null };
   }
