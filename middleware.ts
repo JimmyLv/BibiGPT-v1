@@ -1,7 +1,7 @@
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { checkLicenseKey } from "./utils/3rd/lemon";
+import { activeLicenseKey } from "./utils/3rd/lemon";
 import { checkOpenaiApiKey } from "./utils/3rd/openai";
 import { ratelimit } from "./utils/3rd/upstash";
 import { isDev } from "./utils/env";
@@ -23,12 +23,12 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
     }
 
     // 3. something-invalid-sdalkjfasncs-key
-    if (!(await checkLicenseKey(apiKey))) {
+    if (!(await activeLicenseKey(apiKey, bvId))) {
       return NextResponse.redirect(new URL("/shop", req.url));
     }
   }
   // TODO: unique to a user (userid, email etc) instead of IP
-  const identifier = req.ip ?? "127.0.0.5";
+  const identifier = req.ip ?? "127.0.0.6";
   const { success, remaining } = await ratelimit.limit(identifier);
   console.log(`======== ip ${identifier}, remaining: ${remaining} ========`);
   if (!apiKey && !success) {
