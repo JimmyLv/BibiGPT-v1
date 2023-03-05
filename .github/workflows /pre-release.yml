@@ -4,9 +4,7 @@ name: "pre-release"
 on:
   push:
     branches:
-      - "main"
-    tags-ignore:
-      - "*"
+      - main
 
 jobs:
   gh_pre_release:
