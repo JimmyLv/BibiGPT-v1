@@ -1,10 +1,10 @@
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { fetchSubtitle } from "../../utils/3rd/bilibili";
+import { fetchSubtitle } from "../../lib/bilibili";
 import { isDev } from "../../utils/env";
-import { OpenAIResult } from "../../utils/OpenAIResult";
-import { getChunckedTranscripts, getSummaryPrompt } from "../../utils/prompt";
+import { OpenAIResult } from "../../lib/openai/OpenAIResult";
+import { getChunckedTranscripts, getSummaryPrompt } from "../../lib/openai/prompt";
 
 export const config = {
   runtime: "edge",

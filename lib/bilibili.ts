@@ -1,4 +1,4 @@
-import { sample } from "../fp";
+import { sample } from "../utils/fp";
 
 const run = async (bvId: string) => {
   const requestUrl = `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`;

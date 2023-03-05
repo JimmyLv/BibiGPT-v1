@@ -1,9 +1,9 @@
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { validateLicenseKey } from "./utils/3rd/lemon";
-import { checkOpenaiApiKeys } from "./utils/3rd/openai";
-import { ratelimit } from "./utils/3rd/upstash";
+import { validateLicenseKey } from "./lib/lemon";
+import { checkOpenaiApiKeys } from "./lib/openai/openai";
+import { ratelimit } from "./lib/upstash";
 import { isDev } from "./utils/env";
 
 const redis = Redis.fromEnv();
