@@ -3,7 +3,7 @@ import {
   ParsedEvent,
   ReconnectInterval,
 } from "eventsource-parser";
-import { checkOpenaiApiKey } from "./3rd/openai";
+import { checkOpenaiApiKey, checkOpenaiApiKeys } from "./3rd/openai";
 import { sample } from "./fp";
 
 // TODO: maybe chat with video?
@@ -34,21 +34,25 @@ function formatResult(result: any) {
   return answer;
 }
 
+function selectApiKey(apiKey: string | undefined) {
+  if (apiKey && checkOpenaiApiKeys(apiKey)) {
+    const userApiKeys = apiKey.split(",");
+    return sample(userApiKeys);
+  }
+
+  // don't need to validate anymore, already verified in middleware?
+  const myApiKeyList = process.env.OPENAI_API_KEY;
+  const luckyApiKey = sample(myApiKeyList?.split(","));
+  return luckyApiKey || "";
+}
+
 export async function OpenAIResult(
   payload: OpenAIStreamPayload,
   apiKey?: string
 ) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
-  const myApiKeyList = process.env.OPENAI_API_KEY;
-  const luckyApiKey = sample(myApiKeyList?.split(","));
-  const openai_api_key = checkOpenaiApiKey(apiKey || "") ? apiKey : luckyApiKey || "";
-
-/* // don't need to validate anymore, already verified in middleware
-  if (!checkOpenaiApiKey(openai_api_key)) {
-    throw new Error("OpenAI API Key Format Error");
-  }
-*/
+  const openai_api_key = selectApiKey(apiKey);
 
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
