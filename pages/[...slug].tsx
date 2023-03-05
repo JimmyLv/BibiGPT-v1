@@ -121,7 +121,7 @@ export const Home: NextPage = () => {
   };
 
   return (
-    <div className="mt-10 sm:mt-40">
+    <div className="mt-10 w-full sm:mt-40">
       <a
         target="_blank"
         rel="noreferrer"
@@ -138,7 +138,7 @@ export const Home: NextPage = () => {
         <span className="text-sky-400 underline">jimmylv.cn</span>
         /video/BV1k84y1e7fW
       </a>
-      <h1 className="max-w-5xl text-center text-4xl font-bold sm:text-7xl">
+      <h1 className="h-[5rem] w-full text-center text-4xl font-bold sm:w-[64rem] sm:text-7xl">
         一键总结{" "}
         <span className="relative whitespace-nowrap	text-pink-400">
           <SquigglyLines />
@@ -163,7 +163,9 @@ export const Home: NextPage = () => {
           />
         </span>{" "}
         音视频内容 <br />
-        <div className="mt-4">Powered by GPT-3.5 AI</div>
+      </h1>
+      <h1 className="mt-4 w-full text-center text-4xl font-bold sm:w-[64rem] sm:text-7xl">
+        Powered by GPT-3.5 AI
       </h1>
       <p className="mt-10 text-center text-lg text-gray-500 sm:text-2xl">
         在下面的输入框，直接复制粘贴
