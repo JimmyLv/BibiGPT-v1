@@ -28,32 +28,9 @@ export default function Footer() {
       </div>
       <div className="flex items-center space-x-1">
         <Link
-          href="https://github.com/JimmyLv/BiliGPT/wiki/%E9%9A%90%E7%A7%81%E5%A3%B0%E6%98%8E"
+          href="https://github.com/haolin29/CantonGPT"
           className="group"
-          aria-label="隐私声明"
-        >
-          Privacy Statement
-        </Link>
-        <Link
-          href="https://twitter.com/Jimmy_JingLv"
-          className="group"
-          aria-label="JimmyLv on Twitter"
-        >
-          <div
-            className={buttonVariants({
-              size: "sm",
-              variant: "ghost",
-              className: "text-slate-700 dark:text-slate-400",
-            })}
-          >
-            <Icons.twitter className="h-5 w-5 fill-current" />
-            <span className="sr-only">Twitter</span>
-          </div>
-        </Link>
-        <Link
-          href="https://github.com/JimmyLv"
-          className="group"
-          aria-label="JimmyLv on GitHub"
+          aria-label="Haolin on GitHub"
         >
           <div
             className={buttonVariants({
