@@ -12,7 +12,7 @@ export default function Header() {
     <div className="flex items-center justify-between px-3 sm:px-3">
       <div className="flex items-center space-x-3">
         <a
-          href="https://space.bilibili.com/37648256"
+          href="#"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -26,11 +26,11 @@ export default function Header() {
         </a>
         <a href={BASE_DOMAIN}>
           <h2 className={clsx("text-lg sm:text-3xl", poppins.className)}>
-            <span className="text-pink-400">哔哩哔哩</span> BibiGPT
+            <span className="text-pink-400">CantonGPT </span> 
           </h2>
         </a>
       </div>
-      <div className="flex items-center space-x-2 sm:space-x-5">
+      {/* <div className="flex items-center space-x-2 sm:space-x-5">
         <div
           id="tooltip-light"
           role="tooltip"
@@ -76,7 +76,7 @@ export default function Header() {
           <Github width="33" height="33" />
         </a>
         <SignIn />
-      </div>
+      </div> */}
     </div>
   );
 }

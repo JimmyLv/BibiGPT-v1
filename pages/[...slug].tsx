@@ -138,18 +138,19 @@ export const Home: NextPage = () => {
         <span className="text-sky-400 underline">jimmylv.cn</span>
         /video/BV1k84y1e7fW
       </a>
-      <h1 className="max-w-5xl text-center text-4xl font-bold sm:text-7xl">
+  
+      <div className="max-w-5xl text-center text-4xl font-bold sm:text-7xl">
         一键总结{" "}
         <span className="relative whitespace-nowrap	text-pink-400">
           <SquigglyLines />
           <TypeAnimation
             sequence={[
               "哔哩哔哩",
-              2000,
+              3000,
               "YouTube",
-              2000,
+              3000,
               "播客",
-              2000,
+              3000,
               "会议",
               3000,
               () => {
@@ -164,7 +165,7 @@ export const Home: NextPage = () => {
         </span>{" "}
         音视频内容 <br />
         <div className="mt-4">Powered by GPT-3.5 AI</div>
-      </h1>
+      </div>
       <p className="mt-10 text-center text-lg text-gray-500 sm:text-2xl">
         在下面的输入框，直接复制粘贴
         <a
