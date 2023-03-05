@@ -115,7 +115,7 @@ export const Home: NextPage = () => {
     }
     // todo: update the timestamp
     navigator.clipboard.writeText(
-      formattedSummary + "\n\n via #BiliGPT b.jimmylv.cn @吕立青_JimmyLv"
+      formattedSummary + "\n\n via #BibiGPT b.jimmylv.cn @吕立青_JimmyLv"
     );
     toast({ description: "复制成功 ✂️" });
   };
@@ -162,7 +162,7 @@ export const Home: NextPage = () => {
             className="relative text-pink-400	"
           />
         </span>{" "}
-        视频内容 <br />
+        音视频内容 <br />
         <div className="mt-4">Powered by GPT-3.5 AI</div>
       </h1>
       <p className="mt-10 text-center text-lg text-gray-500 sm:text-2xl">
