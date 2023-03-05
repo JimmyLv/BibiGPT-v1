@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import Modal from "~/components/shared/modal";
 import Image from "next/image";
-import { BASE_DOMAIN } from "~/utils/constants";
+import { BASE_DOMAIN, LOGIN_LIMIT_COUNT } from "~/utils/constants";
 
 const SignInModal = ({
   showSignInModal,
@@ -33,13 +33,16 @@ const SignInModal = ({
               height={20}
             />
           </a>
-          <h3 className="font-display text-2xl font-bold">登录</h3>
+          <h3 className="font-display text-2xl font-bold">登录 BibiGPT</h3>
+          <h4>（每天都赠送 {LOGIN_LIMIT_COUNT} 次哦）</h4>
           <p className="text-sm text-pink-400">Prompt, Publish, Profit</p>
         </div>
 
         <div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
           <Auth
             supabaseClient={supabaseClient}
+            onlyThirdPartyProviders
+            // magicLink
             providers={[
               "notion",
               "github",
