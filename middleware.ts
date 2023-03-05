@@ -2,7 +2,7 @@ import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { validateLicenseKey } from "./utils/3rd/lemon";
-import { checkOpenaiApiKey } from "./utils/3rd/openai";
+import { checkOpenaiApiKeys } from "./utils/3rd/openai";
 import { ratelimit } from "./utils/3rd/upstash";
 import { isDev } from "./utils/env";
 
@@ -18,7 +18,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
 
   // licenseKeys
   if (apiKey) {
-    if (checkOpenaiApiKey(apiKey)) {
+    if (checkOpenaiApiKeys(apiKey)) {
       return NextResponse.next();
     }
 
