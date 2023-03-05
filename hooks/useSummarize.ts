@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { toast } from "react-hot-toast";
-import { RATE_LIMIT_COUNT } from "../utils/constants";
+import { useToast } from "~/hooks/use-toast";
+import { RATE_LIMIT_COUNT } from "~/utils/constants";
 
 export function useSummarize() {
   const [loading, setLoading] = useState(false);
   const [summary, setSummary] = useState<string>("");
+  const { toast } = useToast();
 
   const resetSummary = () => {
     setSummary("");
@@ -31,11 +32,18 @@ export function useSummarize() {
       if (!response.ok) {
         console.log("error", response);
         if (response.status === 501) {
-          toast.error("啊叻？视频字幕不见了？！\n（这个视频太短了...\n或者还没有字幕哦！）");
+          toast({
+            title: "啊叻？视频字幕不见了？！",
+            description: `\n（这个视频太短了...\n或者还没有字幕哦！）`,
+          });
         } else if (response.status === 504) {
-          toast.error(`网站访问量大，每日限额使用 ${RATE_LIMIT_COUNT} 次哦！`);
+          toast({
+            variant: "destructive",
+            title: `网站访问量过大`,
+            description: `每日限额使用 ${RATE_LIMIT_COUNT} 次哦！`,
+          });
         } else {
-          toast.error(response.statusText);
+          toast({ variant: "destructive", title: response.statusText });
         }
         setLoading(false);
         return;
@@ -45,20 +53,23 @@ export function useSummarize() {
       const result = await response.json();
       if (result.errorMessage) {
         setLoading(false);
-        toast.error(result.errorMessage);
+        toast({
+          variant: "destructive",
+          title: "API 请求出错，请重试。",
+          description: result.errorMessage,
+        });
         return;
       }
       setSummary(result);
       setLoading(false);
-    } catch (e: unknown) {
+    } catch (e: any) {
       console.error("[fetch ERROR]", e);
-      if (e instanceof Error && e?.name === "AbortError") {
-        setLoading(false);
-        toast.error("timeoutError");
-      } else {
-        setLoading(false);
-        toast.error("internalServerError");
-      }
+      toast({
+        variant: "destructive",
+        title: "未知错误：",
+        description: e.message || e.errorMessage,
+      });
+      setLoading(false);
     }
   };
   return { loading, summary, resetSummary, summarize };
