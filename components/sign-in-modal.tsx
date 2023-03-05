@@ -41,6 +41,16 @@ const SignInModal = ({
         <div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
           <Auth
             supabaseClient={supabaseClient}
+            localization={{
+              variables: {
+                sign_up: {
+                  social_provider_text: "使用 {{provider}} 注册",
+                },
+                sign_in: {
+                  social_provider_text: "使用 {{provider}} 登录",
+                },
+              },
+            }}
             onlyThirdPartyProviders
             // magicLink
             providers={[
