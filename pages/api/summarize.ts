@@ -1,10 +1,15 @@
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { activateLicenseKey } from "~/lib/lemon";
+import { selectApiKey } from "~/lib/openai/selectApiKey";
 import { fetchSubtitle } from "../../lib/bilibili";
 import { isDev } from "../../utils/env";
 import { OpenAIResult } from "../../lib/openai/OpenAIResult";
-import { getChunckedTranscripts, getSummaryPrompt } from "../../lib/openai/prompt";
+import {
+  getChunckedTranscripts,
+  getSummaryPrompt,
+} from "../../lib/openai/prompt";
 
 export const config = {
   runtime: "edge",
@@ -57,7 +62,8 @@ export default async function handler(
       n: 1,
     };
 
-    const result = await OpenAIResult(payload, apiKey);
+    const openaiApiKey = await selectApiKey(apiKey);
+    const result = await OpenAIResult(payload, openaiApiKey);
     // TODO: add better logging when dev or prod
     console.log("result", result);
     const redis = Redis.fromEnv();
