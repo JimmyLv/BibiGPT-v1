@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { toast, Toaster } from "react-hot-toast";
 import { useLocalStorage } from "react-use";
+import { useToast } from "~/hooks/use-toast";
 import Sentence from "../components/Sentence";
 import SquigglyLines from "../components/SquigglyLines";
 import { useSummarize } from "../hooks/useSummarize";
@@ -26,6 +26,7 @@ export const Home: NextPage = () => {
   const [currentBvId, setCurrentBvId] = useState<string>("");
   const [userKey, setUserKey] = useLocalStorage<string>("user-openai-apikey");
   const { loading, summary, resetSummary, summarize } = useSummarize();
+  const { toast } = useToast();
 
   useEffect(() => {
     licenseKey && setUserKey(licenseKey);
@@ -50,13 +51,21 @@ export const Home: NextPage = () => {
   const validateUrl = (url?: string) => {
     if (url) {
       if (!url.includes("bilibili.com")) {
-        toast.error("请输入哔哩哔哩视频长链接，暂不支持b23.tv或av号");
+        toast({
+          // variant: "destructive",
+          title: "暂不支持此视频链接",
+          description: "请输入哔哩哔哩视频长链接，暂不支持b23.tv或av号",
+        });
         return;
       }
       setCurVideo(url);
     } else {
       if (!curVideo.includes("bilibili.com")) {
-        toast.error("请输入哔哩哔哩视频长链接，暂不支持b23.tv或av号");
+        toast({
+          // variant: "destructive",
+          title: "暂不支持此视频链接",
+          description: "请输入哔哩哔哩视频长链接，暂不支持b23.tv或av号",
+        });
         return;
       }
       const curUrl = String(curVideo.split(".com")[1]);
@@ -69,13 +78,11 @@ export const Home: NextPage = () => {
 
     const videoUrl = url ? url : curVideo;
     const matchResult = videoUrl.match(/\/video\/([^\/\?]+)/);
-    let bvId: string | undefined;
-    if (matchResult) {
-      bvId = matchResult[1];
-      setCurrentBvId(matchResult[1]);
-    } else {
-      return toast.error("暂不支持此视频链接");
+    if (!matchResult) {
+      return;
     }
+    const bvId = matchResult[1];
+    setCurrentBvId(matchResult[1]);
 
     await summarize(bvId, userKey);
     setTimeout(() => {
@@ -95,25 +102,21 @@ export const Home: NextPage = () => {
         const { formattedContent, timestamp } = extractTimestamp(matchResult);
         return timestamp + formattedContent;
       } else {
-        return s.replace(/\n\n/g, '\n');
+        return s.replace(/\n\n/g, "\n");
       }
     })
     .join("\n- ");
 
   const handleCopy = () => {
     if (!isSecureContext) {
-      toast("复制错误", {
-        icon: "❌",
-      });
+      toast({ description: "复制错误 ❌" });
       return;
     }
     // todo: update the timestamp
     navigator.clipboard.writeText(
       formattedSummary + "\n\n via #BiliGPT b.jimmylv.cn @吕立青_JimmyLv"
     );
-    toast("复制成功", {
-      icon: "✂️",
-    });
+    toast({ description: "复制成功 ✂️" });
   };
 
   return (
@@ -250,11 +253,6 @@ export const Home: NextPage = () => {
           </button>
         )}
       </form>
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-        toastOptions={{ duration: 4000 }}
-      />
       {summary && (
         <div className="mb-8 px-4">
           <h3 className="m-8 mx-auto max-w-3xl border-t-2 border-dashed pt-8 text-center text-2xl font-bold sm:text-4xl">

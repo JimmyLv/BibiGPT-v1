@@ -1,17 +1,27 @@
-import { Analytics } from "@vercel/analytics/react";
-import type { AppProps } from "next/app";
+import { Inter as FontSans } from "@next/font/google";
 import {
   createBrowserSupabaseClient,
   Session,
 } from "@supabase/auth-helpers-nextjs";
+
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
-import "../styles/globals.css";
-import Head from "next/head";
+import { Analytics } from "@vercel/analytics/react";
+import type { AppProps } from "next/app";
 import React, { useState } from "react";
 import CommandMenu from "~/components/CommandMenu";
+import { TailwindIndicator } from "~/components/tailwind-indicator";
+import { Toaster } from "~/components/ui/toaster";
+import { cn } from "~/lib/utils";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import "../styles/globals.css";
+import { ThemeProvider } from "next-themes";
 
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 function MyApp({
   Component,
   pageProps,
@@ -25,18 +35,24 @@ function MyApp({
       supabaseClient={supabaseClient}
       initialSession={pageProps.initialSession}
     >
-      <div className="mx-auto flex min-h-screen max-w-5xl flex-col pt-8 sm:pt-10">
-        <Head>
-          <title>哔哩哔哩 · 视频内容一键总结</title>
-        </Head>
-        <Header />
-        <main className="mx-auto flex max-w-5xl flex-1 flex-col justify-center px-2">
-          <Component {...pageProps} />
-          <Analytics />
-          <CommandMenu />
-        </main>
-        <Footer />
-      </div>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-2 pt-8 sm:pt-10">
+          <Header />
+          <main
+            className={cn(
+              "mx-auto flex max-w-5xl flex-1 flex-col justify-center bg-white font-sans text-slate-900 antialiased dark:bg-slate-900 dark:text-slate-50",
+              fontSans.variable
+            )}
+          >
+            <Component {...pageProps} />
+            <Analytics />
+            <CommandMenu />
+          </main>
+          <Footer />
+        </div>
+        <TailwindIndicator />
+        <Toaster />
+      </ThemeProvider>
     </SessionContextProvider>
   );
 }
