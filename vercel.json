@@ -9,6 +9,21 @@
       "source": "/f",
       "destination": "https://jimmylv.feishu.cn/share/base/form/shrcn9PwPzGGGiJCnH0JNfM1P3b",
       "permanent": true
+    },
+    {
+      "source": "/f-g",
+      "destination": "https://github.com/JimmyLv/BiliGPT/issues",
+      "permanent": true
+    },
+    {
+      "source": "/f-v",
+      "destination": "https://vercel.com/jimmylv/chat-bilibili-video/analytics/audience",
+      "permanent": true
+    },
+    {
+      "source": "/f-r",
+      "destination": "https://console.upstash.com/redis/c73974bc-9629-486f-b66e-1031566617fb?tab=usage",
+      "permanent": true
     }
   ]
 }
