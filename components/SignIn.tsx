@@ -28,7 +28,7 @@ export default function SignIn() {
             onClick={() => setShowSignInModal(true)}
             {...FADE_IN_ANIMATION_SETTINGS}
           >
-            Sign In
+            登录
           </motion.button>
         )}
       </AnimatePresence>
