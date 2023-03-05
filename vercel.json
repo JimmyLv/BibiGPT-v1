@@ -24,6 +24,21 @@
       "source": "/f-r",
       "destination": "https://console.upstash.com/redis/c73974bc-9629-486f-b66e-1031566617fb?tab=usage",
       "permanent": true
+    },
+    {
+      "source": "/privacy",
+      "destination": "https://github.com/JimmyLv/BiliGPT/wiki/Privacy-Statement",
+      "permanent": true
+    },
+    {
+      "source": "/terms-of-use",
+      "destination": "https://github.com/JimmyLv/BiliGPT",
+      "permanent": true
+    },
+    {
+      "source": "/status",
+      "destination": "https://github.com/JimmyLv/BiliGPT",
+      "permanent": true
     }
   ]
 }
