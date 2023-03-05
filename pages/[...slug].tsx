@@ -7,9 +7,10 @@ import { useLocalStorage } from "react-use";
 import { useToast } from "~/hooks/use-toast";
 import Sentence from "../components/Sentence";
 import SquigglyLines from "../components/SquigglyLines";
-import { useSummarize } from "../hooks/useSummarize";
-import { CHECKOUT_URL } from "../utils/constants";
-import { extractTimestamp } from "../utils/extractTimestamp";
+import { useSummarize } from "~/hooks/useSummarize";
+import { CHECKOUT_URL } from "~/utils/constants";
+import { extractTimestamp } from "~/utils/extractTimestamp";
+import { TypeAnimation } from "react-type-animation";
 
 let isSecureContext = false;
 
@@ -139,9 +140,27 @@ export const Home: NextPage = () => {
       </a>
       <h1 className="max-w-5xl text-center text-4xl font-bold sm:text-7xl">
         一键总结{" "}
-        <span className="relative whitespace-nowrap text-[#3290EE]">
+        <span className="relative whitespace-nowrap	text-pink-400">
           <SquigglyLines />
-          <span className="relative text-pink-400	">哔哩哔哩</span>
+          <TypeAnimation
+            sequence={[
+              "哔哩哔哩",
+              2000,
+              "YouTube",
+              2000,
+              "播客",
+              2000,
+              "会议",
+              3000,
+              () => {
+                console.log("Done typing!"); // Place optional callbacks anywhere in the array
+              },
+            ]}
+            wrapper="span"
+            cursor={true}
+            repeat={Infinity}
+            className="relative text-pink-400	"
+          />
         </span>{" "}
         视频内容 <br />
         <div className="mt-4">Powered by GPT-3.5 AI</div>

@@ -5,7 +5,6 @@ import React from "react";
 import SignIn from "~/components/SignIn";
 import { BASE_DOMAIN } from "~/utils/constants";
 import Github from "../components/GitHub";
-
 const poppins = Poppins({ weight: "800", subsets: ["latin"] });
 
 export default function Header() {
