@@ -12,7 +12,7 @@ jobs:
   gh_pre_release:
     runs-on: "ubuntu-latest"
     env:
-      JEST_VERBOSE: ${{ secrets.JEST_VERBOSE }}
+    #      JEST_VERBOSE: ${{ secrets.JEST_VERBOSE }}
 
     steps:
       - name: "Checkout source code"
