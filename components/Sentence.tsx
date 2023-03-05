@@ -9,7 +9,7 @@ export default function Sentence({
 }) {
   const baseUrl = `https://www.bilibili.com/video/${bvId}`;
 
-  const matchResult = sentence.match(/\s*(\d+\.\d+)(.*)/);
+  const matchResult = sentence.match(/\s*(\d+[\.:]\d+)(.*)/);
   if (matchResult) {
     const seconds = matchResult[1];
     const { formattedContent, timestamp } = extractTimestamp(matchResult);
