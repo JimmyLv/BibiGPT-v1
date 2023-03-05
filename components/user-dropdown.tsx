@@ -10,7 +10,6 @@ export default function UserDropdown() {
   // const { data: session } = useSession();
   const user = useUser();
   const supabaseClient = useSupabaseClient();
-  console.log("============", { user });
   const { email, user_metadata } = user || {};
   const image = user_metadata?.avatar_url;
   const [openPopover, setOpenPopover] = useState(false);
@@ -19,7 +18,7 @@ export default function UserDropdown() {
 
   async function signOut(param: { redirect: boolean }) {
     const { error } = await supabaseClient.auth.signOut();
-    console.log("============", { error });
+    error && console.error("=======sign out error=====", { error });
   }
 
   return (

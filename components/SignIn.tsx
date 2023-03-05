@@ -6,7 +6,6 @@ import { FADE_IN_ANIMATION_SETTINGS } from "~/utils/constants";
 
 export default function SignIn() {
   const user = useUser();
-  console.log("========user========", user);
   const { SignInModal, setShowSignInModal } = useSignInModal();
   /*useEffect(() => {
     async function loadData() {
