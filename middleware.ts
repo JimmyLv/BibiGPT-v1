@@ -10,11 +10,6 @@ const redis = Redis.fromEnv();
 
 export async function middleware(req: NextRequest, context: NextFetchEvent) {
   const { apiKey, bvId } = await req.json();
-  const result = await redis.get<string>(bvId);
-  if (!isDev && result) {
-    console.log("hit cache for ", bvId);
-    return NextResponse.json(result);
-  }
 
   // licenseKeys
   if (apiKey) {
@@ -33,6 +28,12 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
   console.log(`======== ip ${identifier}, remaining: ${remaining} ========`);
   if (!apiKey && !success) {
     return NextResponse.redirect(new URL("/shop", req.url));
+  }
+
+  const result = await redis.get<string>(bvId);
+  if (!isDev && result) {
+    console.log("hit cache for ", bvId);
+    return NextResponse.json(result);
   }
 }
 
