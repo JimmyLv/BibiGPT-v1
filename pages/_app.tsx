@@ -7,7 +7,8 @@ import {
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import "../styles/globals.css";
 import Head from "next/head";
-import { useState } from "react";
+import React, { useState } from "react";
+import CommandMenu from "~/components/CommandMenu";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
@@ -32,6 +33,7 @@ function MyApp({
         <main className="mx-auto flex max-w-5xl flex-1 flex-col justify-center px-2">
           <Component {...pageProps} />
           <Analytics />
+          <CommandMenu />
         </main>
         <Footer />
       </div>
