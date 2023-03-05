@@ -1,5 +1,6 @@
 import { Crisp } from "crisp-sdk-web";
 import Document, { Head, Html, Main, NextScript } from "next/document";
+import { BASE_DOMAIN } from "~/utils/constants";
 
 if (typeof window !== "undefined") {
   Crisp.configure("ed6ccc61-9363-4712-abc9-f61cb6726ec6");
@@ -8,7 +9,7 @@ if (typeof window !== "undefined") {
 class MyDocument extends Document {
   render() {
     let description = "B 站视频内容一键总结（支持 iOS 快捷指令）";
-    let ogimage = "https://b.jimmylv.cn/og-image.png";
+    let ogimage = `${BASE_DOMAIN}/og-image.png`;
     let sitename = "b.jimmylv.cn";
     let title = "哔哩哔哩 · 视频内容一键总结";
 

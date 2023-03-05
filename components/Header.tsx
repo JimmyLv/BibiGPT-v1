@@ -1,6 +1,9 @@
 import { Poppins } from "@next/font/google";
 import clsx from "clsx";
 import Image from "next/image";
+import React from "react";
+import SignIn from "~/components/SignIn";
+import { BASE_DOMAIN } from "~/utils/constants";
 import Github from "../components/GitHub";
 
 const poppins = Poppins({ weight: "800", subsets: ["latin"] });
@@ -22,7 +25,7 @@ export default function Header() {
             height={50}
           />
         </a>
-        <a href="https://b.jimmylv.cn">
+        <a href={BASE_DOMAIN}>
           <h2 className={clsx("text-lg sm:text-3xl", poppins.className)}>
             <span className="text-pink-400">哔哩哔哩</span> BiliGPT
           </h2>
@@ -48,13 +51,13 @@ export default function Header() {
           🔥 <span className="hidden sm:block">给我提</span>反馈？
         </a>
         <a
-          href="https://b.jimmylv.cn/ios"
+          href={BASE_DOMAIN + "/ios"}
           rel="noreferrer noopener"
           target="_blank"
           className="flex items-center space-x-2"
         >
           <Image src="/shortcuts.png" alt="logo" width={33} height={33} />
-          <span className="relin-paragraph-target text-slate-500">(iOS版)</span>
+          <span className="relin-paragraph-target text-slate-500 hidden sm:block">(iOS版)</span>
         </a>
         <a
           href="https://github.com/JimmyLv/BiliGPT"
@@ -64,6 +67,7 @@ export default function Header() {
         >
           <Github width="33" height="33" />
         </a>
+        <SignIn />
       </div>
     </div>
   );
