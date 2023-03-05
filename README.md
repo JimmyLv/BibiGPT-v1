@@ -1,4 +1,4 @@
-# 🤖 BiliGPT 哔哩哔哩 · 视频内容一键总结 [b.jimmylv.cn](https://b.jimmylv.cn/)
+# 🤖 BiliGPT 哔哩哔哩 · 视频内容一键总结
 
 备用地址：https://chat-bilibili-video.vercel.app
 
@@ -38,6 +38,3 @@ Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_mediu
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/JimmyLv/BiliGPT&env=OPENAI_API_KEY&project-name=chat-bilibili-video&repo-name=chat-bilibili-video)
 
-## Support -> Contact Me
-
-![](./public/wechat.jpg)
