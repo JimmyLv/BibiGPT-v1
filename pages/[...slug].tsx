@@ -122,22 +122,6 @@ export const Home: NextPage = () => {
 
   return (
     <div className="mt-10 sm:mt-40">
-      <a
-        target="_blank"
-        rel="noreferrer"
-        className="mx-auto mb-5 hidden max-w-fit rounded-full border-2 border-dashed px-4 py-1 text-gray-500 transition duration-300 ease-in-out hover:scale-105 hover:border-gray-700 md:block"
-        href="https://www.bilibili.com/video/BV1fX4y1Q7Ux/"
-      >
-        你只需要把任意 Bilibili 视频 URL 中的后缀 "
-        <span className="text-pink-400">.com</span>" 改成我的域名 "
-        <span className="text-sky-400">jimmylv.cn</span>" 就行啦！😉
-        <br />
-        比如 www.bilibili.
-        <span className="text-pink-400 line-through">com</span>
-        /video/BV1k84y1e7fW 👉 www.bilibili.
-        <span className="text-sky-400 underline">jimmylv.cn</span>
-        /video/BV1k84y1e7fW
-      </a>
   
       <div className="max-w-5xl text-center text-4xl font-bold sm:text-7xl">
         一键总结{" "}
@@ -152,6 +136,8 @@ export const Home: NextPage = () => {
               "播客",
               3000,
               "会议",
+              3000,
+              "小勺子",
               3000,
               () => {
                 console.log("Done typing!"); // Place optional callbacks anywhere in the array
@@ -168,79 +154,11 @@ export const Home: NextPage = () => {
       </div>
       <p className="mt-10 text-center text-lg text-gray-500 sm:text-2xl">
         在下面的输入框，直接复制粘贴
-        <a
-          className="text-sky-400"
-          href="https://www.bilibili.com/video/BV1fX4y1Q7Ux/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <p className="text-sky-400">
           {" bilibili.com "}
-        </a>
+        </p>
         视频链接 👇
       </p>
-      <details>
-        <summary className="mt-10 flex cursor-pointer items-center space-x-3	">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="h-6 w-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <p className="text-left font-medium">
-            <span className="text-sky-400 hover:text-sky-600">
-              请使用自己的 API Key
-            </span>
-            （终于，支持
-            <a
-              className="text-pink-400 hover:underline"
-              href={CHECKOUT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              「购买次数」
-            </a>
-            啦！
-            <a href="/wechat.jpg" target="_blank" rel="noopener noreferrer">
-              也可以真的
-              <span className="text-pink-400 hover:underline">
-                「给我打赏」
-              </span>
-              哦 🤣）
-            </a>
-          </p>
-        </summary>
-        <div className="text-lg text-slate-700 dark:text-slate-400">
-          <input
-            value={userKey}
-            onChange={(e) => setUserKey(e.target.value)}
-            className="mx-auto my-4 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder={
-              "填你的 OpenAI API Key: sk-xxxxxx 或者购买的 License Key: xxx-CCDE-xxx"
-            }
-          />
-          <div className="relin-paragraph-target mt-1 text-base text-slate-500">
-            <div>
-              如何获取你自己的 License Key
-              <a
-                href={CHECKOUT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 mb-6 pl-2 font-semibold text-sky-500 dark:text-sky-400"
-              >
-                https://shop.jimmylv.cn
-              </a>
-            </div>
-          </div>
-        </div>
-      </details>
       <form onSubmit={onFormSubmit} className="grid place-items-center">
         <input
           type="text"
