@@ -1,6 +1,6 @@
 import { createParser, ParsedEvent, ReconnectInterval } from "eventsource-parser";
-import { checkOpenaiApiKeys } from "~/lib/openai/openai";
-import { sample } from "../../utils/fp";
+import { formatResult } from "~/lib/openai/formatResult";
+import { selectApiKey } from "~/lib/openai/selectApiKey";
 
 // TODO: maybe chat with video?
 export type ChatGPTAgent = "user" | "system" | "assistant";
@@ -22,38 +22,17 @@ export interface OpenAIStreamPayload {
   n: number;
 }
 
-function formatResult(result: any) {
-  const answer = result.choices[0].message?.content || "";
-  if (answer.startsWith("\n\n")) {
-    return answer.substring(2);
-  }
-  return answer;
-}
-
-function selectApiKey(apiKey: string | undefined) {
-  if (apiKey && checkOpenaiApiKeys(apiKey)) {
-    const userApiKeys = apiKey.split(",");
-    return sample(userApiKeys);
-  }
-
-  // don't need to validate anymore, already verified in middleware?
-  const myApiKeyList = process.env.OPENAI_API_KEY;
-  const luckyApiKey = sample(myApiKeyList?.split(","));
-  return luckyApiKey || "";
-}
-
 export async function OpenAIResult(
   payload: OpenAIStreamPayload,
-  apiKey?: string
+  apiKey: string
 ) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
-  const openai_api_key = selectApiKey(apiKey);
 
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${openai_api_key ?? ""}`,
+      Authorization: `Bearer ${apiKey ?? ""}`,
     },
     method: "POST",
     body: JSON.stringify(payload),
