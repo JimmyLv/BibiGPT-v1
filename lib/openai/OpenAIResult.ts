@@ -1,10 +1,6 @@
-import {
-  createParser,
-  ParsedEvent,
-  ReconnectInterval,
-} from "eventsource-parser";
-import { checkOpenaiApiKey, checkOpenaiApiKeys } from "./3rd/openai";
-import { sample } from "./fp";
+import { createParser, ParsedEvent, ReconnectInterval } from "eventsource-parser";
+import { checkOpenaiApiKeys } from "~/lib/openai/openai";
+import { sample } from "../../utils/fp";
 
 // TODO: maybe chat with video?
 export type ChatGPTAgent = "user" | "system" | "assistant";
