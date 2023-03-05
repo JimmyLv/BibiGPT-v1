@@ -31,7 +31,7 @@ export default function Header() {
           </h2>
         </a>
       </div>
-      <div className="flex items-center space-x-5">
+      <div className="flex items-center space-x-2 sm:space-x-5">
         <div
           id="tooltip-light"
           role="tooltip"
@@ -48,7 +48,8 @@ export default function Header() {
           target="_blank"
           className="flex items-center space-x-2"
         >
-          🔥 <span className="hidden sm:block">给我提</span>反馈？
+          🔥 <span className="hidden sm:block">给我提</span>反馈
+          <span className="hidden sm:block">？</span>
         </a>
         <a
           href={BASE_DOMAIN + "/ios"}
@@ -56,8 +57,16 @@ export default function Header() {
           target="_blank"
           className="flex items-center space-x-2"
         >
-          <Image src="/shortcuts.png" alt="logo" width={33} height={33} />
-          <span className="relin-paragraph-target text-slate-500 hidden sm:block">(iOS版)</span>
+          <Image
+            src="/shortcuts.png"
+            alt="logo"
+            width={33}
+            height={33}
+            className="max-w-none"
+          />
+          <span className="relin-paragraph-target hidden text-slate-500 sm:block">
+            (iOS版)
+          </span>
         </a>
         <a
           href="https://github.com/JimmyLv/BiliGPT"

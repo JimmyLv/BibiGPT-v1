@@ -24,7 +24,7 @@ export default function SignIn() {
           <UserDropdown />
         ) : (
           <motion.button
-            className="rounded-full border border-black bg-black p-1.5 px-4 text-sm text-white transition-all hover:bg-white hover:text-black"
+            className="rounded-full border border-black bg-black p-1.5 px-1 text-sm text-white transition-all hover:bg-white hover:text-black md:px-4"
             onClick={() => setShowSignInModal(true)}
             {...FADE_IN_ANIMATION_SETTINGS}
           >
