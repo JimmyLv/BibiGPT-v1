@@ -153,11 +153,7 @@ export const Home: NextPage = () => {
         <div className="mt-4">Powered by GPT-3.5 AI</div>
       </div>
       <p className="mt-10 text-center text-lg text-gray-500 sm:text-2xl">
-        在下面的输入框，直接复制粘贴
-        <p className="text-sky-400">
-          {" bilibili.com "}
-        </p>
-        视频链接 👇
+        在下面的输入框，直接复制粘贴 bilibili.com 视频链接，按下「回车」即可生成视频摘要。👇
       </p>
       <form onSubmit={onFormSubmit} className="grid place-items-center">
         <input
