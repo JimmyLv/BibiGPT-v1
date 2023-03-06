@@ -1,18 +1,11 @@
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import React, {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useMemo,
-  useState,
-} from "react";
-import Modal from "~/components/shared/modal";
 import Image from "next/image";
-import { BASE_DOMAIN, LOGIN_LIMIT_COUNT } from "~/utils/constants";
 import Link from "next/link";
-import { isDev } from "~/utils/env";
+import React, { Dispatch, SetStateAction, useCallback, useMemo, useState } from "react";
+import Modal from "~/components/shared/modal";
+import { BASE_DOMAIN, LOGIN_LIMIT_COUNT } from "~/utils/constants";
 
 const SignInModal = ({
   showSignInModal,
