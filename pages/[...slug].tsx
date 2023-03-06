@@ -48,27 +48,23 @@ export const Home: NextPage = () => {
   }, [router.isReady, urlState]);
 
   const validateUrl = (url?: string) => {
-    if (url) {
-      if (!url.includes("bilibili.com")) {
-        toast({
-          // variant: "destructive",
-          title: "暂不支持此视频链接",
-          description: "请输入哔哩哔哩视频长链接，暂不支持b23.tv或av号",
-        });
-        return;
-      }
-      setCurrentVideoUrl(url);
-    } else {
-      if (!currentVideoUrl.includes("bilibili.com")) {
-        toast({
-          // variant: "destructive",
-          title: "暂不支持此视频链接",
-          description: "请输入哔哩哔哩视频长链接，暂不支持b23.tv或av号",
-        });
-        return;
-      }
-      const curUrl = String(currentVideoUrl.split(".com")[1]);
+    // note: auto refactor by ChatGPT
+    const videoUrl = url || currentVideoUrl;
+    if (!videoUrl.includes("bilibili.com")) {
+      toast({
+        title: "暂不支持此视频链接",
+        description: "请输入哔哩哔哩视频长链接，暂不支持b23.tv或av号",
+      });
+      return;
+    }
+
+    if (!url) {
+      // 'https://m.bilibili.com/video/BV12Y4y127rj'.split(".com")[1]
+      // -> '/video/BV12Y4y127rj'
+      const curUrl = String(videoUrl.split(".com")[1]);
       router.replace(curUrl);
+    } else {
+      setCurrentVideoUrl(videoUrl);
     }
   };
   const generateSummary = async (url?: string) => {
