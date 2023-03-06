@@ -1,4 +1,11 @@
+import { isDev } from "~/utils/env";
+
 export async function activateLicenseKey(licenseKey: string, bvId?: string) {
+  // not active when dev
+  if (isDev) {
+    return true;
+  }
+
   // https://docs.lemonsqueezy.com/help/licensing/license-api
   const response = await fetch(
     `https://api.lemonsqueezy.com/v1/licenses/activate`,

@@ -1,10 +1,11 @@
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { selectApiKeyAndActivatedLicenseKey } from "~/lib/openai/selectApiKeyAndActivatedLicenseKey";
 import { fetchSubtitle } from "~/lib/bilibili";
 import { OpenAIResult } from "~/lib/openai/OpenAIResult";
 import { getChunckedTranscripts, getSummaryPrompt } from "~/lib/openai/prompt";
+import { selectApiKeyAndActivatedLicenseKey } from "~/lib/openai/selectApiKeyAndActivatedLicenseKey";
+import { SummarizeParams, UserConfig } from "~/lib/types";
 import { isDev } from "~/utils/env";
 
 export const config = {
@@ -19,10 +20,8 @@ export default async function handler(
   req: NextRequest,
   context: NextFetchEvent
 ) {
-  const { bvId, apiKey } = (await req.json()) as {
-    bvId: string;
-    apiKey?: string;
-  };
+  const { bvId, userConfig } = (await req.json()) as SummarizeParams;
+  const { userKey, shouldShowTimestamp } = userConfig;
 
   if (!bvId) {
     return new Response("No bvid in the request", { status: 500 });
@@ -41,10 +40,10 @@ export default async function handler(
   });
   // console.log("========transcripts========", transcripts);
   const text = getChunckedTranscripts(transcripts, transcripts);
-  const prompt = getSummaryPrompt(title, text, true);
+  const prompt = getSummaryPrompt(title, text, shouldShowTimestamp);
 
   try {
-    apiKey && console.log("========use user apiKey========");
+    userKey && console.log("========use user apiKey========");
     isDev && console.log("prompt", prompt);
     const payload = {
       model: "gpt-3.5-turbo",
@@ -53,13 +52,16 @@ export default async function handler(
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
-      max_tokens: apiKey ? 400 : 300,
+      max_tokens: userKey ? 400 : 300,
       stream: false,
       n: 1,
     };
 
     // TODO: need refactor
-    const openaiApiKey = await selectApiKeyAndActivatedLicenseKey(apiKey, bvId);
+    const openaiApiKey = await selectApiKeyAndActivatedLicenseKey(
+      userKey,
+      bvId
+    );
     const result = await OpenAIResult(payload, openaiApiKey);
     // TODO: add better logging when dev or prod
     console.log("result", result);
