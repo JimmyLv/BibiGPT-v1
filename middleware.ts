@@ -2,6 +2,7 @@ import { createMiddlewareSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { SummarizeParams } from "~/lib/types";
 import { validateLicenseKey } from "./lib/lemon";
 import { checkOpenaiApiKeys } from "./lib/openai/openai";
 import { ratelimit } from "./lib/upstash";
@@ -10,7 +11,8 @@ import { isDev } from "./utils/env";
 const redis = Redis.fromEnv();
 
 export async function middleware(req: NextRequest, context: NextFetchEvent) {
-  const { apiKey, bvId } = await req.json();
+  const { userConfig, bvId } = (await req.json()) as SummarizeParams;
+  const { userKey } = userConfig;
 
   function redirectAuth() {
     // return NextResponse.redirect(new URL("/shop", req.url));
@@ -23,18 +25,18 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
   }
 
   // licenseKeys
-  if (apiKey) {
-    if (checkOpenaiApiKeys(apiKey)) {
+  if (userKey) {
+    if (checkOpenaiApiKeys(userKey)) {
       return NextResponse.next();
     }
 
     // 3. something-invalid-sdalkjfasncs-key
-    if (!(await validateLicenseKey(apiKey, bvId))) {
+    if (!(await validateLicenseKey(userKey, bvId))) {
       return redirectAuth();
     }
   }
 
-  if (!apiKey) {
+  if (!userKey) {
     const identifier = req.ip ?? "127.0.0.7";
     const { success, remaining } = await ratelimit.limit(identifier);
     console.log(`======== ip ${identifier}, remaining: ${remaining} ========`);
