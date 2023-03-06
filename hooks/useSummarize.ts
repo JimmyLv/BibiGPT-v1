@@ -42,8 +42,21 @@ export function useSummarize() {
             title: `网站访问量过大`,
             description: `每日限额使用 ${RATE_LIMIT_COUNT} 次哦！`,
           });
+        } else if (response.status === 401) {
+          toast({
+            variant: "destructive",
+            title: `${response.statusText} 请登录哦！`,
+            // ReadableStream can't get error message
+            // description: response.body
+            description: "每天的免费次数已经用完啦，🆓",
+          });
         } else {
-          toast({ variant: "destructive", title: response.statusText });
+          toast({
+            variant: "destructive",
+            title: response.statusText,
+            // ReadableStream can't get error message
+            // description: response.body
+          });
         }
         setLoading(false);
         return;

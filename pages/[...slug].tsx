@@ -25,7 +25,8 @@ export const Home: NextPage = () => {
   const licenseKey = searchParams.get("license_key");
   const [curVideo, setCurVideo] = useState<string>("");
   const [currentBvId, setCurrentBvId] = useState<string>("");
-  const [userKey, setUserKey] = useLocalStorage<string>("user-openai-apikey");
+  const [userKey, setUserKey, remove] =
+    useLocalStorage<string>("user-openai-apikey");
   const { loading, summary, resetSummary, summarize } = useSummarize();
   const { toast } = useToast();
 
@@ -118,6 +119,13 @@ export const Home: NextPage = () => {
       formattedSummary + "\n\n via #BibiGPT b.jimmylv.cn @吕立青_JimmyLv"
     );
     toast({ description: "复制成功 ✂️" });
+  };
+
+  const handleApiKeyChange = (e: any) => {
+    if (!e.target.value) {
+      remove();
+    }
+    setUserKey(e.target.value);
   };
 
   return (
@@ -221,7 +229,7 @@ export const Home: NextPage = () => {
         <div className="text-lg text-slate-700 dark:text-slate-400">
           <input
             value={userKey}
-            onChange={(e) => setUserKey(e.target.value)}
+            onChange={handleApiKeyChange}
             className="mx-auto my-4 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder={
               "填你的 OpenAI API Key: sk-xxxxxx 或者购买的 License Key: xxx-CCDE-xxx"

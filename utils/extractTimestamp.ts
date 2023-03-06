@@ -25,6 +25,6 @@ export function extractTimestamp(matchResult: RegExpMatchArray) {
   }catch(e){
     console.log('handle text after time error', e);
   }
-  console.log("========matchResult========", {matchResult, timestamp, formattedContent});
+  // console.log("========matchResult========", {matchResult, timestamp, formattedContent});
   return { timestamp, formattedContent };
 }

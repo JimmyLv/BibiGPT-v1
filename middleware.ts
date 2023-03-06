@@ -1,3 +1,4 @@
+import { createMiddlewareSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
@@ -11,6 +12,16 @@ const redis = Redis.fromEnv();
 export async function middleware(req: NextRequest, context: NextFetchEvent) {
   const { apiKey, bvId } = await req.json();
 
+  function redirectAuth() {
+    // return NextResponse.redirect(new URL("/shop", req.url));
+    // Respond with JSON indicating an error message
+    console.error("Authentication Failed");
+    return new NextResponse(
+      JSON.stringify({ success: false, message: "Authentication Failed" }),
+      { status: 401, headers: { "content-type": "application/json" } }
+    );
+  }
+
   // licenseKeys
   if (apiKey) {
     if (checkOpenaiApiKeys(apiKey)) {
@@ -19,15 +30,44 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
 
     // 3. something-invalid-sdalkjfasncs-key
     if (!(await validateLicenseKey(apiKey, bvId))) {
-      return NextResponse.redirect(new URL("/shop", req.url));
+      return redirectAuth();
     }
   }
-  // TODO: unique to a user (userid, email etc) instead of IP
-  const identifier = req.ip ?? "127.0.0.7";
-  const { success, remaining } = await ratelimit.limit(identifier);
-  console.log(`======== ip ${identifier}, remaining: ${remaining} ========`);
-  if (!apiKey && !success) {
-    return NextResponse.redirect(new URL("/shop", req.url));
+
+  if (!apiKey) {
+    const identifier = req.ip ?? "127.0.0.7";
+    const { success, remaining } = await ratelimit.limit(identifier);
+    console.log(`======== ip ${identifier}, remaining: ${remaining} ========`);
+    if (!success) {
+      // We need to create a response and hand it to the supabase client to be able to modify the response headers.
+      const res = NextResponse.next();
+      // TODO: unique to a user (userid, email etc) instead of IP
+      // Create authenticated Supabase Client.
+      const supabase = createMiddlewareSupabaseClient({ req, res });
+      // Check if we have a session
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      // Check auth condition
+      const userEmail = session?.user.email;
+      if (userEmail) {
+        // Authentication successful, forward request to protected route.
+        const { success, remaining } = await ratelimit.limit(userEmail + "2");
+        console.log(
+          `======== user ${userEmail}, remaining: ${remaining} ========`
+        );
+        if (!success) {
+          return redirectAuth();
+        }
+
+        return res;
+      }
+
+      // todo: throw error to trigger a modal, rather than redirect a page
+      return redirectAuth();
+    }
+
+    return redirectAuth();
   }
 
   const result = await redis.get<string>(bvId);

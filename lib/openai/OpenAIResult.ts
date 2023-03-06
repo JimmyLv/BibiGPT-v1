@@ -1,5 +1,10 @@
-import { createParser, ParsedEvent, ReconnectInterval } from "eventsource-parser";
+import {
+  createParser,
+  ParsedEvent,
+  ReconnectInterval,
+} from "eventsource-parser";
 import { formatResult } from "~/lib/openai/formatResult";
+import { isDev } from "~/utils/env";
 
 // TODO: maybe chat with video?
 export type ChatGPTAgent = "user" | "system" | "assistant";
@@ -28,6 +33,7 @@ export async function OpenAIResult(
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 
+  isDev && console.log({ apiKey });
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
       "Content-Type": "application/json",
