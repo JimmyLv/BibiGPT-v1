@@ -27,12 +27,12 @@
     },
     {
       "source": "/privacy",
-      "destination": "https://github.com/JimmyLv/BiliGPT/wiki/Privacy-Statement",
+      "destination": "https://github.com/JimmyLv/BiliGPT/wiki/%E9%9A%90%E7%A7%81%E5%A3%B0%E6%98%8E",
       "permanent": true
     },
     {
       "source": "/terms-of-use",
-      "destination": "https://github.com/JimmyLv/BiliGPT",
+      "destination": "https://github.com/JimmyLv/BiliGPT/wiki/Terms-Of-Use",
       "permanent": true
     },
     {

@@ -28,7 +28,7 @@ export default function Footer() {
       </div>
       <div className="flex items-center space-x-1">
         <Link
-          href="https://github.com/JimmyLv/BiliGPT/wiki/%E9%9A%90%E7%A7%81%E5%A3%B0%E6%98%8E"
+          href="/privacy"
           className="group"
           aria-label="隐私声明"
         >
