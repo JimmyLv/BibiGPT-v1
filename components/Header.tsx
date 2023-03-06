@@ -51,10 +51,24 @@ export default function Header() {
           <span className="hidden sm:block">？</span>
         </a>
         <a
+          href="javascript:(function(){if(!window.location.hostname
+  .includes('bilibili.com')){alert('🔖请拖至书签栏，进入B站视频页面再点击书签哦！')};location.href=location.href.replace('bilibili.com','bilibili.jimmylv.cn')}())"
+          rel="noreferrer noopener"
+          target="_blank"
+          className="flex hidden items-center space-x-2 sm:block"
+          aria-label="书签版"
+        >
+          🔖
+          <span className="relin-paragraph-target hidden text-slate-500 sm:block">
+            (书签版)
+          </span>
+        </a>
+        <a
           href={BASE_DOMAIN + "/ios"}
           rel="noreferrer noopener"
           target="_blank"
           className="flex items-center space-x-2"
+          aria-label="iOS版"
         >
           <Image
             src="/shortcuts.png"
