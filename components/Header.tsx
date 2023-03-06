@@ -20,8 +20,8 @@ export default function Header() {
             src="/video.png"
             alt="logo"
             className="animate-bounce"
-            width={50}
-            height={50}
+            width={60}
+            height={80}
           />
         </a>
         <a href={BASE_DOMAIN}>
