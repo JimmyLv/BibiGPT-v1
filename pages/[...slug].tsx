@@ -8,6 +8,7 @@ import { useLocalStorage } from "react-use";
 import { useToast } from "~/hooks/use-toast";
 import { useSummarize } from "~/hooks/useSummarize";
 import { CHECKOUT_URL, RATE_LIMIT_COUNT } from "~/utils/constants";
+import { extractSentence } from "~/utils/extractSentence";
 import { extractTimestamp } from "~/utils/extractTimestamp";
 import Sentence from "../components/Sentence";
 import SquigglyLines from "../components/SquigglyLines";
@@ -99,7 +100,7 @@ export const Home: NextPage = () => {
   const summaryArray = summary.split("- ");
   const formattedSummary = summaryArray
     .map((s) => {
-      const matchResult = s.match(/\s*(\d+[\.:]\d+)(.*)/);
+      const matchResult = extractSentence(s);
       if (matchResult) {
         const { formattedContent, timestamp } = extractTimestamp(matchResult);
         return timestamp + formattedContent;

@@ -1,4 +1,5 @@
-import { extractTimestamp } from "../utils/extractTimestamp";
+import { extractSentence } from "~/utils/extractSentence";
+import { extractTimestamp } from "~/utils/extractTimestamp";
 
 export default function Sentence({
   bvId,
@@ -9,7 +10,7 @@ export default function Sentence({
 }) {
   const baseUrl = `https://www.bilibili.com/video/${bvId}`;
 
-  const matchResult = sentence.match(/\s*(\d+[\.:]\d+)(.*)/);
+  const matchResult = extractSentence(sentence);
   if (matchResult) {
     const seconds = matchResult[1];
     const { formattedContent, timestamp } = extractTimestamp(matchResult);
