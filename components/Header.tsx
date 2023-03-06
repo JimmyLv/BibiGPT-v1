@@ -3,6 +3,11 @@ import clsx from "clsx";
 import Image from "next/image";
 import React from "react";
 import SignIn from "~/components/SignIn";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 import { BASE_DOMAIN } from "~/utils/constants";
 import Github from "../components/GitHub";
 const poppins = Poppins({ weight: "800", subsets: ["latin"] });
@@ -31,37 +36,42 @@ export default function Header() {
         </a>
       </div>
       <div className="flex items-center space-x-2 sm:space-x-5">
-        <div
-          id="tooltip-light"
-          role="tooltip"
-          className="tooltip invisible absolute z-10 inline-block rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 opacity-0 shadow-sm"
-        >
-          那可太感谢了！
-          <div className="tooltip-arrow" data-popper-arrow></div>
-        </div>
-        <a
-          data-tooltip-target="tooltip-feedback"
-          data-tooltip-style="light"
-          href="https://jimmylv.feishu.cn/share/base/form/shrcn9PwPzGGGiJCnH0JNfM1P3b"
-          rel="noreferrer noopener"
-          target="_blank"
-          className="flex items-center space-x-2"
-        >
-          🔥<span className="hidden pl-1 sm:block">提</span>反馈
-        </a>
-        <a
-          href="javascript:(function(){if(!window.location.hostname
-  .includes('bilibili.com')){alert('🔖请拖至书签栏，进入B站视频页面再点击书签哦！')};location.href=location.href.replace('bilibili.com','bilibili.jimmylv.cn')}())"
-          rel="noreferrer noopener"
-          target="_blank"
-          className="flex hidden items-center space-x-2 sm:block"
-          aria-label="书签版"
-        >
-          🔖
-          <span className="relin-paragraph-target pl-1 text-slate-500">
-            (书签版)
-          </span>
-        </a>
+        <Tooltip>
+          <TooltipTrigger>
+            <a
+              href="https://jimmylv.feishu.cn/share/base/form/shrcn9PwPzGGGiJCnH0JNfM1P3b"
+              rel="noreferrer noopener"
+              target="_blank"
+              className="flex items-center space-x-2"
+            >
+              🔥<span className="hidden pl-1 sm:block">提</span>反馈
+            </a>
+          </TooltipTrigger>
+          <TooltipContent>那可太感谢啦！</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger>
+            <a
+              href="javascript:(function(){if(!window.location.hostname
+  .includes('bilibili.com')){alert('🔖请进入B站视频页面再点击书签哦！')};location.href=location.href.replace('bilibili.com','bilibili.jimmylv.cn')}())"
+              rel="noreferrer noopener"
+              target="_blank"
+              className="flex hidden items-center space-x-2 sm:block"
+              aria-label="书签版"
+              onClick={() =>
+                alert("🔖请拖至书签栏，进入B站视频页面再点击书签哦！")
+              }
+            >
+              🔖
+              <span className="relin-paragraph-target pl-1 text-slate-500">
+                (书签版)
+              </span>
+            </a>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>🔖请拖至书签栏，进入B站视频页面再点击书签哦！</p>
+          </TooltipContent>
+        </Tooltip>
         <a
           href={BASE_DOMAIN + "/ios"}
           rel="noreferrer noopener"
