@@ -102,6 +102,7 @@ export const Home: NextPage = () => {
     console.log("========e========", e.target.value);
     e.preventDefault();
     await generateSummary();
+    analytics.track("GenerateButton Clicked");
   };
 
   const summaryArray = summary.split("- ");
@@ -140,7 +141,10 @@ export const Home: NextPage = () => {
     console.log("================", checked);
     setShouldShowTimestamp(checked);
     analytics
-      .track(`click handleShowTimestamp: ${checked}`)
+      .track(`ShowTimestamp Clicked`, {
+        bvId: currentBvId,
+        shouldShowTimestamp: checked,
+      })
       .then((res) => console.log("tracked!", res))
       .catch(console.error);
     // throw new Error("Sentry Frontend Error");
