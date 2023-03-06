@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { TypeAnimation } from "react-type-animation";
 import { useLocalStorage } from "react-use";
+import { useAnalytics } from "~/components/context/analytics";
 import { Label } from "~/components/ui/label";
 import { Switch } from "~/components/ui/switch";
 import { useToast } from "~/hooks/use-toast";
@@ -34,6 +35,7 @@ export const Home: NextPage = () => {
     useLocalStorage<string>("user-openai-apikey");
   const { loading, summary, resetSummary, summarize } = useSummarize();
   const { toast } = useToast();
+  const { analytics } = useAnalytics();
 
   useEffect(() => {
     licenseKey && setUserKey(licenseKey);
@@ -137,6 +139,10 @@ export const Home: NextPage = () => {
   function handleShowTimestamp(checked: boolean) {
     console.log("================", checked);
     setShouldShowTimestamp(checked);
+    analytics
+      .track(`click handleShowTimestamp: ${checked}`)
+      .then((res) => console.log("tracked!", res))
+      .catch(console.error);
     // throw new Error("Sentry Frontend Error");
   }
 

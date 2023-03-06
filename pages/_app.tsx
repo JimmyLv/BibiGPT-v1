@@ -9,6 +9,7 @@ import { Analytics } from "@vercel/analytics/react";
 import type { AppProps } from "next/app";
 import React, { useState } from "react";
 import CommandMenu from "~/components/CommandMenu";
+import { AnalyticsProvider } from "~/components/context/analytics";
 import { TailwindIndicator } from "~/components/tailwind-indicator";
 import { Toaster } from "~/components/ui/toaster";
 import { cn } from "~/lib/utils";
@@ -32,31 +33,33 @@ function MyApp({
   // Create a new supabase browser client on every first render.
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   return (
-    <SessionContextProvider
-      supabaseClient={supabaseClient}
-      initialSession={pageProps.initialSession}
-    >
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <TooltipProvider>
-          <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-2 pt-8 sm:pt-10">
-            <Header />
-            <main
-              className={cn(
-                "mx-auto flex max-w-5xl flex-1 flex-col justify-center bg-white font-sans text-slate-900 antialiased dark:bg-slate-900 dark:text-slate-50",
-                fontSans.variable
-              )}
-            >
-              <Component {...pageProps} />
-              <Analytics />
-              <CommandMenu />
-            </main>
-            <Footer />
-          </div>
-          <TailwindIndicator />
-          <Toaster />
-        </TooltipProvider>
-      </ThemeProvider>
-    </SessionContextProvider>
+    <AnalyticsProvider>
+      <SessionContextProvider
+        supabaseClient={supabaseClient}
+        initialSession={pageProps.initialSession}
+      >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <TooltipProvider>
+            <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-2 pt-8 sm:pt-10">
+              <Header />
+              <main
+                className={cn(
+                  "mx-auto flex max-w-5xl flex-1 flex-col justify-center bg-white font-sans text-slate-900 antialiased dark:bg-slate-900 dark:text-slate-50",
+                  fontSans.variable
+                )}
+              >
+                <Component {...pageProps} />
+                <Analytics />
+                <CommandMenu />
+              </main>
+              <Footer />
+            </div>
+            <TailwindIndicator />
+            <Toaster />
+          </TooltipProvider>
+        </ThemeProvider>
+      </SessionContextProvider>
+    </AnalyticsProvider>
   );
 }
 
