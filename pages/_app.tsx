@@ -16,6 +16,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import "../styles/globals.css";
 import { ThemeProvider } from "next-themes";
+import { TooltipProvider } from "~/components/ui/tooltip";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -36,22 +37,24 @@ function MyApp({
       initialSession={pageProps.initialSession}
     >
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-2 pt-8 sm:pt-10">
-          <Header />
-          <main
-            className={cn(
-              "mx-auto flex max-w-5xl flex-1 flex-col justify-center bg-white font-sans text-slate-900 antialiased dark:bg-slate-900 dark:text-slate-50",
-              fontSans.variable
-            )}
-          >
-            <Component {...pageProps} />
-            <Analytics />
-            <CommandMenu />
-          </main>
-          <Footer />
-        </div>
-        <TailwindIndicator />
-        <Toaster />
+        <TooltipProvider>
+          <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-2 pt-8 sm:pt-10">
+            <Header />
+            <main
+              className={cn(
+                "mx-auto flex max-w-5xl flex-1 flex-col justify-center bg-white font-sans text-slate-900 antialiased dark:bg-slate-900 dark:text-slate-50",
+                fontSans.variable
+              )}
+            >
+              <Component {...pageProps} />
+              <Analytics />
+              <CommandMenu />
+            </main>
+            <Footer />
+          </div>
+          <TailwindIndicator />
+          <Toaster />
+        </TooltipProvider>
       </ThemeProvider>
     </SessionContextProvider>
   );
