@@ -64,7 +64,9 @@ export default async function handler(
     const data = await redis.set(bvId, result);
     console.log(`bvId ${bvId} cached:`, data);
 
-    return NextResponse.json(result);
+    return NextResponse.json({
+      title: title,
+      result: result});
   } catch (error: any) {
     console.log("API error", error, error.message);
     return NextResponse.json({

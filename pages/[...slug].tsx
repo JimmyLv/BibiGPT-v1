@@ -26,7 +26,8 @@ export const Home: NextPage = () => {
   const [curVideo, setCurVideo] = useState<string>("");
   const [currentBvId, setCurrentBvId] = useState<string>("");
   const [userKey, setUserKey] = useLocalStorage<string>("user-openai-apikey");
-  const { loading, summary, resetSummary, summarize } = useSummarize();
+  const [videoTitle] = useLocalStorage<string>("video-title");
+  const { loading, title, summary, resetSummary, summarize } = useSummarize();
   const { toast } = useToast();
 
   useEffect(() => {
@@ -193,7 +194,7 @@ export const Home: NextPage = () => {
               target="_blank"
               rel="noreferrer"
             >
-              {`【📝 总结：${currentBvId}】`}
+              {`【📝 总结：${title}】`}
             </a>
           </h3>
           <div

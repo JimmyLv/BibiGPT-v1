@@ -5,14 +5,17 @@ import { RATE_LIMIT_COUNT } from "~/utils/constants";
 export function useSummarize() {
   const [loading, setLoading] = useState(false);
   const [summary, setSummary] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
   const { toast } = useToast();
 
   const resetSummary = () => {
     setSummary("");
+    setTitle("");
   };
 
   const summarize = async (bvId: string, apiKey: string | undefined) => {
     setSummary("");
+    setTitle("");
     setLoading(true);
 
     try {
@@ -50,7 +53,8 @@ export function useSummarize() {
       }
 
       // await readStream(response, setSummary);
-      const result = await response.json();
+      const data = await response.json();
+      const result = data.result;
       if (result.errorMessage) {
         setLoading(false);
         toast({
@@ -62,6 +66,7 @@ export function useSummarize() {
       }
       setSummary(result);
       setLoading(false);
+      setTitle(data.title);
     } catch (e: any) {
       console.error("[fetch ERROR]", e);
       toast({
@@ -72,5 +77,5 @@ export function useSummarize() {
       setLoading(false);
     }
   };
-  return { loading, summary, resetSummary, summarize };
+  return { loading, title, summary, resetSummary, summarize };
 }
