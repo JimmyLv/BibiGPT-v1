@@ -3,14 +3,14 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { TypeAnimation } from "react-type-animation";
 import { useLocalStorage } from "react-use";
 import { useToast } from "~/hooks/use-toast";
+import { useSummarize } from "~/hooks/useSummarize";
+import { CHECKOUT_URL, RATE_LIMIT_COUNT } from "~/utils/constants";
+import { extractTimestamp } from "~/utils/extractTimestamp";
 import Sentence from "../components/Sentence";
 import SquigglyLines from "../components/SquigglyLines";
-import { useSummarize } from "~/hooks/useSummarize";
-import { CHECKOUT_URL } from "~/utils/constants";
-import { extractTimestamp } from "~/utils/extractTimestamp";
-import { TypeAnimation } from "react-type-animation";
 
 let isSecureContext = false;
 
@@ -207,7 +207,7 @@ export const Home: NextPage = () => {
             <span className="text-sky-400 hover:text-sky-600">
               请使用自己的 API Key
             </span>
-            （终于，支持
+            （每天免费 {RATE_LIMIT_COUNT} 次哦，支持
             <a
               className="text-pink-400 hover:underline"
               href={CHECKOUT_URL}
