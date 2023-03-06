@@ -17,7 +17,7 @@ function Home(): React.ReactElement {
         setAnalytics(response);
         // @ts-ignore
         window.analytics = response;
-        window.analytics?.identify("'hello world' from segmentio analytics");
+        window.analytics?.page();
       } catch (err) {
         console.error(err);
         setAnalytics(undefined);

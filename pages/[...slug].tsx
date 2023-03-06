@@ -235,6 +235,7 @@ export const Home: NextPage = () => {
               href={CHECKOUT_URL}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => analytics.track("ShopLink Clicked")}
             >
               「购买次数」
             </a>
