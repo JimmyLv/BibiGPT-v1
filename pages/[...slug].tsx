@@ -137,6 +137,7 @@ export const Home: NextPage = () => {
   function handleShowTimestamp(checked: boolean) {
     console.log("================", checked);
     setShouldShowTimestamp(checked);
+    // throw new Error("Sentry Frontend Error");
   }
 
   return (

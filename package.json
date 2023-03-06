@@ -15,6 +15,7 @@
     "@radix-ui/react-switch": "^1.0.1",
     "@radix-ui/react-toast": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.0.4",
+    "@sentry/nextjs": "^7.40.0",
     "@supabase/auth-helpers-nextjs": "^0.5.5",
     "@supabase/auth-ui-react": "^0.3.3",
     "@supabase/auth-ui-shared": "^0.1.2",
