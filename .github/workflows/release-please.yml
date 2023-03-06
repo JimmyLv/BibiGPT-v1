@@ -9,7 +9,9 @@ jobs:
     permissions: write-all
     steps:
       - uses: google-github-actions/release-please-action@v3
+        id: release
         with:
-          release-type: node
+          command: manifest
           token: ${{secrets.GITHUB_TOKEN}}
+          default-branch: main
           package-name: bibi-gpt
