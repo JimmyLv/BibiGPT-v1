@@ -1,15 +1,16 @@
 import { useUser } from "@supabase/auth-helpers-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect } from "react";
 import { useAnalytics } from "~/components/context/analytics";
-import { useSignInModal } from "~/components/sign-in-modal";
 import UserDropdown from "~/components/user-dropdown";
 import { FADE_IN_ANIMATION_SETTINGS } from "~/utils/constants";
 
-export default function SignIn() {
+export default function SignIn({
+  showSingIn,
+}: {
+  showSingIn: (show: boolean) => void;
+}) {
   const user = useUser();
   const { analytics } = useAnalytics();
-  const { SignInModal, setShowSignInModal } = useSignInModal();
 
   if (user) {
     analytics.identify(user.id, {
@@ -18,7 +19,7 @@ export default function SignIn() {
   }
 
   function handleSignIn() {
-    setShowSignInModal(true);
+    showSingIn(true);
     analytics.track("SignInButton Clicked");
   }
 
@@ -32,8 +33,6 @@ export default function SignIn() {
     }, [user])*/
   return (
     <div>
-      <SignInModal />
-
       <AnimatePresence>
         {user ? (
           <UserDropdown />

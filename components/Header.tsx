@@ -12,7 +12,11 @@ import { BASE_DOMAIN } from "~/utils/constants";
 import Github from "../components/GitHub";
 const poppins = Poppins({ weight: "800", subsets: ["latin"] });
 
-export default function Header() {
+export default function Header({
+  showSingIn,
+}: {
+  showSingIn: (show: boolean) => void;
+}) {
   return (
     <header className="supports-backdrop-blur:bg-white/60 max-w-8xl sticky top-0 z-40 mx-auto mx-4 w-full flex-none border-b border-slate-900/10 bg-white/95 pt-2  backdrop-blur transition-colors duration-500 dark:border-slate-50/[0.06] dark:border-slate-300/10 dark:bg-transparent lg:z-50 lg:mx-0 lg:border-0 lg:border-b lg:border-slate-900/10 lg:px-8">
       <div className="flex items-center justify-between px-3 sm:px-3">
@@ -53,9 +57,9 @@ export default function Header() {
               >
                 <circle cx="1" cy="1" r="1"></circle>
               </svg>
-              <span className="ml-2 min-[1372px]:hidden">开发者日记</span>
+              <span className="ml-2 min-[1372px]:hidden">开源项目，开发者日记</span>
               <span className="ml-2 hidden min-[1372px]:inline">
-                开发者日记
+                开源项目，开发者日记
               </span>
               <svg
                 width="3"
@@ -138,7 +142,7 @@ export default function Header() {
           >
             <Github width="33" height="33" />
           </a>
-          <SignIn />
+          <SignIn showSingIn={showSingIn} />
         </div>
       </div>
     </header>
