@@ -1,15 +1,11 @@
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { activateLicenseKey } from "~/lib/lemon";
-import { selectApiKey } from "~/lib/openai/selectApiKey";
-import { fetchSubtitle } from "../../lib/bilibili";
-import { isDev } from "../../utils/env";
-import { OpenAIResult } from "../../lib/openai/OpenAIResult";
-import {
-  getChunckedTranscripts,
-  getSummaryPrompt,
-} from "../../lib/openai/prompt";
+import { selectApiKeyAndActivatedLicenseKey } from "~/lib/openai/selectApiKeyAndActivatedLicenseKey";
+import { fetchSubtitle } from "~/lib/bilibili";
+import { OpenAIResult } from "~/lib/openai/OpenAIResult";
+import { getChunckedTranscripts, getSummaryPrompt } from "~/lib/openai/prompt";
+import { isDev } from "~/utils/env";
 
 export const config = {
   runtime: "edge",
@@ -62,7 +58,8 @@ export default async function handler(
       n: 1,
     };
 
-    const openaiApiKey = await selectApiKey(apiKey);
+    // TODO: need refactor
+    const openaiApiKey = await selectApiKeyAndActivatedLicenseKey(apiKey, bvId);
     const result = await OpenAIResult(payload, openaiApiKey);
     // TODO: add better logging when dev or prod
     console.log("result", result);

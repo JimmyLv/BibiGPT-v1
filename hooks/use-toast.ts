@@ -138,6 +138,7 @@ function dispatch(action: Action) {
 interface Toast extends Omit<ToasterToast, "id"> {}
 
 function toast({ ...props }: Toast) {
+  console.log('========toast props========', props)
   const id = genId()
 
   const update = (props: ToasterToast) =>

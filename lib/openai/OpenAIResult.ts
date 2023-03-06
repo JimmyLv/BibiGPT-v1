@@ -1,6 +1,5 @@
 import { createParser, ParsedEvent, ReconnectInterval } from "eventsource-parser";
 import { formatResult } from "~/lib/openai/formatResult";
-import { selectApiKey } from "~/lib/openai/selectApiKey";
 
 // TODO: maybe chat with video?
 export type ChatGPTAgent = "user" | "system" | "assistant";
