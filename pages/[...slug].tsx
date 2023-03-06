@@ -13,6 +13,7 @@ import { UsageDescription } from "~/components/UsageDescription";
 import { UserKeyInput } from "~/components/UserKeyInput";
 import { useToast } from "~/hooks/use-toast";
 import { useSummarize } from "~/hooks/useSummarize";
+import { extractUrl } from "~/utils/extractUrl";
 import { getValidatedUrl } from "~/utils/getValidatedUrl";
 
 export const Home: NextPage = () => {
@@ -44,7 +45,6 @@ export const Home: NextPage = () => {
     );
 
     validatedUrl && generateSummary(validatedUrl);
-    // TODO: find reason to trigger twice
   }, [router.isReady, urlState]);
 
   const validateUrl = (url?: string) => {
@@ -59,7 +59,6 @@ export const Home: NextPage = () => {
     }
 
     if (!url) {
-      // 'https://m.bilibili.com/video/BV12Y4y127rj'.split(".com")[1]
       // -> '/video/BV12Y4y127rj'
       const curUrl = String(videoUrl.split(".com")[1]);
       router.replace(curUrl);
@@ -71,14 +70,13 @@ export const Home: NextPage = () => {
     resetSummary();
     validateUrl(url);
 
-    const videoUrl = url ? url : currentVideoUrl;
-    const matchResult = videoUrl.match(/\/video\/([^\/\?]+)/);
-    if (!matchResult) {
+    const videoUrl = url || currentVideoUrl;
+    const bvId = extractUrl(videoUrl);
+    if (!bvId) {
       return;
     }
-    const bvId = matchResult[1];
-    setCurrentBvId(matchResult[1]);
 
+    setCurrentBvId(bvId);
     await summarize(bvId, { userKey, shouldShowTimestamp });
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
