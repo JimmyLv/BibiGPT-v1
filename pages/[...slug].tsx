@@ -3,18 +3,18 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { TypeAnimation } from "react-type-animation";
 import { useLocalStorage } from "react-use";
 import { useAnalytics } from "~/components/context/analytics";
+import { TypingSlogan } from "~/components/TypingSlogan";
 import { Label } from "~/components/ui/label";
 import { Switch } from "~/components/ui/switch";
+import { UsageAction } from "~/components/UsageAction";
+import { UsageDescription } from "~/components/UsageDescription";
 import { useToast } from "~/hooks/use-toast";
 import { useSummarize } from "~/hooks/useSummarize";
 import { CHECKOUT_URL, RATE_LIMIT_COUNT } from "~/utils/constants";
-import { extractSentence } from "~/utils/extractSentence";
-import { extractTimestamp } from "~/utils/extractTimestamp";
+import { formatSummary } from "~/utils/formatSummary";
 import Sentence from "../components/Sentence";
-import SquigglyLines from "../components/SquigglyLines";
 
 let isSecureContext = false;
 
@@ -103,19 +103,7 @@ export const Home: NextPage = () => {
     await generateSummary();
     analytics.track("GenerateButton Clicked");
   };
-
-  const summaryArray = summary.split("- ");
-  const formattedSummary = summaryArray
-    .map((s) => {
-      const matchResult = extractSentence(s);
-      if (matchResult) {
-        const { formattedContent, timestamp } = extractTimestamp(matchResult);
-        return timestamp + formattedContent;
-      } else {
-        return s.replace(/\n\n/g, "\n");
-      }
-    })
-    .join("\n- ");
+  const { summaryArray, formattedSummary } = formatSummary(summary);
 
   const handleCopy = () => {
     if (!isSecureContext) {
@@ -151,63 +139,9 @@ export const Home: NextPage = () => {
 
   return (
     <div className="mt-10 w-full sm:mt-40">
-      <a
-        target="_blank"
-        rel="noreferrer"
-        className="mx-auto mb-5 hidden max-w-fit rounded-full border-2 border-dashed px-4 py-1 text-gray-500 transition duration-300 ease-in-out hover:scale-105 hover:border-gray-700 md:block"
-        href="https://www.bilibili.com/video/BV1fX4y1Q7Ux/"
-      >
-        你只需要把任意 Bilibili 视频 URL 中的后缀 "
-        <span className="text-pink-400">.com</span>" 改成我的域名 "
-        <span className="text-sky-400">jimmylv.cn</span>" 就行啦！😉
-        <br />
-        比如 www.bilibili.
-        <span className="text-pink-400 line-through">com</span>
-        /video/BV1k84y1e7fW 👉 www.bilibili.
-        <span className="text-sky-400 underline">jimmylv.cn</span>
-        /video/BV1k84y1e7fW
-      </a>
-      <h1 className="h-[5rem] w-full text-center text-4xl font-bold sm:w-[64rem] sm:text-7xl">
-        一键总结{" "}
-        <span className="relative whitespace-nowrap	text-pink-400">
-          <SquigglyLines />
-          <TypeAnimation
-            sequence={[
-              "哔哩哔哩",
-              2000,
-              "YouTube",
-              2000,
-              "播客",
-              2000,
-              "会议",
-              3000,
-              () => {
-                console.log("Done typing!"); // Place optional callbacks anywhere in the array
-              },
-            ]}
-            wrapper="span"
-            cursor={true}
-            repeat={Infinity}
-            className="relative text-pink-400	"
-          />
-        </span>{" "}
-        音视频内容 <br />
-      </h1>
-      <h1 className="mt-4 w-full text-center text-4xl font-bold sm:w-[64rem] sm:text-7xl">
-        Powered by GPT-3.5 AI
-      </h1>
-      <p className="mt-10 text-center text-lg text-gray-500 sm:text-2xl">
-        在下面的输入框，直接复制粘贴
-        <a
-          className="text-sky-400"
-          href="https://www.bilibili.com/video/BV1fX4y1Q7Ux/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {" bilibili.com "}
-        </a>
-        视频链接 👇
-      </p>
+      <UsageDescription />
+      <TypingSlogan />
+      <UsageAction />
       <details>
         <summary className="mt-10 flex cursor-pointer items-center space-x-3	">
           <svg
@@ -313,7 +247,8 @@ export const Home: NextPage = () => {
       </form>
       {summary && (
         <div className="mb-8 px-4">
-          <h3 className="m-8 mx-auto max-w-3xl border-t-2 border-dashed pt-8 text-center text-2xl font-bold sm:text-4xl">
+          <h3
+            className="m-8 mx-auto max-w-3xl border-t-2 border-dashed pt-8 text-center text-2xl font-bold sm:text-4xl">
             <a
               href={curVideo}
               className="hover:text-pink-600 hover:underline"
