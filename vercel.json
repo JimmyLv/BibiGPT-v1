@@ -39,6 +39,11 @@
       "source": "/status",
       "destination": "https://github.com/JimmyLv/BiliGPT",
       "permanent": true
+    },
+    {
+      "source": "/release",
+      "destination": "https://github.com/JimmyLv/BiliGPT/releases",
+      "permanent": true
     }
   ]
 }
