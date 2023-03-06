@@ -12,13 +12,13 @@ This project summarizes Bilibili videos for you using AI.
 
 ## How it works
 
-This project uses the [OpenAI GPT-3.5 API](https://openai.com/api/) (specifically, gpt-3.5-turbo) and [Vercel Edge functions](https://vercel.com/features/edge-functions) with streaming and [Upstash](https://console.upstash.com/) for Redis cache and rate limiting. It fetches the content on a Bilibili video, sends it in a prompt to the GPT-3 API to summarize it via a Vercel Edge function, then streams the response back to the application.
+This project uses the [OpenAI ChatGPT API](https://openai.com/api/) (specifically, gpt-3.5-turbo) and [Vercel Edge functions](https://vercel.com/features/edge-functions) with streaming and [Upstash](https://console.upstash.com/) for Redis cache and rate limiting. It fetches the content on a Bilibili video, sends it in a prompt to the GPT-3 API to summarize it via a Vercel Edge function, then streams the response back to the application.
 
 ## Saving costs
 
 Projects like this can get expensive so in order to save costs if you want to make your own version and share it publicly, I recommend three things:
 
-- [ ] 1. Implement rate limiting so people can't abuse your site
+- [x] 1. Implement rate limiting so people can't abuse your site
 - [x] 2. Implement caching to avoid expensive AI re-generations
 - [x] 3. Use `text-curie-001` instead of `text-dacinci-003` in the `summarize` edge function
 
