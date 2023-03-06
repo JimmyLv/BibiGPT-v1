@@ -1,5 +1,8 @@
 import { Inter as FontSans } from "@next/font/google";
-import { createBrowserSupabaseClient, Session } from "@supabase/auth-helpers-nextjs";
+import {
+  createBrowserSupabaseClient,
+  Session,
+} from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "next-themes";
@@ -37,7 +40,7 @@ function MyApp({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <TooltipProvider>
-            <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-2 pt-8 sm:pt-10">
+            <div className="mx-auto flex min-h-screen flex-col justify-center px-2">
               <Header />
               <main
                 className={cn(
