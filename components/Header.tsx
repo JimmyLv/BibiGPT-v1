@@ -47,8 +47,7 @@ export default function Header() {
           target="_blank"
           className="flex items-center space-x-2"
         >
-          🔥 <span className="hidden sm:block">给我提</span>反馈
-          <span className="hidden sm:block">？</span>
+          🔥<span className="hidden pl-1 sm:block">提</span>反馈
         </a>
         <a
           href="javascript:(function(){if(!window.location.hostname
@@ -59,7 +58,7 @@ export default function Header() {
           aria-label="书签版"
         >
           🔖
-          <span className="relin-paragraph-target hidden text-slate-500 sm:block">
+          <span className="relin-paragraph-target pl-1 text-slate-500">
             (书签版)
           </span>
         </a>
