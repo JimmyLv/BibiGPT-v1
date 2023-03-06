@@ -1,23 +1,19 @@
 import { Inter as FontSans } from "@next/font/google";
-import {
-  createBrowserSupabaseClient,
-  Session,
-} from "@supabase/auth-helpers-nextjs";
-
+import { createBrowserSupabaseClient, Session } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { Analytics } from "@vercel/analytics/react";
+import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import React, { useState } from "react";
 import CommandMenu from "~/components/CommandMenu";
 import { AnalyticsProvider } from "~/components/context/analytics";
 import { TailwindIndicator } from "~/components/tailwind-indicator";
 import { Toaster } from "~/components/ui/toaster";
+import { TooltipProvider } from "~/components/ui/tooltip";
 import { cn } from "~/lib/utils";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import "../styles/globals.css";
-import { ThemeProvider } from "next-themes";
-import { TooltipProvider } from "~/components/ui/tooltip";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -32,6 +28,7 @@ function MyApp({
 }>) {
   // Create a new supabase browser client on every first render.
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+
   return (
     <AnalyticsProvider>
       <SessionContextProvider
