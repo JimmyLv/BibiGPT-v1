@@ -46,6 +46,7 @@ export default function Header({
             <a
               className="ml-3 hidden items-center rounded-full bg-sky-400/10 py-1 px-3 text-xs font-medium leading-5 text-sky-600 hover:bg-sky-400/20 dark:text-sky-400 xl:flex"
               href="/release"
+              target="_blank"
             >
               <strong className="font-semibold">更新日志 v0.0.1</strong>
               <svg
@@ -57,7 +58,9 @@ export default function Header({
               >
                 <circle cx="1" cy="1" r="1"></circle>
               </svg>
-              <span className="ml-2 min-[1372px]:hidden">开源项目，开发者日记</span>
+              <span className="ml-2 min-[1372px]:hidden">
+                开源项目，开发者日记
+              </span>
               <span className="ml-2 hidden min-[1372px]:inline">
                 开源项目，开发者日记
               </span>
