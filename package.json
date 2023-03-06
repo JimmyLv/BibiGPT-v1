@@ -6,6 +6,7 @@
     "build": "next build",
     "start": "next start"
   },
+  "repository": "https://github.com/JimmyLv/chat-bilibili-video.git",
   "dependencies": {
     "@next/font": "^13.1.5",
     "@radix-ui/react-dialog": "^1.0.2",
