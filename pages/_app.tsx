@@ -10,6 +10,7 @@ import type { AppProps } from "next/app";
 import React, { useState } from "react";
 import CommandMenu from "~/components/CommandMenu";
 import { AnalyticsProvider } from "~/components/context/analytics";
+import { useSignInModal } from "~/components/sign-in-modal";
 import { TailwindIndicator } from "~/components/tailwind-indicator";
 import { Toaster } from "~/components/ui/toaster";
 import { TooltipProvider } from "~/components/ui/tooltip";
@@ -31,6 +32,7 @@ function MyApp({
 }>) {
   // Create a new supabase browser client on every first render.
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+  const { SignInModal, setShowSignInModal: showSingIn } = useSignInModal();
 
   return (
     <AnalyticsProvider>
@@ -41,7 +43,7 @@ function MyApp({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <TooltipProvider>
             <div className="mx-auto flex min-h-screen flex-col justify-center px-2">
-              <Header />
+              <Header showSingIn={showSingIn} />
               <main
                 className={cn(
                   "mx-auto flex max-w-5xl flex-1 flex-col justify-center bg-white font-sans text-slate-900 antialiased dark:bg-slate-900 dark:text-slate-50",
@@ -56,6 +58,7 @@ function MyApp({
             </div>
             <TailwindIndicator />
             <Toaster />
+            <SignInModal />
           </TooltipProvider>
         </ThemeProvider>
       </SessionContextProvider>
