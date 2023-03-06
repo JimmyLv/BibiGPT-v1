@@ -12,6 +12,7 @@ import Modal from "~/components/shared/modal";
 import Image from "next/image";
 import { BASE_DOMAIN, LOGIN_LIMIT_COUNT } from "~/utils/constants";
 import Link from "next/link";
+import { isDev } from "~/utils/env";
 
 const SignInModal = ({
   showSignInModal,
@@ -42,6 +43,7 @@ const SignInModal = ({
         <div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
           <Auth
             supabaseClient={supabaseClient}
+            // redirectTo={isDev ? window?.location?.origin : BASE_DOMAIN}
             localization={{
               variables: {
                 sign_up: {
