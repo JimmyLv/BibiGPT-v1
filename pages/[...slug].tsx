@@ -99,7 +99,6 @@ export const Home: NextPage = () => {
     }, 10);
   };
   const onFormSubmit = async (e: any) => {
-    console.log("========e========", e.target.value);
     e.preventDefault();
     await generateSummary();
     analytics.track("GenerateButton Clicked");
