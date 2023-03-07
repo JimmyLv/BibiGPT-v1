@@ -34,6 +34,7 @@
     "flowbite-react": "^0.4.1",
     "focus-trap-react": "^10.1.0",
     "framer-motion": "^9.0.1",
+    "get-video-id": "^3.6.5",
     "lemonsqueezy.ts": "^0.1.6",
     "lodash": "^4.17.21",
     "lucide-react": "^0.122.0",
