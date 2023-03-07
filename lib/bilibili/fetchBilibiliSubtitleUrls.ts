@@ -2,7 +2,7 @@ import { sample } from "~/utils/fp";
 
 export const fetchBilibiliSubtitleUrls = async (bvId: string) => {
   const requestUrl = `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`;
-  console.log(`fetch`, requestUrl, process.env.BILIBILI_SESSION_TOKEN);
+  console.log(`fetch`, requestUrl);
   const sessdata = sample(process.env.BILIBILI_SESSION_TOKEN?.split(","));
   const headers = {
     Accept: "application/json",
