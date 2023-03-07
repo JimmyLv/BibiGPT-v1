@@ -99,14 +99,13 @@ export default function Header({
           <Tooltip>
             <TooltipTrigger>
               <a
-                href="javascript:(function(){if(!window.location.hostname
-  .includes('bilibili.com')){alert('🔖请进入B站视频页面再点击书签哦！')};location.href=location.href.replace('bilibili.com','bilibili.jimmylv.cn')}())"
+                href="javascript:(function(){if (window.location.hostname.includes('bilibili.com') || window.location.hostname.includes('youtube.com')) {window.open(location.href.replace('.com', '.jimmylv.cn'), '_blank');} else {alert('🔖请进入B站或YouTube视频页面，再来点击书签哦！');}}())"
                 rel="noreferrer noopener"
                 target="_blank"
                 className="flex hidden items-center space-x-2 sm:block"
                 aria-label="书签版"
                 onClick={() =>
-                  alert("🔖请拖至书签栏，进入B站视频页面再点击书签哦！")
+                  alert("🔖请拖至书签栏，进入B站或YouTube视频页面，再来点击书签哦！")
                 }
               >
                 🔖
