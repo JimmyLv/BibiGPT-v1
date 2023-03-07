@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0](https://github.com/JimmyLv/BibiGPT/compare/v1.0.0...v1.1.0) (2023-03-07)
+
+
+### Features
+
+* rebrand to BibiGPT ([931bd2c](https://github.com/JimmyLv/BibiGPT/commit/931bd2ca02671bfe37e5b4ead497240afbad7531))
+
+
+### Bug Fixes
+
+* add beta for showTimestamp ([fcf193e](https://github.com/JimmyLv/BibiGPT/commit/fcf193e6a823b608a7d83ce2921148e401c8ee6f))
+* fetch youtube subtitle with timestamp ([244b77c](https://github.com/JimmyLv/BibiGPT/commit/244b77cf6aad2c7e0cbcdee717ef5eae147216f7))
+* format issue ([bcb8fe4](https://github.com/JimmyLv/BibiGPT/commit/bcb8fe47a7019581a34e600145275059a320da93))
+
 ## 1.0.0 (2023-03-07)
 
 
