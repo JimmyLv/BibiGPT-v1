@@ -1,32 +1,7 @@
 import { VideoService } from "~/lib/types";
-import {
-  fetchYoutubeSubtitle,
-  SUBTITLE_DOWNLOADER_URL,
-} from "~/lib/youtube/fetchYoutubeSubtitle";
-import { find, sample } from "~/utils/fp";
-
-const fetchBilibiliSubtitles = async (bvId: string) => {
-  const requestUrl = `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`;
-  console.log(`fetch`, requestUrl, process.env.BILIBILI_SESSION_TOKEN);
-  const sessdata = sample(process.env.BILIBILI_SESSION_TOKEN?.split(","));
-  const headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-    "User-Agent":
-      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
-    Host: "api.bilibili.com",
-    Cookie: `SESSDATA=${sessdata}`,
-  };
-  const response = await fetch(requestUrl, {
-    method: "GET",
-    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    headers,
-    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-  });
-  const json = await response.json();
-  // return json.data.View;
-  return json.data;
-};
+import { fetchYoutubeSubtitleUrls, SUBTITLE_DOWNLOADER_URL } from "~/lib/youtube/fetchYoutubeSubtitleUrls";
+import { find } from "~/utils/fp";
+import { fetchBilibiliSubtitleUrls } from "./bilibili/fetchBilibiliSubtitleUrls";
 
 export async function fetchSubtitle(
   videoId: string,
@@ -34,7 +9,7 @@ export async function fetchSubtitle(
   shouldShowTimestamp?: boolean
 ) {
   if (service === VideoService.Youtube) {
-    const { title, subtitleList } = await fetchYoutubeSubtitle(videoId);
+    const { title, subtitleList } = await fetchYoutubeSubtitleUrls(videoId);
     if (subtitleList?.length <= 0) {
       return { title, subtitleList: null };
     }
@@ -75,7 +50,7 @@ export async function fetchSubtitle(
   //   retries: 2,
   // });
   // @ts-ignore
-  const res = await fetchBilibiliSubtitles(videoId);
+  const res = await fetchBilibiliSubtitleUrls(videoId);
   const title = res?.title;
   const subtitleList = res?.subtitle?.list;
   if (!subtitleList || subtitleList?.length < 1) {
