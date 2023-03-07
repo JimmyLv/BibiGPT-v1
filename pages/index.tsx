@@ -1,10 +1,13 @@
 import { AnalyticsBrowser } from "@segment/analytics-next";
 import { Analytics as AnalyticsType } from "@segment/analytics-next/dist/types/core/analytics";
+import { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import { useAnalytics } from "~/components/context/analytics";
 import SlugPage from "./[...slug]";
 
-function Home(): React.ReactElement {
+const Home: NextPage<{
+  showSingIn: (show: boolean) => void;
+}> = ({ showSingIn }) => {
   const [analytics, setAnalytics] = useState<AnalyticsType | undefined>(
     undefined
   );
@@ -25,6 +28,6 @@ function Home(): React.ReactElement {
     }
     handleAnalyticsLoading(analyticsBrowser).catch(console.error);
   }, [analyticsBrowser]);
-  return <SlugPage />;
-}
+  return <SlugPage showSingIn={showSingIn} />;
+};
 export default Home;
