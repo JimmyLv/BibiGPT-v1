@@ -1,7 +1,8 @@
-export function getValidatedUrl(
+export function getVideoIdFromUrl(
   isReady: boolean,
   currentVideoUrl: string,
-  urlState?: string | string[]
+  urlState?: string | string[],
+  searchParams?: URLSearchParams
 ): string | undefined {
   const isValidatedUrl =
     isReady &&
@@ -11,6 +12,9 @@ export function getValidatedUrl(
     urlState.every((subslug: string) => typeof subslug === "string");
 
   if (isValidatedUrl) {
+    if (urlState[0] === "watch") {
+      return "https://youtube.com/watch?v=" + searchParams?.get("v");
+    }
     return `https://bilibili.com/${(urlState as string[]).join("/")}`;
   }
 }
