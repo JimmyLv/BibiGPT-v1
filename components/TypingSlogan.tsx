@@ -18,6 +18,8 @@ export function TypingSlogan() {
               "播客",
               2000,
               "会议",
+              2000,
+              "本地文件",
               3000,
               () => {
                 console.log("Done typing!"); // Place optional callbacks anywhere in the array
