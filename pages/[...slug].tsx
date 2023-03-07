@@ -40,6 +40,8 @@ export const Home: NextPage = () => {
   }, [licenseKey]);
 
   useEffect(() => {
+    // https://www.youtube.com/watch?v=DHhOgWPKIKU
+    // todo: support redirect from www.youtube.jimmylv.cn/watch?v=DHhOgWPKIKU
     const validatedUrl = getValidatedUrl(
       router.isReady,
       currentVideoUrl,
@@ -73,11 +75,9 @@ export const Home: NextPage = () => {
   };
   const generateSummary = async (url?: string) => {
     resetSummary();
-    validateUrl(url);
-
     const videoUrl = url || currentVideoUrl;
     const { id, service } = getVideoId(videoUrl);
-    if (service === "youtube" && id) {
+    if (service === VideoService.Youtube && id) {
       setCurrentVideoId(id);
       await summarize(
         { videoId: id, service: VideoService.Youtube },
@@ -86,6 +86,7 @@ export const Home: NextPage = () => {
       return;
     }
 
+    validateUrl(url);
     const bvId = extractUrl(videoUrl);
     if (!bvId) {
       return;
