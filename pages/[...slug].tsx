@@ -15,7 +15,7 @@ import { useToast } from "~/hooks/use-toast";
 import { useSummarize } from "~/hooks/useSummarize";
 import { VideoService } from "~/lib/types";
 import { extractUrl } from "~/utils/extractUrl";
-import { getValidatedUrl } from "~/utils/getValidatedUrl";
+import { getVideoIdFromUrl } from "~/utils/getVideoIdFromUrl";
 import getVideoId from "get-video-id";
 
 export const Home: NextPage = () => {
@@ -42,14 +42,17 @@ export const Home: NextPage = () => {
   useEffect(() => {
     // https://www.youtube.com/watch?v=DHhOgWPKIKU
     // todo: support redirect from www.youtube.jimmylv.cn/watch?v=DHhOgWPKIKU
-    const validatedUrl = getValidatedUrl(
+    const validatedUrl = getVideoIdFromUrl(
       router.isReady,
       currentVideoUrl,
-      urlState
+      urlState,
+      searchParams
     );
 
+    console.log("========validatedUrl========", validatedUrl);
+
     validatedUrl && generateSummary(validatedUrl);
-  }, [router.isReady, urlState]);
+  }, [router.isReady, urlState, searchParams]);
 
   const validateUrl = (url?: string) => {
     // note: auto refactor by ChatGPT
@@ -65,6 +68,7 @@ export const Home: NextPage = () => {
       return;
     }
 
+    // 来自输入框
     if (!url) {
       // -> '/video/BV12Y4y127rj'
       const curUrl = String(videoUrl.split(".com")[1]);
@@ -75,6 +79,8 @@ export const Home: NextPage = () => {
   };
   const generateSummary = async (url?: string) => {
     resetSummary();
+    validateUrl(url);
+
     const videoUrl = url || currentVideoUrl;
     const { id, service } = getVideoId(videoUrl);
     if (service === VideoService.Youtube && id) {
@@ -86,7 +92,6 @@ export const Home: NextPage = () => {
       return;
     }
 
-    validateUrl(url);
     const bvId = extractUrl(videoUrl);
     if (!bvId) {
       return;
