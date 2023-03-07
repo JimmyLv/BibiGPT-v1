@@ -23,8 +23,9 @@ function redirectAuth() {
 export async function middleware(req: NextRequest, context: NextFetchEvent) {
   try {
     const { userConfig, videoConfig } = (await req.json()) as SummarizeParams;
-    const { userKey } = userConfig || {};
+    const { userKey, shouldShowTimestamp } = userConfig || {};
     const { videoId: bvId } = videoConfig || {};
+    const cacheId = shouldShowTimestamp ? `timestamp-${bvId}` : bvId;
 
     // licenseKeys
     if (userKey) {
@@ -33,7 +34,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
       }
 
       // 3. something-invalid-sdalkjfasncs-key
-      if (!(await validateLicenseKey(userKey, bvId))) {
+      if (!(await validateLicenseKey(userKey, cacheId))) {
         return redirectAuth();
       }
     }
@@ -78,9 +79,9 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
       return redirectAuth();
     }
 
-    const result = await redis.get<string>(bvId);
+    const result = await redis.get<string>(cacheId);
     if (!isDev && result) {
-      console.log("hit cache for ", bvId);
+      console.log("hit cache for ", cacheId);
       return NextResponse.json(result);
     }
   } catch (e) {

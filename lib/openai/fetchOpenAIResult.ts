@@ -26,7 +26,7 @@ export interface OpenAIStreamPayload {
   n: number;
 }
 
-export async function OpenAIResult(
+export async function fetchOpenAIResult(
   payload: OpenAIStreamPayload,
   apiKey: string
 ) {
