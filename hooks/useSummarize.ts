@@ -3,7 +3,7 @@ import { useToast } from "~/hooks/use-toast";
 import { UserConfig, VideoConfig, VideoService } from "~/lib/types";
 import { RATE_LIMIT_COUNT } from "~/utils/constants";
 
-export function useSummarize() {
+export function useSummarize(showSingIn: (show: boolean) => void) {
   const [loading, setLoading] = useState(false);
   const [summary, setSummary] = useState<string>("");
   const { toast } = useToast();
@@ -57,6 +57,7 @@ export function useSummarize() {
             // description: response.body
             description: "每天的免费次数已经用完啦，🆓",
           });
+          showSingIn(true);
         } else {
           toast({
             variant: "destructive",
