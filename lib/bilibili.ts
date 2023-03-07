@@ -1,10 +1,9 @@
-import { find } from "lodash";
 import { VideoService } from "~/lib/types";
 import {
   fetchYoutubeSubtitle,
   SUBTITLE_DOWNLOADER_URL,
 } from "~/lib/youtube/fetchYoutubeSubtitle";
-import { sample } from "~/utils/fp";
+import { find, sample } from "~/utils/fp";
 
 const fetchBilibiliSubtitles = async (bvId: string) => {
   const requestUrl = `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`;
@@ -51,7 +50,6 @@ export async function fetchSubtitle(
     const transcripts = subtitles
       .split("\r\n\r\n")
       ?.map((text: string, index: number) => ({ text, index }));
-    console.log("========subtitleUrl response========", title, transcripts);
     return { title, subtitles: transcripts };
   }
 
