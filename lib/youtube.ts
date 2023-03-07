@@ -1,36 +1,24 @@
-import { getSubtitles } from "yt-subtitles";
-// const youtube = google.youtube({
-//     version: 'v3',
-//     auth: process.env.YOUTUBE_API_KEY,
-// });
+import ytdl from "ytdl-core";
 
+// interface SubtitleResponse {
+//   title: string;
+//   subtitles: string[];
+// }
 
-export async function fetchSubtitle(videoId: string) {
-    // const response = await youtube.captions.list({
-    //     videoId,
-    // });
-    
-    // let captionTrackId = null;
-    
-    // const subtitleList = response?.data?.items;
-    
-    // const subtitleItem = subtitleList?.find(item => item?.snippet?.language === 'en');
-    // if (subtitleItem) {
-    //     captionTrackId = subtitleItem.id;
-    // }
-    
-    // const subtitleResponse = await youtube.captions.download({
-    //     id: captionTrackId,
-    //     tfmt: 'vtt',
-    // });
-    
-    // const subtitleData = subtitleResponse.data;
-    // const subtitles = fromVtt(subtitleData);
-
-    const subtitles =  await getSubtitles(videoId, "en");
-
-    console.log(subtitles);
-      
+export async function getVideoInfo(videoId: string) {
+  try {
+    const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+    const videoInfo = await ytdl.getInfo(videoUrl);
+    const title = videoInfo.videoDetails.title;
+    const subtitles = videoInfo.player_response.captions
+      ? videoInfo.player_response.captions.playerCaptionsTracklistRenderer
+          .captionTracks.map((track) => track.baseUrl)
+      : [];
+    console.log("title", title);
+    console.log("subtitles", subtitles);
     return { title, subtitles };
+  } catch (error) {
+    console.error(`Error retrieving video info: ${error}`);
+    return { title: "", subtitles: [] };
+  }
 }
-

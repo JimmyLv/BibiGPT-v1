@@ -44,7 +44,7 @@
     "subtitle": "^4.2.1",
     "tailwind-merge": "^1.10.0",
     "tailwindcss-animate": "^1.0.5",
-    "yt-subtitles": "^1.0.3"
+    "ytdl-core": "^4.11.2"
   },
   "devDependencies": {
     "@supabase/auth-helpers-react": "^0.3.1",

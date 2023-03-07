@@ -5,6 +5,7 @@ import { fetchSubtitle } from "../../lib/bilibili";
 import { isDev } from "../../utils/env";
 import { OpenAIResult } from "../../lib/openai/OpenAIResult";
 import { getChunckedTranscripts, getSummaryPrompt } from "../../lib/openai/prompt";
+import { getVideoInfo } from "../../lib/youtube";
 
 export const config = {
   runtime: "edge",
@@ -25,9 +26,18 @@ export default async function handler(
   };
 
   if (!vId) {
-    return new Response("No bvid in the request", { status: 500 });
+    return new Response("No videoId in the request", { status: 500 });
   }
-  const { title, subtitles } = await fetchSubtitle(vId);
+
+  let title = "";
+  let subtitles: any = null;
+  
+  if (videoType === "bilibili") {
+    ({ title, subtitles } = await fetchSubtitle(vId));
+  } else if (videoType === "youtube") {
+    ({ title, subtitles } = await getVideoInfo(vId));
+  }  
+
   if (!subtitles) {
     console.error("No subtitle in the video: ", vId);
     return new Response("No subtitle in the video", { status: 501 });

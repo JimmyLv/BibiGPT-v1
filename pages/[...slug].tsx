@@ -52,16 +52,11 @@ export const Home: NextPage = () => {
 
   // https://www.bilibili.com/video/BV1m8411P7v7/
   // https://www.youtube.com/watch?v=g08C4A6Vnrc
-  enum DomainType {
-    Bilibili = "bilibili.com",
-    Youtube = "youtube.com"
-  }
-  
-  const getUrlDomain = (url: string): DomainType | null => {
-    if (url.includes(DomainType.Bilibili)) {
-      return DomainType.Bilibili;
-    } else if (url.includes(DomainType.Youtube)) {
-      return DomainType.Youtube;
+  const getUrlDomain = (url: string): string | null => {
+    if (url.includes("bilibili.com")) {
+      return "bilibili";
+    } else if (url.includes("youtube.com")) {
+      return "youtube";
     } else {
       return null;
     }
@@ -102,6 +97,7 @@ export const Home: NextPage = () => {
     if (!matchResult || !domain) {
       return;
     }
+    console.log(`matchResult: ${matchResult} `);
     const videoId = matchResult[1];
     setCurrentBvId(videoId);
 
@@ -109,6 +105,7 @@ export const Home: NextPage = () => {
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }, 10);
+  };
 
   const onFormSubmit = async (e: any) => {
     e.preventDefault();
@@ -142,7 +139,7 @@ export const Home: NextPage = () => {
 
   return (
     <div className="mt-10 w-full sm:mt-40">
-  
+
       <h1 className="h-[5rem] w-full text-center text-4xl font-bold sm:w-[64rem] sm:text-7xl">
         一键总结{" "}
         <span className="relative whitespace-nowrap	text-pink-400">
