@@ -42,12 +42,12 @@ function MyApp({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <TooltipProvider>
-            <div className="mx-auto flex min-h-screen flex-col justify-center">
+            <div className="mx-auto flex min-h-screen flex-col justify-center font-sans">
               <Header showSingIn={showSingIn} />
               <main
                 className={cn(
-                  "mx-auto flex max-w-5xl flex-1 flex-col justify-center bg-white font-sans text-slate-900 antialiased dark:bg-slate-900 dark:text-slate-50",
-                  // fontSans.variable
+                  "mx-auto flex max-w-5xl flex-1 flex-col justify-center bg-white text-slate-900 antialiased dark:bg-slate-900 dark:text-slate-50",
+                  fontSans.variable
                 )}
               >
                 <Component {...pageProps} />
