@@ -1,5 +1,5 @@
 import { activateLicenseKey } from "~/lib/lemon";
-import { checkOpenaiApiKeys } from "~/lib/openai/openai";
+import { checkOpenaiApiKeys } from "~/lib/openai/checkOpenaiApiKey";
 import { sample } from "~/utils/fp";
 
 export async function selectApiKeyAndActivatedLicenseKey(
