@@ -1,6 +1,6 @@
 export function extractTimestamp(matchResult: RegExpMatchArray) {
   let timestamp: string | undefined;
-  const seconds = Number(matchResult[1].replace(':', '.'));
+  const seconds = Number(matchResult[1].replace(":", "."));
   const hours = Math.floor(seconds / 3600);
   const remainingSeconds = Math.floor(seconds % 3600);
   const minutes = Math.floor(remainingSeconds / 60);
@@ -16,14 +16,14 @@ export function extractTimestamp(matchResult: RegExpMatchArray) {
   const content = matchResult[2];
   let formattedContent = content;
   try {
-    formattedContent = (content && /^[:：秒]/.test(content))
-      ? content.substring(1)
-      : content;
-    formattedContent = (formattedContent && !/^ /.test(formattedContent))
-      ? ' ' + formattedContent
-      : formattedContent;
-  }catch(e){
-    console.log('handle text after time error', e);
+    formattedContent =
+      content && /^[:：秒]/.test(content) ? content.substring(1) : content;
+    formattedContent =
+      formattedContent && !/^ /.test(formattedContent)
+        ? " " + formattedContent
+        : formattedContent;
+  } catch (e) {
+    console.log("handle text after time error", e);
   }
   // console.log("========matchResult========", {matchResult, timestamp, formattedContent});
   return { timestamp, formattedContent };

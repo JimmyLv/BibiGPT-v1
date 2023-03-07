@@ -28,7 +28,7 @@ export const Home: NextPage = () => {
   const [currentVideoUrl, setCurrentVideoUrl] = useState<string>("");
   const [shouldShowTimestamp, setShouldShowTimestamp] =
     useLocalStorage<boolean>("should-show-timestamp", false);
-  const [currentBvId, setCurrentVideoId] = useState<string>("");
+  const [currentVideoId, setCurrentVideoId] = useState<string>("");
   const [userKey, setUserKey, remove] =
     useLocalStorage<string>("user-openai-apikey");
   const { loading, summary, resetSummary, summarize } = useSummarize();
@@ -118,7 +118,8 @@ export const Home: NextPage = () => {
     setShouldShowTimestamp(checked);
     analytics
       .track(`ShowTimestamp Clicked`, {
-        bvId: currentBvId,
+        videoId: currentVideoId,
+        // todo: add video service
         shouldShowTimestamp: checked,
       })
       .then((res) => console.log("tracked!", res))
@@ -149,8 +150,8 @@ export const Home: NextPage = () => {
       {summary && (
         <SummaryResult
           summary={summary}
-          curVideo={currentVideoUrl}
-          currentBvId={currentBvId}
+          currentVideoUrl={currentVideoUrl}
+          currentVideoId={currentVideoId}
         />
       )}
     </div>

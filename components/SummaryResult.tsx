@@ -11,12 +11,12 @@ if (typeof window !== "undefined") {
 }
 
 export function SummaryResult({
-  curVideo,
-  currentBvId,
+  currentVideoUrl,
+  currentVideoId,
   summary,
 }: {
-  curVideo: string;
-  currentBvId: string;
+  currentVideoUrl: string;
+  currentVideoId: string;
   summary: string;
 }) {
   const { toast } = useToast();
@@ -39,12 +39,12 @@ export function SummaryResult({
     <div className="mb-8 px-4">
       <h3 className="m-8 mx-auto max-w-3xl border-t-2 border-dashed pt-8 text-center text-2xl font-bold sm:text-4xl">
         <a
-          href={curVideo}
+          href={currentVideoUrl}
           className="hover:text-pink-600 hover:underline"
           target="_blank"
           rel="noreferrer"
         >
-          {`【📝 总结：${currentBvId}】`}
+          {`【📝 总结：${currentVideoId}】`}
         </a>
       </h3>
       <div
@@ -54,12 +54,16 @@ export function SummaryResult({
         {summaryArray.map((sentence, index) => (
           <div key={index}>
             {sentence.length > 0 && (
-              <Sentence bvId={currentBvId} sentence={sentence} />
+              <Sentence
+                videoId={currentVideoId}
+                videoUrl={currentVideoUrl}
+                sentence={sentence}
+              />
             )}
           </div>
         ))}
       </div>
-      <ActionsAfterResult curVideo={curVideo} onCopy={handleCopy} />
+      <ActionsAfterResult curVideo={currentVideoUrl} onCopy={handleCopy} />
     </div>
   );
 }
