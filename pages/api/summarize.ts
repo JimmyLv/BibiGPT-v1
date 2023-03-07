@@ -1,7 +1,7 @@
 import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { fetchSubtitle } from "~/lib/bilibili";
+import { fetchSubtitle } from "~/lib/fetchSubtitle";
 import { OpenAIResult } from "~/lib/openai/OpenAIResult";
 import { getChunckedTranscripts, getSummaryPrompt } from "~/lib/openai/prompt";
 import { selectApiKeyAndActivatedLicenseKey } from "~/lib/openai/selectApiKeyAndActivatedLicenseKey";
@@ -27,7 +27,11 @@ export default async function handler(
   if (!videoId) {
     return new Response("No videoId in the request", { status: 500 });
   }
-  const { title, subtitles } = await fetchSubtitle(videoId, service, shouldShowTimestamp);
+  const { title, subtitles } = await fetchSubtitle(
+    videoId,
+    service,
+    shouldShowTimestamp
+  );
   if (!subtitles) {
     console.error("No subtitle in the video: ", videoId);
     return new Response("No subtitle in the video", { status: 501 });

@@ -1,5 +1,5 @@
 export const SUBTITLE_DOWNLOADER_URL = "https://savesubs.com";
-export async function fetchYoutubeSubtitle(videoId: string) {
+export async function fetchYoutubeSubtitleUrls(videoId: string) {
   const response = await fetch(SUBTITLE_DOWNLOADER_URL + "/action/extract", {
     method: "POST",
     body: JSON.stringify({
