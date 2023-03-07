@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import { SummarizeParams } from "~/lib/types";
 import { validateLicenseKey } from "./lib/lemon";
 import { checkOpenaiApiKeys } from "./lib/openai/openai";
-import { ratelimit } from "./lib/upstash";
+import { ratelimitForFreeAccounts, ratelimitForIps } from "./lib/upstash";
 import { isDev } from "./utils/env";
 
 const redis = Redis.fromEnv();
@@ -39,7 +39,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
 
   if (!userKey) {
     const identifier = req.ip ?? "127.0.0.7";
-    const { success, remaining } = await ratelimit.limit(identifier);
+    const { success, remaining } = await ratelimitForIps.limit(identifier);
     console.log(`======== ip ${identifier}, remaining: ${remaining} ========`);
     if (!success) {
       // We need to create a response and hand it to the supabase client to be able to modify the response headers.
@@ -55,7 +55,9 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
       const userEmail = session?.user.email;
       if (userEmail) {
         // Authentication successful, forward request to protected route.
-        const { success, remaining } = await ratelimit.limit(userEmail);
+        const { success, remaining } = await ratelimitForFreeAccounts.limit(
+          userEmail
+        );
         console.log(
           `======== user ${userEmail}, remaining: ${remaining} ========`
         );
