@@ -27,16 +27,16 @@ export default function Header({
             rel="noopener noreferrer"
           >
             <Image
-              src="/video.png"
+              src="/video-off.svg"
               alt="logo"
               className="animate-bounce"
-              width={50}
-              height={50}
+              width={34}
+              height={34}
             />
           </a>
           <a href={BASE_DOMAIN}>
             <h2 className={clsx("text-lg sm:text-2xl", poppins.className)}>
-              <span className="text-pink-400">哔哩哔哩</span> BibiGPT
+              <span className="text-pink-400">哔哔终结者</span> BibiGPT
             </h2>
           </a>
           <div
@@ -48,7 +48,7 @@ export default function Header({
               href="/release"
               target="_blank"
             >
-              <strong className="font-semibold">更新日志 v0.0.1</strong>
+              <strong className="font-semibold">更新日志 v1.0.1</strong>
               <svg
                 width="2"
                 height="2"
@@ -59,10 +59,10 @@ export default function Header({
                 <circle cx="1" cy="1" r="1"></circle>
               </svg>
               <span className="ml-2 min-[1372px]:hidden">
-                开源项目，开发者日记
+                开源项目，开发者日记 · 支持 YouTube 英文内容一键总结啦 🎉
               </span>
               <span className="ml-2 hidden min-[1372px]:inline">
-                开源项目，开发者日记
+                开源项目，开发者日记 · 支持 YouTube 英文内容一键总结啦 🎉
               </span>
               <svg
                 width="3"
@@ -138,7 +138,7 @@ export default function Header({
             </span>
           </a>
           <a
-            href="https://github.com/JimmyLv/BiliGPT"
+            href="https://github.com/JimmyLv/BibiGPT"
             rel="noreferrer noopener"
             target="_blank"
             className=""

@@ -9,7 +9,7 @@ export function UsageAction() {
       target="_blank"
       rel="noopener noreferrer"
     >
-      {" bilibili.com "}
+      {" bilibili.com/youtube.com "}
     </a>
     视频链接 👇
   </p>;
