@@ -11,7 +11,7 @@ jobs:
       - uses: google-github-actions/release-please-action@v3
         id: release
         with:
-          command: manifest
+          release-type: node
           token: ${{secrets.GITHUB_TOKEN}}
           default-branch: main
           package-name: bibi-gpt
