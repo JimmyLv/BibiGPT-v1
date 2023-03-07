@@ -13,7 +13,7 @@ export function SwitchTimestamp(props: {
         checked={props.checked}
         onCheckedChange={props.onCheckedChange}
       />
-      <Label htmlFor="timestamp-mode">是否显示时间戳</Label>
+      <Label htmlFor="timestamp-mode">是否显示时间戳 <span className="text-gray-500">(beta)</span></Label>
     </div>
   );
 }
