@@ -18,7 +18,7 @@ export default function Header({
   showSingIn: (show: boolean) => void;
 }) {
   return (
-    <header className="supports-backdrop-blur:bg-white/60 max-w-8xl sticky top-0 z-40 mx-auto mx-4 w-full flex-none border-b border-slate-900/10 bg-white/95 pt-2  backdrop-blur transition-colors duration-500 dark:border-slate-50/[0.06] dark:border-slate-300/10 dark:bg-transparent lg:z-50 lg:mx-0 lg:border-0 lg:border-b lg:border-slate-900/10 lg:px-8">
+    <header className="supports-backdrop-blur:bg-white/60 max-w-8xl sticky top-0 z-40 mx-auto w-full flex-none border-b border-slate-900/10 bg-white/95 pt-2 backdrop-blur  transition-colors duration-500 dark:border-slate-50/[0.06] dark:border-slate-300/10 dark:bg-transparent lg:z-50 lg:mx-0 lg:border-0 lg:border-b lg:border-slate-900/10 lg:px-8">
       <div className="flex items-center justify-between px-3 sm:px-3">
         <div className="flex items-center space-x-3">
           <a
