@@ -55,7 +55,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
       const userEmail = session?.user.email;
       if (userEmail) {
         // Authentication successful, forward request to protected route.
-        const { success, remaining } = await ratelimit.limit(userEmail + "2");
+        const { success, remaining } = await ratelimit.limit(userEmail);
         console.log(
           `======== user ${userEmail}, remaining: ${remaining} ========`
         );
