@@ -27,9 +27,10 @@ export function SummaryResult({
       toast({ description: "复制错误 ❌" });
       return;
     }
-    // todo: update the timestamp
+    // todo: add the youtube video id
     navigator.clipboard.writeText(
-      formattedSummary + "\n\n #BibiGPT自动总结 b.jimmylv.cn @吕立青_JimmyLv \nBV1fX4y1Q7Ux"
+      formattedSummary +
+        "\n\n #BibiGPT自动总结 b.jimmylv.cn @吕立青_JimmyLv \nBV1fX4y1Q7Ux"
     );
     toast({ description: "复制成功 ✂️" });
   };
@@ -58,7 +59,7 @@ export function SummaryResult({
           </div>
         ))}
       </div>
-      <ActionsAfterResult curVideo={curVideo} />
+      <ActionsAfterResult curVideo={curVideo} onCopy={handleCopy} />
     </div>
   );
 }
