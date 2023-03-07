@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start"
   },
-  "repository": "https://github.com/JimmyLv/BiliGPT.git",
+  "repository": "https://github.com/JimmyLv/BibiGPT.git",
   "dependencies": {
     "@next/font": "^13.1.5",
     "@radix-ui/react-dialog": "^1.0.2",
