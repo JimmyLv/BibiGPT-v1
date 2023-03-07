@@ -4,7 +4,7 @@ import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { SummarizeParams } from "~/lib/types";
 import { validateLicenseKey } from "./lib/lemon";
-import { checkOpenaiApiKeys } from "./lib/openai/openai";
+import { checkOpenaiApiKeys } from "./lib/openai/checkOpenaiApiKey";
 import { ratelimitForFreeAccounts, ratelimitForIps } from "./lib/upstash";
 import { isDev } from "./utils/env";
 

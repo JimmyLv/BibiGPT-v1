@@ -3,7 +3,7 @@ import {
   ParsedEvent,
   ReconnectInterval,
 } from "eventsource-parser";
-import { formatResult } from "~/lib/openai/formatResult";
+import { trimOpenAiResult } from "~/lib/openai/trimOpenAiResult";
 import { isDev } from "~/utils/env";
 
 // TODO: maybe chat with video?
@@ -49,7 +49,7 @@ export async function OpenAIResult(
 
   if (!payload.stream) {
     const result = await res.json();
-    return formatResult(result);
+    return trimOpenAiResult(result);
   }
 
   let counter = 0;
@@ -67,7 +67,7 @@ export async function OpenAIResult(
           }
           try {
             const json = JSON.parse(data);
-            const text = formatResult(json);
+            const text = trimOpenAiResult(json);
             console.log("=====text====", text);
             if (counter < 2 && (text.match(/\n/) || []).length) {
               // this is a prefix character (i.e., "\n\n"), do nothing
