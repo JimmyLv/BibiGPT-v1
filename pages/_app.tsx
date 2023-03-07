@@ -42,7 +42,7 @@ function MyApp({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <TooltipProvider>
-            <div className="mx-auto flex min-h-screen flex-col justify-center px-2">
+            <div className="mx-auto flex min-h-screen flex-col justify-center">
               <Header showSingIn={showSingIn} />
               <main
                 className={cn(
