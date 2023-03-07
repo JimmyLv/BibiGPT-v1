@@ -27,6 +27,7 @@
     "flowbite-react": "^0.4.1",
     "focus-trap-react": "^10.1.0",
     "framer-motion": "^9.0.1",
+    "googleapis": "^112.0.0",
     "lemonsqueezy.ts": "^0.1.6",
     "lodash": "^4.17.21",
     "lucide-react": "^0.122.0",
@@ -40,8 +41,10 @@
     "react-type-animation": "^2.1.2",
     "react-use": "^17.4.0",
     "react-use-measure": "^2.1.1",
+    "subtitle": "^4.2.1",
     "tailwind-merge": "^1.10.0",
-    "tailwindcss-animate": "^1.0.5"
+    "tailwindcss-animate": "^1.0.5",
+    "yt-subtitles": "^1.0.3"
   },
   "devDependencies": {
     "@supabase/auth-helpers-react": "^0.3.1",
