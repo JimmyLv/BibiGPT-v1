@@ -1,7 +1,6 @@
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { motion } from "framer-motion";
 import { LayoutDashboard, LogOut } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 import Popover from "~/components/shared/popover";
 import { FADE_IN_ANIMATION_SETTINGS } from "~/utils/constants";
@@ -60,7 +59,7 @@ export default function UserDropdown() {
           onClick={() => setOpenPopover(!openPopover)}
           className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-gray-300 transition-all duration-75 focus:outline-none active:scale-95 sm:h-9 sm:w-9"
         >
-          <Image
+          <img
             alt={email}
             src={image || `https://avatars.dicebear.com/api/micah/${email}.svg`}
             width={40}
