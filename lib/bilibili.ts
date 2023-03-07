@@ -43,8 +43,21 @@ export async function fetchSubtitle(
       find(subtitleList, { quality: "English (auto" }) ||
       find(subtitleList, { quality: "zh-CN" }) ||
       subtitleList[0];
-    const format = shouldShowTimestamp ? "" : `?ext=txt`; // ?ext=json
-    const subtitleUrl = `${SUBTITLE_DOWNLOADER_URL}${betterSubtitle.url}${format}`;
+    if (shouldShowTimestamp) {
+      const subtitleUrl = `${SUBTITLE_DOWNLOADER_URL}${betterSubtitle.url}?ext=json`;
+      const response = await fetch(subtitleUrl);
+      const subtitles = await response.json();
+      // console.log("========subtitles========", subtitles);
+      const transcripts = subtitles?.map(
+        (item: { start: number; lines: string[] }, index: number) => ({
+          text: `${item.start}: ${item.lines.join(" ")}`,
+          index,
+        })
+      );
+      return { title, subtitles: transcripts };
+    }
+
+    const subtitleUrl = `${SUBTITLE_DOWNLOADER_URL}${betterSubtitle.url}?ext=txt`;
     const response = await fetch(subtitleUrl);
     const subtitles = await response.text();
     const transcripts = subtitles
