@@ -2,7 +2,7 @@ import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { fetchSubtitle } from "~/lib/fetchSubtitle";
-import { OpenAIResult } from "~/lib/openai/OpenAIResult";
+import { fetchOpenAIResult } from "~/lib/openai/fetchOpenAIResult";
 import { getChunckedTranscripts, getSummaryPrompt } from "~/lib/openai/prompt";
 import { selectApiKeyAndActivatedLicenseKey } from "~/lib/openai/selectApiKeyAndActivatedLicenseKey";
 import { SummarizeParams } from "~/lib/types";
@@ -59,12 +59,13 @@ export default async function handler(
       userKey,
       videoId
     );
-    const result = await OpenAIResult(payload, openaiApiKey);
+    const result = await fetchOpenAIResult(payload, openaiApiKey);
     // TODO: add better logging when dev or prod
     console.log("result", result);
     const redis = Redis.fromEnv();
-    const data = await redis.set(videoId, result);
-    console.log(`bvId ${videoId} cached:`, data);
+    const cacheId = shouldShowTimestamp ? `timestamp-${videoId}` : videoId;
+    const data = await redis.set(cacheId, result);
+    console.log(`video ${cacheId} cached:`, data);
 
     return NextResponse.json(result);
   } catch (error: any) {
