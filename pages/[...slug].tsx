@@ -13,8 +13,10 @@ import { UsageDescription } from "~/components/UsageDescription";
 import { UserKeyInput } from "~/components/UserKeyInput";
 import { useToast } from "~/hooks/use-toast";
 import { useSummarize } from "~/hooks/useSummarize";
+import { VideoService } from "~/lib/types";
 import { extractUrl } from "~/utils/extractUrl";
 import { getValidatedUrl } from "~/utils/getValidatedUrl";
+import getVideoId from "get-video-id";
 
 export const Home: NextPage = () => {
   const router = useRouter();
@@ -26,7 +28,7 @@ export const Home: NextPage = () => {
   const [currentVideoUrl, setCurrentVideoUrl] = useState<string>("");
   const [shouldShowTimestamp, setShouldShowTimestamp] =
     useLocalStorage<boolean>("should-show-timestamp", false);
-  const [currentBvId, setCurrentBvId] = useState<string>("");
+  const [currentBvId, setCurrentVideoId] = useState<string>("");
   const [userKey, setUserKey, remove] =
     useLocalStorage<string>("user-openai-apikey");
   const { loading, summary, resetSummary, summarize } = useSummarize();
@@ -50,7 +52,10 @@ export const Home: NextPage = () => {
   const validateUrl = (url?: string) => {
     // note: auto refactor by ChatGPT
     const videoUrl = url || currentVideoUrl;
-    if (!videoUrl.includes("bilibili.com")) {
+    if (
+      !videoUrl.includes("bilibili.com") &&
+      !videoUrl.includes("youtube.com")
+    ) {
       toast({
         title: "暂不支持此视频链接",
         description: "请输入哔哩哔哩视频长链接，暂不支持b23.tv或av号",
@@ -71,13 +76,26 @@ export const Home: NextPage = () => {
     validateUrl(url);
 
     const videoUrl = url || currentVideoUrl;
+    const { id, service } = getVideoId(videoUrl);
+    if (service === "youtube" && id) {
+      setCurrentVideoId(id);
+      await summarize(
+        { videoId: id, service: VideoService.Youtube },
+        { userKey, shouldShowTimestamp }
+      );
+      return;
+    }
+
     const bvId = extractUrl(videoUrl);
     if (!bvId) {
       return;
     }
 
-    setCurrentBvId(bvId);
-    await summarize(bvId, { userKey, shouldShowTimestamp });
+    setCurrentVideoId(bvId);
+    await summarize(
+      { videoId: bvId, service: VideoService.Bilibili },
+      { userKey, shouldShowTimestamp }
+    );
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }, 10);

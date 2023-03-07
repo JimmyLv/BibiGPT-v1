@@ -11,8 +11,9 @@ import { isDev } from "./utils/env";
 const redis = Redis.fromEnv();
 
 export async function middleware(req: NextRequest, context: NextFetchEvent) {
-  const { userConfig = {}, bvId } = (await req.json()) as SummarizeParams;
-  const { userKey } = userConfig;
+  const { userConfig, videoConfig } = (await req.json()) as SummarizeParams;
+  const { userKey } = userConfig || {};
+  const { videoId: bvId } = videoConfig || {};
 
   function redirectAuth() {
     // return NextResponse.redirect(new URL("/shop", req.url));

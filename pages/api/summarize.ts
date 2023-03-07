@@ -5,7 +5,7 @@ import { fetchSubtitle } from "~/lib/bilibili";
 import { OpenAIResult } from "~/lib/openai/OpenAIResult";
 import { getChunckedTranscripts, getSummaryPrompt } from "~/lib/openai/prompt";
 import { selectApiKeyAndActivatedLicenseKey } from "~/lib/openai/selectApiKeyAndActivatedLicenseKey";
-import { SummarizeParams, UserConfig } from "~/lib/types";
+import { SummarizeParams } from "~/lib/types";
 import { isDev } from "~/utils/env";
 
 export const config = {
@@ -20,27 +20,20 @@ export default async function handler(
   req: NextRequest,
   context: NextFetchEvent
 ) {
-  const { bvId, userConfig } = (await req.json()) as SummarizeParams;
+  const { videoConfig, userConfig } = (await req.json()) as SummarizeParams;
   const { userKey, shouldShowTimestamp } = userConfig;
+  const { videoId, service } = videoConfig;
 
-  if (!bvId) {
-    return new Response("No bvid in the request", { status: 500 });
+  if (!videoId) {
+    return new Response("No videoId in the request", { status: 500 });
   }
-  const { title, subtitles } = await fetchSubtitle(bvId);
+  const { title, subtitles } = await fetchSubtitle(videoId, service, shouldShowTimestamp);
   if (!subtitles) {
-    console.error("No subtitle in the video: ", bvId);
+    console.error("No subtitle in the video: ", videoId);
     return new Response("No subtitle in the video", { status: 501 });
   }
-  // @ts-ignore
-  const transcripts = subtitles.body.map((item, index) => {
-    return {
-      text: `${item.from}: ${item.content}`,
-      index,
-    };
-  });
-  // console.log("========transcripts========", transcripts);
-  const text = getChunckedTranscripts(transcripts, transcripts);
-  const prompt = getSummaryPrompt(title, text, shouldShowTimestamp);
+  const text = getChunckedTranscripts(subtitles, subtitles);
+  const prompt = getSummaryPrompt(title, text, { shouldShowTimestamp });
 
   try {
     userKey && console.log("========use user apiKey========");
@@ -60,14 +53,14 @@ export default async function handler(
     // TODO: need refactor
     const openaiApiKey = await selectApiKeyAndActivatedLicenseKey(
       userKey,
-      bvId
+      videoId
     );
     const result = await OpenAIResult(payload, openaiApiKey);
     // TODO: add better logging when dev or prod
     console.log("result", result);
     const redis = Redis.fromEnv();
-    const data = await redis.set(bvId, result);
-    console.log(`bvId ${bvId} cached:`, data);
+    const data = await redis.set(videoId, result);
+    console.log(`bvId ${videoId} cached:`, data);
 
     return NextResponse.json(result);
   } catch (error: any) {

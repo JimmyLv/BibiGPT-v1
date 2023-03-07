@@ -1,11 +1,29 @@
-
-export function getSummaryPrompt(title: string, transcript: any, shouldShowTimestamp?: boolean) {
-  console.log('========shouldShowTimestamp========', shouldShowTimestamp);
-  const betterPrompt = `我希望你是一名专业的视频内容编辑，帮我总结视频的内容精华。请你将视频字幕文本进行总结，然后以无序列表的方式返回，不要超过5条。记得不要重复句子，确保所有的句子都足够精简，清晰完整，祝你好运！`
-  const promptWithTimestamp = `我希望你是一名专业的视频内容编辑，帮我总结视频的内容精华。请先用一句简短的话总结视频梗概。然后再请你将视频字幕文本进行总结，在每句话的最前面加上时间戳（类似 10:24），每句话开头只需要一个开始时间。请你以无序列表的方式返回，请注意不要超过5条哦，确保所有的句子都足够精简，清晰完整，祝你好运！`;
+interface PromptConfig {
+  language?: string
+  shouldShowTimestamp?: boolean
+}
+const PROMPT_LANGUAGE_MAP = {
+  'English': "UK English",
+  "中文": "Simplified Chinese",
+  "繁體中文": "Traditional Chinese",
+  "日本語": "Japanese",
+  "Italiano": "Italian",
+  "Deutsch": "German",
+  "Español": "Spanish",
+  "Français": "French",
+  "Nederlands": "Dutch",
+  "한국어": "Korean",
+  "ភាសាខ្មែរ":"Khmer",
+  "हिंदी" : "Hindi"
+}
+export function getSummaryPrompt(title: string, transcript: any, promptConfig: PromptConfig) {
+  console.log('========promptConfig========', promptConfig);
+  const { language = '中文', shouldShowTimestamp } = promptConfig
+  const betterPrompt = `我希望你是一名专业的视频内容编辑，帮我用${language}总结视频的内容精华。请你将视频字幕文本进行总结，然后以无序列表的方式返回，不要超过5条。记得不要重复句子，确保所有的句子都足够精简，清晰完整，祝你好运！`
+  const promptWithTimestamp = `我希望你是一名专业的视频内容编辑，帮我用${language}总结视频的内容精华。请先用一句简短的话总结视频梗概。然后再请你将视频字幕文本进行总结，在每句话的最前面加上时间戳（类似 10:24），每句话开头只需要一个开始时间。请你以无序列表的方式返回，请注意不要超过5条哦，确保所有的句子都足够精简，清晰完整，祝你好运！`;
 
   return `标题: "${title
-    .replace(/\n+/g, " ")
+    ?.replace(/\n+/g, " ")
     .trim()}"\n视频字幕: "${truncateTranscript(transcript)
     .replace(/\n+/g, " ")
     .trim()}"\n${(shouldShowTimestamp ? promptWithTimestamp : betterPrompt)}`;

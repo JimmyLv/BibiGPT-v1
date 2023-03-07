@@ -1,8 +1,14 @@
-import { sample } from "../utils/fp";
+import { find } from "lodash";
+import { VideoService } from "~/lib/types";
+import {
+  fetchYoutubeSubtitle,
+  SUBTITLE_DOWNLOADER_URL,
+} from "~/lib/youtube/fetchYoutubeSubtitle";
+import { sample } from "~/utils/fp";
 
-const run = async (bvId: string) => {
+const fetchBilibiliSubtitles = async (bvId: string) => {
   const requestUrl = `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`;
-  console.log(`fetch`, requestUrl);
+  console.log(`fetch`, requestUrl, process.env.BILIBILI_SESSION_TOKEN);
   const sessdata = sample(process.env.BILIBILI_SESSION_TOKEN?.split(","));
   const headers = {
     Accept: "application/json",
@@ -23,8 +29,33 @@ const run = async (bvId: string) => {
   return json.data;
 };
 
-export async function fetchSubtitle(bvId: string) {
-  // const res = await pRetry(async () => await run(bvId), {
+export async function fetchSubtitle(
+  videoId: string,
+  service?: VideoService,
+  shouldShowTimestamp?: boolean
+) {
+  if (service === VideoService.Youtube) {
+    const { title, subtitleList } = await fetchYoutubeSubtitle(videoId);
+    if (subtitleList?.length <= 0) {
+      return { title, subtitleList: null };
+    }
+    const betterSubtitle =
+      find(subtitleList, { quality: "English" }) ||
+      find(subtitleList, { quality: "English (auto" }) ||
+      find(subtitleList, { quality: "zh-CN" }) ||
+      subtitleList[0];
+    const format = shouldShowTimestamp ? "" : `?ext=txt`; // ?ext=json
+    const subtitleUrl = `${SUBTITLE_DOWNLOADER_URL}${betterSubtitle.url}${format}`;
+    const response = await fetch(subtitleUrl);
+    const subtitles = await response.text();
+    const transcripts = subtitles
+      .split("\r\n\r\n")
+      ?.map((text: string, index: number) => ({ text, index }));
+    console.log("========subtitleUrl response========", title, transcripts);
+    return { title, subtitles: transcripts };
+  }
+
+  // const res = await pRetry(async () => await fetchBilibiliSubtitles(videoId), {
   //   onFailedAttempt: (error) => {
   //     console.log(
   //       `Attempt ${error.attemptNumber} failed. There are ${error.retriesLeft} retries left.`
@@ -33,7 +64,7 @@ export async function fetchSubtitle(bvId: string) {
   //   retries: 2,
   // });
   // @ts-ignore
-  const res = await run(bvId);
+  const res = await fetchBilibiliSubtitles(videoId);
   const title = res?.title;
   const subtitleList = res?.subtitle?.list;
   if (!subtitleList || subtitleList?.length < 1) {
@@ -48,5 +79,21 @@ export async function fetchSubtitle(bvId: string) {
 
   const subtitleResponse = await fetch(subtitleUrl);
   const subtitles = await subtitleResponse.json();
-  return { title, subtitles };
+  /*{
+      "from": 16.669,
+      "to": 18.619,
+      "sid": 8,
+      "location": 2,
+      "content": "让ppt变得更加精彩",
+      "music": 0.0
+    },*/
+  const transcripts = subtitles?.body.map(
+    (item: { from: number; content: string }, index: number) => {
+      return {
+        text: `${item.from}: ${item.content}`,
+        index,
+      };
+    }
+  );
+  return { title, subtitles: transcripts };
 }
