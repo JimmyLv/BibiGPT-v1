@@ -18,17 +18,18 @@ export default async function handler(
   req: NextRequest,
   context: NextFetchEvent
 ) {
-  const { bvId, apiKey } = (await req.json()) as {
-    bvId: string;
+  const { vId, apiKey, videoType } = (await req.json()) as {
+    vId: string;
     apiKey?: string;
+    videoType: string;
   };
 
-  if (!bvId) {
+  if (!vId) {
     return new Response("No bvid in the request", { status: 500 });
   }
-  const { title, subtitles } = await fetchSubtitle(bvId);
+  const { title, subtitles } = await fetchSubtitle(vId);
   if (!subtitles) {
-    console.error("No subtitle in the video: ", bvId);
+    console.error("No subtitle in the video: ", vId);
     return new Response("No subtitle in the video", { status: 501 });
   }
   // @ts-ignore
@@ -61,8 +62,8 @@ export default async function handler(
     // TODO: add better logging when dev or prod
     console.log("result", result);
     const redis = Redis.fromEnv();
-    const data = await redis.set(bvId, result);
-    console.log(`bvId ${bvId} cached:`, data);
+    const data = await redis.set(vId, result);
+    console.log(`bvId ${vId} cached:`, data);
 
     return NextResponse.json({
       title: title,

@@ -26,7 +26,6 @@ export const Home: NextPage = () => {
   const [curVideo, setCurVideo] = useState<string>("");
   const [currentBvId, setCurrentBvId] = useState<string>("");
   const [userKey, setUserKey] = useLocalStorage<string>("user-openai-apikey");
-  const [videoTitle] = useLocalStorage<string>("video-title");
   const { loading, title, summary, resetSummary, summarize } = useSummarize();
   const { toast } = useToast();
 
@@ -50,9 +49,27 @@ export const Home: NextPage = () => {
     // TODO: find reason to trigger twice
   }, [router.isReady, urlState]);
 
+
+  // https://www.bilibili.com/video/BV1m8411P7v7/
+  // https://www.youtube.com/watch?v=g08C4A6Vnrc
+  enum DomainType {
+    Bilibili = "bilibili.com",
+    Youtube = "youtube.com"
+  }
+  
+  const getUrlDomain = (url: string): DomainType | null => {
+    if (url.includes(DomainType.Bilibili)) {
+      return DomainType.Bilibili;
+    } else if (url.includes(DomainType.Youtube)) {
+      return DomainType.Youtube;
+    } else {
+      return null;
+    }
+  };
+
   const validateUrl = (url?: string) => {
     if (url) {
-      if (!url.includes("bilibili.com")) {
+      if (!getUrlDomain(url)) {
         toast({
           // variant: "destructive",
           title: "暂不支持此视频链接",
@@ -62,7 +79,7 @@ export const Home: NextPage = () => {
       }
       setCurVideo(url);
     } else {
-      if (!curVideo.includes("bilibili.com")) {
+      if (!getUrlDomain(curVideo)) {
         toast({
           // variant: "destructive",
           title: "暂不支持此视频链接",
@@ -74,23 +91,25 @@ export const Home: NextPage = () => {
       router.replace(curUrl);
     }
   };
+
   const generateSummary = async (url?: string) => {
     resetSummary();
     validateUrl(url);
 
     const videoUrl = url ? url : curVideo;
-    const matchResult = videoUrl.match(/\/video\/([^\/\?]+)/);
-    if (!matchResult) {
+    const domain = getUrlDomain(videoUrl);
+    const matchResult = videoUrl.match(/(?:\/video\/|\/watch\?v=)([^\/\?]+)/);
+    if (!matchResult || !domain) {
       return;
     }
-    const bvId = matchResult[1];
-    setCurrentBvId(matchResult[1]);
+    const videoId = matchResult[1];
+    setCurrentBvId(videoId);
 
-    await summarize(bvId, userKey);
+    await summarize(videoId, userKey, domain.toString());
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }, 10);
-  };
+
   const onFormSubmit = async (e: any) => {
     e.preventDefault();
     await generateSummary();

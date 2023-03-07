@@ -13,7 +13,7 @@ export function useSummarize() {
     setTitle("");
   };
 
-  const summarize = async (bvId: string, apiKey: string | undefined) => {
+  const summarize = async (videoId: string, apiKey: string | undefined, videoType: string) => {
     setSummary("");
     setTitle("");
     setLoading(true);
@@ -25,7 +25,7 @@ export function useSummarize() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bvId, apiKey }),
+        body: JSON.stringify({ bvId: videoId, apiKey, videoType }),
       });
 
       if (response.redirected) {

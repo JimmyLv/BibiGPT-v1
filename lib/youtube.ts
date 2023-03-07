@@ -31,6 +31,6 @@ export async function fetchSubtitle(videoId: string) {
 
     console.log(subtitles);
       
-    return { subtitles };
+    return { title, subtitles };
 }
 
