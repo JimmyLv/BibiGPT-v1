@@ -50,7 +50,7 @@ function MyApp({
             >
               <Header showSingIn={showSingIn} />
               <main className="mx-auto flex max-w-5xl flex-1 flex-col justify-center bg-white text-slate-900 antialiased dark:bg-slate-900 dark:text-slate-50">
-                <Component {...pageProps} />
+                <Component {...pageProps} showSingIn={showSingIn} />
                 <Analytics />
                 <CommandMenu />
               </main>
