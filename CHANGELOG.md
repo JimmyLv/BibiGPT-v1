@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.2.0](https://github.com/JimmyLv/BibiGPT/compare/v1.1.0...v1.2.0) (2023-03-07)
+
+
+### Features
+
+* support bookmark redirect for youtube ([c00bb64](https://github.com/JimmyLv/BibiGPT/commit/c00bb64f3f2a03379f09d9e0f85ab7039187c304))
+* support youtube url redirect from url address ([95a03f9](https://github.com/JimmyLv/BibiGPT/commit/95a03f9668175d29355f205f81910c346f254f03))
+
+
+### Bug Fixes
+
+* add my video bvid ([8fc06e8](https://github.com/JimmyLv/BibiGPT/commit/8fc06e866ef089f2fa052feaef8d64ff5544c662))
+* don't use fontSans ([b44b6bb](https://github.com/JimmyLv/BibiGPT/commit/b44b6bb5ea08927850862036504905fdc69f4f44))
+* header styling ([316d073](https://github.com/JimmyLv/BibiGPT/commit/316d073c78c6b0c32ddb679ca27c7b87aaf4c871))
+* multiple ratelimit ([4364722](https://github.com/JimmyLv/BibiGPT/commit/4364722bf460a5a215d2bbfa7211fa21663c5728))
+* not validate url for youtube.com ([e224ffb](https://github.com/JimmyLv/BibiGPT/commit/e224ffb91797af58fecea60883c1f61d579cf2c8))
+* open the limit to 5 ([1ad1428](https://github.com/JimmyLv/BibiGPT/commit/1ad14283ad11354c96257d291e4c4700e2cf79a9))
+* update copy & middleware try-catch ([d8a84e4](https://github.com/JimmyLv/BibiGPT/commit/d8a84e49aac4e98efa9c2cbf7f142f279c81b619))
+* update the youtube redirect ([7991a52](https://github.com/JimmyLv/BibiGPT/commit/7991a520f7cc460bed0a5d63aa7da7a96b68a4cb))
+* use font-sans at top ([0f7ac28](https://github.com/JimmyLv/BibiGPT/commit/0f7ac2881baae5eeeb1a70967beedefe7060da6d))
+* use font-sans class name ([1419440](https://github.com/JimmyLv/BibiGPT/commit/14194408ae9f5dec42a7337b9d999cc2defb90dd))
+
 ## [1.1.0](https://github.com/JimmyLv/BibiGPT/compare/v1.0.0...v1.1.0) (2023-03-07)
 
 
