@@ -29,7 +29,7 @@ export function SummaryResult({
     }
     // todo: update the timestamp
     navigator.clipboard.writeText(
-      formattedSummary + "\n\n via #BibiGPT b.jimmylv.cn @吕立青_JimmyLv"
+      formattedSummary + "\n\n #BibiGPT自动总结 b.jimmylv.cn @吕立青_JimmyLv \nBV1fX4y1Q7Ux"
     );
     toast({ description: "复制成功 ✂️" });
   };
