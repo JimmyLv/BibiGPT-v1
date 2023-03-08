@@ -21,7 +21,7 @@ export function useSummarize(showSingIn: (show: boolean) => void) {
 
     try {
       setLoading(true);
-      const response = await fetch("/api/summarize", {
+      const response = await fetch("/api/sumup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
