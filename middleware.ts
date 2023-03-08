@@ -5,7 +5,11 @@ import { NextResponse } from "next/server";
 import { SummarizeParams } from "~/lib/types";
 import { validateLicenseKey } from "./lib/lemon";
 import { checkOpenaiApiKeys } from "./lib/openai/checkOpenaiApiKey";
-import { ratelimitForFreeAccounts, ratelimitForIps } from "./lib/upstash";
+import {
+  ratelimitForApiKeyIps,
+  ratelimitForFreeAccounts,
+  ratelimitForIps,
+} from "./lib/upstash";
 import { isDev } from "./utils/env";
 
 const redis = Redis.fromEnv();
@@ -26,10 +30,19 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
     const { userKey, shouldShowTimestamp } = userConfig || {};
     const { videoId: bvId } = videoConfig || {};
     const cacheId = shouldShowTimestamp ? `timestamp-${bvId}` : bvId;
+    const ipIdentifier = req.ip ?? "127.0.0.11";
 
     // licenseKeys
     if (userKey) {
       if (checkOpenaiApiKeys(userKey)) {
+        const { success, remaining } = await ratelimitForApiKeyIps.limit(
+          ipIdentifier
+        );
+        console.log(`use user apiKey ${ipIdentifier}, remaining: ${remaining}`);
+        if (!success) {
+          return redirectAuth();
+        }
+
         return NextResponse.next();
       }
 
@@ -45,11 +58,8 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
     //  👇 below only works for production
 
     if (!userKey) {
-      const identifier = req.ip ?? "127.0.0.11";
-      const { success, remaining } = await ratelimitForIps.limit(identifier);
-      console.log(
-        `======== ip ${identifier}, remaining: ${remaining} ========`
-      );
+      const { success, remaining } = await ratelimitForIps.limit(ipIdentifier);
+      console.log(`ip free user ${ipIdentifier}, remaining: ${remaining}`);
       if (!success) {
         // We need to create a response and hand it to the supabase client to be able to modify the response headers.
         const res = NextResponse.next();
@@ -67,9 +77,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
           const { success, remaining } = await ratelimitForFreeAccounts.limit(
             userEmail
           );
-          console.log(
-            `======== user ${userEmail}, remaining: ${remaining} ========`
-          );
+          console.log(`login user ${userEmail}, remaining: ${remaining}`);
           if (!success) {
             return redirectAuth();
           }
@@ -80,8 +88,6 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
         // todo: throw error to trigger a modal, rather than redirect a page
         return redirectAuth();
       }
-
-      // return redirectAuth();
     }
 
     const result = await redis.get<string>(cacheId);
