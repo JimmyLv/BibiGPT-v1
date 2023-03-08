@@ -43,9 +43,12 @@ export default async function handler(
     shouldShowTimestamp: subtitlesArray ? shouldShowTimestamp : false,
   });
   const userPrompt = getUserSubtitlePrompt(title, inputText);
+  if (isDev) {
+    console.log("final system prompt: ", systemPrompt);
+    console.log("final user prompt: ", userPrompt);
+  }
 
   try {
-    isDev && console.log("final user prompt", userPrompt);
     const payload = {
       model: "gpt-3.5-turbo",
       messages: [
