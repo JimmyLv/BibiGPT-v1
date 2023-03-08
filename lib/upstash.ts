@@ -13,9 +13,13 @@ export const ratelimitForIps = new Ratelimit({
   limiter: Ratelimit.fixedWindow(FREE_LIMIT_COUNT, "1 d"),
   analytics: true, // <- Enable analytics
 });
+export const ratelimitForApiKeyIps = new Ratelimit({
+  redis,
+  limiter: Ratelimit.fixedWindow(FREE_LIMIT_COUNT * 2, "1 d"),
+  analytics: true,
+});
 export const ratelimitForFreeAccounts = new Ratelimit({
   redis,
-  // 速率限制算法 https://github.com/upstash/ratelimit#ratelimiting-algorithms
   limiter: Ratelimit.fixedWindow(LOGIN_LIMIT_COUNT, "1 d"),
-  analytics: true, // <- Enable analytics
+  analytics: true,
 });

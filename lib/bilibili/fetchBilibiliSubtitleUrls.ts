@@ -20,5 +20,6 @@ export const fetchBilibiliSubtitleUrls = async (bvId: string) => {
   });
   const json = await response.json();
   // return json.data.View;
+  console.log('========response========', json)
   return json.data;
 };
