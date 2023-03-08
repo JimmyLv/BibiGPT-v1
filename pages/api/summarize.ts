@@ -27,20 +27,20 @@ export default async function handler(
   if (!videoId) {
     return new Response("No videoId in the request", { status: 500 });
   }
-  const { title, subtitles, descriptionText } = await fetchSubtitle(
+  const { title, subtitlesArray, descriptionText } = await fetchSubtitle(
     videoId,
     service,
     shouldShowTimestamp
   );
-  if (!subtitles && !descriptionText) {
+  if (!subtitlesArray && !descriptionText) {
     console.error("No subtitle in the video: ", videoId);
     return new Response("No subtitle in the video", { status: 501 });
   }
-  const inputText = subtitles
-    ? getChunckedTranscripts(subtitles, subtitles)
+  const inputText = subtitlesArray
+    ? getChunckedTranscripts(subtitlesArray, subtitlesArray)
     : descriptionText;
   const prompt = getSummaryPrompt(title, inputText, {
-    shouldShowTimestamp: subtitles ? shouldShowTimestamp : false,
+    shouldShowTimestamp: subtitlesArray ? shouldShowTimestamp : false,
   });
 
   try {
