@@ -80,11 +80,11 @@ export default async function handler(
     const redis = Redis.fromEnv();
     const cacheId = shouldShowTimestamp ? `timestamp-${videoId}` : videoId;
     const data = await redis.set(cacheId, result);
-    console.log(`video ${cacheId} cached:`, data);
+    console.info(`video ${cacheId} cached:`, data);
 
     return NextResponse.json(result);
   } catch (error: any) {
-    console.log("API error", error, error.message);
+    console.error("API error", error, error.message);
     return NextResponse.json({
       errorMessage: error.message,
     });

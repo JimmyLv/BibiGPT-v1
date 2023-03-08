@@ -101,6 +101,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
       return NextResponse.json(result);
     }
   } catch (e) {
+    console.error(e)
     return redirectAuth();
   }
 }
