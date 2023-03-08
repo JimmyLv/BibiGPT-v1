@@ -101,5 +101,5 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
 }
 
 export const config = {
-  matcher: "/api/summarize",
+  matcher: "/api/sumup",
 };
