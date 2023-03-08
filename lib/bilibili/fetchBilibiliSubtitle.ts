@@ -7,7 +7,8 @@ export async function fetchBilibiliSubtitle(
 ) {
   const res = await fetchBilibiliSubtitleUrls(videoId);
   const { title, desc, dynamic } = res || {};
-  const descriptionText = desc && dynamic ? `${desc} ${dynamic}` : undefined;
+  const hasDescription = desc || dynamic;
+  const descriptionText = hasDescription ? `${desc} ${dynamic}` : undefined;
   const subtitleList = res?.subtitle?.list;
   if (!subtitleList || subtitleList?.length < 1) {
     return { title, subtitlesArray: null, descriptionText };
