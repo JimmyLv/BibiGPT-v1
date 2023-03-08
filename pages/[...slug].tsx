@@ -27,13 +27,14 @@ export const Home: NextPage<{
   const licenseKey = searchParams.get("license_key");
 
   // TODO: add mobx or state manager
+  const [currentVideoId, setCurrentVideoId] = useState<string>("");
   const [currentVideoUrl, setCurrentVideoUrl] = useState<string>("");
   const [shouldShowTimestamp, setShouldShowTimestamp] =
-    useLocalStorage<boolean>("should-show-timestamp", false);
-  const [currentVideoId, setCurrentVideoId] = useState<string>("");
+    useLocalStorage<boolean>("should-show-timestamp");
   const [userKey, setUserKey, remove] =
     useLocalStorage<string>("user-openai-apikey");
-  const { loading, summary, resetSummary, summarize } = useSummarize(showSingIn);
+  const { loading, summary, resetSummary, summarize } =
+    useSummarize(showSingIn);
   const { toast } = useToast();
   const { analytics } = useAnalytics();
 
@@ -121,7 +122,6 @@ export const Home: NextPage<{
   };
 
   function handleShowTimestamp(checked: boolean) {
-    console.log("================", checked);
     setShouldShowTimestamp(checked);
     analytics
       .track(`ShowTimestamp Clicked`, {

@@ -34,8 +34,8 @@ export function reduceSubtitleTimestamp<T>(
 ): Array<CommonSubtitleItem> {
   // 把字幕数组总共分成 20 组
   const TOTAL_GROUP_COUNT = 30;
-  // 如果字幕不够多，就每5句话合并一下
-  const MINIMUM_COUNT_ONE_GROUP = 5;
+  // 如果字幕不够多，就每7句话合并一下
+  const MINIMUM_COUNT_ONE_GROUP = 7;
   const eachGroupCount =
     subtitles.length > TOTAL_GROUP_COUNT
       ? subtitles.length / TOTAL_GROUP_COUNT
