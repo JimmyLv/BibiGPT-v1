@@ -1,5 +1,6 @@
 interface PromptConfig {
   language?: string
+  sentenceCount?: string
   shouldShowTimestamp?: boolean
 }
 const PROMPT_LANGUAGE_MAP = {
@@ -18,16 +19,16 @@ const PROMPT_LANGUAGE_MAP = {
 }
 
 export function getSystemPrompt(promptConfig: PromptConfig) {
+  // [gpt-3-youtube-summarizer/main.py at main · tfukaza/gpt-3-youtube-summarizer](https://github.com/tfukaza/gpt-3-youtube-summarizer/blob/main/main.py)
   console.log('prompt config: ', promptConfig);
-
-  const { language = '中文', shouldShowTimestamp } = promptConfig
+  const { language = '中文', sentenceCount = '5', shouldShowTimestamp } = promptConfig
   // @ts-ignore
   const enLanguage = PROMPT_LANGUAGE_MAP[language]
   // 我希望你是一名专业的视频内容编辑，帮我用${language}总结视频的内容精华。请你将视频字幕文本进行总结（字幕中可能有错别字，如果你发现了错别字请改正），然后以无序列表的方式返回，不要超过5条。记得不要重复句子，确保所有的句子都足够精简，清晰完整，祝你好运！
-  const betterPrompt = `I would like you to be a professional video content editor and help me summarize the content highlights of the video in ${enLanguage}. Please summarize the video subtitle text (there may be typos in the subtitles, so please correct them if you find them) and return it as an unordered list of no more than 5 sentences. Remember not to repeat sentences, make sure all sentences are concise enough to be clear and complete. Good luck!`
-  const timestamp = '' //`（类似 10:24）`;
+  const betterPrompt = `I want you to act as an educational content creator. You will help students summarize the essence of the video in ${enLanguage}. Please summarize the video subtitles (there may be typos in the subtitles, please correct them) and return them in an unordered list format. Please do not exceed ${sentenceCount} items, and make sure not to repeat any sentences and all sentences are concise, clear, and complete. Good luck!`
+  // const timestamp = ' ' //`（类似 10:24）`;
   // 我希望你是一名专业的视频内容编辑，帮我用${language}总结视频的内容精华。请先用一句简短的话总结视频梗概。然后再请你将视频字幕文本进行总结（字幕中可能有错别字，如果你发现了错别字请改正），在每句话的最前面加上时间戳${timestamp}，每句话开头只需要一个开始时间。请你以无序列表的方式返回，请注意不要超过5条哦，确保所有的句子都足够精简，清晰完整，祝你好运！
-  const promptWithTimestamp = `I would like you to be a professional video content editor and help me summarize the content highlights of the video in ${language}. Please summarize the video subtitle text (there may be typos in the subtitles, so please correct them if you find them) and return it as an unordered list of no more than 5 sentences. Remember not to repeat sentences, make sure all sentences are concise enough to be clear and complete. Good luck!`;
+  const promptWithTimestamp = `I want you to act as an educational content creator. You will help students summarize the essence of the video in ${enLanguage}. Please start by summarizing the whole video in one short sentence. Then, please summarize the video subtitles in an unordered list format, you should add the start timestamp (e.g. 12.4 -) at the beginning of each sentence so that students can jump to the source of the video. Please make sure not to exceed ${sentenceCount} items and all sentences are concise, clear, and complete. Good luck!`;
 
   return shouldShowTimestamp ? promptWithTimestamp : betterPrompt
 }
