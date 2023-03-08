@@ -3,7 +3,7 @@ export const sample = (arr: any[] = []) => {
   return len ? arr[Math.floor(Math.random() * len)] : undefined;
 };
 
-export function find(subtitleList: any[], args: { [key: string]: any }) {
+export function find(subtitleList: any[] = [], args: { [key: string]: any }) {
   const key = Object.keys(args)[0];
   return subtitleList.find((item) => item[key] === args[key]);
 }
