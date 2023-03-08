@@ -23,6 +23,10 @@ function redirectAuth() {
     { status: 401, headers: { "content-type": "application/json" } }
   );
 }
+function redirectShop(req: NextRequest) {
+  console.error("Account Limited");
+  return NextResponse.redirect(new URL("/shop", req.url));
+}
 
 export async function middleware(req: NextRequest, context: NextFetchEvent) {
   try {
@@ -40,15 +44,16 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
         );
         console.log(`use user apiKey ${ipIdentifier}, remaining: ${remaining}`);
         if (!success) {
-          return redirectAuth();
+          return redirectShop(req);
         }
 
         return NextResponse.next();
       }
 
       // 3. something-invalid-sdalkjfasncs-key
-      if (!(await validateLicenseKey(userKey, cacheId))) {
-        return redirectAuth();
+      const isValidatedLicense = await validateLicenseKey(userKey, cacheId);
+      if (!isValidatedLicense) {
+        return redirectShop(req);
       }
     }
 
@@ -79,7 +84,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
           );
           console.log(`login user ${userEmail}, remaining: ${remaining}`);
           if (!success) {
-            return redirectAuth();
+            return redirectShop(req);
           }
 
           return res;
