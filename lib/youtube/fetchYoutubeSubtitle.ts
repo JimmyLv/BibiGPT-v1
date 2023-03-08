@@ -1,5 +1,6 @@
 import { fetchYoutubeSubtitleUrls, SUBTITLE_DOWNLOADER_URL } from "~/lib/youtube/fetchYoutubeSubtitleUrls";
 import { find } from "~/utils/fp";
+import { reduceSubtitleTimestamp } from "~/utils/reduceSubtitleTimestamp";
 
 export async function fetchYoutubeSubtitle(
   videoId: string,
@@ -10,22 +11,16 @@ export async function fetchYoutubeSubtitle(
     return { title, subtitlesArray: null };
   }
   const betterSubtitle =
+    find(subtitleList, { quality: "zh-CN" }) ||
     find(subtitleList, { quality: "English" }) ||
     find(subtitleList, { quality: "English (auto" }) ||
-    find(subtitleList, { quality: "zh-CN" }) ||
     subtitleList[0];
   if (shouldShowTimestamp) {
     const subtitleUrl = `${SUBTITLE_DOWNLOADER_URL}${betterSubtitle.url}?ext=json`;
     const response = await fetch(subtitleUrl);
     const subtitles = await response.json();
     // console.log("========subtitles========", subtitles);
-    // TODO: merge timestamp by trunk
-    const transcripts = subtitles?.map(
-      (item: { start: number; lines: string[] }, index: number) => ({
-        text: `${item.start}: ${item.lines.join(" ")}`,
-        index
-      })
-    );
+    const transcripts = reduceSubtitleTimestamp(subtitles);
     return { title, subtitlesArray: transcripts };
   }
 

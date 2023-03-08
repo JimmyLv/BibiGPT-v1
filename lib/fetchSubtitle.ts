@@ -1,5 +1,5 @@
-import { VideoService } from "./types";
 import { fetchBilibiliSubtitle } from "./bilibili/fetchBilibiliSubtitle";
+import { CommonSubtitleItem, VideoService } from "./types";
 import { fetchYoutubeSubtitle } from "./youtube/fetchYoutubeSubtitle";
 
 export async function fetchSubtitle(
@@ -8,7 +8,7 @@ export async function fetchSubtitle(
   shouldShowTimestamp?: boolean
 ): Promise<{
   title: string;
-  subtitlesArray?: null | Array<{ index: number; text: string }>;
+  subtitlesArray?: null | Array<CommonSubtitleItem>;
   descriptionText?: string;
 }> {
   if (service === VideoService.Youtube) {
