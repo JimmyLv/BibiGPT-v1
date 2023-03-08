@@ -1,6 +1,6 @@
 import { fetchYoutubeSubtitleUrls, SUBTITLE_DOWNLOADER_URL } from "~/lib/youtube/fetchYoutubeSubtitleUrls";
 import { find } from "~/utils/fp";
-import { reduceSubtitleTimestamp } from "~/utils/reduceSubtitleTimestamp";
+import { reduceSubtitleTimestamp, reduceYoutubeSubtitleTimestamp } from "~/utils/reduceSubtitleTimestamp";
 
 export async function fetchYoutubeSubtitle(
   videoId: string,
@@ -19,8 +19,8 @@ export async function fetchYoutubeSubtitle(
     const subtitleUrl = `${SUBTITLE_DOWNLOADER_URL}${betterSubtitle.url}?ext=json`;
     const response = await fetch(subtitleUrl);
     const subtitles = await response.json();
-    // console.log("========subtitles========", subtitles);
-    const transcripts = reduceSubtitleTimestamp(subtitles);
+    // console.log("========youtube subtitles========", subtitles);
+    const transcripts = reduceYoutubeSubtitleTimestamp(subtitles);
     return { title, subtitlesArray: transcripts };
   }
 
