@@ -21,3 +21,5 @@ export enum VideoService {
   LocalVideo = "local-video",
   LocalAudio = "local-audio",
 }
+
+export type CommonSubtitleItem = { text: string; index: number };

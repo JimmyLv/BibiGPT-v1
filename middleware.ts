@@ -40,7 +40,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
     }
 
     if (!userKey) {
-      const identifier = req.ip ?? "127.0.0.8";
+      const identifier = req.ip ?? "127.0.0.10";
       const { success, remaining } = await ratelimitForIps.limit(identifier);
       console.log(
         `======== ip ${identifier}, remaining: ${remaining} ========`
