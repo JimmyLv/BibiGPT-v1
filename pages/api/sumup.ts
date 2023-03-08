@@ -3,7 +3,8 @@ import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { fetchSubtitle } from "~/lib/fetchSubtitle";
 import { ChatGPTAgent, fetchOpenAIResult } from "~/lib/openai/fetchOpenAIResult";
-import { getChunckedTranscripts, getSystemPrompt, getUserSubtitlePrompt } from "~/lib/openai/prompt";
+import { getSmallSizeTranscripts } from "~/lib/openai/getSmallSizeTranscripts";
+import { getSystemPrompt, getUserSubtitlePrompt } from "~/lib/openai/prompt";
 import { selectApiKeyAndActivatedLicenseKey } from "~/lib/openai/selectApiKeyAndActivatedLicenseKey";
 import { SummarizeParams } from "~/lib/types";
 import { isDev } from "~/utils/env";
@@ -37,7 +38,7 @@ export default async function handler(
     return new Response("No subtitle in the video", { status: 501 });
   }
   const inputText = subtitlesArray
-    ? getChunckedTranscripts(subtitlesArray, subtitlesArray)
+    ? getSmallSizeTranscripts(subtitlesArray, subtitlesArray)
     : descriptionText;
   const systemPrompt = getSystemPrompt({
     shouldShowTimestamp: subtitlesArray ? shouldShowTimestamp : false,
