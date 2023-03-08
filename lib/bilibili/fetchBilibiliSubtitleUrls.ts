@@ -20,6 +20,6 @@ export const fetchBilibiliSubtitleUrls = async (bvId: string) => {
   });
   const json = await response.json();
   // return json.data.View;
-  console.log('========response========', json)
+  // { code: -404, message: '啥都木有', ttl: 1 }
   return json.data;
 };
