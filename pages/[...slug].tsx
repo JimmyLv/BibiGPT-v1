@@ -61,8 +61,8 @@ export const Home: NextPage<{
     // note: auto refactor by ChatGPT
     const videoUrl = url || currentVideoUrl;
     if (
-      !videoUrl.includes("bilibili.com") &&
-      !videoUrl.includes("youtube.com")
+      // https://www.bilibili.com/video/BV1AL4y1j7RY
+      !(videoUrl.includes("bilibili.com/video/BV") || videoUrl.includes("youtube.com"))
     ) {
       toast({
         title: "暂不支持此视频链接",
