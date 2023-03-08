@@ -44,7 +44,7 @@ export default async function handler(
   });
 
   try {
-    userKey && console.log("========use user apiKey========");
+    userKey && console.log("========use user apiKey========", req.ip);
     isDev && console.log("prompt", prompt);
     const payload = {
       model: "gpt-3.5-turbo",
