@@ -1,5 +1,8 @@
 import { VideoService } from "~/lib/types";
-import { fetchYoutubeSubtitleUrls, SUBTITLE_DOWNLOADER_URL } from "~/lib/youtube/fetchYoutubeSubtitleUrls";
+import {
+  fetchYoutubeSubtitleUrls,
+  SUBTITLE_DOWNLOADER_URL,
+} from "~/lib/youtube/fetchYoutubeSubtitleUrls";
 import { find } from "~/utils/fp";
 import { fetchBilibiliSubtitleUrls } from "./bilibili/fetchBilibiliSubtitleUrls";
 
@@ -51,10 +54,11 @@ export async function fetchSubtitle(
   // });
   // @ts-ignore
   const res = await fetchBilibiliSubtitleUrls(videoId);
-  const title = res?.title;
+  const { title, desc, dynamic } = res || {};
+  const descriptionText = desc + "\n" + dynamic;
   const subtitleList = res?.subtitle?.list;
   if (!subtitleList || subtitleList?.length < 1) {
-    return { title, subtitles: null };
+    return { title, subtitles: null, descriptionText };
   }
 
   const betterSubtitle =
@@ -81,5 +85,5 @@ export async function fetchSubtitle(
       };
     }
   );
-  return { title, subtitles: transcripts };
+  return { title, subtitles: transcripts, descriptionText };
 }

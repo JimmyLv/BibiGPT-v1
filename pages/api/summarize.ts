@@ -27,17 +27,21 @@ export default async function handler(
   if (!videoId) {
     return new Response("No videoId in the request", { status: 500 });
   }
-  const { title, subtitles } = await fetchSubtitle(
+  const { title, subtitles, descriptionText } = await fetchSubtitle(
     videoId,
     service,
     shouldShowTimestamp
   );
-  if (!subtitles) {
+  if (!subtitles && !descriptionText) {
     console.error("No subtitle in the video: ", videoId);
     return new Response("No subtitle in the video", { status: 501 });
   }
-  const text = getChunckedTranscripts(subtitles, subtitles);
-  const prompt = getSummaryPrompt(title, text, { shouldShowTimestamp });
+  const inputText = subtitles
+    ? getChunckedTranscripts(subtitles, subtitles)
+    : descriptionText;
+  const prompt = getSummaryPrompt(title, inputText, {
+    shouldShowTimestamp: subtitles ? shouldShowTimestamp : false,
+  });
 
   try {
     userKey && console.log("========use user apiKey========");
