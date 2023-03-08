@@ -29,9 +29,9 @@ export function reduceSubtitleTimestamp<T>(
   getText: (i: T) => string
 ): Array<CommonSubtitleItem> {
   // 把字幕数组总共分成 20 组
-  const TOTAL_GROUP_COUNT = 20;
-  // 如果字幕不够多，就每三组合并一下
-  const MINIMUM_COUNT_ONE_GROUP = 3;
+  const TOTAL_GROUP_COUNT = 30;
+  // 如果字幕不够多，就每5句话合并一下
+  const MINIMUM_COUNT_ONE_GROUP = 5;
   const eachGroupCount =
     subtitles.length > TOTAL_GROUP_COUNT
       ? subtitles.length / TOTAL_GROUP_COUNT
@@ -40,14 +40,14 @@ export function reduceSubtitleTimestamp<T>(
   return subtitles.reduce(
     (accumulator: CommonSubtitleItem[], current: T, index: number) => {
       // 计算当前元素在哪一组
-      const groupIndex: number = Math.floor(index / eachGroupCount);
+      const groupIndex: number = Math.floor(index / MINIMUM_COUNT_ONE_GROUP);
 
       // 如果是当前组的第一个元素，初始化这一组的字符串
       if (!accumulator[groupIndex]) {
         accumulator[groupIndex] = {
           // 5.88 -> 5.9
           // text: current.start.toFixed() + ": ",
-          text: getStart(current) + ": ",
+          text: getStart(current) + " - ",
           index: groupIndex,
         };
       }
