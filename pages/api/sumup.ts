@@ -2,8 +2,8 @@ import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { fetchSubtitle } from "~/lib/fetchSubtitle";
-import { fetchOpenAIResult } from "~/lib/openai/fetchOpenAIResult";
-import { getChunckedTranscripts, getSummaryPrompt } from "~/lib/openai/prompt";
+import { ChatGPTAgent, fetchOpenAIResult } from "~/lib/openai/fetchOpenAIResult";
+import { getChunckedTranscripts, getSystemPrompt, getUserSubtitlePrompt } from "~/lib/openai/prompt";
 import { selectApiKeyAndActivatedLicenseKey } from "~/lib/openai/selectApiKeyAndActivatedLicenseKey";
 import { SummarizeParams } from "~/lib/types";
 import { isDev } from "~/utils/env";
@@ -39,15 +39,24 @@ export default async function handler(
   const inputText = subtitlesArray
     ? getChunckedTranscripts(subtitlesArray, subtitlesArray)
     : descriptionText;
-  const prompt = getSummaryPrompt(title, inputText, {
+  const systemPrompt = getSystemPrompt({
     shouldShowTimestamp: subtitlesArray ? shouldShowTimestamp : false,
   });
+  const userPrompt = getUserSubtitlePrompt(title, inputText);
 
   try {
-    isDev && console.log("prompt config: ", prompt);
+    isDev && console.log("final user prompt", userPrompt);
     const payload = {
       model: "gpt-3.5-turbo",
-      messages: [{ role: "user" as const, content: prompt }],
+      messages: [
+        {
+          role: ChatGPTAgent.system,
+          content: systemPrompt,
+        },
+        // {"role": "user", "content": "谁赢得了2020年的世界职业棒球大赛?"},
+        // {"role": "assistant", "content": "洛杉矶道奇队在2020年赢得了世界职业棒球大赛冠军。"},
+        { role: ChatGPTAgent.user, content: userPrompt },
+      ],
       temperature: 0.5,
       top_p: 1,
       frequency_penalty: 0,
@@ -64,7 +73,6 @@ export default async function handler(
     );
     const result = await fetchOpenAIResult(payload, openaiApiKey);
     // TODO: add better logging when dev or prod
-    console.log("result", result);
     const redis = Redis.fromEnv();
     const cacheId = shouldShowTimestamp ? `timestamp-${videoId}` : videoId;
     const data = await redis.set(cacheId, result);

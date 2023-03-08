@@ -6,8 +6,11 @@ import {
 import { trimOpenAiResult } from "~/lib/openai/trimOpenAiResult";
 import { isDev } from "~/utils/env";
 
-// TODO: maybe chat with video?
-export type ChatGPTAgent = "user" | "system" | "assistant";
+export enum ChatGPTAgent {
+  user = "user",
+  system = "system",
+  assistant = "assistant",
+}
 
 export interface ChatGPTMessage {
   role: ChatGPTAgent;
