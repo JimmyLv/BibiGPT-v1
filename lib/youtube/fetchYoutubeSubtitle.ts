@@ -1,6 +1,6 @@
 import { fetchYoutubeSubtitleUrls, SUBTITLE_DOWNLOADER_URL } from "~/lib/youtube/fetchYoutubeSubtitleUrls";
 import { find } from "~/utils/fp";
-import { reduceSubtitleTimestamp, reduceYoutubeSubtitleTimestamp } from "~/utils/reduceSubtitleTimestamp";
+import { reduceYoutubeSubtitleTimestamp } from "~/utils/reduceSubtitleTimestamp";
 
 export async function fetchYoutubeSubtitle(
   videoId: string,
