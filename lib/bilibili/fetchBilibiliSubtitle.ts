@@ -1,4 +1,5 @@
 import { fetchBilibiliSubtitleUrls } from "~/lib/bilibili/fetchBilibiliSubtitleUrls";
+import { reduceBilibiliSubtitleTimestamp } from "~/utils/reduceSubtitleTimestamp";
 
 export async function fetchBilibiliSubtitle(videoId: string) {
   // const res = await pRetry(async () => await fetchBilibiliSubtitles(videoId), {
@@ -26,21 +27,6 @@ export async function fetchBilibiliSubtitle(videoId: string) {
 
   const subtitleResponse = await fetch(subtitleUrl);
   const subtitles = await subtitleResponse.json();
-  /*{
-      "from": 16.669,
-      "to": 18.619,
-      "sid": 8,
-      "location": 2,
-      "content": "让ppt变得更加精彩",
-      "music": 0.0
-    },*/
-  const transcripts = subtitles?.body.map(
-    (item: { from: number; content: string }, index: number) => {
-      return {
-        text: `${item.from}: ${item.content}`,
-        index
-      };
-    }
-  );
+  const transcripts = reduceBilibiliSubtitleTimestamp(subtitles?.body);
   return { title, subtitlesArray: transcripts, descriptionText };
 }

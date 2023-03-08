@@ -39,8 +39,13 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
       }
     }
 
+    if (isDev) {
+      return NextResponse.next();
+    }
+    //  👇 below only works for production
+
     if (!userKey) {
-      const identifier = req.ip ?? "127.0.0.10";
+      const identifier = req.ip ?? "127.0.0.11";
       const { success, remaining } = await ratelimitForIps.limit(identifier);
       console.log(
         `======== ip ${identifier}, remaining: ${remaining} ========`
@@ -80,7 +85,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
     }
 
     const result = await redis.get<string>(cacheId);
-    if (!isDev && result) {
+    if (result) {
       console.log("hit cache for ", cacheId);
       return NextResponse.json(result);
     }
