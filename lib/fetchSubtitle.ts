@@ -10,11 +10,15 @@ export async function fetchSubtitle(
   videoId: string,
   service?: VideoService,
   shouldShowTimestamp?: boolean
-) {
+): Promise<{
+  title: string;
+  subtitlesArray?: null | Array<{ index: number; text: string }>;
+  descriptionText?: string;
+}> {
   if (service === VideoService.Youtube) {
     const { title, subtitleList } = await fetchYoutubeSubtitleUrls(videoId);
     if (subtitleList?.length <= 0) {
-      return { title, subtitleList: null };
+      return { title, subtitlesArray: null };
     }
     const betterSubtitle =
       find(subtitleList, { quality: "English" }) ||
@@ -32,7 +36,7 @@ export async function fetchSubtitle(
           index,
         })
       );
-      return { title, subtitles: transcripts };
+      return { title, subtitlesArray: transcripts };
     }
 
     const subtitleUrl = `${SUBTITLE_DOWNLOADER_URL}${betterSubtitle.url}?ext=txt`;
@@ -41,7 +45,7 @@ export async function fetchSubtitle(
     const transcripts = subtitles
       .split("\r\n\r\n")
       ?.map((text: string, index: number) => ({ text, index }));
-    return { title, subtitles: transcripts };
+    return { title, subtitlesArray: transcripts };
   }
 
   // const res = await pRetry(async () => await fetchBilibiliSubtitles(videoId), {
@@ -58,7 +62,7 @@ export async function fetchSubtitle(
   const descriptionText = desc + "\n" + dynamic;
   const subtitleList = res?.subtitle?.list;
   if (!subtitleList || subtitleList?.length < 1) {
-    return { title, subtitles: null, descriptionText };
+    return { title, subtitlesArray: null, descriptionText };
   }
 
   const betterSubtitle =
@@ -85,5 +89,5 @@ export async function fetchSubtitle(
       };
     }
   );
-  return { title, subtitles: transcripts, descriptionText };
+  return { title, subtitlesArray: transcripts, descriptionText };
 }
