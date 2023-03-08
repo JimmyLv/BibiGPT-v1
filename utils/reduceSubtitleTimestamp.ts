@@ -5,12 +5,14 @@ export type YoutubeSubtitleItem = { start: number; lines: string[] };
 export function reduceSubtitleTimestamp(
   subtitles: Array<YoutubeSubtitleItem>
 ): Array<CommonSubtitleItem> {
-  // 把字幕数组分成 10 组
-  const groupCount = 20;
+  // 把字幕数组总共分成 20 组
+  const TOTAL_GROUP_COUNT = 20;
+  // 如果字幕不够多，就每三组合并一下
+  const MINIMUM_COUNT_ONE_GROUP = 3;
   const eachGroupCount =
-    subtitles.length > groupCount
-      ? subtitles.length / groupCount
-      : subtitles.length;
+    subtitles.length > TOTAL_GROUP_COUNT
+      ? subtitles.length / TOTAL_GROUP_COUNT
+      : MINIMUM_COUNT_ONE_GROUP;
 
   return subtitles.reduce(
     (
