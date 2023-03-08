@@ -10,23 +10,27 @@ export function reduceYoutubeSubtitleTimestamp(
   return reduceSubtitleTimestamp<YoutubeSubtitleItem>(
     subtitles,
     (i) => i.start,
-    (i) => i.lines.join(" ")
+    (i) => i.lines.join(" "),
+    true
   );
 }
 
 export function reduceBilibiliSubtitleTimestamp(
-  subtitles: Array<BilibiliSubtitleItem> = []
+  subtitles: Array<BilibiliSubtitleItem> = [],
+  shouldShowTimestamp?: boolean
 ): Array<CommonSubtitleItem> {
   return reduceSubtitleTimestamp<BilibiliSubtitleItem>(
     subtitles,
     (i) => i.from,
-    (i) => i.content
+    (i) => i.content,
+    shouldShowTimestamp
   );
 }
 export function reduceSubtitleTimestamp<T>(
   subtitles: Array<T> = [],
   getStart: (i: T) => number,
-  getText: (i: T) => string
+  getText: (i: T) => string,
+  shouldShowTimestamp?: boolean
 ): Array<CommonSubtitleItem> {
   // 把字幕数组总共分成 20 组
   const TOTAL_GROUP_COUNT = 30;
@@ -47,7 +51,7 @@ export function reduceSubtitleTimestamp<T>(
         accumulator[groupIndex] = {
           // 5.88 -> 5.9
           // text: current.start.toFixed() + ": ",
-          text: getStart(current) + " - ",
+          text: shouldShowTimestamp ? getStart(current) + " - " : "",
           index: groupIndex,
         };
       }

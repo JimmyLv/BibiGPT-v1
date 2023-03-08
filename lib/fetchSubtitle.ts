@@ -14,5 +14,5 @@ export async function fetchSubtitle(
   if (service === VideoService.Youtube) {
     return await fetchYoutubeSubtitle(videoId, shouldShowTimestamp);
   }
-  return await fetchBilibiliSubtitle(videoId);
+  return await fetchBilibiliSubtitle(videoId, shouldShowTimestamp);
 }
