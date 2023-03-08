@@ -23,7 +23,7 @@ export function extractTimestamp(matchResult: RegExpMatchArray) {
         ? " " + formattedContent
         : formattedContent;
   } catch (e) {
-    console.log("handle text after time error", e);
+    console.error("handle text after time error", e);
   }
   // console.log("========matchResult========", {matchResult, timestamp, formattedContent});
   return { timestamp, formattedContent };
