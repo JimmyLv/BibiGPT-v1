@@ -2,7 +2,7 @@ import { extractSentence } from "~/utils/extractSentence";
 import { extractTimestamp } from "~/utils/extractTimestamp";
 
 export function formatSummary(summary: string) {
-  const summaryArray = summary.split("\n- ");
+  const summaryArray = ("\n" + summary).split("\n- ");
   const formattedSummary = summaryArray
     .map((s) => {
       const matchResult = extractSentence(s);
