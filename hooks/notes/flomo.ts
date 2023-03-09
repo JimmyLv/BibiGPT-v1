@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useAnalytics } from '~/components/context/analytics'
 import { useToast } from "~/hooks/use-toast";
 
 export function useSaveToFlomo(note: string, webhook: string) {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const { analytics } = useAnalytics();
 
   const save = async () => {
     setLoading(true);
@@ -32,6 +34,7 @@ export function useSaveToFlomo(note: string, webhook: string) {
       });
     }
     setLoading(false);
+    analytics.track("SaveFlomoButton Clicked");
   };
   return { save, loading };
 }
