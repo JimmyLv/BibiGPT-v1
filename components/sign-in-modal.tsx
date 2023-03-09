@@ -6,6 +6,8 @@ import Link from "next/link";
 import React, { Dispatch, SetStateAction, useCallback, useMemo, useState } from "react";
 import Modal from "~/components/shared/modal";
 import { BASE_DOMAIN, LOGIN_LIMIT_COUNT } from "~/utils/constants";
+import { isDev } from "~/utils/env";
+import { getRedirectURL } from "~/utils/getRedirectUrl";
 
 const SignInModal = ({
   showSignInModal,
@@ -15,6 +17,7 @@ const SignInModal = ({
   setShowSignInModal: Dispatch<SetStateAction<boolean>>;
 }) => {
   const supabaseClient = useSupabaseClient();
+  const redirectURL = getRedirectURL();
   return (
     <Modal showModal={showSignInModal} setShowModal={setShowSignInModal}>
       <div className="w-full overflow-hidden shadow-xl md:max-w-md md:rounded-2xl md:border md:border-gray-200">
@@ -36,7 +39,7 @@ const SignInModal = ({
         <div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
           <Auth
             supabaseClient={supabaseClient}
-            // redirectTo={isDev ? window?.location?.origin : BASE_DOMAIN}
+            redirectTo={redirectURL}
             localization={{
               variables: {
                 sign_up: {
