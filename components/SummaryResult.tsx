@@ -65,7 +65,7 @@ export function SummaryResult({
       <ActionsAfterResult
         curVideo={currentVideoUrl}
         onCopy={handleCopy}
-        summaryNote={summaryNote}
+        summaryNote={formattedSummary}
       />
     </div>
   );
