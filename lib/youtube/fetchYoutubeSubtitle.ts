@@ -7,7 +7,7 @@ export async function fetchYoutubeSubtitle(
   shouldShowTimestamp: boolean | undefined
 ) {
   const { title, subtitleList } = await fetchYoutubeSubtitleUrls(videoId);
-  if (subtitleList?.length <= 0) {
+  if (!subtitleList || subtitleList?.length <= 0) {
     return { title, subtitlesArray: null };
   }
   const betterSubtitle =
