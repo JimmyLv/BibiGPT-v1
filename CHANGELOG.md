@@ -1,5 +1,44 @@
 # Changelog
 
+## [1.3.0](https://github.com/JimmyLv/BibiGPT/compare/v1.2.0...v1.3.0) (2023-03-09)
+
+
+### Features
+
+* improve youtube and bilibili subtitles ([f285f4e](https://github.com/JimmyLv/BibiGPT/commit/f285f4e4bd6e2517dbdcf055c18595752bfc72ce))
+* show login when auth error ([a3b860f](https://github.com/JimmyLv/BibiGPT/commit/a3b860f9f90cfb01454d5f712a75c815bd64fb52))
+* update to use English prompt ([113cdba](https://github.com/JimmyLv/BibiGPT/commit/113cdba1e23ef7474b47cd28cb5ea3ff426134a7))
+* update to use system role for chat api ([1edc247](https://github.com/JimmyLv/BibiGPT/commit/1edc247b06a326e68b078d0aaee55fd123afa0e2))
+* use better limitTranscriptByteLength logic ([673e421](https://github.com/JimmyLv/BibiGPT/commit/673e421d559eb5f13b0fb5e7f8fbd40643217eff))
+
+
+### Bug Fixes
+
+* 😠 just rename api to clean logging ([310c2d1](https://github.com/JimmyLv/BibiGPT/commit/310c2d1b0fbfd0b4324d281e4978df26c9da6d38))
+* add redirect shop ([ec2ccd1](https://github.com/JimmyLv/BibiGPT/commit/ec2ccd19004d2ecbbafb370fa4819bcbbf00d5c5))
+* don't show undefined ([6c8f0bc](https://github.com/JimmyLv/BibiGPT/commit/6c8f0bc23ec5232dd41b46d7b01f2472d3d12e9c))
+* first bulletpoint ([4ca7901](https://github.com/JimmyLv/BibiGPT/commit/4ca79010d05c3bcf7d33f679792aea7d2c37d749))
+* improve log ([6f69d80](https://github.com/JimmyLv/BibiGPT/commit/6f69d80345b53c87dadd19084300cc2472f1895f))
+* improve the cache for timestamp ([0c7f928](https://github.com/JimmyLv/BibiGPT/commit/0c7f928886e960c45b5531dbc7e26de61c08f96d))
+* improve the error log ([9e3b40e](https://github.com/JimmyLv/BibiGPT/commit/9e3b40e4b5a954b05ef355d0cf8701808c6416e4))
+* improve the timestamp by group ([aa3fb66](https://github.com/JimmyLv/BibiGPT/commit/aa3fb662975fa17dd0bf35c46774e1f491c5eb2e))
+* increase free count ([8a382ff](https://github.com/JimmyLv/BibiGPT/commit/8a382ffd969f6ba38375746fad399a57f5aba4e1))
+* limit for apiKey users ([38f1e56](https://github.com/JimmyLv/BibiGPT/commit/38f1e56b1a4e27d360472fe9d3c08de03c997b60))
+* merge subtitles by 20 group ([0d674d9](https://github.com/JimmyLv/BibiGPT/commit/0d674d937fc780f3a19f0f1266afb003798ed8b0))
+* not allow av id ([ca226dd](https://github.com/JimmyLv/BibiGPT/commit/ca226ddaf213eb819ec86a65780302d2d7f80f34))
+* not prompt with timestamp when not selected ([c5d4f43](https://github.com/JimmyLv/BibiGPT/commit/c5d4f4330617f489d4a789e74e624a88ba7e5572))
+* not redirect for free user ([cfa53c0](https://github.com/JimmyLv/BibiGPT/commit/cfa53c0b8c125930833cbded9bfd919234ca1648))
+* not use vercel image ([c8874f8](https://github.com/JimmyLv/BibiGPT/commit/c8874f8ebcb2293ba6259d9823c4071c9d522bba))
+* polished the english version prompt ([246d04c](https://github.com/JimmyLv/BibiGPT/commit/246d04cc9236897aae3a9f9f0cda3cbcba81fdfe))
+* prevent undefined error ([acd575c](https://github.com/JimmyLv/BibiGPT/commit/acd575c5e8ddc0a8e09fff6988c23869e38f716b))
+* show description ([04ea0c6](https://github.com/JimmyLv/BibiGPT/commit/04ea0c6e9e0cb66125e610468037bbeb20ada8bd))
+* show ip for user key ([815b1df](https://github.com/JimmyLv/BibiGPT/commit/815b1df2256cf7512068f499ce12913c3e56687c))
+* support timestamp without "." symbol ([343d4c6](https://github.com/JimmyLv/BibiGPT/commit/343d4c69d16e5178f3e40925fc386d6c49d10b16))
+* timestamp must be fixed for youtube ([5e33d11](https://github.com/JimmyLv/BibiGPT/commit/5e33d114b828434c2c141f54d5dd15eccbd9e499))
+* update group count ([600d245](https://github.com/JimmyLv/BibiGPT/commit/600d2453e83bed63da076106208e0bfe52706999))
+* update index page ([2b6e8cc](https://github.com/JimmyLv/BibiGPT/commit/2b6e8cc7a2edae47f5766723ae16fc7aa8d3083a))
+* use description if no subtitles ([dbee3e6](https://github.com/JimmyLv/BibiGPT/commit/dbee3e68b3679df9989d8a13f5192c02e853cab0))
+
 ## [1.2.0](https://github.com/JimmyLv/BibiGPT/compare/v1.1.0...v1.2.0) (2023-03-07)
 
 
