@@ -3,6 +3,7 @@
 import React from "react";
 import { AnalyticsBrowser } from "@segment/analytics-next";
 import { useCDNUrl, useWriteKey } from "~/hooks/useConfig";
+import { isDev } from "~/utils/env";
 
 const AnalyticsContext = React.createContext<{
   analytics: AnalyticsBrowser;
@@ -19,10 +20,11 @@ export const AnalyticsProvider: React.FC<{ children: React.ReactElement }> = ({
   const [cdnURL, setCDNUrl] = useCDNUrl();
 
   const analytics = React.useMemo(() => {
-    console.log(
-      `AnalyticsBrowser loading...`,
-      JSON.stringify({ writeKey, cdnURL })
-    );
+    isDev &&
+      console.log(
+        `AnalyticsBrowser loading...`,
+        JSON.stringify({ writeKey, cdnURL })
+      );
     return AnalyticsBrowser.load({ writeKey, cdnURL });
   }, [writeKey, cdnURL]);
   return (
