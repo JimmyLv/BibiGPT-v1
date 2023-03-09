@@ -33,7 +33,7 @@ export default () => {
         </div>
       </h2>
       <div className="min-h-screen min-w-fit border-2 border-purple-700">
-        {/*<iframe src={CHECKOUT_URL} width="100%" height="1024px"></iframe>*/}
+        <iframe src={CHECKOUT_URL} width="100%" height="1024px"></iframe>
       </div>
     </div>
   );
