@@ -21,17 +21,16 @@ export function SummaryResult({
 }) {
   const { toast } = useToast();
   const { summaryArray, formattedSummary } = formatSummary(summary);
+  const summaryNote =
+    formattedSummary +
+    "\n\n #BibiGPT自动总结 b.jimmylv.cn @吕立青_JimmyLv \nBV1fX4y1Q7Ux";
 
   const handleCopy = () => {
     if (!isSecureContext) {
       toast({ description: "复制错误 ❌" });
       return;
     }
-    // todo: add the youtube video id
-    navigator.clipboard.writeText(
-      formattedSummary +
-        "\n\n #BibiGPT自动总结 b.jimmylv.cn @吕立青_JimmyLv \nBV1fX4y1Q7Ux"
-    );
+    navigator.clipboard.writeText(summaryNote);
     toast({ description: "复制成功 ✂️" });
   };
 
@@ -63,7 +62,11 @@ export function SummaryResult({
           </div>
         ))}
       </div>
-      <ActionsAfterResult curVideo={currentVideoUrl} onCopy={handleCopy} />
+      <ActionsAfterResult
+        curVideo={currentVideoUrl}
+        onCopy={handleCopy}
+        summaryNote={summaryNote}
+      />
     </div>
   );
 }

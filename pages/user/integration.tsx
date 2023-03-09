@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocalStorage } from "react-use";
 import { Sidebar } from "~/components/sidebar";
-import { CHECKOUT_URL } from "~/utils/constants";
+
 export default () => {
   const [flomoWebhook, setFlomoWebhook, remove] =
     useLocalStorage<string>("user-flomo-webhook");
