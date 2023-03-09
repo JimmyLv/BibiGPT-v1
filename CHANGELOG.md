@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.4.0](https://github.com/JimmyLv/BibiGPT/compare/v1.3.0...v1.4.0) (2023-03-09)
+
+
+### Features
+
+* 🎉 save to flomo ([4a4920d](https://github.com/JimmyLv/BibiGPT/commit/4a4920d198cad01737c934f49039897ac5bbbd2d))
+* add flomo webhook input ([1ce3bde](https://github.com/JimmyLv/BibiGPT/commit/1ce3bde541c031ea02303d66adafddf3ae66b8ef))
+* added basic dashboard layout ([11cf1ba](https://github.com/JimmyLv/BibiGPT/commit/11cf1ba79f4851124993f306b35b1d25ac130582))
+* added mock videos page ([cb37dbb](https://github.com/JimmyLv/BibiGPT/commit/cb37dbbdc46981bf3395d195a3ccfd5e4472a00c))
+* show a button when summarized ([59025ea](https://github.com/JimmyLv/BibiGPT/commit/59025eae778bc9a8053e4681565d7648e37c8ecb))
+
+
+### Bug Fixes
+
+* add description for videos ([824a85b](https://github.com/JimmyLv/BibiGPT/commit/824a85bd514638a959ef42c4581026e943142115))
+* add track for save note ([be372de](https://github.com/JimmyLv/BibiGPT/commit/be372de234d5564f1f365da9c41950e3c6813fe8))
+* just add more menu from avatar ([3ba1f81](https://github.com/JimmyLv/BibiGPT/commit/3ba1f8194b2dc7f5034de1bc22ad051163da4cc9))
+* simplified summary note ([09528f3](https://github.com/JimmyLv/BibiGPT/commit/09528f3a26205a2a83f19232057e57a53d00e842))
+
 ## [1.3.0](https://github.com/JimmyLv/BibiGPT/compare/v1.2.0...v1.3.0) (2023-03-09)
 
 
