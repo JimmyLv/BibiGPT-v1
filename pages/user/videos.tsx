@@ -1,5 +1,5 @@
 import { Sidebar } from "~/components/sidebar";
-import BilibiliEmbedRenderer from 'react-bilibili-embed-renderer'
+import BilibiliEmbedRenderer from "react-bilibili-embed-renderer";
 export default () => {
   return (
     <>
@@ -9,12 +9,12 @@ export default () => {
           <div className="mb-4 grid grid-cols-3 gap-4">
             <div className="flex h-24 items-center justify-center rounded bg-gray-50 dark:bg-gray-800">
               <div className="text-2xl text-gray-400 dark:text-gray-500">
-                <BilibiliEmbedRenderer width={300} aid="483168578"/>
+                <BilibiliEmbedRenderer width={300} aid="483168578" />
               </div>
             </div>
             <div className="flex h-24 items-center justify-center rounded bg-gray-50 dark:bg-gray-800">
               <div className="text-2xl text-gray-400 dark:text-gray-500">
-                <BilibiliEmbedRenderer width={300} aid="352747000"/>
+                <BilibiliEmbedRenderer width={300} aid="352747000" />
               </div>
             </div>
             <div className="flex h-24 items-center justify-center rounded bg-gray-50 dark:bg-gray-800">
@@ -22,7 +22,9 @@ export default () => {
             </div>
           </div>
           <div className="mb-4 flex h-48 items-center justify-center rounded bg-gray-50 dark:bg-gray-800">
-            <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
+            <p className="text-2xl text-gray-400 dark:text-gray-500">
+              💺 虚伪以待，Coming Soon！
+            </p>
           </div>
           <div className="mb-4 grid grid-cols-2 gap-4">
             <div className="flex h-28 items-center justify-center rounded bg-gray-50 dark:bg-gray-800">
