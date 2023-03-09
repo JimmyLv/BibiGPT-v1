@@ -22,8 +22,8 @@ export default function videoIdSentence({
 
   const matchResult = extractSentence(sentence);
   if (matchResult) {
-    // simplify the seconds with number, todo: 0.003 is not able
-    const seconds = matchResult[1].split(":")[0];
+    // simplify the seconds with number: 1:11 or 1.11 -> 7, todo: 0.003 is not able
+    const seconds = Number(matchResult[1].split(":")[0]).toFixed();
     const { formattedContent, timestamp } = extractTimestamp(matchResult);
 
     return (
