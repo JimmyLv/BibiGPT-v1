@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { useLocalStorage } from "react-use";
 import { useAnalytics } from "~/components/context/analytics";
 import { SubmitButton } from "~/components/SubmitButton";
 import { SummaryResult } from "~/components/SummaryResult";
@@ -17,6 +16,7 @@ import { VideoService } from "~/lib/types";
 import { extractUrl } from "~/utils/extractUrl";
 import { getVideoIdFromUrl } from "~/utils/getVideoIdFromUrl";
 import getVideoId from "get-video-id";
+import { useLocalStorage } from "~/hooks/useLocalStorage";
 
 export const Home: NextPage<{
   showSingIn: (show: boolean) => void;
@@ -31,7 +31,7 @@ export const Home: NextPage<{
   const [currentVideoUrl, setCurrentVideoUrl] = useState<string>("");
   const [shouldShowTimestamp, setShouldShowTimestamp] =
     useLocalStorage<boolean>("should-show-timestamp");
-  const [userKey, setUserKey, remove] =
+  const [userKey, setUserKey] =
     useLocalStorage<string>("user-openai-apikey");
   const { loading, summary, resetSummary, summarize } =
     useSummarize(showSingIn);
@@ -115,9 +115,6 @@ export const Home: NextPage<{
     analytics.track("GenerateButton Clicked");
   };
   const handleApiKeyChange = (e: any) => {
-    if (!e.target.value) {
-      remove();
-    }
     setUserKey(e.target.value);
   };
 

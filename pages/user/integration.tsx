@@ -1,15 +1,12 @@
 import React from "react";
-import { useLocalStorage } from "react-use";
 import { Sidebar } from "~/components/sidebar";
+import { useLocalStorage } from "~/hooks/useLocalStorage";
 
 export default () => {
-  const [flomoWebhook, setFlomoWebhook, remove] =
+  const [flomoWebhook, setFlomoWebhook] =
     useLocalStorage<string>("user-flomo-webhook");
 
   const handleFlomoWebhook = (e: any) => {
-    if (!e.target.value) {
-      remove();
-    }
     setFlomoWebhook(e.target.value);
   };
 
