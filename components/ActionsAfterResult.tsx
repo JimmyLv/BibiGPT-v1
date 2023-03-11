@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { useLocalStorage } from "react-use";
 import { useSaveToFlomo } from "~/hooks/notes/flomo";
+import { useLocalStorage } from "~/hooks/useLocalStorage";
 
 export function ActionsAfterResult({
   curVideo,
