@@ -2,9 +2,16 @@ import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { fetchSubtitle } from "~/lib/fetchSubtitle";
-import { ChatGPTAgent, fetchOpenAIResult } from "~/lib/openai/fetchOpenAIResult";
+import {
+  ChatGPTAgent,
+  fetchOpenAIResult,
+} from "~/lib/openai/fetchOpenAIResult";
 import { getSmallSizeTranscripts } from "~/lib/openai/getSmallSizeTranscripts";
-import { getSystemPrompt, getUserSubtitlePrompt } from "~/lib/openai/prompt";
+import {
+  getExamplePrompt,
+  getSystemPrompt,
+  getUserSubtitlePrompt,
+} from "~/lib/openai/prompt";
 import { selectApiKeyAndActivatedLicenseKey } from "~/lib/openai/selectApiKeyAndActivatedLicenseKey";
 import { SummarizeParams } from "~/lib/types";
 import { isDev } from "~/utils/env";
@@ -42,9 +49,11 @@ export default async function handler(
   const systemPrompt = getSystemPrompt({
     shouldShowTimestamp: subtitlesArray ? shouldShowTimestamp : false,
   });
+  const examplePrompt = getExamplePrompt();
   const userPrompt = getUserSubtitlePrompt(title, inputText);
   if (isDev) {
     console.log("final system prompt: ", systemPrompt);
+    console.log("final example prompt: ", examplePrompt);
     console.log("final user prompt: ", userPrompt);
   }
 
@@ -56,8 +65,8 @@ export default async function handler(
           role: ChatGPTAgent.system,
           content: systemPrompt,
         },
-        // {"role": "user", "content": "谁赢得了2020年的世界职业棒球大赛?"},
-        // {"role": "assistant", "content": "洛杉矶道奇队在2020年赢得了世界职业棒球大赛冠军。"},
+        { role: ChatGPTAgent.user, content: examplePrompt.input },
+        { role: ChatGPTAgent.assistant, content: examplePrompt.output },
         { role: ChatGPTAgent.user, content: userPrompt },
       ],
       temperature: 0.5,
@@ -80,6 +89,7 @@ export default async function handler(
     const cacheId = shouldShowTimestamp ? `timestamp-${videoId}` : videoId;
     const data = await redis.set(cacheId, result);
     console.info(`video ${cacheId} cached:`, data);
+    isDev && console.log("========result========", result);
 
     return NextResponse.json(result);
   } catch (error: any) {
