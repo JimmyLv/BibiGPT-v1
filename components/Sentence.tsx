@@ -1,4 +1,4 @@
-import { extractSentence } from "~/utils/extractSentence";
+import { extractSentenceWithTimestamp } from "~/utils/extractSentenceWithTimestamp";
 import { extractTimestamp, trimSeconds } from "~/utils/extractTimestamp";
 
 export default function videoIdSentence({
@@ -20,7 +20,7 @@ export default function videoIdSentence({
     ? `https://www.bilibili.com/video/${videoId}/?t=`
     : `https://youtube.com/watch?v=${videoId}&t=`;
 
-  const matchResult = extractSentence(sentence);
+  const matchResult = extractSentenceWithTimestamp(sentence);
   if (matchResult) {
     // simplify the seconds with number: 1:11 or 1.11 -> 7, todo: 0.003 is not able
     const secondsStr = matchResult[1].split(":")[0];

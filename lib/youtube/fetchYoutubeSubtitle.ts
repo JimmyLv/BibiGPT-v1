@@ -1,4 +1,7 @@
-import { fetchYoutubeSubtitleUrls, SUBTITLE_DOWNLOADER_URL } from "~/lib/youtube/fetchYoutubeSubtitleUrls";
+import {
+  fetchYoutubeSubtitleUrls,
+  SUBTITLE_DOWNLOADER_URL,
+} from "~/lib/youtube/fetchYoutubeSubtitleUrls";
 import { find } from "~/utils/fp";
 import { reduceYoutubeSubtitleTimestamp } from "~/utils/reduceSubtitleTimestamp";
 

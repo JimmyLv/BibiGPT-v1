@@ -1,9 +1,9 @@
+import Markdown from "marked-react";
 import React from "react";
 import { ActionsAfterResult } from "~/components/ActionsAfterResult";
 import Sentence from "~/components/Sentence";
 import { useToast } from "~/hooks/use-toast";
 import { formatSummary } from "~/utils/formatSummary";
-import Markdown from "marked-react";
 
 export let isSecureContext = false;
 
@@ -23,7 +23,10 @@ export function SummaryResult({
   shouldShowTimestamp?: boolean;
 }) {
   const { toast } = useToast();
-  const { summaryArray, formattedSummary } = formatSummary(summary);
+  const { summaryArray, formattedSummary } = formatSummary(
+    summary,
+    shouldShowTimestamp
+  );
   const summaryNote =
     formattedSummary +
     "\n\n #BibiGPT自动总结 b.jimmylv.cn @吕立青_JimmyLv \nBV1fX4y1Q7Ux";
@@ -54,7 +57,7 @@ export function SummaryResult({
         onClick={handleCopy}
       >
         {shouldShowTimestamp ? (
-          summaryArray.map((sentence, index) => (
+          summaryArray.map((sentence: string, index: number) => (
             <div key={index}>
               {sentence.length > 0 && (
                 <Sentence

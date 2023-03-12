@@ -11,6 +11,7 @@ import {
   getExamplePrompt,
   getSystemPrompt,
   getUserSubtitlePrompt,
+  getUserSubtitleWithTimestampPrompt,
 } from "~/lib/openai/prompt";
 import { selectApiKeyAndActivatedLicenseKey } from "~/lib/openai/selectApiKeyAndActivatedLicenseKey";
 import { SummarizeParams } from "~/lib/types";
@@ -47,14 +48,18 @@ export default async function handler(
     ? getSmallSizeTranscripts(subtitlesArray, subtitlesArray)
     : descriptionText; // subtitlesArray.map((i) => i.text).join("\n")
 
-  const systemPrompt = getSystemPrompt({
-    shouldShowTimestamp: subtitlesArray ? shouldShowTimestamp : false,
-  });
-  const examplePrompt = getExamplePrompt();
-  const userPrompt = getUserSubtitlePrompt(title, inputText);
+  // TODO: try the apiKey way for chrome extensions
+  // const systemPrompt = getSystemPrompt({
+  //   shouldShowTimestamp: subtitlesArray ? shouldShowTimestamp : false,
+  // });
+  // const examplePrompt = getExamplePrompt();
+  const userPrompt =
+    subtitlesArray && shouldShowTimestamp
+      ? getUserSubtitleWithTimestampPrompt(title, subtitlesArray)
+      : getUserSubtitlePrompt(title, inputText);
   if (isDev) {
-    console.log("final system prompt: ", systemPrompt);
-    console.log("final example prompt: ", examplePrompt);
+    // console.log("final system prompt: ", systemPrompt);
+    // console.log("final example prompt: ", examplePrompt);
     console.log("final user prompt: ", userPrompt);
   }
 
