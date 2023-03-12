@@ -1,19 +1,14 @@
 import { extractSentenceWithTimestamp } from "~/utils/extractSentenceWithTimestamp";
 import { extractTimestamp } from "~/utils/extractTimestamp";
 
-export function formatSummary(summary: string, shouldShowTimestamp?: boolean) {
+export function formatSummary(summary: string) {
+/*
   if (shouldShowTimestamp) {
     try {
       const parsedBulletPoints = JSON.parse(summary);
       const summaryArray = parsedBulletPoints.map(
-        ({
-          start_time,
-          bullet_point,
-        }: {
-          start_time: number;
-          bullet_point: string;
-        }) => {
-          const startTime = start_time === 0 ? "0.0" : start_time;
+        ({ s, bullet_point }: { s: number; bullet_point: string }) => {
+          const startTime = s === 0 ? "0.0" : s;
           return startTime + " " + bullet_point;
         }
       );
@@ -26,6 +21,7 @@ export function formatSummary(summary: string, shouldShowTimestamp?: boolean) {
       return {};
     }
   }
+*/
 
   const summaryArray = ("\n" + summary).split("\n- ");
   const formattedSummary = summaryArray

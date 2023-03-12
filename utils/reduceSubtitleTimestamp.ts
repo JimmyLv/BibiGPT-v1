@@ -52,7 +52,7 @@ export function reduceSubtitleTimestamp<T>(
           // 5.88 -> 5.9
           // text: current.start.toFixed() + ": ",
           index: groupIndex,
-          start_time: getStart(current),
+          s: getStart(current),
           text: shouldShowTimestamp ? getStart(current) + " - " : ""
         };
       }

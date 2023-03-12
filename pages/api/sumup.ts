@@ -53,9 +53,8 @@ export default async function handler(
   //   shouldShowTimestamp: subtitlesArray ? shouldShowTimestamp : false,
   // });
   // const examplePrompt = getExamplePrompt();
-  const userPrompt =
-    subtitlesArray && shouldShowTimestamp
-      ? getUserSubtitleWithTimestampPrompt(title, subtitlesArray)
+  const userPrompt = shouldShowTimestamp
+      ? getUserSubtitleWithTimestampPrompt(title, inputText)
       : getUserSubtitlePrompt(title, inputText);
   if (isDev) {
     // console.log("final system prompt: ", systemPrompt);

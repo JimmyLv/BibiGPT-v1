@@ -23,10 +23,7 @@ export function SummaryResult({
   shouldShowTimestamp?: boolean;
 }) {
   const { toast } = useToast();
-  const { summaryArray, formattedSummary } = formatSummary(
-    summary,
-    shouldShowTimestamp
-  );
+  const { summaryArray, formattedSummary } = formatSummary(summary);
   const summaryNote =
     formattedSummary +
     "\n\n #BibiGPT自动总结 b.jimmylv.cn @吕立青_JimmyLv \nBV1fX4y1Q7Ux";

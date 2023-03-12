@@ -126,6 +126,7 @@ export const Home: NextPage<{
   };
 
   function handleShowTimestamp(checked: boolean) {
+    resetSummary();
     setShouldShowTimestamp(checked);
     analytics
       .track(`ShowTimestamp Clicked`, {
