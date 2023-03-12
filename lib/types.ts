@@ -10,6 +10,7 @@ export type UserConfig = {
 export type VideoConfig = {
   videoId: string;
   service?: VideoService;
+  partNumber?: null | string;
 };
 
 export enum VideoService {

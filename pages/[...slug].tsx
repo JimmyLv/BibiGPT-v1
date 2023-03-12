@@ -31,8 +31,7 @@ export const Home: NextPage<{
   const [currentVideoUrl, setCurrentVideoUrl] = useState<string>("");
   const [shouldShowTimestamp, setShouldShowTimestamp] =
     useLocalStorage<boolean>("should-show-timestamp");
-  const [userKey, setUserKey] =
-    useLocalStorage<string>("user-openai-apikey");
+  const [userKey, setUserKey] = useLocalStorage<string>("user-openai-apikey");
   const { loading, summary, resetSummary, summarize } =
     useSummarize(showSingIn);
   const { toast } = useToast();
@@ -62,7 +61,10 @@ export const Home: NextPage<{
     const videoUrl = url || currentVideoUrl;
     if (
       // https://www.bilibili.com/video/BV1AL4y1j7RY
-      !(videoUrl.includes("bilibili.com/video/BV") || videoUrl.includes("youtube.com"))
+      !(
+        videoUrl.includes("bilibili.com/video/BV") ||
+        videoUrl.includes("youtube.com")
+      )
     ) {
       toast({
         title: "暂不支持此视频链接",
@@ -100,9 +102,10 @@ export const Home: NextPage<{
       return;
     }
 
+    const partNumber = searchParams.get("p");
     setCurrentVideoId(bvId);
     await summarize(
-      { videoId: bvId, service: VideoService.Bilibili },
+      { service: VideoService.Bilibili, videoId: bvId, partNumber },
       { userKey, shouldShowTimestamp }
     );
     setTimeout(() => {
