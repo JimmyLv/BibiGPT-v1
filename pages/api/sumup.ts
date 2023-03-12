@@ -71,13 +71,13 @@ export default async function handler(
         // { role: ChatGPTAgent.assistant, content: examplePrompt.output },
         { role: ChatGPTAgent.user, content: userPrompt },
       ],
-      temperature: 0.5,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-      max_tokens: userKey ? 400 : 300,
+      // temperature: 0.5,
+      // top_p: 1,
+      // frequency_penalty: 0,
+      // presence_penalty: 0,
+      max_tokens: userKey ? 800 : 600,
       stream: false,
-      n: 1,
+      // n: 1,
     };
 
     // TODO: need refactor
