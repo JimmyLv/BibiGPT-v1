@@ -14,7 +14,7 @@ interface BilibiliVideoInfo {
   };
 }
 export const fetchBilibiliSubtitleUrls = async (
-  bvId: string,
+  videoId: string,
   partNumber?: null | string
 ): Promise<BilibiliVideoInfo> => {
   const sessdata = sample(process.env.BILIBILI_SESSION_TOKEN?.split(","));
@@ -26,16 +26,19 @@ export const fetchBilibiliSubtitleUrls = async (
     Host: "api.bilibili.com",
     Cookie: `SESSDATA=${sessdata}`,
   };
-
-  const requestUrl = `https://api.bilibili.com/x/web-interface/view?bvid=${bvId}`;
-  console.log(`fetch`, requestUrl);
-
   const commonConfig: RequestInit = {
     method: "GET",
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
     headers,
     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
   };
+
+  console.log("========videoId========", videoId);
+  const params = videoId.startsWith("av")
+    ? `?aid=${videoId.slice(2)}`
+    : `?bvid=${videoId}`;
+  const requestUrl = `https://api.bilibili.com/x/web-interface/view${params}`;
+  console.log(`fetch`, requestUrl);
   const response = await fetch(requestUrl, commonConfig);
   const json = await response.json();
 

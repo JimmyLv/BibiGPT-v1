@@ -1,5 +1,5 @@
-import { fetchBilibiliSubtitleUrls } from "~/lib/bilibili/fetchBilibiliSubtitleUrls";
 import { reduceBilibiliSubtitleTimestamp } from "~/utils/reduceSubtitleTimestamp";
+import { fetchBilibiliSubtitleUrls } from "./fetchBilibiliSubtitleUrls";
 
 export async function fetchBilibiliSubtitle(
   videoId: string,

@@ -61,14 +61,18 @@ export const Home: NextPage<{
     const videoUrl = url || currentVideoUrl;
     if (
       // https://www.bilibili.com/video/BV1AL4y1j7RY
+      // https://www.bilibili.com/video/BV1854y1u7B8/?p=6
+      // https://www.bilibili.com/video/av352747000
+      // todo: b23.tv url with title
+      // todo: any article url
       !(
-        videoUrl.includes("bilibili.com/video/BV") ||
+        videoUrl.includes("bilibili.com/video") ||
         videoUrl.includes("youtube.com")
       )
     ) {
       toast({
         title: "暂不支持此视频链接",
-        description: "请输入哔哩哔哩视频长链接，暂不支持b23.tv或av号",
+        description: "请输入哔哩哔哩视频长链接，暂不支持b23.tv",
       });
       return;
     }
