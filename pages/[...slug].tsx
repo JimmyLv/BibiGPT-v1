@@ -4,9 +4,9 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useAnalytics } from "~/components/context/analytics";
+import { PromptOptions } from "~/components/PromptOptions";
 import { SubmitButton } from "~/components/SubmitButton";
 import { SummaryResult } from "~/components/SummaryResult";
-import { SwitchTimestamp } from "~/components/SwitchTimestamp";
 import { TypingSlogan } from "~/components/TypingSlogan";
 import { UsageAction } from "~/components/UsageAction";
 import { UsageDescription } from "~/components/UsageDescription";
@@ -169,7 +169,7 @@ export const Home: NextPage<{
           placeholder={"输入 bilibili.com 视频链接，按下「回车」"}
         />
         <SubmitButton loading={loading} />
-        <SwitchTimestamp
+        <PromptOptions
           checked={shouldShowTimestamp}
           onCheckedChange={handleShowTimestamp}
         />
