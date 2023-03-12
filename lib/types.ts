@@ -25,5 +25,5 @@ export enum VideoService {
 export type CommonSubtitleItem = {
   text: string;
   index: number;
-  start_time?: number | string;
+  s?: number | string;
 };
