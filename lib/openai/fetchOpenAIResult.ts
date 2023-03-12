@@ -20,13 +20,13 @@ export interface OpenAIStreamPayload {
   api_key?: string;
   model: string;
   messages: ChatGPTMessage[];
-  temperature: number;
-  top_p: number;
-  frequency_penalty: number;
-  presence_penalty: number;
+  temperature?: number;
+  top_p?: number;
+  frequency_penalty?: number;
+  presence_penalty?: number;
   max_tokens: number;
   stream: boolean;
-  n: number;
+  n?: number;
 }
 
 export async function fetchOpenAIResult(

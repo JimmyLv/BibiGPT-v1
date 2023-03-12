@@ -1,24 +1,11 @@
 import { limitTranscriptByteLength } from "~/lib/openai/getSmallSizeTranscripts";
+import { PROMPT_LANGUAGE_MAP } from "~/utils/constants/language";
 
 interface PromptConfig {
   language?: string;
   sentenceCount?: string;
   shouldShowTimestamp?: boolean;
 }
-const PROMPT_LANGUAGE_MAP = {
-  English: "UK English",
-  中文: "Simplified Chinese",
-  繁體中文: "Traditional Chinese",
-  日本語: "Japanese",
-  Italiano: "Italian",
-  Deutsch: "German",
-  Español: "Spanish",
-  Français: "French",
-  Nederlands: "Dutch",
-  한국어: "Korean",
-  ភាសាខ្មែរ: "Khmer",
-  हिंदी: "Hindi",
-};
 
 export function getExamplePrompt() {
   return {
