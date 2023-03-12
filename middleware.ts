@@ -82,6 +82,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
           const { success, remaining } = await ratelimitForFreeAccounts.limit(
             userEmail
           );
+          // TODO: only reduce the count after summarized successfully
           console.log(`login user ${userEmail}, remaining: ${remaining}`);
           if (!success) {
             return redirectShop(req);
@@ -101,7 +102,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
       return NextResponse.json(result);
     }
   } catch (e) {
-    console.error(e)
+    console.error(e);
     return redirectAuth();
   }
 }
