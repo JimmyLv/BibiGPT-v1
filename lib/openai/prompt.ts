@@ -50,9 +50,11 @@ export function getSystemPrompt(promptConfig: PromptConfig) {
   return shouldShowTimestamp ? promptWithTimestamp : betterPrompt;
 }
 export function getUserSubtitlePrompt(title: string, transcript: any) {
-  return `标题: "${title
-    ?.replace(/\n+/g, " ")
-    .trim()}"\n视频字幕: "${limitTranscriptByteLength(transcript)
+  const videoTitle = title?.replace(/\n+/g, " ").trim();
+  const videoTranscript = limitTranscriptByteLength(transcript)
     .replace(/\n+/g, " ")
-    .trim()}"`;
+    .trim();
+  const language = `zh-CN`;
+  const instruction = `\n\nInstructions: Your output should use the following template:\n### Summary\n### Highlights\n- [Emoji] Bulletpoint\n\nYour task is to summarise the text I have given you in up to seven concise bullet points, starting with a short highlight. Choose an appropriate emoji for each bullet point. Use the text above: {{Title}} {{Transcript}}.\n\n\nReply in ${language} Language.`;
+  return `Title: "${videoTitle}"\nTranscript: "${videoTranscript}"${instruction}`;
 }

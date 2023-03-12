@@ -18,6 +18,7 @@ import { cn } from "~/lib/utils";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import "../styles/globals.css";
+import "../styles/markdown.css";
 
 const fontSans = FontSans({
   subsets: ["latin"],
