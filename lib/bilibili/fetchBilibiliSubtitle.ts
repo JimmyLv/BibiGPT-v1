@@ -3,13 +3,14 @@ import { reduceBilibiliSubtitleTimestamp } from "~/utils/reduceSubtitleTimestamp
 
 export async function fetchBilibiliSubtitle(
   videoId: string,
+  partNumber?: null | string,
   shouldShowTimestamp?: boolean
 ) {
-  const res = await fetchBilibiliSubtitleUrls(videoId);
-  const { title, desc, dynamic } = res || {};
+  const res = await fetchBilibiliSubtitleUrls(videoId, partNumber);
+  const { title, desc, dynamic, subtitle } = res || {};
   const hasDescription = desc || dynamic;
   const descriptionText = hasDescription ? `${desc} ${dynamic}` : undefined;
-  const subtitleList = res?.subtitle?.list;
+  const subtitleList = subtitle?.list;
   if (!subtitleList || subtitleList?.length < 1) {
     return { title, subtitlesArray: null, descriptionText };
   }
@@ -17,7 +18,9 @@ export async function fetchBilibiliSubtitle(
   const betterSubtitle =
     subtitleList.find(({ lan }: { lan: string }) => lan === "zh-CN") ||
     subtitleList[0];
-  const subtitleUrl = betterSubtitle?.subtitle_url;
+  const subtitleUrl = betterSubtitle?.subtitle_url?.startsWith("//")
+    ? `https:${betterSubtitle?.subtitle_url}`
+    : betterSubtitle?.subtitle_url;
   console.log("subtitle_url", subtitleUrl);
 
   const subtitleResponse = await fetch(subtitleUrl);

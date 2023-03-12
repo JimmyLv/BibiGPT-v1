@@ -23,14 +23,13 @@ export default async function handler(
 ) {
   const { videoConfig, userConfig } = (await req.json()) as SummarizeParams;
   const { userKey, shouldShowTimestamp } = userConfig;
-  const { videoId, service } = videoConfig;
+  const { videoId } = videoConfig;
 
   if (!videoId) {
     return new Response("No videoId in the request", { status: 500 });
   }
   const { title, subtitlesArray, descriptionText } = await fetchSubtitle(
-    videoId,
-    service,
+    videoConfig,
     shouldShowTimestamp
   );
   if (!subtitlesArray && !descriptionText) {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useToast } from "~/hooks/use-toast";
-import { UserConfig, VideoConfig, VideoService } from "~/lib/types";
+import { UserConfig, VideoConfig } from "~/lib/types";
 import { RATE_LIMIT_COUNT } from "~/utils/constants";
 
 export function useSummarize(showSingIn: (show: boolean) => void) {
@@ -13,8 +13,8 @@ export function useSummarize(showSingIn: (show: boolean) => void) {
   };
 
   const summarize = async (
-    { videoId, service }: VideoConfig,
-    { userKey, shouldShowTimestamp }: UserConfig
+    videoConfig: VideoConfig,
+    userConfig: UserConfig
   ) => {
     setSummary("");
     setLoading(true);
@@ -27,8 +27,8 @@ export function useSummarize(showSingIn: (show: boolean) => void) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          videoConfig: { videoId, service },
-          userConfig: { userKey, shouldShowTimestamp },
+          videoConfig,
+          userConfig,
         }),
       });
 

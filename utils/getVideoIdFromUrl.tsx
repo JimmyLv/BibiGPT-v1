@@ -4,6 +4,7 @@ export function getVideoIdFromUrl(
   urlState?: string | string[],
   searchParams?: URLSearchParams
 ): string | undefined {
+  // todo: replace urlState to usePathname() https://beta.nextjs.org/docs/api-reference/use-pathname
   const isValidatedUrl =
     isReady &&
     !currentVideoUrl &&
