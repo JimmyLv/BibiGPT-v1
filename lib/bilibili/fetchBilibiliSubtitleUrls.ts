@@ -15,7 +15,7 @@ interface BilibiliVideoInfo {
 }
 export const fetchBilibiliSubtitleUrls = async (
   videoId: string,
-  partNumber?: null | string
+  pageNumber?: null | string
 ): Promise<BilibiliVideoInfo> => {
   const sessdata = sample(process.env.BILIBILI_SESSION_TOKEN?.split(","));
   const headers = {
@@ -43,9 +43,9 @@ export const fetchBilibiliSubtitleUrls = async (
   const json = await response.json();
 
   // support multiple parts of video
-  if (partNumber) {
+  if (pageNumber) {
     const { aid, pages } = json?.data || {};
-    const { cid } = find(pages, { page: Number(partNumber) }) || {};
+    const { cid } = find(pages, { page: Number(pageNumber) }) || {};
 
     // https://api.bilibili.com/x/player/v2?aid=865462240&cid=1035524244
     const pageUrl = `https://api.bilibili.com/x/player/v2?aid=${aid}&cid=${cid}`;
