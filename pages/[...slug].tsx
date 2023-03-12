@@ -178,6 +178,7 @@ export const Home: NextPage<{
           summary={summary}
           currentVideoUrl={currentVideoUrl}
           currentVideoId={currentVideoId}
+          shouldShowTimestamp={shouldShowTimestamp}
         />
       )}
     </div>

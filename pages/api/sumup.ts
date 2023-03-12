@@ -62,12 +62,9 @@ export default async function handler(
     const payload = {
       model: "gpt-3.5-turbo",
       messages: [
-        {
-          role: ChatGPTAgent.system,
-          content: systemPrompt,
-        },
-        { role: ChatGPTAgent.user, content: examplePrompt.input },
-        { role: ChatGPTAgent.assistant, content: examplePrompt.output },
+        // { role: ChatGPTAgent.system, content: systemPrompt },
+        // { role: ChatGPTAgent.user, content: examplePrompt.input },
+        // { role: ChatGPTAgent.assistant, content: examplePrompt.output },
         { role: ChatGPTAgent.user, content: userPrompt },
       ],
       temperature: 0.5,

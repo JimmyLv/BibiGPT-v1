@@ -3,6 +3,7 @@ import { ActionsAfterResult } from "~/components/ActionsAfterResult";
 import Sentence from "~/components/Sentence";
 import { useToast } from "~/hooks/use-toast";
 import { formatSummary } from "~/utils/formatSummary";
+import Markdown from "marked-react";
 
 export let isSecureContext = false;
 
@@ -14,10 +15,12 @@ export function SummaryResult({
   currentVideoUrl,
   currentVideoId,
   summary,
+  shouldShowTimestamp,
 }: {
   currentVideoUrl: string;
   currentVideoId: string;
   summary: string;
+  shouldShowTimestamp?: boolean;
 }) {
   const { toast } = useToast();
   const { summaryArray, formattedSummary } = formatSummary(summary);
@@ -50,17 +53,23 @@ export function SummaryResult({
         className="mx-auto mt-6 max-w-3xl cursor-copy rounded-xl border-2 bg-white p-4 text-lg leading-7 shadow-md transition hover:bg-gray-50"
         onClick={handleCopy}
       >
-        {summaryArray.map((sentence, index) => (
-          <div key={index}>
-            {sentence.length > 0 && (
-              <Sentence
-                videoId={currentVideoId}
-                videoUrl={currentVideoUrl}
-                sentence={sentence}
-              />
-            )}
+        {shouldShowTimestamp ? (
+          summaryArray.map((sentence, index) => (
+            <div key={index}>
+              {sentence.length > 0 && (
+                <Sentence
+                  videoId={currentVideoId}
+                  videoUrl={currentVideoUrl}
+                  sentence={sentence}
+                />
+              )}
+            </div>
+          ))
+        ) : (
+          <div className="markdown-body">
+            <Markdown>{summary}</Markdown>
           </div>
-        ))}
+        )}
       </div>
       <ActionsAfterResult
         curVideo={currentVideoUrl}

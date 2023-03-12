@@ -36,6 +36,7 @@
     "get-video-id": "^3.6.5",
     "lemonsqueezy.ts": "^0.1.6",
     "lucide-react": "^0.122.0",
+    "marked-react": "^1.3.2",
     "next": "latest",
     "next-themes": "^0.2.1",
     "node-html-parser": "^6.1.4",
