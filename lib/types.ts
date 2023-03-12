@@ -1,5 +1,4 @@
 export type SummarizeParams = {
-  bvId: string;
   videoConfig: VideoConfig;
   userConfig: UserConfig;
 };

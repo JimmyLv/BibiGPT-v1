@@ -1,4 +1,5 @@
 import { CommonSubtitleItem } from "~/lib/types";
+import { trimSeconds } from "~/utils/extractTimestamp";
 
 export type YoutubeSubtitleItem = { start: number; lines: string[] };
 /*{ "from": 16.669, "content": "让ppt变得更加精彩" },*/
@@ -51,7 +52,9 @@ export function reduceSubtitleTimestamp<T>(
         accumulator[groupIndex] = {
           // 5.88 -> 5.9
           // text: current.start.toFixed() + ": ",
-          text: shouldShowTimestamp ? getStart(current) + " - " : "",
+          text: shouldShowTimestamp
+            ? trimSeconds(getStart(current)) + "s - "
+            : "",
           index: groupIndex,
         };
       }

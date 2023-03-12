@@ -28,3 +28,7 @@ export function extractTimestamp(matchResult: RegExpMatchArray) {
   // console.log("========matchResult========", {matchResult, timestamp, formattedContent});
   return { timestamp, formattedContent };
 }
+
+export function trimSeconds(secondsStr: number | string) {
+  return Number(secondsStr).toFixed();
+}
