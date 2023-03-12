@@ -45,7 +45,8 @@ export default async function handler(
   }
   const inputText = subtitlesArray
     ? getSmallSizeTranscripts(subtitlesArray, subtitlesArray)
-    : descriptionText;
+    : descriptionText; // subtitlesArray.map((i) => i.text).join("\n")
+
   const systemPrompt = getSystemPrompt({
     shouldShowTimestamp: subtitlesArray ? shouldShowTimestamp : false,
   });
