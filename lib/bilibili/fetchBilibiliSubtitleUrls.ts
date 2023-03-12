@@ -1,9 +1,22 @@
 import { find, sample } from "~/utils/fp";
 
+type BilibiliSubtitles = {
+  lan: string;
+  subtitle_url: string;
+};
+
+interface BilibiliVideoInfo {
+  title: string;
+  desc?: string;
+  dynamic?: string;
+  subtitle?: {
+    list: BilibiliSubtitles[];
+  };
+}
 export const fetchBilibiliSubtitleUrls = async (
   bvId: string,
   partNumber?: null | string
-) => {
+): Promise<BilibiliVideoInfo> => {
   const sessdata = sample(process.env.BILIBILI_SESSION_TOKEN?.split(","));
   const headers = {
     Accept: "application/json",
@@ -37,7 +50,7 @@ export const fetchBilibiliSubtitleUrls = async (
     const j = await res.json();
 
     // r.data.subtitle.subtitles
-    return { subtitle: { list: j.data.subtitle.subtitles } };
+    return { ...json.data, subtitle: { list: j.data.subtitle.subtitles } };
   }
 
   // return json.data.View;
