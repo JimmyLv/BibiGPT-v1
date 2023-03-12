@@ -10,9 +10,9 @@ export async function fetchSubtitle(
   subtitlesArray?: null | Array<CommonSubtitleItem>;
   descriptionText?: string;
 }> {
-  const { service, videoId, partNumber } = videoConfig;
+  const { service, videoId, pageNumber } = videoConfig;
   if (service === VideoService.Youtube) {
     return await fetchYoutubeSubtitle(videoId, shouldShowTimestamp);
   }
-  return await fetchBilibiliSubtitle(videoId, partNumber, shouldShowTimestamp);
+  return await fetchBilibiliSubtitle(videoId, pageNumber, shouldShowTimestamp);
 }
