@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAnalytics } from '~/components/context/analytics'
+import { useAnalytics } from "~/components/context/analytics";
 import { useToast } from "~/hooks/use-toast";
 
 export function useSaveToFlomo(note: string, webhook: string) {
@@ -15,7 +15,7 @@ export function useSaveToFlomo(note: string, webhook: string) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        content: note + "#BibiGpt",
+        content: note + "\n#BibiGpt",
       }),
     });
     const json = await response.json();

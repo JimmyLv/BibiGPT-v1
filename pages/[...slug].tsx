@@ -140,14 +140,17 @@ export const Home: NextPage<{
 
   const handleInputChange = async (e: any) => {
     const value = e.target.value;
+    // todo: 兼容?query参数
     const regex = /((?:https?:\/\/|www\.)\S+)/g;
     const matches = value.match(regex);
     if (matches) {
       const url = matches[0];
-      toast({ title: "正在自动转换此视频链接..." });
-      const response = await fetch(`/api/b23tv?url=${url}`);
-      const json = await response.json();
-      setCurrentVideoUrl(json.url);
+      if (url.includes("b23.tv")) {
+        toast({ title: "正在自动转换此视频链接..." });
+        const response = await fetch(`/api/b23tv?url=${url}`);
+        const json = await response.json();
+        setCurrentVideoUrl(json.url);
+      }
     } else {
       setCurrentVideoUrl(value);
     }
