@@ -1,4 +1,5 @@
 import { limitTranscriptByteLength } from "~/lib/openai/getSmallSizeTranscripts";
+import { CommonSubtitleItem } from "~/lib/types";
 
 interface PromptConfig {
   language?: string;
@@ -55,6 +56,25 @@ export function getUserSubtitlePrompt(title: string, transcript: any) {
     .replace(/\n+/g, " ")
     .trim();
   const language = `zh-CN`;
-  const instruction = `\n\nInstructions: Your output should use the following template:\n### Summary\n### Highlights\n- [Emoji] Bulletpoint\n\nYour task is to summarise the text I have given you in up to seven concise bullet points, starting with a short highlight. Choose an appropriate emoji for each bullet point. Use the text above: {{Title}} {{Transcript}}.\n\n\nReply in ${language} Language.`;
-  return `Title: "${videoTitle}"\nTranscript: "${videoTranscript}"${instruction}`;
+  const prompt = `Your output should use the following template:\n### Summary\n### Highlights\n- [Emoji] Bulletpoint\n\nYour task is to summarise the text I have given you in up to seven concise bullet points, starting with a short highlight. Choose an appropriate emoji for each bullet point. Use the text above: {{Title}} {{Transcript}}.\n\n\nReply in ${language} Language.`;
+
+  return `Title: "${videoTitle}"\nTranscript: "${videoTranscript}"\n\nInstructions: ${prompt}`;
+}
+
+export function getUserSubtitleWithTimestampPrompt(
+  title: string,
+  transcript: any
+) {
+  const videoTitle = title?.replace(/\n+/g, " ").trim();
+  console.log("========transcript========", transcript);
+  const videoTranscript = transcript.map((i: CommonSubtitleItem) => ({
+    start_time: i.index,
+    text: i.text,
+  }));
+  const language = "Chinese";
+  const promptWithTimestamp = `Act as the author and provide exactly 5 bullet points all in ${language} language for the text transcript given in the format [{\"start_time\": <start_time>, \"text\": <text>}] \n and make the output only in the format of a json array [{\"start_time\": <start_time> , \"bullet_point\": <bullet_point>} ]\n Make sure that:\n         - The output is not more than 5 bullet points\n         - each bullet_point is at least 15 words and all bullet points are sorted by \"start_time\"\n         - each bullet_point doesn't start with \"- \" or a number or a bullet point symbol\n         - Wrap json keys with double quotes and don't put single quotes or double quotes inside the values. \n         - The output json is not wrapped in any other json structure like { \"data\": <output json >}.`;
+  const videoTranscripts = limitTranscriptByteLength(
+    JSON.stringify(videoTranscript)
+  );
+  return `Title: ${videoTitle}\nTranscript: ${videoTranscripts}\n\nInstructions: ${promptWithTimestamp}`;
 }
