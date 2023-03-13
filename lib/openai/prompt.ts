@@ -1,4 +1,5 @@
 import { limitTranscriptByteLength } from "~/lib/openai/getSmallSizeTranscripts";
+import { VideoConfig } from "~/lib/types";
 import { PROMPT_LANGUAGE_MAP } from "~/utils/constants/language";
 
 interface PromptConfig {
@@ -36,13 +37,13 @@ export function getSystemPrompt(promptConfig: PromptConfig) {
 
   return shouldShowTimestamp ? promptWithTimestamp : betterPrompt;
 }
-export function getUserSubtitlePrompt(title: string, transcript: any) {
+export function getUserSubtitlePrompt(title: string, transcript: any, videoConfig: VideoConfig) {
   const videoTitle = title?.replace(/\n+/g, " ").trim();
   const videoTranscript = limitTranscriptByteLength(transcript)
     .replace(/\n+/g, " ")
     .trim();
-  const language = `zh-CN`;
-  const sentenceCount = `7`;
+  const language = videoConfig.outputLanguage;
+  const sentenceCount = videoConfig.sentenceNumber;
   const prompt = `Your output should use the following template:\n### Summary\n### Highlights\n- [Emoji] Bulletpoint\n\nYour task is to summarise the text I have given you in up to ${sentenceCount} concise bullet points, starting with a short highlight. Choose an appropriate emoji for each bullet point. Use the text above: {{Title}} {{Transcript}}.\n\nReply in ${language} Language.`;
 
   return `Title: "${videoTitle}"\nTranscript: "${videoTranscript}"\n\nInstructions: ${prompt}`;

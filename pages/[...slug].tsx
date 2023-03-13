@@ -127,7 +127,7 @@ export const Home: NextPage<{
     if (service === VideoService.Youtube && id) {
       setCurrentVideoId(id);
       await summarize(
-        { videoId: id, service: VideoService.Youtube },
+        { videoId: id, service: VideoService.Youtube, ...formValues },
         { userKey, shouldShowTimestamp: shouldShowTimestamp }
       );
       return;

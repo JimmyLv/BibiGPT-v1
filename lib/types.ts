@@ -1,3 +1,5 @@
+import { VideoConfigSchema } from "~/utils/schemas/video";
+
 export type SummarizeParams = {
   videoConfig: VideoConfig;
   userConfig: UserConfig;
@@ -10,7 +12,7 @@ export type VideoConfig = {
   videoId: string;
   service?: VideoService;
   pageNumber?: null | string;
-};
+} & VideoConfigSchema;
 
 export enum VideoService {
   Bilibili = "bilibili",
