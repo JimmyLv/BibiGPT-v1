@@ -48,9 +48,12 @@ export function getUserSubtitlePrompt(
     .trim();
   const language = videoConfig.outputLanguage;
   const sentenceCount = videoConfig.sentenceNumber;
-  const emojiTemplateText = `${videoConfig.showEmoji ? "[Emoji] " : ""}`;
-  const emojiDescriptionText = `${videoConfig.showEmoji ? "Choose an appropriate emoji for each bullet point. " : ""}`;
-  const prompt = `Your output should use the following template:\n### Summary\n### Highlights\n- ${emojiTemplateText}Bulletpoint\n    - Child points if need\n\nYour task is to summarise the text I have given you in up to ${sentenceCount} concise bullet points, starting with a short highlight. Use the outline list, which can have a hierarchical structure of up to ${videoConfig.outlineLevel} levels. ${emojiDescriptionText}Use the text above: {{Title}} {{Transcript}}.\n\nReply in ${language} Language.`;
+  const emojiTemplateText = videoConfig.showEmoji ? "[Emoji] " : ""
+  const emojiDescriptionText = videoConfig.showEmoji ? "Choose an appropriate emoji for each bullet point. " : ""
+  const shouldShowAsOutline = Number(videoConfig.outlineLevel) > 1;
+  const outlineTemplateText = shouldShowAsOutline ? `\n    - Child points`: '';
+  const outlineDescriptionText = shouldShowAsOutline ? `Use the outline list, which can have a hierarchical structure of up to ${videoConfig.outlineLevel} levels. ` : '';
+  const prompt = `Your output should use the following template:\n### Summary\n### Highlights\n- ${emojiTemplateText}Bulletpoint${outlineTemplateText}\n\nYour task is to summarise the text I have given you in up to ${sentenceCount} concise bullet points, starting with a short highlight. ${outlineDescriptionText}${emojiDescriptionText}Use the text above: {{Title}} {{Transcript}}.\n\nReply in ${language} Language.`;
 
   return `Title: "${videoTitle}"\nTranscript: "${videoTranscript}"\n\nInstructions: ${prompt}`;
 }
