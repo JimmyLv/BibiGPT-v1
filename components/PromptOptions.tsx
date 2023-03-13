@@ -7,12 +7,12 @@ export function PromptOptions({
   getValues,
 }: {
   // TODO: add types
-  getValues: UseFormReturn["getValues"];
   register: any;
+  getValues: UseFormReturn["getValues"];
 }) {
-  const shouldShowTimestamp = getValues('showTimestamp');
+  const shouldShowTimestamp = getValues("showTimestamp");
   return (
-    <div className="mt-6 md:mt-10 grid grid-cols-2 md:grid-cols-3 items-center gap-x-10 gap-y-2 md:gap-y-6">
+    <div className="mt-6 grid grid-cols-2 items-center gap-x-10 gap-y-2 md:mt-10 md:grid-cols-3 md:gap-y-6">
       <label className="relative inline-flex cursor-pointer items-center">
         <input
           type="checkbox"
@@ -49,7 +49,9 @@ export function PromptOptions({
           {...register("outputLanguage")}
         >
           {Object.keys(PROMPT_LANGUAGE_MAP).map((k: string) => (
-            <option value={PROMPT_LANGUAGE_MAP[k]}>{k}</option>
+            <option key={PROMPT_LANGUAGE_MAP[k]} value={PROMPT_LANGUAGE_MAP[k]}>
+              {k}
+            </option>
           ))}
         </select>
       </div>
@@ -60,7 +62,9 @@ export function PromptOptions({
           className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
         >
           要点个数
-          <span className="text-gray-500">(≤{getValues("sentenceNumber")})</span>
+          <span className="text-gray-500">
+            (≤{getValues("sentenceNumber")})
+          </span>
         </label>
         <input
           id="sentenceNumber"
@@ -68,8 +72,10 @@ export function PromptOptions({
           min={3}
           max={10}
           step={1}
-          className="h-2 w-full cursor-pointer accent-black rounded-lg bg-gray-200 dark:bg-gray-700"
-          {...register("sentenceNumber")}
+          className="h-2 w-full cursor-pointer rounded-lg bg-gray-200 accent-black dark:bg-gray-700"
+          {...register("sentenceNumber", {
+            valueAsNumber: true,
+          })}
         />
       </div>
       <div>
@@ -86,9 +92,11 @@ export function PromptOptions({
           min={1}
           max={5}
           step={1}
-          className="h-2 w-full cursor-pointer accent-black rounded-lg bg-gray-200 dark:bg-gray-700"
+          className="h-2 w-full cursor-pointer rounded-lg bg-gray-200 accent-black dark:bg-gray-700"
           disabled={shouldShowTimestamp}
-          {...register("outlineLevel")}
+          {...register("outlineLevel", {
+            valueAsNumber: true,
+          })}
         />
       </div>
       <div>
@@ -105,8 +113,10 @@ export function PromptOptions({
           min={300}
           max={1000}
           step={10}
-          className="h-2 w-full accent-black cursor-pointer rounded-lg bg-gray-200 dark:bg-gray-700"
-          {...register("detailLevel")}
+          className="h-2 w-full cursor-pointer rounded-lg bg-gray-200 accent-black dark:bg-gray-700"
+          {...register("detailLevel", {
+            valueAsNumber: true,
+          })}
         />
       </div>
     </div>
