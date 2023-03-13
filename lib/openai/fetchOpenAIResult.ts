@@ -50,7 +50,8 @@ export async function fetchOpenAIResult(
   });
 
   if (res.status !== 200) {
-    throw new Error("OpenAI API: " + res.statusText);
+    const errorJson = await res.json();
+    throw new Error(`OpenAI API Error [${res.statusText}]: ${errorJson.error?.message}`);
   }
 
   const { showTimestamp, videoId } = videoConfig;

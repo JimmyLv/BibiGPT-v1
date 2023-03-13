@@ -86,16 +86,25 @@ export default async function handler(
       userKey,
       videoId
     );
-    const result = await fetchOpenAIResult(openAiPayload, openaiApiKey, videoConfig);
+    const result = await fetchOpenAIResult(
+      openAiPayload,
+      openaiApiKey,
+      videoConfig
+    );
     if (stream) {
       return new Response(result);
     }
 
     return NextResponse.json(result);
   } catch (error: any) {
-    console.error("API error", error, error.message);
-    return NextResponse.json({
-      errorMessage: error.message,
-    });
+    console.error(error.message);
+    return new Response(
+      JSON.stringify({
+        errorMessage: error.message,
+      }),
+      {
+        status: 500,
+      }
+    );
   }
 }
