@@ -141,7 +141,7 @@ export const Home: NextPage<{
     const pageNumber = extractPage(currentVideoUrl, searchParams);
     setCurrentVideoId(videoId);
     await summarize(
-      { service: VideoService.Bilibili, videoId, pageNumber },
+      { service: VideoService.Bilibili, videoId, pageNumber, ...formValues },
       { userKey, shouldShowTimestamp }
     );
     setTimeout(() => {
