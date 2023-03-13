@@ -1,4 +1,4 @@
-@media (prefers-color-scheme: dark) {
+/*@media (prefers-color-scheme: dark) {
   .markdown-body {
     color-scheme: dark;
     --color-prettylights-syntax-comment: #8b949e;
@@ -44,7 +44,7 @@
     --color-attention-subtle: rgba(187, 128, 9, 0.15);
     --color-danger-fg: #f85149;
   }
-}
+}*/
 
 @media (prefers-color-scheme: light) {
   .markdown-body {
