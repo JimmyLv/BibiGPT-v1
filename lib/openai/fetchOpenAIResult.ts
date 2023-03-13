@@ -90,7 +90,6 @@ export async function fetchOpenAIResult(
             const text = json.choices[0].delta?.content || "";
             // todo: add redis cache
             tempData += text;
-            console.log("=====text====", text, tempData);
             if (counter < 2 && (text.match(/\n/) || []).length) {
               // this is a prefix character (i.e., "\n\n"), do nothing
               return;
