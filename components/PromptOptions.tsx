@@ -62,7 +62,7 @@ export function PromptOptions({
           className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
         >
           要点个数
-          <span className="text-gray-500">({getValues("sentenceNumber")})</span>
+          <span className="text-gray-500">(≤{getValues("sentenceNumber")})</span>
         </label>
         <input
           id="sentenceNumber"
@@ -81,7 +81,7 @@ export function PromptOptions({
           className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
         >
           大纲层级
-          <span className="text-gray-500">({getValues("outlineLevel")})</span>
+          <span className="text-gray-500">(≤{getValues("outlineLevel")})</span>
         </label>
         <input
           id="outlineLevel"
@@ -100,7 +100,7 @@ export function PromptOptions({
           className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
         >
           详细程度
-          <span className="text-gray-500">({getValues("detailLevel")})</span>
+          <span className="text-gray-500">(≤{getValues("detailLevel")})</span>
         </label>
         <input
           id="detailLevel"
