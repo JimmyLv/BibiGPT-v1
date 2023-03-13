@@ -4,7 +4,7 @@ import type { NextPage } from "next";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import useFormPersist from "react-hook-form-persist";
 import { useAnalytics } from "~/components/context/analytics";
 import { PromptOptions } from "~/components/PromptOptions";
@@ -153,8 +153,8 @@ export const Home: NextPage<{
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }, 10);
   };
-  const onFormSubmit = async (e: any) => {
-    e.preventDefault();
+  const onFormSubmit: SubmitHandler<VideoConfigSchema> = async (data) => {
+    // e.preventDefault();
     await generateSummary(currentVideoUrl);
     analytics.track("GenerateButton Clicked");
   };
@@ -183,7 +183,7 @@ export const Home: NextPage<{
       <TypingSlogan />
       <UsageAction />
       <UserKeyInput value={userKey} onChange={handleApiKeyChange} />
-      <form onSubmit={onFormSubmit} className="grid place-items-center">
+      <form onSubmit={handleSubmit(onFormSubmit)} className="grid place-items-center">
         <input
           type="text"
           value={currentVideoUrl}
