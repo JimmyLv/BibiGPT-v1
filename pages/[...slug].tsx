@@ -1,8 +1,11 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import getVideoId from "get-video-id";
 import type { NextPage } from "next";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import useFormPersist from "react-hook-form-persist";
 import { useAnalytics } from "~/components/context/analytics";
 import { PromptOptions } from "~/components/PromptOptions";
 import { SubmitButton } from "~/components/SubmitButton";
@@ -17,6 +20,7 @@ import { useSummarize } from "~/hooks/useSummarize";
 import { VideoService } from "~/lib/types";
 import { extractPage, extractUrl } from "~/utils/extractUrl";
 import { getVideoIdFromUrl } from "~/utils/getVideoIdFromUrl";
+import { VideoConfigSchema, videoConfigSchema } from "~/utils/schemas/video";
 
 export const Home: NextPage<{
   showSingIn: (show: boolean) => void;
@@ -29,13 +33,40 @@ export const Home: NextPage<{
   // TODO: add mobx or state manager
   const [currentVideoId, setCurrentVideoId] = useState<string>("");
   const [currentVideoUrl, setCurrentVideoUrl] = useState<string>("");
-  const [shouldShowTimestamp, setShouldShowTimestamp] =
-    useLocalStorage<boolean>("should-show-timestamp");
   const [userKey, setUserKey] = useLocalStorage<string>("user-openai-apikey");
   const { loading, summary, resetSummary, summarize } =
     useSummarize(showSingIn);
   const { toast } = useToast();
   const { analytics } = useAnalytics();
+  const {
+    register,
+    handleSubmit,
+    control,
+    trigger,
+    getValues,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<VideoConfigSchema>({
+    defaultValues: {
+      showTimestamp: false,
+      showEmoji: true,
+      detailLevel: 600,
+      sentenceNumber: 5,
+      outlineLevel: 1,
+      outputLanguage: "Simplified Chinese",
+    },
+    resolver: zodResolver(videoConfigSchema),
+  });
+  useFormPersist("video-config-storage", {
+    watch,
+    setValue,
+    storage: typeof window !== "undefined" ? window.localStorage : undefined, // default window.sessionStorage
+    // exclude: ['baz']
+  });
+  // const formValues = getValues();
+  const shouldShowTimestamp = getValues("showTimestamp");
+  console.log("========formValues========", shouldShowTimestamp);
 
   useEffect(() => {
     licenseKey && setUserKey(licenseKey);
@@ -87,6 +118,9 @@ export const Home: NextPage<{
     }
   };
   const generateSummary = async (url?: string) => {
+    const formValues = getValues();
+    console.log("=======formValues=========", formValues);
+
     resetSummary();
     validateUrlFromAddressBar(url);
 
@@ -96,7 +130,7 @@ export const Home: NextPage<{
       setCurrentVideoId(id);
       await summarize(
         { videoId: id, service: VideoService.Youtube },
-        { userKey, shouldShowTimestamp }
+        { userKey, shouldShowTimestamp: shouldShowTimestamp }
       );
       return;
     }
@@ -124,20 +158,6 @@ export const Home: NextPage<{
   const handleApiKeyChange = (e: any) => {
     setUserKey(e.target.value);
   };
-
-  function handleShowTimestamp(checked: boolean) {
-    resetSummary();
-    setShouldShowTimestamp(checked);
-    analytics
-      .track(`ShowTimestamp Clicked`, {
-        videoId: currentVideoId,
-        // todo: add video service
-        shouldShowTimestamp: checked,
-      })
-      .then((res) => console.log("tracked!", res))
-      .catch(console.error);
-    // throw new Error("Sentry Frontend Error");
-  }
 
   const handleInputChange = async (e: any) => {
     const value = e.target.value;
@@ -169,10 +189,7 @@ export const Home: NextPage<{
           placeholder={"输入 bilibili.com 视频链接，按下「回车」"}
         />
         <SubmitButton loading={loading} />
-        <PromptOptions
-          checked={shouldShowTimestamp}
-          onCheckedChange={handleShowTimestamp}
-        />
+        <PromptOptions getValues={getValues} register={register} />
       </form>
       {summary && (
         <SummaryResult

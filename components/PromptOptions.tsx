@@ -1,59 +1,113 @@
 import React from "react";
-import { SwitchTimestamp } from "~/components/SwitchTimestamp";
-import { Label } from "~/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/components/ui/select";
-import { Switch } from "~/components/ui/switch";
+import { UseFormReturn } from "react-hook-form/dist/types/form";
 import { PROMPT_LANGUAGE_MAP } from "~/utils/constants/language";
-import { Slider } from "./ui/slider";
 
-export function PromptOptions(props: {
-  checked: boolean;
-  onCheckedChange: (checked: boolean) => void;
+export function PromptOptions({
+  register,
+  getValues,
+}: {
+  // TODO: add types
+  getValues: UseFormReturn["getValues"];
+  register: any;
 }) {
   return (
-    <div className="mt-6 grid grid-cols-4 items-center gap-4 ">
-      <SwitchTimestamp
-        checked={props.checked}
-        onCheckedChange={props.onCheckedChange}
-      />
-      <div>
-        <Switch
-          id="emoji-mode"
-          checked={true}
-          // onCheckedChange={props.onCheckedChange}
+    <div className="mt-10 grid grid-cols-3 items-center gap-x-10 gap-y-6">
+      <label className="relative inline-flex cursor-pointer items-center">
+        <input
+          type="checkbox"
+          value=""
+          className="peer sr-only"
+          {...register("showTimestamp")}
         />
-        <Label htmlFor="emoji-mode">
-          是否显示Emoji <span className="text-gray-500">(beta)</span>
-        </Label>
-      </div>
+        <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-sky-400 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-sky-800"></div>
+        <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+          是否显示时间戳
+        </span>
+      </label>
+      <label className="relative inline-flex cursor-pointer items-center">
+        <input
+          type="checkbox"
+          value=""
+          className="peer sr-only"
+          {...register("showEmoji")}
+        />
+        <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-sky-400 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-sky-800"></div>
+        <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+          是否显示Emoji
+        </span>
+      </label>
       <div>
-        <Slider id="detail-slider" defaultValue={[400]} max={1000} step={10} />
-        <Label htmlFor="detail-slider">
-          详细程度 <span className="text-gray-500">(beta)</span>
-        </Label>
-      </div>
-      <div>
-        <Slider id="sentence-slider" defaultValue={[5]} max={10} step={1} />
-        <Label htmlFor="sentence-slider">
-          要点个数 <span className="text-gray-500">(beta)</span>
-        </Label>
-      </div>
-      <Select>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="总结语言" />
-        </SelectTrigger>
-        <SelectContent>
+        <label
+          htmlFor="outputLanguage"
+          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        >
+          输出语言
+        </label>
+        <select
+          id="outputLanguage"
+          className="block w-full rounded-md border border-gray-300 bg-gray-50 text-sm text-gray-900 focus:border-sky-500 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 dark:focus:ring-sky-500"
+          {...register("outputLanguage")}
+        >
           {Object.keys(PROMPT_LANGUAGE_MAP).map((k: string) => (
-            <SelectItem value={PROMPT_LANGUAGE_MAP[k]}>{k}</SelectItem>
+            <option value={PROMPT_LANGUAGE_MAP[k]}>{k}</option>
           ))}
-        </SelectContent>
-      </Select>
+        </select>
+      </div>
+
+      <div>
+        <label
+          htmlFor="sentenceNumber"
+          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        >
+          要点个数
+          <span className="text-gray-500">({getValues("sentenceNumber")})</span>
+        </label>
+        <input
+          id="sentenceNumber"
+          type="range"
+          min={3}
+          max={10}
+          step={1}
+          className="h-2 w-full cursor-pointer accent-black rounded-lg bg-gray-200 dark:bg-gray-700"
+          {...register("sentenceNumber")}
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="outlineLevel"
+          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        >
+          大纲层级
+          <span className="text-gray-500">({getValues("outlineLevel")})</span>
+        </label>
+        <input
+          id="outlineLevel"
+          type="range"
+          min={1}
+          max={5}
+          step={1}
+          className="h-2 w-full cursor-pointer accent-black rounded-lg bg-gray-200 dark:bg-gray-700"
+          {...register("outlineLevel")}
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="detailLevel"
+          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        >
+          详细程度
+          <span className="text-gray-500">({getValues("detailLevel")})</span>
+        </label>
+        <input
+          id="detailLevel"
+          type="range"
+          min={300}
+          max={1000}
+          step={10}
+          className="h-2 w-full accent-black cursor-pointer rounded-lg bg-gray-200 dark:bg-gray-700"
+          {...register("detailLevel")}
+        />
+      </div>
     </div>
   );
 }
