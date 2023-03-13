@@ -54,7 +54,7 @@ export default async function handler(
   // });
   // const examplePrompt = getExamplePrompt();
   const userPrompt = shouldShowTimestamp
-    ? getUserSubtitleWithTimestampPrompt(title, inputText)
+    ? getUserSubtitleWithTimestampPrompt(title, inputText, videoConfig)
     : getUserSubtitlePrompt(title, inputText, videoConfig);
   if (isDev) {
     // console.log("final system prompt: ", systemPrompt);

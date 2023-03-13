@@ -46,8 +46,8 @@ export function getUserSubtitlePrompt(
   const videoTranscript = limitTranscriptByteLength(transcript)
     .replace(/\n+/g, " ")
     .trim();
-  const language = videoConfig.outputLanguage;
-  const sentenceCount = videoConfig.sentenceNumber;
+  const language = videoConfig.outputLanguage|| 'Chinese';
+  const sentenceCount = videoConfig.sentenceNumber|| 7;
   const emojiTemplateText = videoConfig.showEmoji ? "[Emoji] " : ""
   const emojiDescriptionText = videoConfig.showEmoji ? "Choose an appropriate emoji for each bullet point. " : ""
   const shouldShowAsOutline = Number(videoConfig.outlineLevel) > 1;
@@ -60,15 +60,17 @@ export function getUserSubtitlePrompt(
 
 export function getUserSubtitleWithTimestampPrompt(
   title: string,
-  transcript: any
+  transcript: any,
+  videoConfig: VideoConfig
 ) {
   const videoTitle = title?.replace(/\n+/g, " ").trim();
   const videoTranscript = limitTranscriptByteLength(transcript)
     .replace(/\n+/g, " ")
     .trim();
-  const language = "Chinese";
-  const sentenceCount = "7";
-  const promptWithTimestamp = `Act as the author and provide exactly 5 bullet points all in ${language} language for the text transcript given in the format [seconds] - [text] \nMake sure that:\n    - Please start by summarizing the whole video in one short sentence\n    - Then, please summarize with not more than ${sentenceCount} bullet points\n    - each bullet_point is at least 15 words\n    - each bullet_point start with \"- \" or a number or a bullet point symbol\n    - each bullet_point should has the start timestamp, e.g. seconds - [Emoji] [bullet_point]\n    - there may be typos in the subtitles, please correct them`;
+  const language = videoConfig.outputLanguage || 'Chinese';
+  const sentenceCount = videoConfig.sentenceNumber || 7;
+  const wordsCount = videoConfig.detailLevel ? (Number(videoConfig.detailLevel)/10)*2 : 15;
+  const promptWithTimestamp = `Act as the author and provide exactly ${sentenceCount} bullet points all in ${language} language for the text transcript given in the format [seconds] - [text] \nMake sure that:\n    - Please start by summarizing the whole video in one short sentence\n    - Then, please summarize with each bullet_point is at least ${wordsCount} words\n    - each bullet_point start with \"- \" or a number or a bullet point symbol\n    - each bullet_point should has the start timestamp, e.g. seconds - [Emoji] [bullet_point]\n    - there may be typos in the subtitles, please correct them`;
   const videoTranscripts = limitTranscriptByteLength(
     JSON.stringify(videoTranscript)
   );
