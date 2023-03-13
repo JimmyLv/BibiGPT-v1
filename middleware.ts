@@ -33,8 +33,8 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
     const { userConfig, videoConfig } = (await req.json()) as SummarizeParams;
     // TODO: update shouldShowTimestamp to use videoConfig
     const { userKey, shouldShowTimestamp } = userConfig || {};
-    const { videoId: bvId } = videoConfig || {};
-    const cacheId = shouldShowTimestamp ? `timestamp-${bvId}` : bvId;
+    const { videoId } = videoConfig || {};
+    const cacheId = shouldShowTimestamp ? `timestamp-${videoId}` : videoId;
     const ipIdentifier = req.ip ?? "127.0.0.11";
 
     // licenseKeys

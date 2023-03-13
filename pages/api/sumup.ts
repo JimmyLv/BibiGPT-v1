@@ -76,7 +76,7 @@ export default async function handler(
       // top_p: 1,
       // frequency_penalty: 0,
       // presence_penalty: 0,
-      max_tokens: videoConfig.detailLevel || (userKey ? 800 : 600),
+      max_tokens: Number(videoConfig.detailLevel) || (userKey ? 800 : 600),
       stream,
       // n: 1,
     };
