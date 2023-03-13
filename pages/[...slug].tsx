@@ -64,9 +64,7 @@ export const Home: NextPage<{
     storage: typeof window !== "undefined" ? window.localStorage : undefined, // default window.sessionStorage
     // exclude: ['baz']
   });
-  // const formValues = getValues();
   const shouldShowTimestamp = getValues("showTimestamp");
-  console.log("========formValues========", shouldShowTimestamp);
 
   useEffect(() => {
     licenseKey && setUserKey(licenseKey);
