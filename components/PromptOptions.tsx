@@ -47,7 +47,6 @@ export function PromptOptions({
         <select
           id="outputLanguage"
           className="block w-full rounded-md border border-gray-300 bg-gray-50 text-sm text-gray-900 focus:border-sky-500 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 dark:focus:ring-sky-500"
-          disabled={shouldShowTimestamp}
           {...register("outputLanguage")}
         >
           {Object.keys(PROMPT_LANGUAGE_MAP).map((k: string) => (
@@ -71,7 +70,6 @@ export function PromptOptions({
           max={10}
           step={1}
           className="h-2 w-full cursor-pointer accent-black rounded-lg bg-gray-200 dark:bg-gray-700"
-          disabled={shouldShowTimestamp}
           {...register("sentenceNumber")}
         />
       </div>
@@ -109,7 +107,6 @@ export function PromptOptions({
           max={1000}
           step={10}
           className="h-2 w-full accent-black cursor-pointer rounded-lg bg-gray-200 dark:bg-gray-700"
-          disabled={shouldShowTimestamp}
           {...register("detailLevel")}
         />
       </div>
