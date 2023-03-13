@@ -56,7 +56,7 @@ export async function fetchOpenAIResult(
   }
 
   let counter = 0;
-
+  let tempData = "";
   const stream = new ReadableStream({
     async start(controller) {
       // callback
@@ -65,12 +65,15 @@ export async function fetchOpenAIResult(
           const data = event.data;
           // https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
           if (data === "[DONE]") {
+            // active
             controller.close();
             return;
           }
           try {
             const json = JSON.parse(data);
             const text = trimOpenAiResult(json);
+            // todo: add redis cache
+            tempData += text;
             console.log("=====text====", text);
             if (counter < 2 && (text.match(/\n/) || []).length) {
               // this is a prefix character (i.e., "\n\n"), do nothing
