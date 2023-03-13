@@ -3,7 +3,7 @@ import { useToast } from "~/hooks/use-toast";
 import { UserConfig, VideoConfig } from "~/lib/types";
 import { RATE_LIMIT_COUNT } from "~/utils/constants";
 
-export function useSummarize(showSingIn: (show: boolean) => void) {
+export function useSummarize(showSingIn: (show: boolean) => void, enableStream: boolean = true) {
   const [loading, setLoading] = useState(false);
   const [summary, setSummary] = useState<string>("");
   const { toast } = useToast();
@@ -70,6 +70,26 @@ export function useSummarize(showSingIn: (show: boolean) => void) {
         return;
       }
 
+      if (enableStream) {
+        // This data is a ReadableStream
+        const data = response.body;
+        if (!data) {
+          return;
+        }
+
+        const reader = data.getReader();
+        const decoder = new TextDecoder();
+        let done = false;
+
+        while (!done) {
+          const { value, done: doneReading } = await reader.read();
+          done = doneReading;
+          const chunkValue = decoder.decode(value);
+          setSummary((prev) => prev + chunkValue);
+        }
+        setLoading(false);
+        return;
+      }
       // await readStream(response, setSummary);
       const result = await response.json();
       if (result.errorMessage) {

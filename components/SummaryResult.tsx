@@ -23,7 +23,14 @@ export function SummaryResult({
   shouldShowTimestamp?: boolean;
 }) {
   const { toast } = useToast();
-  const { summaryArray, formattedSummary } = formatSummary(summary);
+  const formattedCachedSummary = summary?.startsWith('"')
+    ? summary
+        .substring(1, summary.length - 1)
+        .split("\\n")
+        .join("\n")
+    : summary;
+
+  const { summaryArray, formattedSummary } = formatSummary(formattedCachedSummary);
   const summaryNote =
     formattedSummary +
     "\n\n #BibiGPT自动总结 b.jimmylv.cn @吕立青_JimmyLv \nBV1fX4y1Q7Ux";
@@ -36,7 +43,6 @@ export function SummaryResult({
     navigator.clipboard.writeText(summaryNote);
     toast({ description: "复制成功 ✂️" });
   };
-
   return (
     <div className="mb-8 px-4">
       <h3 className="m-8 mx-auto max-w-3xl border-t-2 border-dashed pt-8 text-center text-2xl font-bold sm:text-4xl">
@@ -67,7 +73,7 @@ export function SummaryResult({
           ))
         ) : (
           <div className="markdown-body">
-            <Markdown>{summary}</Markdown>
+            <Markdown>{formattedCachedSummary}</Markdown>
           </div>
         )}
       </div>
