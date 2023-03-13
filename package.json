@@ -8,6 +8,7 @@
   },
   "repository": "https://github.com/JimmyLv/BibiGPT.git",
   "dependencies": {
+    "@hookform/resolvers": "^2.9.11",
     "@next/font": "^13.1.5",
     "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-label": "^2.0.0",
@@ -46,6 +47,8 @@
     "react": "18.2.0",
     "react-bilibili-embed-renderer": "^1.2.1",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.5",
+    "react-hook-form-persist": "^3.0.0",
     "react-hot-toast": "^2.4.0",
     "react-type-animation": "^2.1.2",
     "react-use": "^17.4.0",
