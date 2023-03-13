@@ -178,7 +178,7 @@ export const Home: NextPage<{
   };
 
   return (
-    <div className="mt-10 w-full sm:mt-40">
+    <div className="mt-10 w-full sm:mt-40 px-4 lg:px-0">
       <UsageDescription />
       <TypingSlogan />
       <UsageAction />

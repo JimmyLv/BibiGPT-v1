@@ -12,7 +12,7 @@ export function PromptOptions({
 }) {
   const shouldShowTimestamp = getValues('showTimestamp');
   return (
-    <div className="mt-10 grid grid-cols-3 items-center gap-x-10 gap-y-6">
+    <div className="mt-6 md:mt-10 grid grid-cols-2 md:grid-cols-3 items-center gap-x-10 gap-y-2 md:gap-y-6">
       <label className="relative inline-flex cursor-pointer items-center">
         <input
           type="checkbox"
