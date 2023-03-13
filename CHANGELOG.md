@@ -1,5 +1,50 @@
 # Changelog
 
+## [1.5.0](https://github.com/JimmyLv/BibiGPT/compare/v1.4.0...v1.5.0) (2023-03-13)
+
+
+### Features
+
+* add mocked prompt options ([2db0ef9](https://github.com/JimmyLv/BibiGPT/commit/2db0ef9bd7e35cc817cabdb2305abc63eda37405))
+* add outline level config ([685037e](https://github.com/JimmyLv/BibiGPT/commit/685037e8a79dbb54d72d1b33d519a8419301b86f))
+* enabled settings for timestamp mode ([722377b](https://github.com/JimmyLv/BibiGPT/commit/722377b71a8949c788e570e2068263016391522b))
+* replace form with react-hook-form and persist ([a71638f](https://github.com/JimmyLv/BibiGPT/commit/a71638f82070513b6035eba28ca293de47a0ac01))
+* support avid video ([45f227c](https://github.com/JimmyLv/BibiGPT/commit/45f227c3ebed667e4562480576afaa8e9a78aff9))
+* support b23tv short url ([32fcb3e](https://github.com/JimmyLv/BibiGPT/commit/32fcb3e9aff5a6fbd969317be9e5bca9e19c8441))
+* support customized video summary setting ([2cbbb74](https://github.com/JimmyLv/BibiGPT/commit/2cbbb741393a550b5bda2b7f835b25290f7514ea))
+* support emoji for timestamp mode ([b0b62b6](https://github.com/JimmyLv/BibiGPT/commit/b0b62b68d84731a43c24b3d06d437b264f9f249a))
+* support multiple parts of video ([64344a3](https://github.com/JimmyLv/BibiGPT/commit/64344a35e65962604ef0cf498658b516b0818b35))
+* support showEmoji option ([0f0d98c](https://github.com/JimmyLv/BibiGPT/commit/0f0d98cf3fe90f76244be638b1274d6ddf2b5b34))
+* support stream mode ([7374075](https://github.com/JimmyLv/BibiGPT/commit/7374075a311bab508f41edc5fd8eb8a8c3b6a5bc))
+* update the polished prompt ([6947c33](https://github.com/JimmyLv/BibiGPT/commit/6947c338d286234a58ecf6dec13af3893fc85c09))
+* updated the timestamp prompt ([a6b7fcc](https://github.com/JimmyLv/BibiGPT/commit/a6b7fcc234fcef502743691d57da7c54a005f886))
+
+
+### Bug Fixes
+
+* add assistant example for better result ([933b735](https://github.com/JimmyLv/BibiGPT/commit/933b73578538551be568aadbc1457908b4b5b409))
+* add missing config for bilibili ([e7a3810](https://github.com/JimmyLv/BibiGPT/commit/e7a38103387884b2136d074a6f534f2677694dc8))
+* convert the detail level ([70365fa](https://github.com/JimmyLv/BibiGPT/commit/70365faebbd3efa821006819ab5774aa26a1fdf5))
+* disabled cache in dev ([33b8f49](https://github.com/JimmyLv/BibiGPT/commit/33b8f49c9920fb459b4fc01e04d37037c5ce8381))
+* disabled when shouldShowTimestamp ([1e5cd0d](https://github.com/JimmyLv/BibiGPT/commit/1e5cd0d54ec4857583586bd66ba2ddce34bd72ba))
+* increase max_tokens and remove unused openai params ([ff21ea5](https://github.com/JimmyLv/BibiGPT/commit/ff21ea537a3a71900d61525c371b6bd75e798345))
+* increase the merge count ([0217b4c](https://github.com/JimmyLv/BibiGPT/commit/0217b4cc309f3d9544badb0fb344530462e2b732))
+* just add todos ([dd05139](https://github.com/JimmyLv/BibiGPT/commit/dd05139ba6bb1ae8e7ba8491ed341ef8cd2cac90))
+* just switch the checkout url ([88ba363](https://github.com/JimmyLv/BibiGPT/commit/88ba36376c1881e936355ca970a21b7ad6e16bb0))
+* only convert for b23.tv url ([a89c348](https://github.com/JimmyLv/BibiGPT/commit/a89c348df10f034888f75f54947a5e3469e77f8d))
+* polished mobile header style ([75be495](https://github.com/JimmyLv/BibiGPT/commit/75be495eb12625e4d47023f22bdd1dea17ebc10e))
+* polished mobile style ([97f7089](https://github.com/JimmyLv/BibiGPT/commit/97f70892da4ce31ecca57c603384945308f21838))
+* polished the url logic ([268acae](https://github.com/JimmyLv/BibiGPT/commit/268acae8d54fd5e647cd7444028bc09d4107e03b))
+* prevent error for undefined subtitleList ([8ca9c06](https://github.com/JimmyLv/BibiGPT/commit/8ca9c06d2ac11756a3abe851942f42c09ed22262))
+* remove log ([4d9696b](https://github.com/JimmyLv/BibiGPT/commit/4d9696ba1ea21bc4e831212a64242d157bff987d))
+* replace the useLocalStorage ([9853cf4](https://github.com/JimmyLv/BibiGPT/commit/9853cf40cf75376b3a3e889b21a5f7bb77570714))
+* return title and other fields ([0f11d0c](https://github.com/JimmyLv/BibiGPT/commit/0f11d0cfbfe37abdfb26505a00054db92f74b0e0))
+* simplified the result with [format] ([f343c59](https://github.com/JimmyLv/BibiGPT/commit/f343c59d8fa2637941fb926cd71a615e015052b4))
+* update log for videoConfig ([783e928](https://github.com/JimmyLv/BibiGPT/commit/783e928bd9192f2da1df67736ddef480985f3711))
+* update the outline level ([3435c65](https://github.com/JimmyLv/BibiGPT/commit/3435c65d2401ce715a58024aeed4f221da3b8ab0))
+* update the outline level=1 ([aa59f0a](https://github.com/JimmyLv/BibiGPT/commit/aa59f0a94ceacb1d3b11dc06f3f08ed5f0ddf44a))
+* update the typo word ([fba9a02](https://github.com/JimmyLv/BibiGPT/commit/fba9a02ee26bced5403f6e2872a7cce4d7ac1ce8))
+
 ## [1.4.0](https://github.com/JimmyLv/BibiGPT/compare/v1.3.0...v1.4.0) (2023-03-09)
 
 
