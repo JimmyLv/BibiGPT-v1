@@ -3,7 +3,10 @@ import { useToast } from "~/hooks/use-toast";
 import { UserConfig, VideoConfig } from "~/lib/types";
 import { RATE_LIMIT_COUNT } from "~/utils/constants";
 
-export function useSummarize(showSingIn: (show: boolean) => void, enableStream: boolean = true) {
+export function useSummarize(
+  showSingIn: (show: boolean) => void,
+  enableStream: boolean = true
+) {
   const [loading, setLoading] = useState(false);
   const [summary, setSummary] = useState<string>("");
   const { toast } = useToast();
@@ -59,11 +62,12 @@ export function useSummarize(showSingIn: (show: boolean) => void, enableStream: 
           });
           showSingIn(true);
         } else {
+          const errorJson = await response.json();
           toast({
             variant: "destructive",
-            title: response.statusText,
+            title: response.status + " " + response.statusText,
             // ReadableStream can't get error message
-            // description: response.body
+            description: errorJson.errorMessage,
           });
         }
         setLoading(false);
