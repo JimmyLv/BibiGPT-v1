@@ -57,10 +57,10 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
         return redirectShop(req);
       }
     }
-    //
-    // if (isDev) {
-    //   return NextResponse.next();
-    // }
+
+    if (isDev) {
+      return NextResponse.next();
+    }
     //  👇 below only works for production
 
     if (!userKey) {
