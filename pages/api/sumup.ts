@@ -54,8 +54,8 @@ export default async function handler(
   // });
   // const examplePrompt = getExamplePrompt();
   const userPrompt = shouldShowTimestamp
-      ? getUserSubtitleWithTimestampPrompt(title, inputText)
-      : getUserSubtitlePrompt(title, inputText);
+    ? getUserSubtitleWithTimestampPrompt(title, inputText)
+    : getUserSubtitlePrompt(title, inputText, videoConfig);
   if (isDev) {
     // console.log("final system prompt: ", systemPrompt);
     // console.log("final example prompt: ", examplePrompt);
@@ -75,7 +75,7 @@ export default async function handler(
       // top_p: 1,
       // frequency_penalty: 0,
       // presence_penalty: 0,
-      max_tokens: userKey ? 800 : 600,
+      max_tokens: videoConfig.detailLevel || (userKey ? 800 : 600),
       stream: false,
       // n: 1,
     };

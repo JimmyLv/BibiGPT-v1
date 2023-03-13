@@ -31,6 +31,7 @@ function redirectShop(req: NextRequest) {
 export async function middleware(req: NextRequest, context: NextFetchEvent) {
   try {
     const { userConfig, videoConfig } = (await req.json()) as SummarizeParams;
+    // TODO: update shouldShowTimestamp to use videoConfig
     const { userKey, shouldShowTimestamp } = userConfig || {};
     const { videoId: bvId } = videoConfig || {};
     const cacheId = shouldShowTimestamp ? `timestamp-${bvId}` : bvId;
