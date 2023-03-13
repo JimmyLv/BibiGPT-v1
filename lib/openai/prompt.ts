@@ -69,8 +69,9 @@ export function getUserSubtitleWithTimestampPrompt(
     .trim();
   const language = videoConfig.outputLanguage || 'Chinese';
   const sentenceCount = videoConfig.sentenceNumber || 7;
+  const emojiTemplateText = videoConfig.showEmoji ? "[Emoji] " : ""
   const wordsCount = videoConfig.detailLevel ? (Number(videoConfig.detailLevel)/10)*2 : 15;
-  const promptWithTimestamp = `Act as the author and provide exactly ${sentenceCount} bullet points all in ${language} language for the text transcript given in the format [seconds] - [text] \nMake sure that:\n    - Please start by summarizing the whole video in one short sentence\n    - Then, please summarize with each bullet_point is at least ${wordsCount} words\n    - each bullet_point start with \"- \" or a number or a bullet point symbol\n    - each bullet_point should has the start timestamp, e.g. seconds - [Emoji] [bullet_point]\n    - there may be typos in the subtitles, please correct them`;
+  const promptWithTimestamp = `Act as the author and provide exactly ${sentenceCount} bullet points all in ${language} language for the text transcript given in the format [seconds] - [text] \nMake sure that:\n    - Please start by summarizing the whole video in one short sentence\n    - Then, please summarize with each bullet_point is at least ${wordsCount} words\n    - each bullet_point start with \"- \" or a number or a bullet point symbol\n    - each bullet_point should has the start timestamp, use this template: - seconds - ${emojiTemplateText}[bullet_point]\n    - there may be typos in the subtitles, please correct them`;
   const videoTranscripts = limitTranscriptByteLength(
     JSON.stringify(videoTranscript)
   );
