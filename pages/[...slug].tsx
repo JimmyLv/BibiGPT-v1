@@ -178,12 +178,15 @@ export const Home: NextPage<{
   };
 
   return (
-    <div className="mt-10 w-full sm:mt-40 px-4 lg:px-0">
+    <div className="mt-10 w-full px-4 sm:mt-40 lg:px-0">
       <UsageDescription />
       <TypingSlogan />
       <UsageAction />
       <UserKeyInput value={userKey} onChange={handleApiKeyChange} />
-      <form onSubmit={handleSubmit(onFormSubmit)} className="grid place-items-center">
+      <form
+        onSubmit={handleSubmit(onFormSubmit)}
+        className="grid place-items-center"
+      >
         <input
           type="text"
           value={currentVideoUrl}
