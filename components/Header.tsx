@@ -79,7 +79,7 @@ export default function Header({
             </a>
           </div>
         </div>
-        <div className="flex items-center space-x-2 sm:space-x-5">
+        <div className="flex items-center space-x-2 sm:space-x-5 shrink-0">
           <Tooltip>
             <TooltipTrigger>
               <a
