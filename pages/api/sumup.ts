@@ -63,7 +63,8 @@ export default async function handler(
   }
 
   try {
-    const payload = {
+    const stream = true;
+    const openAiPayload = {
       model: "gpt-3.5-turbo",
       messages: [
         // { role: ChatGPTAgent.system, content: systemPrompt },
@@ -76,7 +77,7 @@ export default async function handler(
       // frequency_penalty: 0,
       // presence_penalty: 0,
       max_tokens: videoConfig.detailLevel || (userKey ? 800 : 600),
-      stream: false,
+      stream,
       // n: 1,
     };
 
@@ -85,13 +86,10 @@ export default async function handler(
       userKey,
       videoId
     );
-    const result = await fetchOpenAIResult(payload, openaiApiKey);
-    // TODO: add better logging when dev or prod
-    const redis = Redis.fromEnv();
-    const cacheId = shouldShowTimestamp ? `timestamp-${videoId}` : videoId;
-    const data = await redis.set(cacheId, result);
-    console.info(`video ${cacheId} cached:`, data);
-    isDev && console.log("========result========", result);
+    const result = await fetchOpenAIResult(openAiPayload, openaiApiKey, videoConfig);
+    if (stream) {
+      return new Response(result);
+    }
 
     return NextResponse.json(result);
   } catch (error: any) {

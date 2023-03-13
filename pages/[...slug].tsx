@@ -30,14 +30,6 @@ export const Home: NextPage<{
   const searchParams = useSearchParams();
   const licenseKey = searchParams.get("license_key");
 
-  // TODO: add mobx or state manager
-  const [currentVideoId, setCurrentVideoId] = useState<string>("");
-  const [currentVideoUrl, setCurrentVideoUrl] = useState<string>("");
-  const [userKey, setUserKey] = useLocalStorage<string>("user-openai-apikey");
-  const { loading, summary, resetSummary, summarize } =
-    useSummarize(showSingIn);
-  const { toast } = useToast();
-  const { analytics } = useAnalytics();
   const {
     register,
     handleSubmit,
@@ -49,6 +41,7 @@ export const Home: NextPage<{
     formState: { errors },
   } = useForm<VideoConfigSchema>({
     defaultValues: {
+      enableStream: true,
       showTimestamp: false,
       showEmoji: true,
       detailLevel: 600,
@@ -58,6 +51,18 @@ export const Home: NextPage<{
     },
     resolver: zodResolver(videoConfigSchema),
   });
+
+  // TODO: add mobx or state manager
+  const [currentVideoId, setCurrentVideoId] = useState<string>("");
+  const [currentVideoUrl, setCurrentVideoUrl] = useState<string>("");
+  const [userKey, setUserKey] = useLocalStorage<string>("user-openai-apikey");
+  const { loading, summary, resetSummary, summarize } = useSummarize(
+    showSingIn,
+    getValues("enableStream")
+  );
+  const { toast } = useToast();
+  const { analytics } = useAnalytics();
+
   useFormPersist("video-config-storage", {
     watch,
     setValue,
