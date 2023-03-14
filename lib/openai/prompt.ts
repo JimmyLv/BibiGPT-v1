@@ -51,9 +51,10 @@ export function getUserSubtitlePrompt(
   const emojiTemplateText = videoConfig.showEmoji ? "[Emoji] " : ""
   const emojiDescriptionText = videoConfig.showEmoji ? "Choose an appropriate emoji for each bullet point. " : ""
   const shouldShowAsOutline = Number(videoConfig.outlineLevel) > 1;
+  const wordsCount = videoConfig.detailLevel ? (Number(videoConfig.detailLevel)/100)*2 : 15;
   const outlineTemplateText = shouldShowAsOutline ? `\n    - Child points`: '';
   const outlineDescriptionText = shouldShowAsOutline ? `Use the outline list, which can have a hierarchical structure of up to ${videoConfig.outlineLevel} levels. ` : '';
-  const prompt = `Your output should use the following template:\n### Summary\n### Highlights\n- ${emojiTemplateText}Bulletpoint${outlineTemplateText}\n\nYour task is to summarise the text I have given you in up to ${sentenceCount} concise bullet points, starting with a short highlight. ${outlineDescriptionText}${emojiDescriptionText}Use the text above: {{Title}} {{Transcript}}.\n\nReply in ${language} Language.`;
+  const prompt = `Your output should use the following template:\n### Summary\n### Highlights\n- ${emojiTemplateText}Bulletpoint${outlineTemplateText}\n\nYour task is to summarise the text I have given you in up to ${sentenceCount} concise bullet points, starting with a short highlight, each bullet point is at least ${wordsCount} words. ${outlineDescriptionText}${emojiDescriptionText}Use the text above: {{Title}} {{Transcript}}.\n\nReply in ${language} Language.`;
 
   return `Title: "${videoTitle}"\nTranscript: "${videoTranscript}"\n\nInstructions: ${prompt}`;
 }
@@ -70,7 +71,7 @@ export function getUserSubtitleWithTimestampPrompt(
   const language = videoConfig.outputLanguage || 'Chinese';
   const sentenceCount = videoConfig.sentenceNumber || 7;
   const emojiTemplateText = videoConfig.showEmoji ? "[Emoji] " : ""
-  const wordsCount = videoConfig.detailLevel ? (Number(videoConfig.detailLevel)/10)*2 : 15;
+  const wordsCount = videoConfig.detailLevel ? (Number(videoConfig.detailLevel)/100)*2 : 15;
   const promptWithTimestamp = `Act as the author and provide exactly ${sentenceCount} bullet points all in ${language} language for the text transcript given in the format [seconds] - [text] \nMake sure that:\n    - Please start by summarizing the whole video in one short sentence\n    - Then, please summarize with each bullet_point is at least ${wordsCount} words\n    - each bullet_point start with \"- \" or a number or a bullet point symbol\n    - each bullet_point should has the start timestamp, use this template: - seconds - ${emojiTemplateText}[bullet_point]\n    - there may be typos in the subtitles, please correct them`;
   const videoTranscripts = limitTranscriptByteLength(
     JSON.stringify(videoTranscript)
