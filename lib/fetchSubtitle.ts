@@ -11,7 +11,7 @@ export async function fetchSubtitle(
   descriptionText?: string;
 }> {
   const { service, videoId, pageNumber } = videoConfig;
-  console.log("========video========", videoConfig);
+  console.log("video: ", videoConfig);
   if (service === VideoService.Youtube) {
     return await fetchYoutubeSubtitle(videoId, shouldShowTimestamp);
   }
