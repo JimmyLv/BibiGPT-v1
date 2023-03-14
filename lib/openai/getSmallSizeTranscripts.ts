@@ -57,7 +57,8 @@ type SubtitleItem = {
 }
 
 // Seems like 15,000 bytes is the limit for the prompt
-const LIMIT_COUNT = 7000; // 1000 is a buffer
+// 13000 = 6500*2
+const LIMIT_COUNT = 6500; // 2000 is a buffer
 export function getSmallSizeTranscripts(newTextData: SubtitleItem[], oldTextData: SubtitleItem[], byteLimit: number = LIMIT_COUNT): string {
   const text = newTextData.sort((a, b) => a.index - b.index).map(t => t.text).join(" ");
   const byteLength = getByteLength(text);
