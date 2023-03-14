@@ -63,7 +63,7 @@ export const Home: NextPage<{
   const { toast } = useToast();
   const { analytics } = useAnalytics();
 
-  useFormPersist("video-config-storage", {
+  useFormPersist("video-summary-config-storage", {
     watch,
     setValue,
     storage: typeof window !== "undefined" ? window.localStorage : undefined, // default window.sessionStorage
