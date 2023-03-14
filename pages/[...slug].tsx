@@ -85,7 +85,7 @@ export const Home: NextPage<{
       searchParams
     );
 
-    console.log("========validatedUrl========", validatedUrl);
+    console.log("getVideoUrlFromUrl", validatedUrl);
 
     validatedUrl && generateSummary(validatedUrl);
   }, [router.isReady, urlState, searchParams]);
