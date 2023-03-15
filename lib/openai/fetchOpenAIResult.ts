@@ -1,12 +1,9 @@
 import { Redis } from "@upstash/redis";
-import {
-  createParser,
-  ParsedEvent,
-  ReconnectInterval,
-} from "eventsource-parser";
+import { createParser, ParsedEvent, ReconnectInterval } from "eventsource-parser";
 import { trimOpenAiResult } from "~/lib/openai/trimOpenAiResult";
 import { VideoConfig } from "~/lib/types";
 import { isDev } from "~/utils/env";
+import { getCacheId } from "~/utils/getCacheId";
 
 export enum ChatGPTAgent {
   user = "user",
@@ -54,9 +51,8 @@ export async function fetchOpenAIResult(
     throw new Error(`OpenAI API Error [${res.statusText}]: ${errorJson.error?.message}`);
   }
 
-  const { showTimestamp, videoId } = videoConfig;
   const redis = Redis.fromEnv();
-  const cacheId = showTimestamp ? `timestamp-${videoId}` : videoId;
+  const cacheId = getCacheId(videoConfig);
 
   if (!payload.stream) {
     const result = await res.json();

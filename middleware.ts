@@ -3,13 +3,10 @@ import { Redis } from "@upstash/redis";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { SummarizeParams } from "~/lib/types";
+import { getCacheId } from "~/utils/getCacheId";
 import { validateLicenseKey } from "./lib/lemon";
 import { checkOpenaiApiKeys } from "./lib/openai/checkOpenaiApiKey";
-import {
-  ratelimitForApiKeyIps,
-  ratelimitForFreeAccounts,
-  ratelimitForIps,
-} from "./lib/upstash";
+import { ratelimitForApiKeyIps, ratelimitForFreeAccounts, ratelimitForIps } from "./lib/upstash";
 import { isDev } from "./utils/env";
 
 const redis = Redis.fromEnv();
@@ -32,9 +29,8 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
   try {
     const { userConfig, videoConfig } = (await req.json()) as SummarizeParams;
     // TODO: update shouldShowTimestamp to use videoConfig
-    const { userKey, shouldShowTimestamp } = userConfig || {};
-    const { videoId } = videoConfig || {};
-    const cacheId = shouldShowTimestamp ? `timestamp-${videoId}` : videoId;
+    const { userKey } = userConfig || {};
+    const cacheId = getCacheId(videoConfig);
     const ipIdentifier = req.ip ?? "127.0.0.11";
 
     // licenseKeys
