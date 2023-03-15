@@ -54,7 +54,7 @@ export function getUserSubtitlePrompt(
   const wordsCount = videoConfig.detailLevel ? (Number(videoConfig.detailLevel)/100)*2 : 15;
   const outlineTemplateText = shouldShowAsOutline ? `\n    - Child points`: '';
   const outlineDescriptionText = shouldShowAsOutline ? `Use the outline list, which can have a hierarchical structure of up to ${videoConfig.outlineLevel} levels. ` : '';
-  const prompt = `Your output should use the following template:\n### Summary\n### Highlights\n- ${emojiTemplateText}Bulletpoint${outlineTemplateText}\n\nYour task is to summarise the text I have given you in up to ${sentenceCount} concise bullet points, starting with a short highlight, each bullet point is at least ${wordsCount} words. ${outlineDescriptionText}${emojiDescriptionText}Use the text above: {{Title}} {{Transcript}}.\n\nReply in ${language} Language.`;
+  const prompt = `Your output should use the following template:\n## Summary\n## Highlights\n- ${emojiTemplateText}Bulletpoint${outlineTemplateText}\n\nYour task is to summarise the text I have given you in up to ${sentenceCount} concise bullet points, starting with a short highlight, each bullet point is at least ${wordsCount} words. ${outlineDescriptionText}${emojiDescriptionText}Use the text above: {{Title}} {{Transcript}}.\n\nReply in ${language} Language.`;
 
   return `Title: "${videoTitle}"\nTranscript: "${videoTranscript}"\n\nInstructions: ${prompt}`;
 }
