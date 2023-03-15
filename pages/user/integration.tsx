@@ -55,7 +55,7 @@ export default () => {
           </div>
           <div className="mb-4 flex h-48 items-center justify-center rounded bg-gray-50 dark:bg-gray-800">
             <p className="text-2xl text-gray-400 dark:text-gray-500">
-              💺 虚伪以待，欢迎 PR！
+              💺 虚位以待，欢迎 PR！
             </p>
           </div>
           <div className="grid grid-cols-2 gap-4">
