@@ -1,4 +1,13 @@
-# 🤖 BibiGPT · 音视频内容一键总结 [b.jimmylv.cn](https://b.jimmylv.cn/)
+# 🤖 BibiGPT · One-click AI summary for video and audio content [b.jimmylv.cn](https://b.jimmylv.cn/)
+🎉 (Formerly BiliGPT), now supports: One-click summary for Bilibili and YouTube video content, "Data-saving tool & Class Representative".
+
+🚧 Under development: Support for podcasts, meetings, local audio and video files, etc. as input. The prompt and output ends are being continuously iterated. Stay tuned!
+
+Alternative address: https://chat-bilibili-video.vercel.app
+
+---
+
+## 🤖 BibiGPT · 音视频内容一键总结 [b.jimmylv.cn](https://b.jimmylv.cn/)
 
 🎉 (原 BiliGPT)，现已经支持：哔哩哔哩丨 YouTube 视频内容一键总结，“省流神器 & 课代表”。
 
