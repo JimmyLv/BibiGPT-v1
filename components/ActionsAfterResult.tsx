@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useSaveToFlomo } from "~/hooks/notes/flomo";
+import useSaveToLark from "~/hooks/notes/lark"
 import { useLocalStorage } from "~/hooks/useLocalStorage";
 
 export function ActionsAfterResult({
@@ -14,7 +15,20 @@ export function ActionsAfterResult({
   onCopy: () => void;
 }) {
   const [flomoWebhook] = useLocalStorage<string>("user-flomo-webhook");
-  const { loading, save } = useSaveToFlomo(summaryNote, flomoWebhook || "");
+  const [larkWebhook] = useLocalStorage<string>("user-lark-webhook");
+  const { loading: flomoLoading, save: flomoSave } = useSaveToFlomo(summaryNote, flomoWebhook || "");
+  const { loading: larkLoading, save: larkSave } = useSaveToLark(summaryNote, larkWebhook || "");
+
+  const larkButton = <button
+    className="flex w-44 cursor-pointer items-center justify-center rounded-lg bg-green-400 px-2 py-1 text-center font-medium text-white hover:bg-green-400/80"
+    onClick={larkSave}
+  >
+    {larkLoading ? (
+      <Image src="/loading.svg" alt="Loading..." width={28} height={28} />
+    ) : (
+      "推送给飞书 Webhook"
+    )}
+  </button>
 
   return (
     <div className="mx-auto mt-7 flex max-w-3xl flex-row-reverse gap-x-4">
@@ -43,9 +57,9 @@ export function ActionsAfterResult({
       {flomoWebhook ? (
         <button
           className="flex w-44 cursor-pointer items-center justify-center rounded-lg bg-green-400 px-2 py-1 text-center font-medium text-white hover:bg-green-400/80"
-          onClick={save}
+          onClick={flomoSave}
         >
-          {loading ? (
+          {flomoLoading ? (
             <Image src="/loading.svg" alt="Loading..." width={28} height={28} />
           ) : (
             "一键保存到 Flomo"
@@ -60,6 +74,7 @@ export function ActionsAfterResult({
           📒 一键保存到笔记
         </Link>
       )}
+      {larkButton}
     </div>
   );
 }
