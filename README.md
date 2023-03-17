@@ -56,3 +56,14 @@ Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_mediu
 ## Support -> Contact Me
 
 ![](./public/wechat.jpg)
+
+## Star History
+[![Star History Chart](https://api.star-history.com/svg?repos=JimmyLv/BibiGPT&type=Date)](https://star-history.com/#JimmyLv/BibiGPT&Date)
+
+
+## Contributors
+This project exists thanks to all the people who contribute.
+
+ <a href="https://github.com/JimmyLv/BibiGPT/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=JimmyLv/BibiGPT" />
+ </a>
