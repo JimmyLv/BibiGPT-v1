@@ -1,6 +1,6 @@
 import { useAnalytics } from '~/components/context/analytics'
 import SquigglyLines from '../components/SquigglyLines'
-import { CHECKOUT_URL, RATE_LIMIT_COUNT } from '../utils/constants'
+import { CHECKOUT_URL, RATE_LIMIT_COUNT } from '~/utils/constants'
 
 export default () => {
   const { analytics } = useAnalytics()
