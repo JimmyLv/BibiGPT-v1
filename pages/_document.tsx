@@ -1,12 +1,12 @@
-import Document, { Head, Html, Main, NextScript } from "next/document";
-import { BASE_DOMAIN } from "~/utils/constants";
+import Document, { Head, Html, Main, NextScript } from 'next/document'
+import { BASE_DOMAIN } from '~/utils/constants'
 
 class MyDocument extends Document {
   render() {
-    let description = "B 站视频内容一键总结（支持 iOS 快捷指令）";
-    let ogimage = `${BASE_DOMAIN}/og-image.png`;
-    let sitename = "b.jimmylv.cn";
-    let title = "哔哩哔哩 · 视频内容一键总结";
+    let description = 'B 站视频内容一键总结（支持 iOS 快捷指令）'
+    let ogimage = `${BASE_DOMAIN}/og-image.png`
+    let sitename = 'b.jimmylv.cn'
+    let title = '哔哩哔哩 · 视频内容一键总结'
 
     return (
       <Html lang="en">
@@ -30,8 +30,8 @@ class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
-export default MyDocument;
+export default MyDocument

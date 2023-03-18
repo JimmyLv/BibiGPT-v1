@@ -1,31 +1,28 @@
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
-import { motion } from "framer-motion";
-import { Clover, Edit, LayoutDashboard, LogOut, ShoppingBag } from "lucide-react";
-import Link from "next/link";
-import { useState } from "react";
-import Popover from "~/components/shared/popover";
-import { FADE_IN_ANIMATION_SETTINGS } from "~/utils/constants";
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import { motion } from 'framer-motion'
+import { Clover, Edit, LayoutDashboard, LogOut, ShoppingBag } from 'lucide-react'
+import Link from 'next/link'
+import { useState } from 'react'
+import Popover from '~/components/shared/popover'
+import { FADE_IN_ANIMATION_SETTINGS } from '~/utils/constants'
 
 export default function UserDropdown() {
   // const { data: session } = useSession();
-  const user = useUser();
-  const supabaseClient = useSupabaseClient();
-  const { email, user_metadata } = user || {};
-  const image = user_metadata?.avatar_url;
-  const [openPopover, setOpenPopover] = useState(false);
+  const user = useUser()
+  const supabaseClient = useSupabaseClient()
+  const { email, user_metadata } = user || {}
+  const image = user_metadata?.avatar_url
+  const [openPopover, setOpenPopover] = useState(false)
 
-  if (!email) return null;
+  if (!email) return null
 
   async function signOut(param: { redirect: boolean }) {
-    const { error } = await supabaseClient.auth.signOut();
-    error && console.error("=======sign out error=====", { error });
+    const { error } = await supabaseClient.auth.signOut()
+    error && console.error('=======sign out error=====', { error })
   }
 
   return (
-    <motion.div
-      className="relative inline-block flex content-center text-left"
-      {...FADE_IN_ANIMATION_SETTINGS}
-    >
+    <motion.div className="relative inline-block flex content-center text-left" {...FADE_IN_ANIMATION_SETTINGS}>
       <Popover
         content={
           <div className="w-full rounded-md bg-white p-2 sm:w-56">
@@ -83,5 +80,5 @@ export default function UserDropdown() {
         </button>
       </Popover>
     </motion.div>
-  );
+  )
 }

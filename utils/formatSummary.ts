@@ -1,8 +1,8 @@
-import { extractSentenceWithTimestamp } from "~/utils/extractSentenceWithTimestamp";
-import { extractTimestamp } from "~/utils/extractTimestamp";
+import { extractSentenceWithTimestamp } from '~/utils/extractSentenceWithTimestamp'
+import { extractTimestamp } from '~/utils/extractTimestamp'
 
 export function formatSummary(summary: string) {
-/*
+  /*
   if (shouldShowTimestamp) {
     try {
       const parsedBulletPoints = JSON.parse(summary);
@@ -23,18 +23,17 @@ export function formatSummary(summary: string) {
   }
 */
 
-  const summaryArray = ("\n" + summary).split("\n- ");
+  const summaryArray = ('\n' + summary).split('\n- ')
   const formattedSummary = summaryArray
     .map((s) => {
-      const matchTimestampResult = extractSentenceWithTimestamp(s);
+      const matchTimestampResult = extractSentenceWithTimestamp(s)
       if (matchTimestampResult) {
-        const { formattedContent, timestamp } =
-          extractTimestamp(matchTimestampResult);
-        return timestamp + formattedContent;
+        const { formattedContent, timestamp } = extractTimestamp(matchTimestampResult)
+        return timestamp + formattedContent
       } else {
-        return s.replace(/\n\n/g, "\n");
+        return s.replace(/\n\n/g, '\n')
       }
     })
-    .join("\n- ");
-  return { summaryArray, formattedSummary };
+    .join('\n- ')
+  return { summaryArray, formattedSummary }
 }

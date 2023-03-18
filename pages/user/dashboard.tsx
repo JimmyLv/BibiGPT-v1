@@ -1,4 +1,4 @@
-import { Sidebar } from "~/components/sidebar";
+import { Sidebar } from '~/components/sidebar'
 
 export default () => {
   return (
@@ -48,5 +48,5 @@ export default () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}

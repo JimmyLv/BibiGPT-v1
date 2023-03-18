@@ -1,4 +1,3 @@
-
 import {
   CommandDialog,
   CommandEmpty,
@@ -8,20 +7,20 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "@/components/ui/command"
-import React from "react";
+} from '@/components/ui/command'
+import React from 'react'
 
 export default function CommandMenu() {
   const [open, setOpen] = React.useState(false)
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && e.metaKey) {
+      if (e.key === 'k' && e.metaKey) {
         setOpen((open) => !open)
       }
     }
-    document.addEventListener("keydown", down)
-    return () => document.removeEventListener("keydown", down)
+    document.addEventListener('keydown', down)
+    return () => document.removeEventListener('keydown', down)
   }, [])
 
   return (

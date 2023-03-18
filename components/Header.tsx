@@ -1,41 +1,23 @@
-import { Poppins } from "@next/font/google";
-import clsx from "clsx";
-import Image from "next/image";
-import React from "react";
-import SignIn from "~/components/SignIn";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "~/components/ui/tooltip";
-import { BASE_DOMAIN } from "~/utils/constants";
-import Github from "../components/GitHub";
-const poppins = Poppins({ weight: "800", subsets: ["latin"] });
+import { Poppins } from '@next/font/google'
+import clsx from 'clsx'
+import Image from 'next/image'
+import React from 'react'
+import SignIn from '~/components/SignIn'
+import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip'
+import { BASE_DOMAIN } from '~/utils/constants'
+import Github from '../components/GitHub'
+const poppins = Poppins({ weight: '800', subsets: ['latin'] })
 
-export default function Header({
-  showSingIn,
-}: {
-  showSingIn: (show: boolean) => void;
-}) {
+export default function Header({ showSingIn }: { showSingIn: (show: boolean) => void }) {
   return (
     <header className="supports-backdrop-blur:bg-white/60 max-w-8xl sticky top-0 z-40 mx-auto w-full flex-none border-b border-slate-900/10 bg-white/95 pt-2 backdrop-blur  transition-colors duration-500 dark:border-slate-50/[0.06] dark:border-slate-300/10 dark:bg-transparent lg:z-50 lg:mx-0 lg:border-0 lg:border-b lg:border-slate-900/10 lg:px-8">
       <div className="flex items-center justify-between px-3 sm:px-3">
         <div className="flex items-center space-x-3">
-          <a
-            href="https://space.bilibili.com/37648256"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/video-off.svg"
-              alt="logo"
-              className="animate-bounce"
-              width={34}
-              height={34}
-            />
+          <a href="https://space.bilibili.com/37648256" target="_blank" rel="noopener noreferrer">
+            <Image src="/video-off.svg" alt="logo" className="animate-bounce" width={34} height={34} />
           </a>
           <a href={BASE_DOMAIN}>
-            <h2 className={clsx("text-lg sm:text-2xl", poppins.className)}>
+            <h2 className={clsx('text-lg sm:text-2xl', poppins.className)}>
               <span className="text-pink-400">哔哔终结者</span> BibiGPT
             </h2>
           </a>
@@ -79,7 +61,7 @@ export default function Header({
             </a>
           </div>
         </div>
-        <div className="flex items-center space-x-2 sm:space-x-5 shrink-0">
+        <div className="flex shrink-0 items-center space-x-2 sm:space-x-5">
           <Tooltip>
             <TooltipTrigger>
               <a
@@ -101,14 +83,10 @@ export default function Header({
                 target="_blank"
                 className="flex hidden items-center space-x-2 sm:block"
                 aria-label="书签版"
-                onClick={() =>
-                  alert("🔖请拖至书签栏，进入B站或YouTube视频页面，再来点击书签哦！")
-                }
+                onClick={() => alert('🔖请拖至书签栏，进入B站或YouTube视频页面，再来点击书签哦！')}
               >
                 🔖
-                <span className="relin-paragraph-target pl-1 text-slate-500">
-                  (书签版)
-                </span>
+                <span className="relin-paragraph-target pl-1 text-slate-500">(书签版)</span>
               </a>
             </TooltipTrigger>
             <TooltipContent>
@@ -116,34 +94,21 @@ export default function Header({
             </TooltipContent>
           </Tooltip>
           <a
-            href={BASE_DOMAIN + "/ios"}
+            href={BASE_DOMAIN + '/ios'}
             rel="noreferrer noopener"
             target="_blank"
             className="flex items-center space-x-2"
             aria-label="iOS版"
           >
-            <Image
-              src="/shortcuts.png"
-              alt="logo"
-              width={33}
-              height={33}
-              className="max-w-none"
-            />
-            <span className="relin-paragraph-target hidden text-slate-500 sm:block">
-              (iOS版)
-            </span>
+            <Image src="/shortcuts.png" alt="logo" width={33} height={33} className="max-w-none" />
+            <span className="relin-paragraph-target hidden text-slate-500 sm:block">(iOS版)</span>
           </a>
-          <a
-            href="https://github.com/JimmyLv/BibiGPT"
-            rel="noreferrer noopener"
-            target="_blank"
-            className=""
-          >
+          <a href="https://github.com/JimmyLv/BibiGPT" rel="noreferrer noopener" target="_blank" className="">
             <Github width="33" height="33" />
           </a>
           <SignIn showSingIn={showSingIn} />
         </div>
       </div>
     </header>
-  );
+  )
 }
