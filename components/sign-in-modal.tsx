@@ -4,9 +4,9 @@ import { ThemeSupa } from '@supabase/auth-ui-shared'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react'
+import { useAnalytics } from '~/components/context/analytics'
 import Modal from '~/components/shared/modal'
-import { BASE_DOMAIN, LOGIN_LIMIT_COUNT } from '~/utils/constants'
-import { isDev } from '~/utils/env'
+import { BASE_DOMAIN, CHECKOUT_URL, LOGIN_LIMIT_COUNT } from '~/utils/constants'
 import { getRedirectURL } from '~/utils/getRedirectUrl'
 
 const SignInModal = ({
@@ -18,6 +18,8 @@ const SignInModal = ({
 }) => {
   const supabaseClient = useSupabaseClient()
   const redirectURL = getRedirectURL()
+  const { analytics } = useAnalytics()
+
   return (
     <Modal showModal={showSignInModal} setShowModal={setShowSignInModal}>
       <div className="w-full overflow-hidden shadow-xl md:max-w-md md:rounded-2xl md:border md:border-gray-200">
@@ -26,7 +28,17 @@ const SignInModal = ({
             <Image src="/tv-logo.png" alt="Logo" className="h-10 w-10 rounded-full" width={20} height={20} />
           </a>
           <h3 className="font-display text-2xl font-bold">登录 BibiGPT</h3>
-          <h4>（每天都赠送 {LOGIN_LIMIT_COUNT} 次哦）</h4>
+          <h4>
+            （每天都赠送 {LOGIN_LIMIT_COUNT} 次哦，
+            <a
+              className="relative text-pink-400 hover:underline"
+              href={CHECKOUT_URL}
+              onClick={() => analytics.track('ShopLink Clicked')}
+            >
+              点击购买
+            </a>
+            新的次数）
+          </h4>
           <p className="text-sm text-pink-400">Input, Prompt, Output</p>
         </div>
 
