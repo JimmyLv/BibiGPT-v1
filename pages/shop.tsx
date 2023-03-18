@@ -1,9 +1,9 @@
-import { useAnalytics } from "~/components/context/analytics";
-import SquigglyLines from "../components/SquigglyLines";
-import { CHECKOUT_URL, RATE_LIMIT_COUNT } from "../utils/constants";
+import { useAnalytics } from '~/components/context/analytics'
+import SquigglyLines from '../components/SquigglyLines'
+import { CHECKOUT_URL, RATE_LIMIT_COUNT } from '../utils/constants'
 
 export default () => {
-  const { analytics } = useAnalytics();
+  const { analytics } = useAnalytics()
 
   return (
     <div>
@@ -14,7 +14,7 @@ export default () => {
           <a
             className="relative text-pink-400 hover:underline"
             href={CHECKOUT_URL}
-            onClick={() => analytics.track("ShopLink Clicked")}
+            onClick={() => analytics.track('ShopLink Clicked')}
           >
             点击购买
           </a>
@@ -22,12 +22,7 @@ export default () => {
         次数哦，💰
         <div className="mt-8">
           或者
-          <a
-            href="/wechat.jpg"
-            className="text-green-400 hover:underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="/wechat.jpg" className="text-green-400 hover:underline" target="_blank" rel="noopener noreferrer">
             「加我微信」
           </a>
         </div>
@@ -36,5 +31,5 @@ export default () => {
         <iframe src={CHECKOUT_URL} width="100%" height="1024px"></iframe>
       </div>
     </div>
-  );
-};
+  )
+}

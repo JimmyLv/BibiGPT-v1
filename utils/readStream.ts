@@ -1,17 +1,17 @@
 export default async function readStream(response: Response, callback: any) {
-  const data = response.body;
+  const data = response.body
   if (!data) {
-    return;
+    return
   }
 
-  const reader = data.getReader();
-  const decoder = new TextDecoder();
-  let done = false;
+  const reader = data.getReader()
+  const decoder = new TextDecoder()
+  let done = false
 
   while (!done) {
-    const { value, done: doneReading } = await reader.read();
-    done = doneReading;
-    const chunkValue = decoder.decode(value);
-    callback((prev: string) => prev + chunkValue);
+    const { value, done: doneReading } = await reader.read()
+    done = doneReading
+    const chunkValue = decoder.decode(value)
+    callback((prev: string) => prev + chunkValue)
   }
 }

@@ -1,43 +1,43 @@
-import { useState } from "react";
-import { useAnalytics } from "~/components/context/analytics";
-import { useToast } from "~/hooks/use-toast";
+import { useState } from 'react'
+import { useAnalytics } from '~/components/context/analytics'
+import { useToast } from '~/hooks/use-toast'
 
 export default function useSaveToLark(note: string, webhook: string) {
-  const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
-  const { analytics } = useAnalytics();
+  const [loading, setLoading] = useState(false)
+  const { toast } = useToast()
+  const { analytics } = useAnalytics()
 
   const save = async () => {
-    setLoading(true);
+    setLoading(true)
     const response = await fetch(webhook, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        msg_type: "text",
+        msg_type: 'text',
         content: {
-          text: `${note} \n BibiGPT`
-        }
+          text: `${note} \n BibiGPT`,
+        },
       }),
-    });
-    const json = await response.json();
-    console.log("========response========", json);
+    })
+    const json = await response.json()
+    console.log('========response========', json)
     if (!response.ok || json.code !== 0) {
-      console.log("error", response);
+      console.log('error', response)
       toast({
-        variant: "destructive",
+        variant: 'destructive',
         title: response.status.toString(),
         description: json.msg,
-      });
+      })
     } else {
       toast({
         title: response.status.toString(),
-        description: "成功推送到 飞书/Lark Webhook",
-      });
+        description: '成功推送到 飞书/Lark Webhook',
+      })
     }
-    setLoading(false);
-    analytics.track("SaveLarkButton Clicked");
-  };
-  return { save, loading };
+    setLoading(false)
+    analytics.track('SaveLarkButton Clicked')
+  }
+  return { save, loading }
 }

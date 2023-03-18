@@ -1,4 +1,5 @@
 # 🤖 BibiGPT · One-click AI summary for video and audio content [b.jimmylv.cn](https://b.jimmylv.cn/)
+
 🎉 (Formerly BiliGPT), now supports: One-click summary for Bilibili and YouTube video content, "Attention-saving tool & Class Representative".
 
 🚧 Under development: Support for websites, podcasts, meetings, local audio and video files, etc. as input. The prompt and output ends are being continuously iterated. Stay tuned!
@@ -58,10 +59,11 @@ Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_mediu
 ![](./public/wechat.jpg)
 
 ## Star History
+
 [![Star History Chart](https://api.star-history.com/svg?repos=JimmyLv/BibiGPT&type=Date)](https://star-history.com/#JimmyLv/BibiGPT&Date)
 
-
 ## Contributors
+
 This project exists thanks to all the people who contribute.
 
  <a href="https://github.com/JimmyLv/BibiGPT/graphs/contributors">

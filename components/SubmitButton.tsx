@@ -1,5 +1,5 @@
-import Image from "next/image";
-import React from "react";
+import Image from 'next/image'
+import React from 'react'
 
 export function SubmitButton({ loading }: { loading: boolean }) {
   if (!loading) {
@@ -10,7 +10,7 @@ export function SubmitButton({ loading }: { loading: boolean }) {
       >
         一键总结
       </button>
-    );
+    )
   }
 
   return (
@@ -22,5 +22,5 @@ export function SubmitButton({ loading }: { loading: boolean }) {
         <Image src="/loading.svg" alt="Loading..." width={28} height={28} />
       </div>
     </button>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import { Sidebar } from "~/components/sidebar";
-import BilibiliEmbedRenderer from "react-bilibili-embed-renderer";
+import { Sidebar } from '~/components/sidebar'
+import BilibiliEmbedRenderer from 'react-bilibili-embed-renderer'
 export default () => {
   return (
     <>
@@ -22,9 +22,7 @@ export default () => {
             </div>
           </div>
           <div className="mb-4 flex h-48 items-center justify-center rounded bg-gray-50 dark:bg-gray-800">
-            <p className="text-2xl text-gray-400 dark:text-gray-500">
-              💺 虚位以待，Coming Soon！
-            </p>
+            <p className="text-2xl text-gray-400 dark:text-gray-500">💺 虚位以待，Coming Soon！</p>
           </div>
           <div className="mb-4 grid grid-cols-2 gap-4">
             <div className="flex h-28 items-center justify-center rounded bg-gray-50 dark:bg-gray-800">
@@ -54,5 +52,5 @@ export default () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}

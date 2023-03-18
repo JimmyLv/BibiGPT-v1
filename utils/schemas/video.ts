@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod'
 
 export const videoConfigSchema = z.object({
   // videoId: z.string(),
@@ -9,6 +9,6 @@ export const videoConfigSchema = z.object({
   detailLevel: z.number().optional(),
   sentenceNumber: z.number().optional(),
   outlineLevel: z.number().optional(),
-});
+})
 
-export type VideoConfigSchema = z.infer<typeof videoConfigSchema>;
+export type VideoConfigSchema = z.infer<typeof videoConfigSchema>
