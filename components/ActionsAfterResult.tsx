@@ -4,7 +4,6 @@ import { SaveNoteButton } from '~/components/SaveNoteButton'
 import { useSaveToFlomo } from '~/hooks/notes/flomo'
 import useSaveToLark from '~/hooks/notes/lark'
 import { useLocalStorage } from '~/hooks/useLocalStorage'
-import { Switch } from './ui/switch'
 
 export function ActionsAfterResult({
   curVideo,
@@ -62,7 +61,9 @@ export function ActionsAfterResult({
       )}
       <button
         className="w-24 cursor-pointer rounded-lg bg-sky-400 px-2 py-1 text-center font-medium text-white hover:bg-sky-400/80"
-        onClick={() => { setClickCopy(!clickCopy) }}
+        onClick={() => {
+          setClickCopy(!clickCopy)
+        }}
       >
         点击复制 - {clickCopy ? '开' : '关'}
       </button>
