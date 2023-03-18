@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.6.0](https://github.com/JimmyLv/BibiGPT/compare/v1.5.1...v1.6.0) (2023-03-18)
+
+
+### Features
+
+* add git precommit to auto format ([0163489](https://github.com/JimmyLv/BibiGPT/commit/01634891f0a0d87286cfad7ec1200d78cb203fc4))
+* add prettier to format code ([575b664](https://github.com/JimmyLv/BibiGPT/commit/575b664a99fb90acbc96c1df6a3f8733c5290ad5))
+* added internal api proxy ([8cc9513](https://github.com/JimmyLv/BibiGPT/commit/8cc9513215668836f17ca4dc2dbd8647fcb94586))
+* support different cachedId ([da20fd4](https://github.com/JimmyLv/BibiGPT/commit/da20fd4cce499fb2a73ce5625d314107b32c4ddc))
+
+
+### Bug Fixes
+
+* improve log ([7601dfc](https://github.com/JimmyLv/BibiGPT/commit/7601dfcfb15eaae588a67f296f6f14e8ecf3685e))
+* increase limit count ([6f6a94c](https://github.com/JimmyLv/BibiGPT/commit/6f6a94c4d3b885454f09e01923fce691bf2d56e1))
+* increase limit cout ([458ee3c](https://github.com/JimmyLv/BibiGPT/commit/458ee3cf0127c047881205b4d7e7241116853c15))
+* reduce heading level ([9ca0067](https://github.com/JimmyLv/BibiGPT/commit/9ca0067bca1e93013219c6bbc97bbf0ae7982440))
+* update copy text for notes app ([4b6ae2d](https://github.com/JimmyLv/BibiGPT/commit/4b6ae2d6f03a2061f886c740076686a85d8c88b3))
+* update env for vercel deploy ([4f207cc](https://github.com/JimmyLv/BibiGPT/commit/4f207cc01ba2f19f5d744aa6b8d928273213b0b2))
+* update input placeholder ([c48062d](https://github.com/JimmyLv/BibiGPT/commit/c48062d797693a6dbf1942656e6bb5a88e91e53d))
+* update suffix ([586162e](https://github.com/JimmyLv/BibiGPT/commit/586162e919055d91ede77b2506952c4c1880bb7b))
+
 ## [1.5.1](https://github.com/JimmyLv/BibiGPT/compare/v1.5.0...v1.5.1) (2023-03-14)
 
 ### Bug Fixes
