@@ -26,9 +26,9 @@ export function SummaryResult({
   const { toast } = useToast()
   const formattedCachedSummary = summary?.startsWith('"')
     ? summary
-      .substring(1, summary.length - 1)
-      .split('\\n')
-      .join('\n')
+        .substring(1, summary.length - 1)
+        .split('\\n')
+        .join('\n')
     : summary
 
   const { summaryArray, formattedSummary } = formatSummary(formattedCachedSummary)
@@ -43,7 +43,7 @@ export function SummaryResult({
     toast({ description: '复制成功 ✂️' })
   }
 
-  const [clickCopy, _] = useLocalStorage<boolean>('user-config-clickCopy') || false
+  const [clickCopy, setClickCopy] = useLocalStorage<boolean>('user-config-clickCopy') || false
 
   const clickCopyTest = () => {
     if (clickCopy) {
@@ -78,7 +78,13 @@ export function SummaryResult({
           </div>
         )}
       </div>
-      <ActionsAfterResult curVideo={currentVideoUrl} onCopy={handleCopy} summaryNote={formattedSummary} />
+      <ActionsAfterResult
+        curVideo={currentVideoUrl}
+        onCopy={handleCopy}
+        summaryNote={formattedSummary}
+        clickCopy={clickCopy}
+        setClickCopy={setClickCopy}
+      />
     </div>
   )
 }
