@@ -11,16 +11,27 @@ import { isDev } from "./utils/env";
 
 const redis = Redis.fromEnv();
 
-function redirectAuth() {
+/**
+ * 
+ * Respond with JSON indicating an error message
+ * @return {*}  {NextResponse}
+ */
+function redirectAuth(): NextResponse {
   // return NextResponse.redirect(new URL("/shop", req.url));
-  // Respond with JSON indicating an error message
   console.error("Authentication Failed");
   return new NextResponse(
     JSON.stringify({ success: false, message: "Authentication Failed" }),
     { status: 401, headers: { "content-type": "application/json" } }
   );
 }
-function redirectShop(req: NextRequest) {
+
+/**
+ * Redirects the user to the page where the number of uses is purchased
+ *
+ * @param {NextRequest} req
+ * @return {*}  {NextResponse}
+ */
+function redirectShop(req: NextRequest): NextResponse  {
   console.error("Account Limited");
   return NextResponse.redirect(new URL("/shop", req.url));
 }
