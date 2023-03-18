@@ -43,7 +43,7 @@ export function SummaryResult({
     toast({ description: '复制成功 ✂️' })
   }
 
-  const [clickCopy, _] = useLocalStorage<boolean>('user-config-clickCopy')
+  const [clickCopy, _] = useLocalStorage<boolean>('user-config-clickCopy') || false
 
   const clickCopyTest = () => {
     if (clickCopy) {

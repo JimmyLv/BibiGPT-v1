@@ -20,7 +20,7 @@ export function ActionsAfterResult({
   const { loading: flomoLoading, save: flomoSave } = useSaveToFlomo(summaryNote, flomoWebhook || '')
   const { loading: larkLoading, save: larkSave } = useSaveToLark(summaryNote, larkWebhook || '')
   const hasNoteSetting = flomoWebhook || larkWebhook
-  const [clickCopy, setClickCopy] = useLocalStorage<boolean>('user-config-clickCopy')
+  const [clickCopy, setClickCopy] = useLocalStorage<boolean>('user-config-clickCopy') || false
 
   return (
     <div className="mx-auto mt-7 flex max-w-3xl flex-row-reverse gap-x-4">
