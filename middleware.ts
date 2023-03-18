@@ -35,6 +35,29 @@ function redirectShop(req: NextRequest): NextResponse {
   console.error('Account Limited')
   return NextResponse.redirect(new URL('/shop', req.url))
 }
+function btoa(str: string) {
+  const encoder = new TextEncoder()
+  const data = encoder.encode(str)
+  return globalThis.btoa(String.fromCharCode(...new Uint8Array(data)))
+}
+function rewrite(request: NextRequest) {
+  const apiUrl = process.env.INTERNAL_API_HOSTNAME
+  const username = process.env.INTERNAL_API_ACCOUNT
+  const password = process.env.INTERNAL_API_PASSWORD
+
+  // Clone the request headers and set a new auth header
+  const authHeaders = new Headers(request.headers)
+  const auth = btoa(`${username}:${password}`)
+  authHeaders.set('Authorization', `Basic ${auth}`)
+  const path = request.nextUrl.pathname
+  request.nextUrl.href = `${apiUrl}${path}`
+
+  return NextResponse.rewrite(request.nextUrl, {
+    request: {
+      headers: authHeaders,
+    },
+  })
+}
 
 export async function middleware(req: NextRequest, context: NextFetchEvent) {
   try {
@@ -42,7 +65,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
     // TODO: update shouldShowTimestamp to use videoConfig
     const { userKey } = userConfig || {}
     const cacheId = getCacheId(videoConfig)
-    const ipIdentifier = req.ip ?? '127.0.0.11'
+    const ipIdentifier = req.ip ?? '127.0.0.12'
 
     // licenseKeys
     if (userKey) {
@@ -53,7 +76,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
           return redirectShop(req)
         }
 
-        return NextResponse.next()
+        return rewrite(req)
       }
 
       // 3. something-invalid-sdalkjfasncs-key
@@ -64,7 +87,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
     }
 
     if (isDev) {
-      return NextResponse.next()
+      return rewrite(req)
     }
     //  👇 below only works for production
 
@@ -73,7 +96,7 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
       console.log(`ip free user ${ipIdentifier}, remaining: ${remaining}`)
       if (!success) {
         // We need to create a response and hand it to the supabase client to be able to modify the response headers.
-        const res = NextResponse.next()
+        const res = rewrite(req)
         // TODO: unique to a user (userid, email etc) instead of IP
         // Create authenticated Supabase Client.
         const supabase = createMiddlewareSupabaseClient({ req, res })
@@ -105,12 +128,19 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
       console.log('hit cache for ', cacheId)
       return NextResponse.json(result)
     }
-  } catch (e) {
-    console.error(e)
-    return redirectAuth()
+  } catch (error: any) {
+    console.error('catch middleware error: ', error)
+    return new Response(
+      JSON.stringify({
+        errorMessage: 'Middleware Error: ' + error.message,
+      }),
+      {
+        status: 500,
+      },
+    )
   }
 }
 
 export const config = {
-  matcher: '/api/sumup',
+  matcher: '/api/:path*',
 }
