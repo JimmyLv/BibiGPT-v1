@@ -9,14 +9,10 @@ export function ActionsAfterResult({
   curVideo,
   onCopy,
   summaryNote,
-  clickCopy,
-  setClickCopy,
 }: {
   curVideo: string
   summaryNote: string
   onCopy: () => void
-  clickCopy: boolean
-  setClickCopy: (value: boolean) => void
 }) {
   const [flomoWebhook] = useLocalStorage<string>('user-flomo-webhook')
   const [larkWebhook] = useLocalStorage<string>('user-lark-webhook')
@@ -63,14 +59,6 @@ export function ActionsAfterResult({
           {larkWebhook && <SaveNoteButton onSave={larkSave} loading={larkLoading} text="推送给飞书 Webhook" />}
         </>
       )}
-      <button
-        className="w-24 cursor-pointer rounded-lg bg-sky-400 px-2 py-1 text-center font-medium text-white hover:bg-sky-400/80"
-        onClick={() => {
-          setClickCopy(!clickCopy)
-        }}
-      >
-        点击复制 - {clickCopy ? '开' : '关'}
-      </button>
     </div>
   )
 }

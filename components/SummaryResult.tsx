@@ -5,6 +5,8 @@ import Sentence from '~/components/Sentence'
 import { useToast } from '~/hooks/use-toast'
 import { useLocalStorage } from '~/hooks/useLocalStorage'
 import { formatSummary } from '~/utils/formatSummary'
+// import { Switch as SwitchItem } from './ui/switch'
+import { SwitchItem } from './ui/switch-item'
 
 export let isSecureContext = false
 
@@ -60,6 +62,16 @@ export function SummaryResult({
           {`【📝 总结：${currentVideoId}】`}
         </a>
       </h3>
+      <div className="mt-6 grid grid-cols-2 items-center gap-x-10 gap-y-2 md:mt-10 md:grid-cols-3 md:gap-y-6">
+        <SwitchItem
+          id="clickCopySwicthItem"
+          title="点击总结后复制"
+          checked={clickCopy}
+          onCheckedChange={() => {
+            setClickCopy(!clickCopy)
+          }}
+        ></SwitchItem>
+      </div>
       <div
         className="mx-auto mt-6 max-w-3xl cursor-copy rounded-xl border-2 bg-white p-4 text-lg leading-7 shadow-md transition hover:bg-gray-50"
         onClick={clickCopyTest}
@@ -78,13 +90,7 @@ export function SummaryResult({
           </div>
         )}
       </div>
-      <ActionsAfterResult
-        curVideo={currentVideoUrl}
-        onCopy={handleCopy}
-        summaryNote={formattedSummary}
-        clickCopy={clickCopy}
-        setClickCopy={setClickCopy}
-      />
+      <ActionsAfterResult curVideo={currentVideoUrl} onCopy={handleCopy} summaryNote={formattedSummary} />
     </div>
   )
 }
