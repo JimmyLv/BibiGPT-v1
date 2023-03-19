@@ -12,3 +12,5 @@ export const PROMPT_LANGUAGE_MAP: { [key: string]: string } = {
   ភាសាខ្មែរ: 'km-KH',
   हिंदी: 'hi-IN',
 }
+
+export const DEFAULT_LANGUAGE = 'zh-CN'
