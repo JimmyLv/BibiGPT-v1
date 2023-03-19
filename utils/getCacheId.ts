@@ -1,5 +1,6 @@
 import { VideoConfig } from '~/lib/types'
 
-export function getCacheId({ showTimestamp, videoId, detailLevel }: VideoConfig) {
-  return showTimestamp ? `timestamp-${videoId}-${detailLevel}` : `${videoId}-${detailLevel}`
+export function getCacheId({ showTimestamp, videoId, outputLanguage, detailLevel }: VideoConfig) {
+  const prefix = showTimestamp ? 'timestamp-' : ''
+  return `${prefix}${videoId}-${outputLanguage}-${detailLevel}`
 }
