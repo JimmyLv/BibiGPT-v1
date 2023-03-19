@@ -1,15 +1,9 @@
-import { Redis } from '@upstash/redis'
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 import { fetchSubtitle } from '~/lib/fetchSubtitle'
 import { ChatGPTAgent, fetchOpenAIResult } from '~/lib/openai/fetchOpenAIResult'
 import { getSmallSizeTranscripts } from '~/lib/openai/getSmallSizeTranscripts'
-import {
-  getExamplePrompt,
-  getSystemPrompt,
-  getUserSubtitlePrompt,
-  getUserSubtitleWithTimestampPrompt,
-} from '~/lib/openai/prompt'
+import { getUserSubtitlePrompt, getUserSubtitleWithTimestampPrompt } from '~/lib/openai/prompt'
 import { selectApiKeyAndActivatedLicenseKey } from '~/lib/openai/selectApiKeyAndActivatedLicenseKey'
 import { SummarizeParams } from '~/lib/types'
 import { isDev } from '~/utils/env'
