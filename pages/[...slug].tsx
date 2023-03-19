@@ -18,6 +18,7 @@ import { useToast } from '~/hooks/use-toast'
 import { useLocalStorage } from '~/hooks/useLocalStorage'
 import { useSummarize } from '~/hooks/useSummarize'
 import { VideoService } from '~/lib/types'
+import { DEFAULT_LANGUAGE } from '~/utils/constants/language'
 import { extractPage, extractUrl } from '~/utils/extractUrl'
 import { getVideoIdFromUrl } from '~/utils/getVideoIdFromUrl'
 import { VideoConfigSchema, videoConfigSchema } from '~/utils/schemas/video'
@@ -47,7 +48,7 @@ export const Home: NextPage<{
       detailLevel: 600,
       sentenceNumber: 5,
       outlineLevel: 1,
-      outputLanguage: 'Simplified Chinese',
+      outputLanguage: DEFAULT_LANGUAGE,
     },
     resolver: zodResolver(videoConfigSchema),
   })
