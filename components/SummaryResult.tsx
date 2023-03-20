@@ -3,9 +3,7 @@ import React from 'react'
 import { ActionsAfterResult } from '~/components/ActionsAfterResult'
 import Sentence from '~/components/Sentence'
 import { useToast } from '~/hooks/use-toast'
-import { useLocalStorage } from '~/hooks/useLocalStorage'
 import { formatSummary } from '~/utils/formatSummary'
-import { SwitchItem } from './ui/switch-item'
 
 export let isSecureContext = false
 
@@ -44,16 +42,6 @@ export function SummaryResult({
     toast({ description: '复制成功 ✂️' })
   }
 
-  const [clickCopyStatus, setClickCopyStatus] = useLocalStorage<boolean>('user-config-clickCopy') || false
-
-  const clickCopyFunction = () => {
-    if (clickCopyStatus) {
-      handleCopy()
-    } else {
-      toast({ description: '点击复制功能没有被开启哦' })
-    }
-  }
-
   return (
     <div className="mb-8 px-4">
       <h3 className="m-8 mx-auto max-w-3xl border-t-2 border-dashed pt-8 text-center text-2xl font-bold sm:text-4xl">
@@ -61,20 +49,8 @@ export function SummaryResult({
           {`【📝 总结：${currentVideoId}】`}
         </a>
       </h3>
-      <div className="mt-6 grid grid-cols-2 items-center gap-x-10 gap-y-2 md:mt-10 md:grid-cols-3 md:gap-y-6">
-        <SwitchItem
-          id="clickCopySwicthItem"
-          title="点击总结后复制"
-          checked={clickCopyStatus}
-          onCheckedChange={() => {
-            setClickCopyStatus(!clickCopyStatus)
-          }}
-        ></SwitchItem>
-      </div>
-      <div
-        className="mx-auto mt-6 max-w-3xl cursor-copy rounded-xl border-2 bg-white p-4 text-lg leading-7 shadow-md transition hover:bg-gray-50"
-        onClick={clickCopyFunction}
-      >
+      <div className="mt-6 grid grid-cols-2 items-center gap-x-10 gap-y-2 md:mt-10 md:grid-cols-3 md:gap-y-6"></div>
+      <div className="mx-auto mt-6 max-w-3xl rounded-xl border-2 bg-white p-4 text-lg leading-7 shadow-md transition hover:bg-gray-50">
         {shouldShowTimestamp ? (
           summaryArray.map((sentence: string, index: number) => (
             <div key={index}>
