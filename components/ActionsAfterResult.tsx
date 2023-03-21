@@ -16,7 +16,7 @@ export function ActionsAfterResult({
 }) {
   const [flomoWebhook] = useLocalStorage<string>('user-flomo-webhook')
   const [larkWebhook] = useLocalStorage<string>('user-lark-webhook')
-  const { loading: flomoLoading, save: flomoSave } = useSaveToFlomo(summaryNote, flomoWebhook || '')
+  const { loading: flomoLoading, save: flomoSave } = useSaveToFlomo(summaryNote, curVideo, flomoWebhook || '')
   const { loading: larkLoading, save: larkSave } = useSaveToLark(summaryNote, curVideo, larkWebhook || '')
   const hasNoteSetting = flomoWebhook || larkWebhook
 
