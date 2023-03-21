@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.7.0](https://github.com/JimmyLv/BibiGPT/compare/v1.6.0...v1.7.0) (2023-03-21)
+
+
+### Features
+
+* remove b23tv api ([56f2c7d](https://github.com/JimmyLv/BibiGPT/commit/56f2c7de8094b336fece7498c3554687fb7b7357))
+* support cache by language ([4fb4c5a](https://github.com/JimmyLv/BibiGPT/commit/4fb4c5af688ac45f0c2e363674dc15c036e68b81))
+
+
+### Bug Fixes
+
+* 54 ([ee5e1a4](https://github.com/JimmyLv/BibiGPT/commit/ee5e1a454c50a6d6dcf408243168f256174f4bef))
+* add shop entry for login ([b0d6471](https://github.com/JimmyLv/BibiGPT/commit/b0d647179d55e6034d3bc6cf21b54c5bfa9727f4))
+* extract the default language ([ef04d4a](https://github.com/JimmyLv/BibiGPT/commit/ef04d4affbf1cb3e5751d90a2f7048418a70950e))
+* small button styling ([d18ca4a](https://github.com/JimmyLv/BibiGPT/commit/d18ca4abf12aaae2cc97c00de1eb9c52972ed5ca))
+* update the language ([8725f79](https://github.com/JimmyLv/BibiGPT/commit/8725f79e713dceed3def02260b45aa605c9a38e4))
+
 ## [1.6.0](https://github.com/JimmyLv/BibiGPT/compare/v1.5.1...v1.6.0) (2023-03-18)
 
 

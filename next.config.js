@@ -21,7 +21,7 @@ module.exports = {
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.INTERNAL_API_HOSTNAME}/api/:path*`,
+        destination: `${process.env.INTERNAL_API_HOSTNAME || ''}/api/:path*`,
       },
       {
         source: '/blocked',
