@@ -48,6 +48,5 @@ export function formatSummary(summary: string): {
       }
     })
     .join('\n- ')
-  console.log({ summary, summaryArray, formattedSummary })
   return { summaryArray, formattedSummary }
 }
