@@ -24,8 +24,7 @@ export default function useSaveToLark(note: string, webhook: string) {
                 [
                   {
                     tag: 'text',
-                    text: note.substring(1),
-                    // but why
+                    text: note,
                   },
                 ],
               ],
