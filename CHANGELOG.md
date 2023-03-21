@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/JimmyLv/BibiGPT/compare/v1.7.0...v2.1.0) (2023-03-21)
+
+
+### Miscellaneous Chores
+
+* release 2.1.0 ([74357d3](https://github.com/JimmyLv/BibiGPT/commit/74357d3b68d842f6490ca1e7ccc40d20985b6ed0))
+
 ## [1.7.0](https://github.com/JimmyLv/BibiGPT/compare/v1.6.0...v1.7.0) (2023-03-21)
 
 
