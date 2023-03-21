@@ -15,9 +15,22 @@ export default function useSaveToLark(note: string, webhook: string) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        msg_type: 'text',
+        msg_type: 'post',
         content: {
-          text: `${note} \n BibiGPT`,
+          post: {
+            zh_cn: {
+              title: 'BibiGPT 总结',
+              content: [
+                [
+                  {
+                    tag: 'text',
+                    text: note.substring(1),
+                    // but why
+                  },
+                ],
+              ],
+            },
+          },
         },
       }),
     })
