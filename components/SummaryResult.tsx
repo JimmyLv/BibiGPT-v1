@@ -41,6 +41,7 @@ export function SummaryResult({
     navigator.clipboard.writeText(summaryNote)
     toast({ description: '复制成功 ✂️' })
   }
+
   return (
     <div className="mb-8 px-4">
       <h3 className="m-8 mx-auto max-w-3xl border-t-2 border-dashed pt-8 text-center text-2xl font-bold sm:text-4xl">
@@ -48,10 +49,8 @@ export function SummaryResult({
           {`【📝 总结：${currentVideoId}】`}
         </a>
       </h3>
-      <div
-        className="mx-auto mt-6 max-w-3xl cursor-copy rounded-xl border-2 bg-white p-4 text-lg leading-7 shadow-md transition hover:bg-gray-50"
-        onClick={handleCopy}
-      >
+      <div className="mt-6 grid grid-cols-2 items-center gap-x-10 gap-y-2 md:mt-10 md:grid-cols-3 md:gap-y-6"></div>
+      <div className="mx-auto mt-6 max-w-3xl rounded-xl border-2 bg-white p-4 text-lg leading-7 shadow-md transition hover:bg-gray-50">
         {shouldShowTimestamp ? (
           summaryArray.map((sentence: string, index: number) => (
             <div key={index}>
