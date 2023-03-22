@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useAnalytics } from '~/components/context/analytics'
 import { useToast } from '~/hooks/use-toast'
 
-export function useSaveToFlomo(note: string, webhook: string) {
+export function useSaveToFlomo(note: string, video: string, webhook: string) {
   const [loading, setLoading] = useState(false)
   const { toast } = useToast()
   const { analytics } = useAnalytics()
@@ -15,7 +15,7 @@ export function useSaveToFlomo(note: string, webhook: string) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        content: note + '\n#BibiGpt',
+        content: `${note}\n\n原视频：${video}\n#BibiGpt`,
       }),
     })
     const json = await response.json()
