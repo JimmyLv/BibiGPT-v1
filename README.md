@@ -1,20 +1,16 @@
-# 🤖 BibiGPT · One-click AI summary for video and audio content [b.jimmylv.cn](https://b.jimmylv.cn/)
+# 🤖 BibiGPT - Audio Video AI One-Click Summary & Dialogue [b.jimmylv. cn](https://b.jimmylv.cn/)
 
-🎉 (Formerly BiliGPT), now supports: One-click summary for Bilibili and YouTube video content, "Attention-saving tool & Class Representative".
+🎉 (formerly BiliGPT), now has support for: Bilibili 丨 YouTube 丨 Webpage 丨 Podcast 丨 Meeting 丨 Local audio and video files and other learning content, "stream-saving artifact & class representative".
 
-🚧 Under development: Support for websites, podcasts, meetings, local audio and video files, etc. as input. The prompt and output ends are being continuously iterated. Stay tuned!
-
-Alternative address: https://chat-bilibili-video.vercel.app
+Alternate address: https://bibigpt.co
 
 ---
 
-## 🤖 BibiGPT · 音视频内容一键总结 [b.jimmylv.cn](https://b.jimmylv.cn/)
+## 🤖 BibiGPT · 音视频 AI 一键总结 & 对话 [b.jimmylv.cn](https://b.jimmylv.cn/)
 
-🎉 (原 BiliGPT)，现已经支持：哔哩哔哩丨 YouTube 视频内容一键总结，“省流神器 & 课代表”。
+🎉 (原 BiliGPT)，现已经支持：哔哩哔哩丨YouTube丨网页丨播客丨会议丨本地音视频文件等学习内容的一键总结，“省流神器 & 课代表”。
 
-🚧 开发中：支持网页丨播客丨会议丨本地音视频文件等输入，Prompt 和输出端均在持续迭代中，敬请期待！
-
-备用地址：https://chat-bilibili-video.vercel.app
+备用地址：https://bibigpt.co
 
 ---
 
