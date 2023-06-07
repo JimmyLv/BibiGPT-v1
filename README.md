@@ -1,8 +1,8 @@
-# 🤖 BibiGPT - Audio Video AI One-Click Summary & Dialogue [b.jimmylv. cn](https://b.jimmylv.cn/)
+# 🤖 BibiGPT: 1-Click AI Summary for Audio/Video & Chat with Learning Content [bibigpt.co](https://b.jimmylv.cn/)
 
 🎉 (formerly BiliGPT), now has support for: Bilibili 丨 YouTube 丨 Webpage 丨 Podcast 丨 Meeting 丨 Local audio and video files and other learning content, "stream-saving artifact & class representative".
 
-Alternate address: https://bibigpt.co
+Alternate address: https://b.jimmylv.cn
 
 ---
 
