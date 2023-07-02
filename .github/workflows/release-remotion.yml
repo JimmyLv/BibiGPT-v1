@@ -1,0 +1,29 @@
+name: "Relano - Automated Whats new videos"
+on:
+  release:
+    types: [published, edited]
+
+jobs:
+  run-whats-new:
+    name: "What's new"
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Run relano
+        uses: "Just-Moh-it/relano@v1.0.0"
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          releaseNotes: ${{ github.event.release.body }}
+          repositorySlug: ${{ github.repository }}
+          releaseTag: ${{ github.event.release.tag_name }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: out.mp4
+          path: out/basecomp.mp4
