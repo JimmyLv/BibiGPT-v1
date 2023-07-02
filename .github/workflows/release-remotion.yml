@@ -1,8 +1,8 @@
 name: "Relano - Automated Whats new videos"
 on:
   push:
-    branches:
-      - main
+#    branches:
+#      - main
     tags: [v\d+\.\d+\.\d+]
 
 jobs:
