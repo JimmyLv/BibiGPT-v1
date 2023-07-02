@@ -1,9 +1,7 @@
 name: "Relano - Automated Whats new videos"
 on:
-  push:
-#    branches:
-#      - main
-    tags: [v\d+\.\d+\.\d+]
+  release:
+    types: [published, edited]
 
 jobs:
   run-whats-new:
