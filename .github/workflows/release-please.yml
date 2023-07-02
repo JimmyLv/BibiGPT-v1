@@ -17,6 +17,6 @@ jobs:
         id: release
         with:
           release-type: node
-          token: ${{secrets.GITHUB_TOKEN}}
+          token: ${{secrets.PAT_TOKEN}}
           default-branch: main
           package-name: bibi-gpt
