@@ -1,20 +1,20 @@
-# 🤖 BibiGPT: 1-Click AI Summary for Audio/Video & Chat with Learning Content [bibigpt.co](https://b.jimmylv.cn/)
+# 🤖 BibiGPT: 1-Click AI Summary for Audio/Video & Chat with Learning Content [https://bibigpt.co](https://b.jimmylv.cn/)
 
-🎉 (formerly BiliGPT), now has support for: Bilibili 丨 YouTube 丨 Webpage 丨 Podcast 丨 Meeting 丨 Local audio and video files and other learning content, "stream-saving artifact & class representative".
+🎉 Effortlessly summarize YouTube videos with our AI-driven Video Summarizer. Also works for Podcasts, Twitter, Meetings, Lectures, Tiktok videos, and more. Discover a smarter way to learn with ChatGPT, your best AI-powered study companion! (formerly BiliGPT) "stream-saving artifact & class representative".
 
 Alternate address: https://b.jimmylv.cn
 
 ---
 
-## 🤖 BibiGPT · 音视频 AI 一键总结 & 对话 [b.jimmylv.cn](https://b.jimmylv.cn/)
+## 🤖 BibiGPT · AI 音视频内容一键总结 & 对话 [https://bibigpt.co](https://b.jimmylv.cn/)
 
-🎉 (原 BiliGPT)，现已经支持：哔哩哔哩丨YouTube丨网页丨播客丨会议丨本地音视频文件等学习内容的一键总结，“省流神器 & 课代表”。
+🎉 ChatGPT AI 音视频一键总结，轻松学习哔哩哔哩丨 YouTube 丨本地视频丨本地音频丨播客丨小红书丨抖音丨会议丨讲座丨网页等任意内容。BibiGPT 助力于成为最好的 AI 学习助理，支持免费试用！(原 BiliGPT 省流神器 & AI 课代表)（支持 iOS 快捷指令 & 微信服务号）。
 
-备用地址：https://bibigpt.co
+备用地址：https://b.jimmylv.cn
 
 ---
 
-🎬 This project summarizes Bilibili/YouTube/Podcast/Meeting/... videos or audios for you using AI.
+🎬 This project summarizes YouTube/Bilibili/Twitter/TikTok/Podcast/Lecture/Meeting/... videos or audios for you using AI.
 
 🤯 Inspired by [Nutlope/news-summarizer](https://github.com/Nutlope/news-summarizer) & [zhengbangbo/chat-simplifier](https://github.com/zhengbangbo/chat-simplifier/) & [lxfater/BilibiliSummary](https://github.com/lxfater/BilibiliSummary)
 
