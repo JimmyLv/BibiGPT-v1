@@ -1,127 +1,165 @@
 # Changelog
 
-## [2.22.0](https://github.com/JimmyLv/BibiGPT/compare/v2.19.0...v2.22.0) (2023-05-18)
-
+## [2.38.0](https://github.com/JimmyLv/BibiGPT/compare/v2.37.0...v2.38.0) (2023-07-02)
 
 ### Miscellaneous Chores
 
-* pre-release 2.22.0 ([c03cfba](https://github.com/JimmyLv/BibiGPT/commit/c03cfba30b32c76e0f943df5204b24c7b2d27e0e))
+- pre-release 2.38.0 ([8fbdaf3](https://github.com/JimmyLv/BibiGPT/commit/8fbdaf329b073c0bdc09c51f155e926a9ae203f8))
+
+## [2.37.0](https://github.com/JimmyLv/BibiGPT/compare/v2.36.0...v2.37.0) (2023-07-02)
+
+### Miscellaneous Chores
+
+- pre-release 2.37.0 ([d7c0fe8](https://github.com/JimmyLv/BibiGPT/commit/d7c0fe8f91665e1a8e240141befb1632506e0ab5))
+
+## [2.36.0](https://github.com/JimmyLv/BibiGPT/compare/v2.35.0...v2.36.0) (2023-07-02)
+
+### Miscellaneous Chores
+
+- pre-release 2.36.0 ([f4525d1](https://github.com/JimmyLv/BibiGPT/commit/f4525d17ec4ca1c2a078157cc3445be14df297c6))
+
+## [2.35.0](https://github.com/JimmyLv/BibiGPT/compare/v2.34.0...v2.35.0) (2023-07-02)
+
+### Miscellaneous Chores
+
+- pre-release 2.35.0 ([ef310e5](https://github.com/JimmyLv/BibiGPT/commit/ef310e5b5215766f7eff36c0602062b050aa6873))
+
+## [2.34.0](https://github.com/JimmyLv/BibiGPT/compare/v2.33.0...v2.34.0) (2023-07-02)
+
+### Miscellaneous Chores
+
+- pre-release 2.34.0 ([75d5f5a](https://github.com/JimmyLv/BibiGPT/commit/75d5f5ae7ba321e7d8ee2c67c432900442d8cc21))
+
+## [2.33.0](https://github.com/JimmyLv/BibiGPT/compare/v2.32.0...v2.33.0) (2023-07-02)
+
+### Miscellaneous Chores
+
+- pre-release 2.33.0 ([e9eb227](https://github.com/JimmyLv/BibiGPT/commit/e9eb2279bf9f94ead40ed5fbc0ab9263395c995f))
+
+## [2.32.0](https://github.com/JimmyLv/BibiGPT/compare/v2.30.0...v2.32.0) (2023-07-02)
+
+### Miscellaneous Chores
+
+- pre-release 2.32.0 ([24205f4](https://github.com/JimmyLv/BibiGPT/commit/24205f4e481ac0e3f18c2427cb39ed4911756bd2))
+
+## [2.30.0](https://github.com/JimmyLv/BibiGPT/compare/v2.25.0...v2.30.0) (2023-07-02)
+
+### Miscellaneous Chores
+
+- pre-release 2.30.0 ([669dd58](https://github.com/JimmyLv/BibiGPT/commit/669dd580748036a3a663af13d76946c590f1ea9f))
+
+## [2.25.0](https://github.com/JimmyLv/BibiGPT/compare/v2.22.0...v2.25.0) (2023-07-02)
+
+### Miscellaneous Chores
+
+- pre-release 2.25.0 ([33908f2](https://github.com/JimmyLv/BibiGPT/commit/33908f29d1d12ffd3735cd8150c30d70a12c5616))
+
+## [2.22.0](https://github.com/JimmyLv/BibiGPT/compare/v2.19.0...v2.22.0) (2023-05-18)
+
+### Miscellaneous Chores
+
+- pre-release 2.22.0 ([c03cfba](https://github.com/JimmyLv/BibiGPT/commit/c03cfba30b32c76e0f943df5204b24c7b2d27e0e))
 
 ## [2.19.0](https://github.com/JimmyLv/BibiGPT/compare/v2.16.0...v2.19.0) (2023-05-07)
 
-
 ### Miscellaneous Chores
 
-* pre-release 2.19.0 ([4358de6](https://github.com/JimmyLv/BibiGPT/commit/4358de653d2c349cc8b7242b674b3cd69dbf1499))
+- pre-release 2.19.0 ([4358de6](https://github.com/JimmyLv/BibiGPT/commit/4358de653d2c349cc8b7242b674b3cd69dbf1499))
 
 ## [2.16.0](https://github.com/JimmyLv/BibiGPT/compare/v2.14.0...v2.16.0) (2023-04-19)
 
-
 ### Miscellaneous Chores
 
-* pre-release 2.16.0 ([7d8ffeb](https://github.com/JimmyLv/BibiGPT/commit/7d8ffebdeaefd24e497d2edbad4674dde98ff518))
+- pre-release 2.16.0 ([7d8ffeb](https://github.com/JimmyLv/BibiGPT/commit/7d8ffebdeaefd24e497d2edbad4674dde98ff518))
 
 ## [2.14.0](https://github.com/JimmyLv/BibiGPT/compare/v2.12.0...v2.14.0) (2023-04-19)
 
-
 ### Miscellaneous Chores
 
-* pre-release 2.14.0 ([f26b487](https://github.com/JimmyLv/BibiGPT/commit/f26b487be69a09da0b2e613357baa856a24ab4c7))
+- pre-release 2.14.0 ([f26b487](https://github.com/JimmyLv/BibiGPT/commit/f26b487be69a09da0b2e613357baa856a24ab4c7))
 
 ## [2.12.0](https://github.com/JimmyLv/BibiGPT/compare/v2.11.0...v2.12.0) (2023-04-19)
 
-
 ### Miscellaneous Chores
 
-* pre-release 2.12.0 ([8112b10](https://github.com/JimmyLv/BibiGPT/commit/8112b10f78816900e699163fa1535bbcc729a54b))
+- pre-release 2.12.0 ([8112b10](https://github.com/JimmyLv/BibiGPT/commit/8112b10f78816900e699163fa1535bbcc729a54b))
 
 ## [2.11.0](https://github.com/JimmyLv/BibiGPT/compare/v2.9.0...v2.11.0) (2023-04-19)
 
-
 ### Miscellaneous Chores
 
-* pre-release 2.11.0 ([c318779](https://github.com/JimmyLv/BibiGPT/commit/c31877946b5549ae0ceb1645cc4a21c4dfcadaba))
+- pre-release 2.11.0 ([c318779](https://github.com/JimmyLv/BibiGPT/commit/c31877946b5549ae0ceb1645cc4a21c4dfcadaba))
 
 ## [2.9.0](https://github.com/JimmyLv/BibiGPT/compare/v2.5.0...v2.9.0) (2023-04-19)
 
-
 ### Miscellaneous Chores
 
-* pre-release 2.9.0 ([aed0f21](https://github.com/JimmyLv/BibiGPT/commit/aed0f211689dc09e01b46ded62d2a0fa426cfb51))
+- pre-release 2.9.0 ([aed0f21](https://github.com/JimmyLv/BibiGPT/commit/aed0f211689dc09e01b46ded62d2a0fa426cfb51))
 
 ## [2.5.0](https://github.com/JimmyLv/BibiGPT/compare/v2.4.0...v2.5.0) (2023-04-03)
 
-
 ### Miscellaneous Chores
 
-* pre-release 2.5.0 ([a776eec](https://github.com/JimmyLv/BibiGPT/commit/a776eec690d0c08f267907d8a21b68d02f4ab276))
+- pre-release 2.5.0 ([a776eec](https://github.com/JimmyLv/BibiGPT/commit/a776eec690d0c08f267907d8a21b68d02f4ab276))
 
 ## [2.4.0](https://github.com/JimmyLv/BibiGPT/compare/v2.3.0...v2.4.0) (2023-03-29)
 
-
 ### Miscellaneous Chores
 
-* pre-release 2.4.0 ([ca44d0a](https://github.com/JimmyLv/BibiGPT/commit/ca44d0a3b9532f82f6e8bae6e3f3627bfb1d463b))
+- pre-release 2.4.0 ([ca44d0a](https://github.com/JimmyLv/BibiGPT/commit/ca44d0a3b9532f82f6e8bae6e3f3627bfb1d463b))
 
 ## [2.3.0](https://github.com/JimmyLv/BibiGPT/compare/v2.2.0...v2.3.0) (2023-03-27)
 
-
 ### Miscellaneous Chores
 
-* pre-release 2.3.0 ([6098bca](https://github.com/JimmyLv/BibiGPT/commit/6098bcaf3aa60b0832bdbe88cd7827620b05ec53))
+- pre-release 2.3.0 ([6098bca](https://github.com/JimmyLv/BibiGPT/commit/6098bcaf3aa60b0832bdbe88cd7827620b05ec53))
 
 ## [2.2.0](https://github.com/JimmyLv/BibiGPT/compare/v2.1.0...v2.2.0) (2023-03-23)
 
-
 ### Miscellaneous Chores
 
-* release 2.2.0 ([f250853](https://github.com/JimmyLv/BibiGPT/commit/f2508537402c8cf7167916065da3e65776065d22))
+- release 2.2.0 ([f250853](https://github.com/JimmyLv/BibiGPT/commit/f2508537402c8cf7167916065da3e65776065d22))
 
 ## [2.1.0](https://github.com/JimmyLv/BibiGPT/compare/v1.7.0...v2.1.0) (2023-03-21)
 
-
 ### Miscellaneous Chores
 
-* release 2.1.0 ([74357d3](https://github.com/JimmyLv/BibiGPT/commit/74357d3b68d842f6490ca1e7ccc40d20985b6ed0))
+- release 2.1.0 ([74357d3](https://github.com/JimmyLv/BibiGPT/commit/74357d3b68d842f6490ca1e7ccc40d20985b6ed0))
 
 ## [1.7.0](https://github.com/JimmyLv/BibiGPT/compare/v1.6.0...v1.7.0) (2023-03-21)
 
-
 ### Features
 
-* remove b23tv api ([56f2c7d](https://github.com/JimmyLv/BibiGPT/commit/56f2c7de8094b336fece7498c3554687fb7b7357))
-* support cache by language ([4fb4c5a](https://github.com/JimmyLv/BibiGPT/commit/4fb4c5af688ac45f0c2e363674dc15c036e68b81))
-
+- remove b23tv api ([56f2c7d](https://github.com/JimmyLv/BibiGPT/commit/56f2c7de8094b336fece7498c3554687fb7b7357))
+- support cache by language ([4fb4c5a](https://github.com/JimmyLv/BibiGPT/commit/4fb4c5af688ac45f0c2e363674dc15c036e68b81))
 
 ### Bug Fixes
 
-* 54 ([ee5e1a4](https://github.com/JimmyLv/BibiGPT/commit/ee5e1a454c50a6d6dcf408243168f256174f4bef))
-* add shop entry for login ([b0d6471](https://github.com/JimmyLv/BibiGPT/commit/b0d647179d55e6034d3bc6cf21b54c5bfa9727f4))
-* extract the default language ([ef04d4a](https://github.com/JimmyLv/BibiGPT/commit/ef04d4affbf1cb3e5751d90a2f7048418a70950e))
-* small button styling ([d18ca4a](https://github.com/JimmyLv/BibiGPT/commit/d18ca4abf12aaae2cc97c00de1eb9c52972ed5ca))
-* update the language ([8725f79](https://github.com/JimmyLv/BibiGPT/commit/8725f79e713dceed3def02260b45aa605c9a38e4))
+- 54 ([ee5e1a4](https://github.com/JimmyLv/BibiGPT/commit/ee5e1a454c50a6d6dcf408243168f256174f4bef))
+- add shop entry for login ([b0d6471](https://github.com/JimmyLv/BibiGPT/commit/b0d647179d55e6034d3bc6cf21b54c5bfa9727f4))
+- extract the default language ([ef04d4a](https://github.com/JimmyLv/BibiGPT/commit/ef04d4affbf1cb3e5751d90a2f7048418a70950e))
+- small button styling ([d18ca4a](https://github.com/JimmyLv/BibiGPT/commit/d18ca4abf12aaae2cc97c00de1eb9c52972ed5ca))
+- update the language ([8725f79](https://github.com/JimmyLv/BibiGPT/commit/8725f79e713dceed3def02260b45aa605c9a38e4))
 
 ## [1.6.0](https://github.com/JimmyLv/BibiGPT/compare/v1.5.1...v1.6.0) (2023-03-18)
 
-
 ### Features
 
-* add git precommit to auto format ([0163489](https://github.com/JimmyLv/BibiGPT/commit/01634891f0a0d87286cfad7ec1200d78cb203fc4))
-* add prettier to format code ([575b664](https://github.com/JimmyLv/BibiGPT/commit/575b664a99fb90acbc96c1df6a3f8733c5290ad5))
-* added internal api proxy ([8cc9513](https://github.com/JimmyLv/BibiGPT/commit/8cc9513215668836f17ca4dc2dbd8647fcb94586))
-* support different cachedId ([da20fd4](https://github.com/JimmyLv/BibiGPT/commit/da20fd4cce499fb2a73ce5625d314107b32c4ddc))
-
+- add git precommit to auto format ([0163489](https://github.com/JimmyLv/BibiGPT/commit/01634891f0a0d87286cfad7ec1200d78cb203fc4))
+- add prettier to format code ([575b664](https://github.com/JimmyLv/BibiGPT/commit/575b664a99fb90acbc96c1df6a3f8733c5290ad5))
+- added internal api proxy ([8cc9513](https://github.com/JimmyLv/BibiGPT/commit/8cc9513215668836f17ca4dc2dbd8647fcb94586))
+- support different cachedId ([da20fd4](https://github.com/JimmyLv/BibiGPT/commit/da20fd4cce499fb2a73ce5625d314107b32c4ddc))
 
 ### Bug Fixes
 
-* improve log ([7601dfc](https://github.com/JimmyLv/BibiGPT/commit/7601dfcfb15eaae588a67f296f6f14e8ecf3685e))
-* increase limit count ([6f6a94c](https://github.com/JimmyLv/BibiGPT/commit/6f6a94c4d3b885454f09e01923fce691bf2d56e1))
-* increase limit cout ([458ee3c](https://github.com/JimmyLv/BibiGPT/commit/458ee3cf0127c047881205b4d7e7241116853c15))
-* reduce heading level ([9ca0067](https://github.com/JimmyLv/BibiGPT/commit/9ca0067bca1e93013219c6bbc97bbf0ae7982440))
-* update copy text for notes app ([4b6ae2d](https://github.com/JimmyLv/BibiGPT/commit/4b6ae2d6f03a2061f886c740076686a85d8c88b3))
-* update env for vercel deploy ([4f207cc](https://github.com/JimmyLv/BibiGPT/commit/4f207cc01ba2f19f5d744aa6b8d928273213b0b2))
-* update input placeholder ([c48062d](https://github.com/JimmyLv/BibiGPT/commit/c48062d797693a6dbf1942656e6bb5a88e91e53d))
-* update suffix ([586162e](https://github.com/JimmyLv/BibiGPT/commit/586162e919055d91ede77b2506952c4c1880bb7b))
+- improve log ([7601dfc](https://github.com/JimmyLv/BibiGPT/commit/7601dfcfb15eaae588a67f296f6f14e8ecf3685e))
+- increase limit count ([6f6a94c](https://github.com/JimmyLv/BibiGPT/commit/6f6a94c4d3b885454f09e01923fce691bf2d56e1))
+- increase limit cout ([458ee3c](https://github.com/JimmyLv/BibiGPT/commit/458ee3cf0127c047881205b4d7e7241116853c15))
+- reduce heading level ([9ca0067](https://github.com/JimmyLv/BibiGPT/commit/9ca0067bca1e93013219c6bbc97bbf0ae7982440))
+- update copy text for notes app ([4b6ae2d](https://github.com/JimmyLv/BibiGPT/commit/4b6ae2d6f03a2061f886c740076686a85d8c88b3))
+- update env for vercel deploy ([4f207cc](https://github.com/JimmyLv/BibiGPT/commit/4f207cc01ba2f19f5d744aa6b8d928273213b0b2))
+- update input placeholder ([c48062d](https://github.com/JimmyLv/BibiGPT/commit/c48062d797693a6dbf1942656e6bb5a88e91e53d))
+- update suffix ([586162e](https://github.com/JimmyLv/BibiGPT/commit/586162e919055d91ede77b2506952c4c1880bb7b))
 
 ## [1.5.1](https://github.com/JimmyLv/BibiGPT/compare/v1.5.0...v1.5.1) (2023-03-14)
 
