@@ -15,15 +15,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16
-      - name: Run relano
-        uses: 'Just-Moh-it/relano@v1.0.0'
+      - name: Run Relano
+        uses: "Just-Moh-it/relano@v1"
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           releaseNotes: ${{ github.event.release.body }}
           repositorySlug: ${{ github.repository }}
           releaseTag: ${{ github.event.release.tag_name }}
+          langCode: 'zh'
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: out.mp4
-          path: out/basecomp.mp4
+          name: ${{ github.repository }}-${{ github.event.release.tag_name }}.mp4
+          path: ${{ github.repository }}-${{ github.event.release.tag_name }}.mp4
