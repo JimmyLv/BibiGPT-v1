@@ -50,6 +50,16 @@ Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_mediu
 
 Setup the env variables, by following the `./example.env` file.
 
+
+## Support Docker
+
+https://github.com/JimmyLv/BibiGPT/pull/133
+
+```shell
+# make sure setup .env file firstly
+docker compose up -d
+```
+
 ## Support -> Contact Me
 
 ![](./public/wechat.jpg)
