@@ -1,0 +1,31 @@
+# Hi, this is a Docker service startup configuration.
+# Please make sure to configure the .env file in this project's root directory before proceeding.
+# you can directly execute the following command to start the service.
+# $ docker compose up -d
+
+# Choose one of the following two services below.
+# If you do not need a particular service, please try to comment it out.
+
+version: '3.9'
+services:
+  # Service 1> Production environment image
+  bibigpt:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        # If you want to use sentry, please set IS_USED_SENTRY=1
+        IS_USED_SENTRY: 0
+    container_name: bibigpt
+    ports:
+      - 3000:3000
+
+  #  Service 2> Development environment image
+  bibigpt-dev:
+    build:
+      context: ./
+      dockerfile: dev.Dockerfile
+    container_name: bibigpt-dev
+    ports:
+      - 3002:3000
+    env_file: .env
