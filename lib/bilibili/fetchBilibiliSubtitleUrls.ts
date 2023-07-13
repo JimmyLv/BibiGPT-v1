@@ -40,9 +40,9 @@ export const fetchBilibiliSubtitleUrls = async (
   const json = await response.json()
 
   // support multiple parts of video
-  if (pageNumber) {
+  if (pageNumber || json?.data?.pages?.length > 0) {
     const { aid, pages } = json?.data || {}
-    const { cid } = find(pages, { page: Number(pageNumber) }) || {}
+    const { cid } = find(pages, { page: Number(pageNumber || 1) }) || {}
 
     // https://api.bilibili.com/x/player/v2?aid=865462240&cid=1035524244
     const pageUrl = `https://api.bilibili.com/x/player/v2?aid=${aid}&cid=${cid}`
