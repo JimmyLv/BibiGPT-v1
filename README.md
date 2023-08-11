@@ -1,12 +1,12 @@
-# 🤖 BibiGPT: 1-Click AI Summary for Audio/Video & Chat with Learning Content [https://bibigpt.co](https://b.jimmylv.cn/)
+# 🤖 BibiGPT v1: one-Click AI Summary for Audio/Video & Chat with Learning Content [https://bibigpt.co](https://b.jimmylv.cn/)
 
-🎉 Effortlessly summarize YouTube videos with our AI-driven Video Summarizer. Also works for Podcasts, Twitter, Meetings, Lectures, Tiktok videos, and more. Discover a smarter way to learn with ChatGPT, your best AI-powered study companion! (formerly BiliGPT) "stream-saving artifact & class representative".
+🎉 Effortlessly summarize YouTube and Bilibili videos with our AI-driven Video Summarizer. It also works for Podcasts, Twitter, Meetings, Lectures, Tiktok videos, and more. Discover a more brilliant way to learn with ChatGPT, your best AI-powered study companion! (formerly BiliGPT) "stream-saving artifact & class representative".
 
 Alternate address: https://b.jimmylv.cn
 
 ---
 
-## 🤖 BibiGPT · AI 音视频内容一键总结 & 对话 [https://bibigpt.co](https://b.jimmylv.cn/)
+## 🤖 BibiGPT v1 · AI 音视频内容一键总结 & 对话 [https://bibigpt.co](https://b.jimmylv.cn/)
 
 🎉 ChatGPT AI 音视频一键总结，轻松学习哔哩哔哩丨 YouTube 丨本地视频丨本地音频丨播客丨小红书丨抖音丨会议丨讲座丨网页等任意内容。BibiGPT 助力于成为最好的 AI 学习助理，支持免费试用！(原 BiliGPT 省流神器 & AI 课代表)（支持 iOS 快捷指令 & 微信服务号）。
 
