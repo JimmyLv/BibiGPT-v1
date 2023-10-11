@@ -1,6 +1,6 @@
 > This repo is only for v1 and supports Bilibil and YouTube!
 
-# 🤖 BibiGPT: one-Click AI Summary for Audio/Video & Chat with Learning Content [https://bibigpt.co](https://b.jimmylv.cn/)
+# 🤖 BibiGPT: one-Click AI Summary for Audio/Video & Chat with Learning Content [https://bibigpt.co](https://bibigpt.co)
 
 🎉 Effortlessly summarize YouTube and Bilibili videos with our AI-driven Video Summarizer. It also works for Podcasts, Twitter, Meetings, Lectures, Tiktok videos, and more. Discover a more brilliant way to learn with ChatGPT, your best AI-powered study companion! (formerly BiliGPT) "stream-saving artifact & class representative".
 
