@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.38.1](https://github.com/JimmyLv/BibiGPT-v1/compare/v2.38.0...v2.38.1) (2023-11-09)
+
+
+### Bug Fixes
+
+* b站字幕获取，对没有pageNumber但是有pages的合集视频增加兼容 ([239d875](https://github.com/JimmyLv/BibiGPT-v1/commit/239d875c6cd7b0b7790c4380ad29f3171f5c8455))
+* update README.md ([df0d27b](https://github.com/JimmyLv/BibiGPT-v1/commit/df0d27b280e8176a469483c3a51f5eda4640f726))
+
 ## [2.38.0](https://github.com/JimmyLv/BibiGPT/compare/v2.37.0...v2.38.0) (2023-07-02)
 
 ### Miscellaneous Chores
