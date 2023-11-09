@@ -44,6 +44,8 @@ After cloning the repo, go to [OpenAI](https://beta.openai.com/account/api-keys)
 
 Then, run the application in the command line and it will be available at `http://localhost:3000`.
 
+[specific running procedure is described in this document - Chinese version](./deploy-ch.md)
+
 ```bash
 npm run dev
 ```
@@ -53,7 +55,6 @@ npm run dev
 Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples)
 
 Setup the env variables, by following the `./example.env` file.
-
 
 ## Support Docker
 
