@@ -1,3 +1,35 @@
+
+<div align="right">
+  <details>
+    <summary >🌐 Language</summary>
+    <div>
+      <div align="center">
+        <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=en">English</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=zh-CN">简体中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=zh-TW">繁體中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=ja">日本語</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=ko">한국어</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=hi">हिन्दी</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=th">ไทย</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=fr">Français</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=de">Deutsch</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=es">Español</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=it">Italiano</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=ru">Русский</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=pt">Português</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=nl">Nederlands</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=pl">Polski</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=ar">العربية</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=fa">فارسی</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=tr">Türkçe</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=vi">Tiếng Việt</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=id">Bahasa Indonesia</a>
+        | <a href="https://openaitx.github.io/view.html?user=JimmyLv&project=BibiGPT-v1&lang=as">অসমীয়া</
+      </div>
+    </div>
+  </details>
+</div>
+
 > This repo is only for v1 and supports Bilibil and YouTube!
 
 # 🤖 BibiGPT: one-Click AI Summary for Audio/Video & Chat with Learning Content [https://bibigpt.co](https://bibigpt.co)
