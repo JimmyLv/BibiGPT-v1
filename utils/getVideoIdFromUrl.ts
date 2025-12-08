@@ -1,8 +1,10 @@
+type SearchParamsLike = Pick<URLSearchParams, 'get'>
+
 export function getVideoIdFromUrl(
   isReady: boolean,
   currentVideoUrl: string,
   urlState?: string | string[],
-  searchParams?: URLSearchParams,
+  searchParams?: SearchParamsLike,
 ): string | undefined {
   // todo: replace urlState to usePathname() https://beta.nextjs.org/docs/api-reference/use-pathname
   const isValidatedUrl =

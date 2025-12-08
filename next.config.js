@@ -5,12 +5,13 @@
 const { withSentryConfig } = require('@sentry/nextjs')
 
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
       process.env.SUPABASE_HOSTNAME || 'xxxx.supabase.co', // to prevent vercel failed
       'b.jimmylv.cn',
+      'bibigpt.co',
       'avatars.dicebear.com',
       // "i2.hdslb.com",
       // "avatars.githubusercontent.com",
@@ -31,4 +32,8 @@ module.exports = {
   },
 }
 
-module.exports = withSentryConfig(module.exports, { silent: true }, { hideSourcemaps: true })
+const shouldEnableSentry = Boolean(process.env.SENTRY_AUTH_TOKEN)
+
+module.exports = shouldEnableSentry
+  ? withSentryConfig(nextConfig, { silent: true }, { hideSourceMaps: true })
+  : nextConfig

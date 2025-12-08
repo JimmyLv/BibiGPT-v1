@@ -6,6 +6,7 @@ export type SummarizeParams = {
 }
 export type UserConfig = {
   userKey?: string
+  baseUrl?: string
   shouldShowTimestamp?: boolean
 }
 export type VideoConfig = {

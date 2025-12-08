@@ -12,6 +12,7 @@
   },
   "repository": "https://github.com/JimmyLv/BibiGPT.git",
   "dependencies": {
+    "@ai-sdk/openai-compatible": "^2.0.35",
     "@hookform/resolvers": "^2.9.11",
     "@next/font": "^13.1.5",
     "@radix-ui/react-dialog": "^1.0.2",
@@ -32,11 +33,11 @@
     "@upstash/ratelimit": "^0.3.8",
     "@upstash/redis": "^1.20.1",
     "@vercel/analytics": "^0.1.8",
+    "ai": "^6.0.116",
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
     "csstype": "^3.1.1",
-    "eventsource-parser": "^0.1.0",
     "flowbite": "^1.6.3",
     "flowbite-react": "^0.4.1",
     "focus-trap-react": "^10.1.0",
@@ -45,7 +46,7 @@
     "lemonsqueezy.ts": "^0.1.6",
     "lucide-react": "^0.122.0",
     "marked-react": "^1.3.2",
-    "next": "latest",
+    "next": "^13.1.6",
     "next-themes": "^0.2.1",
     "node-html-parser": "^6.1.4",
     "p-retry": "^5.1.2",
@@ -61,7 +62,7 @@
     "react-use-measure": "^2.1.1",
     "tailwind-merge": "^1.10.0",
     "tailwindcss-animate": "^1.0.5",
-    "zod": "^3.21.4"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.2",
@@ -78,7 +79,7 @@
     "prettier-plugin-tailwindcss": "^0.2.2",
     "semantic-release": "^20.1.1",
     "tailwindcss": "^3.2.4",
-    "typescript": "4.9.4"
+    "typescript": "^5.9.3"
   },
   "version": "2.38.0",
   "browser": {

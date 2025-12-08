@@ -17,7 +17,7 @@ export async function selectApiKeyAndActivatedLicenseKey(apiKey?: string, videoI
   }
 
   // don't need to validate anymore, already verified in middleware?
-  const myApiKeyList = process.env.OPENAI_API_KEY
+  const myApiKeyList = process.env.OPENAI_COMPATIBLE_API_KEY || process.env.OPENAI_API_KEY
   const luckyApiKey = sample(myApiKeyList?.split(','))
   return luckyApiKey || ''
 }

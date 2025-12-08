@@ -57,6 +57,7 @@ export const Home: NextPage<{
   const [currentVideoId, setCurrentVideoId] = useState<string>('')
   const [currentVideoUrl, setCurrentVideoUrl] = useState<string>('')
   const [userKey, setUserKey] = useLocalStorage<string>('user-openai-apikey')
+  const [userBaseUrl, setUserBaseUrl] = useLocalStorage<string>('user-openai-base-url')
   const { loading, summary, resetSummary, summarize } = useSummarize(showSingIn, getValues('enableStream'))
   const { toast } = useToast()
   const { analytics } = useAnalytics()
@@ -123,7 +124,7 @@ export const Home: NextPage<{
       setCurrentVideoId(id)
       await summarize(
         { videoId: id, service: VideoService.Youtube, ...formValues },
-        { userKey, shouldShowTimestamp: shouldShowTimestamp },
+        { userKey, baseUrl: userBaseUrl, shouldShowTimestamp: shouldShowTimestamp },
       )
       return
     }
@@ -137,7 +138,7 @@ export const Home: NextPage<{
     setCurrentVideoId(videoId)
     await summarize(
       { service: VideoService.Bilibili, videoId, pageNumber, ...formValues },
-      { userKey, shouldShowTimestamp },
+      { userKey, baseUrl: userBaseUrl, shouldShowTimestamp },
     )
     setTimeout(() => {
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
@@ -150,6 +151,9 @@ export const Home: NextPage<{
   }
   const handleApiKeyChange = (e: any) => {
     setUserKey(e.target.value)
+  }
+  const handleBaseUrlChange = (e: any) => {
+    setUserBaseUrl(e.target.value)
   }
 
   const handleInputChange = async (e: any) => {
@@ -172,7 +176,12 @@ export const Home: NextPage<{
       <UsageDescription />
       <TypingSlogan />
       <UsageAction />
-      <UserKeyInput value={userKey} onChange={handleApiKeyChange} />
+      <UserKeyInput
+        value={userKey}
+        onChange={handleApiKeyChange}
+        baseUrl={userBaseUrl}
+        onBaseUrlChange={handleBaseUrlChange}
+      />
       <form onSubmit={handleSubmit(onFormSubmit)} className="grid place-items-center">
         <input
           type="text"

@@ -28,7 +28,7 @@ Browser extension: https://bibigpt.co/extension
 
 ## How it works
 
-This project uses the [OpenAI ChatGPT API](https://openai.com/api/) (specifically, gpt-3.5-turbo) and [Vercel Edge functions](https://vercel.com/features/edge-functions) with streaming and [Upstash](https://console.upstash.com/) for Redis cache and rate limiting. It fetches the content on a Bilibili video, sends it in a prompt to the GPT-3 API to summarize it via a Vercel Edge function, then streams the response back to the application.
+This project uses the [AI SDK OpenAI-compatible provider](https://ai-sdk.dev/providers/openai-compatible-providers) with [Vercel Edge functions](https://vercel.com/features/edge-functions) for streaming, plus [Upstash](https://console.upstash.com/) for Redis cache and rate limiting. It fetches the content on a Bilibili video, sends it in a prompt to an OpenAI-compatible API, then streams the response back to the application.
 
 ## Saving costs
 

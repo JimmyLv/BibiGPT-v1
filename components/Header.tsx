@@ -14,7 +14,7 @@ export default function Header({ showSingIn }: { showSingIn: (show: boolean) => 
       <div className="flex items-center justify-between px-3 sm:px-3">
         <div className="flex items-center space-x-3">
           <a href="https://space.bilibili.com/37648256" target="_blank" rel="noopener noreferrer">
-            <Image src="/video-off.svg" alt="logo" className="animate-bounce" width={34} height={34} />
+            <Image src="https://bibigpt.co/logo.png" alt="logo" className="rounded-full" width={34} height={34} />
           </a>
           <a href={BASE_DOMAIN}>
             <h2 className={clsx('text-lg sm:text-2xl', poppins.className)}>

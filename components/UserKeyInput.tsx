@@ -2,7 +2,14 @@ import React from 'react'
 import { useAnalytics } from '~/components/context/analytics'
 import { CHECKOUT_URL, RATE_LIMIT_COUNT } from '~/utils/constants'
 
-export function UserKeyInput(props: { value: string | undefined; onChange: (e: any) => void }) {
+type UserKeyInputProps = {
+  value: string | undefined
+  onChange: (e: any) => void
+  baseUrl: string | undefined
+  onBaseUrlChange: (e: any) => void
+}
+
+export function UserKeyInput(props: UserKeyInputProps) {
   const { analytics } = useAnalytics()
 
   return (
@@ -46,7 +53,13 @@ export function UserKeyInput(props: { value: string | undefined; onChange: (e: a
           value={props.value}
           onChange={props.onChange}
           className="mx-auto my-4 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder={'填你的 OpenAI API Key: sk-xxxxxx 或者购买的 License Key: xxx-CCDE-xxx'}
+          placeholder={'填你的 API Key（OpenAI 或兼容 OpenAI Provider）或 License Key: xxx-CCDE-xxx'}
+        />
+        <input
+          value={props.baseUrl}
+          onChange={props.onBaseUrlChange}
+          className="mx-auto my-2 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder={'可选：自定义 Base URL，如 https://api.openai.com/v1'}
         />
         <div className="relin-paragraph-target mt-1 text-base text-slate-500">
           <div>

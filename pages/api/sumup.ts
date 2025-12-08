@@ -12,13 +12,15 @@ export const config = {
   runtime: 'edge',
 }
 
-if (!process.env.OPENAI_API_KEY) {
-  throw new Error('Missing env var from OpenAI')
+const DEFAULT_MODEL = process.env.OPENAI_COMPATIBLE_MODEL || 'gpt-3.5-turbo'
+
+if (!process.env.OPENAI_API_KEY && !process.env.OPENAI_COMPATIBLE_API_KEY) {
+  throw new Error('Missing env var for OpenAI-compatible provider API key')
 }
 
 export default async function handler(req: NextRequest, context: NextFetchEvent) {
   const { videoConfig, userConfig } = (await req.json()) as SummarizeParams
-  const { userKey, shouldShowTimestamp } = userConfig
+  const { userKey, baseUrl, shouldShowTimestamp } = userConfig
   const { videoId } = videoConfig
 
   if (!videoId) {
@@ -48,7 +50,7 @@ export default async function handler(req: NextRequest, context: NextFetchEvent)
   try {
     const stream = true
     const openAiPayload = {
-      model: 'gpt-3.5-turbo',
+      model: DEFAULT_MODEL,
       messages: [
         // { role: ChatGPTAgent.system, content: systemPrompt },
         // { role: ChatGPTAgent.user, content: examplePrompt.input },
@@ -66,7 +68,7 @@ export default async function handler(req: NextRequest, context: NextFetchEvent)
 
     // TODO: need refactor
     const openaiApiKey = await selectApiKeyAndActivatedLicenseKey(userKey, videoId)
-    const result = await fetchOpenAIResult(openAiPayload, openaiApiKey, videoConfig)
+    const result = await fetchOpenAIResult(openAiPayload, openaiApiKey, videoConfig, baseUrl)
     if (stream) {
       return new Response(result)
     }

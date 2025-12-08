@@ -1,5 +1,6 @@
+import { createOpenAICompatible } from '@ai-sdk/openai-compatible'
+import { ModelMessage, generateText, streamText } from 'ai'
 import { Redis } from '@upstash/redis'
-import { createParser, ParsedEvent, ReconnectInterval } from 'eventsource-parser'
 import { trimOpenAiResult } from '~/lib/openai/trimOpenAiResult'
 import { VideoConfig } from '~/lib/types'
 import { isDev } from '~/utils/env'
@@ -28,31 +29,65 @@ export interface OpenAIStreamPayload {
   n?: number
 }
 
-export async function fetchOpenAIResult(payload: OpenAIStreamPayload, apiKey: string, videoConfig: VideoConfig) {
-  const encoder = new TextEncoder()
-  const decoder = new TextDecoder()
+function resolveProviderApiKey(apiKey?: string) {
+  return apiKey || process.env.OPENAI_COMPATIBLE_API_KEY || process.env.OPENAI_API_KEY || ''
+}
 
-  isDev && console.log({ apiKey })
-  const res = await fetch('https://api.openai.com/v1/chat/completions', {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey ?? ''}`,
-    },
-    method: 'POST',
-    body: JSON.stringify(payload),
-  })
-
-  if (res.status !== 200) {
-    const errorJson = await res.json()
-    throw new Error(`OpenAI API Error [${res.statusText}]: ${errorJson.error?.message}`)
+function normalizeBaseUrl(baseUrl?: string) {
+  const value = baseUrl?.trim()
+  if (!value) {
+    return ''
   }
+  if (!/^https?:\/\//.test(value)) {
+    throw new Error('baseUrl must start with http:// or https://')
+  }
+  return value.replace(/\/+$/, '')
+}
+
+function createProvider(apiKey: string, baseUrl?: string) {
+  return createOpenAICompatible({
+    baseURL: normalizeBaseUrl(baseUrl) || process.env.OPENAI_COMPATIBLE_BASE_URL || 'https://api.openai.com/v1',
+    name: process.env.OPENAI_COMPATIBLE_PROVIDER_NAME || 'openai-compatible',
+    apiKey,
+  })
+}
+
+function toModelMessages(messages: ChatGPTMessage[]): ModelMessage[] {
+  return messages.map((message) => ({
+    role: message.role,
+    content: message.content,
+  })) as ModelMessage[]
+}
+
+export async function fetchOpenAIResult(
+  payload: OpenAIStreamPayload,
+  apiKey: string,
+  videoConfig: VideoConfig,
+  baseUrl?: string,
+) {
+  const resolvedApiKey = resolveProviderApiKey(apiKey)
+  if (!resolvedApiKey) {
+    throw new Error('Missing API key for OpenAI-compatible provider')
+  }
+  const model = createProvider(resolvedApiKey, baseUrl).chatModel(payload.model)
+  const messages = toModelMessages(payload.messages)
+
+  isDev && console.log({ apiKey: resolvedApiKey })
 
   const redis = Redis.fromEnv()
   const cacheId = getCacheId(videoConfig)
 
   if (!payload.stream) {
-    const result = await res.json()
-    const betterResult = trimOpenAiResult(result)
+    const result = await generateText({
+      model,
+      messages,
+      maxOutputTokens: payload.max_tokens,
+      temperature: payload.temperature,
+      topP: payload.top_p,
+      frequencyPenalty: payload.frequency_penalty,
+      presencePenalty: payload.presence_penalty,
+    })
+    const betterResult = trimOpenAiResult(result.text)
 
     const data = await redis.set(cacheId, betterResult)
     console.info(`video ${cacheId} cached:`, data)
@@ -61,48 +96,31 @@ export async function fetchOpenAIResult(payload: OpenAIStreamPayload, apiKey: st
     return betterResult
   }
 
-  let counter = 0
+  const result = streamText({
+    model,
+    messages,
+    maxOutputTokens: payload.max_tokens,
+    temperature: payload.temperature,
+    topP: payload.top_p,
+    frequencyPenalty: payload.frequency_penalty,
+    presencePenalty: payload.presence_penalty,
+  })
+
+  const encoder = new TextEncoder()
   let tempData = ''
   const stream = new ReadableStream({
     async start(controller) {
-      // callback
-      async function onParse(event: ParsedEvent | ReconnectInterval) {
-        if (event.type === 'event') {
-          const data = event.data
-          // https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
-          if (data === '[DONE]') {
-            // active
-            controller.close()
-            const data = await redis.set(cacheId, tempData)
-            console.info(`video ${cacheId} cached:`, data)
-            isDev && console.log('========betterResult after streamed========', tempData)
-            return
-          }
-          try {
-            const json = JSON.parse(data)
-            const text = json.choices[0].delta?.content || ''
-            // todo: add redis cache
-            tempData += text
-            if (counter < 2 && (text.match(/\n/) || []).length) {
-              // this is a prefix character (i.e., "\n\n"), do nothing
-              return
-            }
-            const queue = encoder.encode(text)
-            controller.enqueue(queue)
-            counter++
-          } catch (e) {
-            // maybe parse error
-            controller.error(e)
-          }
+      try {
+        for await (const textPart of result.textStream) {
+          tempData += textPart
+          controller.enqueue(encoder.encode(textPart))
         }
-      }
-
-      // stream response (SSE) from OpenAI may be fragmented into multiple chunks
-      // this ensures we properly read chunks and invoke an event for each SSE event stream
-      const parser = createParser(onParse)
-      // https://web.dev/streams/#asynchronous-iteration
-      for await (const chunk of res.body as any) {
-        parser.feed(decoder.decode(chunk))
+        controller.close()
+        const data = await redis.set(cacheId, tempData)
+        console.info(`video ${cacheId} cached:`, data)
+        isDev && console.log('========betterResult after streamed========', tempData)
+      } catch (error) {
+        controller.error(error)
       }
     },
   })
