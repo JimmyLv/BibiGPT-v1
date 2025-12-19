@@ -7,6 +7,8 @@ type UserKeyInputProps = {
   onChange: (e: any) => void
   baseUrl: string | undefined
   onBaseUrlChange: (e: any) => void
+  oauthLoading: boolean
+  onStartOpenRouterOAuth: () => void
 }
 
 export function UserKeyInput(props: UserKeyInputProps) {
@@ -61,6 +63,15 @@ export function UserKeyInput(props: UserKeyInputProps) {
           className="mx-auto my-2 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder={'可选：自定义 Base URL，如 https://api.openai.com/v1'}
         />
+        <button
+          type="button"
+          onClick={props.onStartOpenRouterOAuth}
+          disabled={props.oauthLoading}
+          className="my-2 inline-flex items-center rounded-md bg-slate-800 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {props.oauthLoading ? '正在跳转 OpenRouter 授权...' : '使用 OpenRouter OAuth 获取 API Key'}
+        </button>
+        <p className="text-sm text-slate-500">授权成功后会自动填入 API Key 和 OpenRouter Base URL。</p>
         <div className="relin-paragraph-target mt-1 text-base text-slate-500">
           <div>
             如何获取你自己的 License Key

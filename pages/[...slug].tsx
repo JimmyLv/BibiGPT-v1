@@ -23,6 +23,25 @@ import { extractPage, extractUrl } from '~/utils/extractUrl'
 import { getVideoIdFromUrl } from '~/utils/getVideoIdFromUrl'
 import { VideoConfigSchema, videoConfigSchema } from '~/utils/schemas/video'
 
+const OPENROUTER_AUTH_URL = 'https://openrouter.ai/auth'
+
+function toBase64Url(bytes: Uint8Array) {
+  const binary = Array.from(bytes, (byte) => String.fromCharCode(byte)).join('')
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '')
+}
+
+function generatePkceVerifier(length = 64) {
+  const randomBytes = new Uint8Array(length)
+  window.crypto.getRandomValues(randomBytes)
+  return toBase64Url(randomBytes)
+}
+
+async function generatePkceChallenge(verifier: string) {
+  const encoded = new TextEncoder().encode(verifier)
+  const hashBuffer = await window.crypto.subtle.digest('SHA-256', encoded)
+  return toBase64Url(new Uint8Array(hashBuffer))
+}
+
 export const Home: NextPage<{
   showSingIn: (show: boolean) => void
 }> = ({ showSingIn }) => {
@@ -58,6 +77,7 @@ export const Home: NextPage<{
   const [currentVideoUrl, setCurrentVideoUrl] = useState<string>('')
   const [userKey, setUserKey] = useLocalStorage<string>('user-openai-apikey')
   const [userBaseUrl, setUserBaseUrl] = useLocalStorage<string>('user-openai-base-url')
+  const [oauthLoading, setOauthLoading] = useState(false)
   const { loading, summary, resetSummary, summarize } = useSummarize(showSingIn, getValues('enableStream'))
   const { toast } = useToast()
   const { analytics } = useAnalytics()
@@ -156,6 +176,46 @@ export const Home: NextPage<{
     setUserBaseUrl(e.target.value)
   }
 
+  const handleOpenRouterOAuth = async () => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    if (!window.crypto?.subtle) {
+      toast({
+        variant: 'destructive',
+        title: '浏览器不支持 OAuth 授权',
+        description: '请升级浏览器后重试。',
+      })
+      return
+    }
+
+    try {
+      setOauthLoading(true)
+      const codeVerifier = generatePkceVerifier()
+      const codeChallenge = await generatePkceChallenge(codeVerifier)
+      const state = generatePkceVerifier(32)
+      const callbackUrl = `${window.location.origin}/openrouter/callback`
+      sessionStorage.setItem('openrouter_oauth_state', state)
+      sessionStorage.setItem('openrouter_oauth_code_verifier', codeVerifier)
+
+      const params = new URLSearchParams({
+        callback_url: callbackUrl,
+        code_challenge: codeChallenge,
+        code_challenge_method: 'S256',
+        state,
+      })
+      window.location.assign(`${OPENROUTER_AUTH_URL}?${params.toString()}`)
+    } catch (error: any) {
+      setOauthLoading(false)
+      toast({
+        variant: 'destructive',
+        title: 'OpenRouter OAuth 初始化失败',
+        description: error?.message || '请稍后重试',
+      })
+    }
+  }
+
   const handleInputChange = async (e: any) => {
     const value = e.target.value
     // todo: 兼容?query参数
@@ -181,6 +241,8 @@ export const Home: NextPage<{
         onChange={handleApiKeyChange}
         baseUrl={userBaseUrl}
         onBaseUrlChange={handleBaseUrlChange}
+        oauthLoading={oauthLoading}
+        onStartOpenRouterOAuth={handleOpenRouterOAuth}
       />
       <form onSubmit={handleSubmit(onFormSubmit)} className="grid place-items-center">
         <input
