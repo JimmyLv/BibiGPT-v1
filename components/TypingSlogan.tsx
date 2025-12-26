@@ -2,7 +2,7 @@ import React from 'react'
 import { TypeAnimation } from 'react-type-animation'
 import SquigglyLines from '~/components/SquigglyLines'
 
-export function TypingSlogan() {
+export function TypingSlogan({ latestModelName }: { latestModelName?: string }) {
   return (
     <>
       <h1 className="h-[5rem] w-full text-center text-4xl font-bold sm:w-[64rem] sm:text-7xl">
@@ -34,7 +34,10 @@ export function TypingSlogan() {
         音视频内容 <br />
       </h1>
 
-      <h1 className="mt-4 w-full text-center text-4xl font-bold sm:w-[64rem] sm:text-7xl">Powered by GPT-3.5 AI</h1>
+      <h1 className="mt-4 w-full text-center text-4xl font-bold sm:w-[64rem] sm:text-7xl">Powered by OpenRouter AI</h1>
+      <p className="mt-2 w-full text-center text-sm text-slate-500 sm:text-base">
+        {latestModelName ? `最新模型：${latestModelName}` : '正在同步 OpenRouter 最新模型...'}
+      </p>
     </>
   )
 }

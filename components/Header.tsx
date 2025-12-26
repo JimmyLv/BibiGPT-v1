@@ -4,7 +4,7 @@ import Image from 'next/image'
 import React from 'react'
 import SignIn from '~/components/SignIn'
 import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip'
-import { BASE_DOMAIN } from '~/utils/constants'
+import { BASE_DOMAIN, BIBIGPT_PRO_CTA_URL } from '~/utils/constants'
 import Github from '../components/GitHub'
 const poppins = Poppins({ weight: '800', subsets: ['latin'] })
 
@@ -62,6 +62,15 @@ export default function Header({ showSingIn }: { showSingIn: (show: boolean) => 
           </div>
         </div>
         <div className="flex shrink-0 items-center space-x-2 sm:space-x-5">
+          <a
+            href={BIBIGPT_PRO_CTA_URL}
+            rel="noreferrer noopener"
+            target="_blank"
+            className="hidden rounded-full bg-gradient-to-r from-sky-500 to-cyan-500 px-3 py-1 text-xs font-semibold text-white shadow-sm transition hover:opacity-90 sm:block"
+            aria-label="体验 BibiGPT.co 新版"
+          >
+            新版更强 · 查看优惠
+          </a>
           <Tooltip>
             <TooltipTrigger>
               <a

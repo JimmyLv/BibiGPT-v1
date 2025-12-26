@@ -2,17 +2,44 @@ import React from 'react'
 import { UseFormReturn } from 'react-hook-form/dist/types/form'
 import { PROMPT_LANGUAGE_MAP } from '~/utils/constants/language'
 
+type OpenRouterModelOption = {
+  id: string
+  name: string
+}
+
 export function PromptOptions({
   register,
   getValues,
+  modelOptions,
+  modelLoading,
 }: {
   // TODO: add types
   register: any
   getValues: UseFormReturn['getValues']
+  modelOptions: OpenRouterModelOption[]
+  modelLoading: boolean
 }) {
   const shouldShowTimestamp = getValues('showTimestamp')
   return (
     <div className="mt-6 grid grid-cols-2 items-center gap-x-10 gap-y-2 md:mt-10 md:grid-cols-3 md:gap-y-6">
+      <div className="col-span-2 md:col-span-3">
+        <label htmlFor="model" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+          模型（OpenRouter 最新）
+        </label>
+        <select
+          id="model"
+          className="block w-full rounded-md border border-gray-300 bg-gray-50 text-sm text-gray-900 focus:border-sky-500 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 dark:focus:ring-sky-500"
+          {...register('model')}
+        >
+          {modelLoading ? <option value="">加载中...</option> : null}
+          {!modelLoading && modelOptions.length === 0 ? <option value="">暂无可用模型</option> : null}
+          {modelOptions.map((model) => (
+            <option key={model.id} value={model.id}>
+              {model.name}
+            </option>
+          ))}
+        </select>
+      </div>
       <label className="relative inline-flex cursor-pointer items-center">
         <input type="checkbox" value="" className="peer sr-only" {...register('showTimestamp')} />
         <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-sky-400 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-sky-800"></div>

@@ -3,6 +3,7 @@ import { z } from 'zod'
 export const videoConfigSchema = z.object({
   // videoId: z.string(),
   enableStream: z.boolean().optional(),
+  model: z.string().optional(),
   showTimestamp: z.boolean().optional(),
   showEmoji: z.boolean().optional(),
   outputLanguage: z.string().optional(),

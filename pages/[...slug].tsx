@@ -14,6 +14,7 @@ import { TypingSlogan } from '~/components/TypingSlogan'
 import { UsageAction } from '~/components/UsageAction'
 import { UsageDescription } from '~/components/UsageDescription'
 import { UserKeyInput } from '~/components/UserKeyInput'
+import { useOpenRouterModels } from '~/hooks/useOpenRouterModels'
 import { useToast } from '~/hooks/use-toast'
 import { useLocalStorage } from '~/hooks/useLocalStorage'
 import { useSummarize } from '~/hooks/useSummarize'
@@ -62,6 +63,7 @@ export const Home: NextPage<{
   } = useForm<VideoConfigSchema>({
     defaultValues: {
       enableStream: true,
+      model: '',
       showTimestamp: false,
       showEmoji: true,
       detailLevel: 600,
@@ -78,6 +80,7 @@ export const Home: NextPage<{
   const [userKey, setUserKey] = useLocalStorage<string>('user-openai-apikey')
   const [userBaseUrl, setUserBaseUrl] = useLocalStorage<string>('user-openai-base-url')
   const [oauthLoading, setOauthLoading] = useState(false)
+  const { models: openRouterModels, latestModel, loading: modelLoading } = useOpenRouterModels()
   const { loading, summary, resetSummary, summarize } = useSummarize(showSingIn, getValues('enableStream'))
   const { toast } = useToast()
   const { analytics } = useAnalytics()
@@ -93,6 +96,16 @@ export const Home: NextPage<{
   useEffect(() => {
     licenseKey && setUserKey(licenseKey)
   }, [licenseKey])
+
+  useEffect(() => {
+    if (!openRouterModels.length) {
+      return
+    }
+    const currentModel = getValues('model')
+    if (!currentModel) {
+      setValue('model', openRouterModels[0].id)
+    }
+  }, [openRouterModels, getValues, setValue])
 
   useEffect(() => {
     // https://www.youtube.com/watch?v=DHhOgWPKIKU
@@ -234,7 +247,7 @@ export const Home: NextPage<{
   return (
     <div className="mt-10 w-full px-4 sm:mt-40 lg:px-0">
       <UsageDescription />
-      <TypingSlogan />
+      <TypingSlogan latestModelName={latestModel?.name} />
       <UsageAction />
       <UserKeyInput
         value={userKey}
@@ -253,7 +266,12 @@ export const Home: NextPage<{
           placeholder={'输入 bilibili.com/youtube.com 视频链接，按下「回车」'}
         />
         <SubmitButton loading={loading} />
-        <PromptOptions getValues={getValues} register={register} />
+        <PromptOptions
+          getValues={getValues}
+          register={register}
+          modelOptions={openRouterModels}
+          modelLoading={modelLoading}
+        />
       </form>
       {summary && (
         <SummaryResult

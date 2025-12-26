@@ -50,7 +50,7 @@ export default async function handler(req: NextRequest, context: NextFetchEvent)
   try {
     const stream = true
     const openAiPayload = {
-      model: DEFAULT_MODEL,
+      model: videoConfig.model || DEFAULT_MODEL,
       messages: [
         // { role: ChatGPTAgent.system, content: systemPrompt },
         // { role: ChatGPTAgent.user, content: examplePrompt.input },
