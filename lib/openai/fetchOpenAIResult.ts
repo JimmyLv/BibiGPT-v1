@@ -59,6 +59,24 @@ function toModelMessages(messages: ChatGPTMessage[]): ModelMessage[] {
   })) as ModelMessage[]
 }
 
+async function generateTextFallback(params: {
+  model: ReturnType<ReturnType<typeof createProvider>['chatModel']>
+  messages: ModelMessage[]
+  payload: OpenAIStreamPayload
+}) {
+  const result = await generateText({
+    model: params.model,
+    messages: params.messages,
+    maxOutputTokens: params.payload.max_tokens,
+    temperature: params.payload.temperature,
+    topP: params.payload.top_p,
+    frequencyPenalty: params.payload.frequency_penalty,
+    presencePenalty: params.payload.presence_penalty,
+  })
+
+  return trimOpenAiResult(result.text)
+}
+
 export async function fetchOpenAIResult(
   payload: OpenAIStreamPayload,
   apiKey: string,
@@ -78,16 +96,7 @@ export async function fetchOpenAIResult(
   const cacheId = getCacheId(videoConfig)
 
   if (!payload.stream) {
-    const result = await generateText({
-      model,
-      messages,
-      maxOutputTokens: payload.max_tokens,
-      temperature: payload.temperature,
-      topP: payload.top_p,
-      frequencyPenalty: payload.frequency_penalty,
-      presencePenalty: payload.presence_penalty,
-    })
-    const betterResult = trimOpenAiResult(result.text)
+    const betterResult = await generateTextFallback({ model, messages, payload })
 
     const data = await redis.set(cacheId, betterResult)
     console.info(`video ${cacheId} cached:`, data)
@@ -115,12 +124,34 @@ export async function fetchOpenAIResult(
           tempData += textPart
           controller.enqueue(encoder.encode(textPart))
         }
+
+        // Edge runtime can fail to decode provider stream in some environments.
+        // If stream finished but emitted no usable content, fallback to non-stream.
+        if (!tempData.trim()) {
+          const fallbackText = await generateTextFallback({ model, messages, payload })
+          if (fallbackText) {
+            tempData = fallbackText
+            controller.enqueue(encoder.encode(fallbackText))
+          }
+        }
+
         controller.close()
         const data = await redis.set(cacheId, tempData)
         console.info(`video ${cacheId} cached:`, data)
         isDev && console.log('========betterResult after streamed========', tempData)
-      } catch (error) {
-        controller.error(error)
+      } catch (streamError) {
+        // Degrade gracefully: return full text instead of failing the whole request.
+        try {
+          const fallbackText = await generateTextFallback({ model, messages, payload })
+          tempData = fallbackText
+          controller.enqueue(encoder.encode(fallbackText))
+          controller.close()
+          const data = await redis.set(cacheId, tempData)
+          console.info(`video ${cacheId} cached by fallback:`, data)
+          isDev && console.warn('stream failed, used fallback generateText', streamError)
+        } catch (fallbackError) {
+          controller.error(fallbackError)
+        }
       }
     },
   })
