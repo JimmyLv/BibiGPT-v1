@@ -16,9 +16,8 @@ const Home: NextPage<{
       try {
         const [response, ctx] = await browser
         setAnalytics(response)
-        // @ts-ignore
-        window.analytics = response
-        window.analytics?.page()
+        ;(window as any).analytics = response
+        ;(window as any).analytics?.page()
       } catch (err) {
         console.error(err)
         setAnalytics(undefined)
