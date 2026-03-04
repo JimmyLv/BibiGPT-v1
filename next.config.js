@@ -8,14 +8,23 @@ const { withSentryConfig } = require('@sentry/nextjs')
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: [
-      process.env.SUPABASE_HOSTNAME || 'xxxx.supabase.co', // to prevent vercel failed
-      'b.jimmylv.cn',
-      'bibigpt.co',
-      'avatars.dicebear.com',
-      // "i2.hdslb.com",
-      // "avatars.githubusercontent.com",
-      // "s3-us-west-2.amazonaws.com",
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: process.env.SUPABASE_HOSTNAME || 'xxxx.supabase.co', // to prevent vercel failed
+      },
+      {
+        protocol: 'https',
+        hostname: 'b.jimmylv.cn',
+      },
+      {
+        protocol: 'https',
+        hostname: 'bibigpt.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.dicebear.com',
+      },
     ],
   },
   async rewrites() {

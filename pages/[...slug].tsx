@@ -1,9 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import getVideoId from 'get-video-id'
 import type { NextPage } from 'next'
-import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import useFormPersist from 'react-hook-form-persist'
 import { useAnalytics } from '~/components/context/analytics'
@@ -48,7 +47,10 @@ export const Home: NextPage<{
 }> = ({ showSingIn }) => {
   const router = useRouter()
   const urlState = router.query.slug
-  const searchParams = useSearchParams()
+  const searchParams = useMemo(() => {
+    const [, queryString = ''] = router.asPath.split('?')
+    return new URLSearchParams(queryString)
+  }, [router.asPath])
   const licenseKey = searchParams.get('license_key')
 
   const {
@@ -81,7 +83,7 @@ export const Home: NextPage<{
   const [userBaseUrl, setUserBaseUrl] = useLocalStorage<string>('user-openai-base-url')
   const [oauthLoading, setOauthLoading] = useState(false)
   const { models: openRouterModels, latestModel, loading: modelLoading } = useOpenRouterModels()
-  const { loading, summary, resetSummary, summarize } = useSummarize(showSingIn, getValues('enableStream'))
+  const { loading, summary, resetSummary, summarize } = useSummarize(showSingIn)
   const { toast } = useToast()
   const { analytics } = useAnalytics()
 

@@ -1,4 +1,4 @@
-import { Inter as FontSans } from '@next/font/google'
+import { Inter as FontSans } from 'next/font/google'
 import { createBrowserSupabaseClient, Session } from '@supabase/auth-helpers-nextjs'
 import { SessionContextProvider } from '@supabase/auth-helpers-react'
 import { Analytics } from '@vercel/analytics/react'

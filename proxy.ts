@@ -11,14 +11,25 @@ import { isDev } from './utils/env'
 
 const redis = Redis.fromEnv()
 
+function isChatRequest(req: NextRequest) {
+  return req.nextUrl.pathname === '/api/chat'
+}
+
+function textError(status: number, message: string): NextResponse {
+  return new NextResponse(`${status}::${message}`, {
+    status,
+    headers: { 'content-type': 'text/plain; charset=utf-8' },
+  })
+}
+
 /**
- *
  * Respond with JSON indicating an error message
- * @return {*}  {NextResponse}
  */
-function redirectAuth(): NextResponse {
-  // return NextResponse.redirect(new URL("/shop", req.url));
+function redirectAuth(req: NextRequest): NextResponse {
   console.error('Authentication Failed')
+  if (isChatRequest(req)) {
+    return textError(401, 'Authentication Failed')
+  }
   return new NextResponse(JSON.stringify({ success: false, message: 'Authentication Failed' }), {
     status: 401,
     headers: { 'content-type': 'application/json' },
@@ -27,22 +38,44 @@ function redirectAuth(): NextResponse {
 
 /**
  * Redirects the user to the page where the number of uses is purchased
- *
- * @param {NextRequest} req
- * @return {*}  {NextResponse}
  */
 function redirectShop(req: NextRequest): NextResponse {
   console.error('Account Limited')
+  if (isChatRequest(req)) {
+    return textError(504, 'Account Limited')
+  }
   return NextResponse.redirect(new URL('/shop', req.url))
 }
 
-export async function middleware(req: NextRequest, context: NextFetchEvent) {
+export async function proxy(req: NextRequest, context: NextFetchEvent) {
+  if (req.method !== 'POST') {
+    return NextResponse.next()
+  }
+
+  const contentType = req.headers.get('content-type') || ''
+  if (!contentType.toLowerCase().includes('application/json')) {
+    return NextResponse.next()
+  }
+
   try {
-    const { userConfig, videoConfig } = (await req.json()) as SummarizeParams
-    // TODO: update shouldShowTimestamp to use videoConfig
-    const { userKey } = userConfig || {}
+    let body: Partial<SummarizeParams>
+    try {
+      body = (await req.json()) as Partial<SummarizeParams>
+    } catch (parseError) {
+      console.warn('proxy skipped non-json/empty body request', parseError)
+      return NextResponse.next()
+    }
+
+    const { userConfig = {}, videoConfig } = body
+    const { userKey } = userConfig
+
+    if (!videoConfig) {
+      return NextResponse.next()
+    }
+
     const cacheId = getCacheId(videoConfig)
-    const ipIdentifier = req.ip ?? '127.0.0.11'
+    const ipIdentifier =
+      req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || req.headers.get('x-real-ip') || '127.0.0.11'
 
     // licenseKeys
     if (userKey) {
@@ -96,21 +129,29 @@ export async function middleware(req: NextRequest, context: NextFetchEvent) {
         }
 
         // todo: throw error to trigger a modal, rather than redirect a page
-        return redirectAuth()
+        return redirectAuth(req)
       }
     }
 
     const result = await redis.get<string>(cacheId)
     if (result) {
       console.log('hit cache for ', cacheId)
+      if (isChatRequest(req)) {
+        return new NextResponse(result, {
+          status: 200,
+          headers: { 'content-type': 'text/plain; charset=utf-8' },
+        })
+      }
       return NextResponse.json(result)
     }
   } catch (e) {
     console.error(e)
-    return redirectAuth()
+    return NextResponse.next()
   }
+
+  return NextResponse.next()
 }
 
-export const config = {
-  matcher: '/api/sumup',
+export const proxyConfig = {
+  matcher: ['/api/sumup', '/api/chat'],
 }
