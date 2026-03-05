@@ -1,88 +1,51 @@
-import type { NextFetchEvent, NextRequest } from 'next/server'
-import { NextResponse } from 'next/server'
-import { fetchSubtitle } from '~/lib/fetchSubtitle'
-import { ChatGPTAgent, fetchOpenAIResult } from '~/lib/openai/fetchOpenAIResult'
-import { getSmallSizeTranscripts } from '~/lib/openai/getSmallSizeTranscripts'
-import { getUserSubtitlePrompt, getUserSubtitleWithTimestampPrompt } from '~/lib/openai/prompt'
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { buildSummarizeOpenAIPayload, SummarizeRequestError } from '~/lib/openai/buildSummarizeRequest'
+import { fetchOpenAIResult } from '~/lib/openai/fetchOpenAIResult'
 import { selectApiKeyAndActivatedLicenseKey } from '~/lib/openai/selectApiKeyAndActivatedLicenseKey'
 import { SummarizeParams } from '~/lib/types'
-import { isDev } from '~/utils/env'
-
-export const config = {
-  runtime: 'edge',
-}
-
-const DEFAULT_MODEL = process.env.OPENAI_COMPATIBLE_MODEL || 'gpt-3.5-turbo'
+import { writeWebStreamToNodeResponse } from '~/lib/openai/writeWebStreamToNodeResponse'
 
 if (!process.env.OPENAI_API_KEY && !process.env.OPENAI_COMPATIBLE_API_KEY) {
   throw new Error('Missing env var for OpenAI-compatible provider API key')
 }
 
-export default async function handler(req: NextRequest, context: NextFetchEvent) {
-  const { videoConfig, userConfig } = (await req.json()) as SummarizeParams
-  const { userKey, baseUrl, shouldShowTimestamp } = userConfig
-  const { videoId } = videoConfig
-
-  if (!videoId) {
-    return new Response('No videoId in the request', { status: 500 })
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST')
+    return res.status(405).json({ errorMessage: 'Method Not Allowed' })
   }
-  const { title, subtitlesArray, descriptionText } = await fetchSubtitle(videoConfig, shouldShowTimestamp)
-  if (!subtitlesArray && !descriptionText) {
-    console.error('No subtitle in the video: ', videoId)
-    return new Response('No subtitle in the video', { status: 501 })
-  }
-  const inputText = subtitlesArray ? getSmallSizeTranscripts(subtitlesArray, subtitlesArray) : descriptionText // subtitlesArray.map((i) => i.text).join("\n")
 
-  // TODO: try the apiKey way for chrome extensions
-  // const systemPrompt = getSystemPrompt({
-  //   shouldShowTimestamp: subtitlesArray ? shouldShowTimestamp : false,
-  // });
-  // const examplePrompt = getExamplePrompt();
-  const userPrompt = shouldShowTimestamp
-    ? getUserSubtitleWithTimestampPrompt(title, inputText, videoConfig)
-    : getUserSubtitlePrompt(title, inputText, videoConfig)
-  if (isDev) {
-    // console.log("final system prompt: ", systemPrompt);
-    // console.log("final example prompt: ", examplePrompt);
-    console.log('final user prompt: ', userPrompt)
+  const summarizeParams = req.body as Partial<SummarizeParams>
+  if (!summarizeParams?.videoConfig || !summarizeParams?.userConfig) {
+    return res.status(400).json({ errorMessage: 'Missing videoConfig or userConfig' })
   }
 
   try {
-    const stream = true
-    const openAiPayload = {
-      model: videoConfig.model || DEFAULT_MODEL,
-      messages: [
-        // { role: ChatGPTAgent.system, content: systemPrompt },
-        // { role: ChatGPTAgent.user, content: examplePrompt.input },
-        // { role: ChatGPTAgent.assistant, content: examplePrompt.output },
-        { role: ChatGPTAgent.user, content: userPrompt },
-      ],
-      // temperature: 0.5,
-      // top_p: 1,
-      // frequency_penalty: 0,
-      // presence_penalty: 0,
-      max_tokens: Number(videoConfig.detailLevel) || (userKey ? 800 : 600),
-      stream,
-      // n: 1,
-    }
-
-    // TODO: need refactor
+    const normalizedParams = summarizeParams as SummarizeParams
+    const { videoConfig } = normalizedParams
+    const { openAiPayload, userKey, baseUrl, videoId } = await buildSummarizeOpenAIPayload(normalizedParams)
     const openaiApiKey = await selectApiKeyAndActivatedLicenseKey(userKey, videoId)
     const result = await fetchOpenAIResult(openAiPayload, openaiApiKey, videoConfig, baseUrl)
-    if (stream) {
-      return new Response(result)
+
+    if (openAiPayload.stream) {
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8')
+      res.setHeader('Cache-Control', 'no-cache')
+      if (result instanceof ReadableStream) {
+        await writeWebStreamToNodeResponse(result, res)
+        return
+      }
+      res.status(200).send(result)
+      return
     }
 
-    return NextResponse.json(result)
+    res.status(200).json(result)
   } catch (error: any) {
-    console.error(error.message)
-    return new Response(
-      JSON.stringify({
-        errorMessage: error.message,
-      }),
-      {
-        status: 500,
-      },
-    )
+    if (error instanceof SummarizeRequestError) {
+      return res.status(error.statusCode).json({ errorMessage: error.message })
+    }
+    console.error(error?.message)
+    return res.status(500).json({
+      errorMessage: error?.message || 'Internal Server Error',
+    })
   }
 }
