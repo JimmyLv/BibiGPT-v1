@@ -11,6 +11,11 @@
       "sourceType": "github",
       "computedHash": "58ce68f628890c3925aea2b5435a649251ac182057541045c68fc19a27aaa0ec"
     },
+    "bibi": {
+      "source": "jimmylv/bibigpt-skill",
+      "sourceType": "github",
+      "computedHash": "c7f5fd091a6e601531a7e0aee9408e226a83a633d030e4ffc5fd1ff69936a6a1"
+    },
     "find-skills": {
       "source": "vercel-labs/skills",
       "sourceType": "github",
