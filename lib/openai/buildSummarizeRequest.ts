@@ -5,7 +5,18 @@ import { getUserSubtitlePrompt, getUserSubtitleWithTimestampPrompt } from '~/lib
 import { SummarizeParams } from '~/lib/types'
 import { isDev } from '~/utils/env'
 
-const DEFAULT_MODEL = process.env.OPENAI_COMPATIBLE_MODEL || 'gpt-3.5-turbo'
+function resolveDefaultModel(): string {
+  if (process.env.OPENAI_COMPATIBLE_MODEL) {
+    return process.env.OPENAI_COMPATIBLE_MODEL
+  }
+  // When only MINIMAX_API_KEY is configured, default to a MiniMax model.
+  if (process.env.MINIMAX_API_KEY && !process.env.OPENAI_API_KEY) {
+    return 'MiniMax-M2.7'
+  }
+  return 'gpt-3.5-turbo'
+}
+
+const DEFAULT_MODEL = resolveDefaultModel()
 
 export class SummarizeRequestError extends Error {
   statusCode: number
