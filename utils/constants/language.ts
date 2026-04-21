@@ -13,4 +13,22 @@ export const PROMPT_LANGUAGE_MAP: { [key: string]: string } = {
   हिंदी: 'hi-IN',
 }
 
+// Maps locale codes to explicit English language names for use in AI prompts.
+// Using explicit names (e.g. "Simplified Chinese") instead of locale codes (e.g. "zh-CN")
+// reduces ambiguity and prevents the model from mixing up language variants.
+export const LANGUAGE_CODE_TO_ENGLISH_NAME: { [key: string]: string } = {
+  'en-US': 'English',
+  'zh-CN': 'Simplified Chinese',
+  'zh-TW': 'Traditional Chinese',
+  'ja-JP': 'Japanese',
+  'it-IT': 'Italian',
+  'de-DE': 'German',
+  'es-ES': 'Spanish',
+  'fr-FR': 'French',
+  'nl-NL': 'Dutch',
+  'ko-KR': 'Korean',
+  'km-KH': 'Khmer',
+  'hi-IN': 'Hindi',
+}
+
 export const DEFAULT_LANGUAGE = 'zh-CN'
