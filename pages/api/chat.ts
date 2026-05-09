@@ -5,8 +5,8 @@ import { selectApiKeyAndActivatedLicenseKey } from '~/lib/openai/selectApiKeyAnd
 import { SummarizeParams } from '~/lib/types'
 import { writeWebStreamToNodeResponse } from '~/lib/openai/writeWebStreamToNodeResponse'
 
-if (!process.env.OPENAI_API_KEY && !process.env.OPENAI_COMPATIBLE_API_KEY) {
-  throw new Error('Missing env var for OpenAI-compatible provider API key')
+if (!process.env.OPENAI_API_KEY && !process.env.OPENAI_COMPATIBLE_API_KEY && !process.env.MINIMAX_API_KEY) {
+  throw new Error('Missing env var for LLM provider API key (OPENAI_API_KEY, OPENAI_COMPATIBLE_API_KEY, or MINIMAX_API_KEY)')
 }
 
 type ChatBody = Partial<SummarizeParams> & {

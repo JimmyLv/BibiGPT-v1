@@ -1,6 +1,7 @@
 import React from 'react'
 import { useAnalytics } from '~/components/context/analytics'
 import { CHECKOUT_URL, RATE_LIMIT_COUNT } from '~/utils/constants'
+import { PROVIDER_PRESETS } from '~/lib/providers/presets'
 
 type UserKeyInputProps = {
   value: string | undefined
@@ -9,6 +10,7 @@ type UserKeyInputProps = {
   onBaseUrlChange: (e: any) => void
   oauthLoading: boolean
   onStartOpenRouterOAuth: () => void
+  onSelectProviderPreset?: (presetId: string) => void
 }
 
 export function UserKeyInput(props: UserKeyInputProps) {
@@ -63,6 +65,19 @@ export function UserKeyInput(props: UserKeyInputProps) {
           className="mx-auto my-2 w-full appearance-none rounded-lg rounded-md border bg-transparent py-2 pl-2 text-sm leading-6 text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder={'可选：自定义 Base URL，如 https://api.openai.com/v1'}
         />
+        <div className="my-2 flex flex-wrap gap-2">
+          <span className="text-sm text-slate-500">快速选择：</span>
+          {PROVIDER_PRESETS.map((preset) => (
+            <button
+              key={preset.id}
+              type="button"
+              onClick={() => props.onSelectProviderPreset?.(preset.id)}
+              className="inline-flex items-center rounded-md bg-sky-100 px-3 py-1 text-sm font-medium text-sky-700 hover:bg-sky-200 dark:bg-sky-900 dark:text-sky-300 dark:hover:bg-sky-800"
+            >
+              {preset.label}
+            </button>
+          ))}
+        </div>
         <button
           type="button"
           onClick={props.onStartOpenRouterOAuth}

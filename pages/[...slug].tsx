@@ -14,6 +14,7 @@ import { UsageAction } from '~/components/UsageAction'
 import { UsageDescription } from '~/components/UsageDescription'
 import { UserKeyInput } from '~/components/UserKeyInput'
 import { useOpenRouterModels } from '~/hooks/useOpenRouterModels'
+import { getProviderPreset } from '~/lib/providers/presets'
 import { useToast } from '~/hooks/use-toast'
 import { useLocalStorage } from '~/hooks/useLocalStorage'
 import { useSummarize } from '~/hooks/useSummarize'
@@ -81,6 +82,7 @@ export const Home: NextPage<{
   const [currentVideoUrl, setCurrentVideoUrl] = useState<string>('')
   const [userKey, setUserKey] = useLocalStorage<string>('user-openai-apikey')
   const [userBaseUrl, setUserBaseUrl] = useLocalStorage<string>('user-openai-base-url')
+  const [selectedProvider, setSelectedProvider] = useLocalStorage<string>('user-provider-preset')
   const [oauthLoading, setOauthLoading] = useState(false)
   const { models: openRouterModels, latestModel, loading: modelLoading } = useOpenRouterModels()
   const { loading, summary, resetSummary, summarize } = useSummarize(showSingIn)
@@ -191,6 +193,18 @@ export const Home: NextPage<{
     setUserBaseUrl(e.target.value)
   }
 
+  const handleSelectProviderPreset = (presetId: string) => {
+    const preset = getProviderPreset(presetId)
+    if (!preset) return
+    setSelectedProvider(presetId)
+    setUserBaseUrl(preset.baseUrl)
+    setValue('model', preset.defaultModel)
+    toast({
+      title: `已切换到 ${preset.label}`,
+      description: `Base URL 已设为 ${preset.baseUrl}，模型已设为 ${preset.defaultModel}`,
+    })
+  }
+
   const handleOpenRouterOAuth = async () => {
     if (typeof window === 'undefined') {
       return
@@ -258,6 +272,7 @@ export const Home: NextPage<{
         onBaseUrlChange={handleBaseUrlChange}
         oauthLoading={oauthLoading}
         onStartOpenRouterOAuth={handleOpenRouterOAuth}
+        onSelectProviderPreset={handleSelectProviderPreset}
       />
       <form onSubmit={handleSubmit(onFormSubmit)} className="grid place-items-center">
         <input
@@ -273,6 +288,7 @@ export const Home: NextPage<{
           register={register}
           modelOptions={openRouterModels}
           modelLoading={modelLoading}
+          providerPresetModels={getProviderPreset(selectedProvider || '')?.models}
         />
       </form>
       {summary && (

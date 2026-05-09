@@ -38,9 +38,28 @@ Projects like this can get expensive so in order to save costs if you want to ma
 - [x] 2. Implement caching to avoid expensive AI re-generations
 - [x] 3. Use `text-curie-001` instead of `text-dacinci-003` in the `summarize` edge function
 
+## Supported LLM Providers
+
+BibiGPT works with any OpenAI-compatible API. Built-in provider presets are available in the UI for quick switching:
+
+| Provider | Models | Env Variable |
+|----------|--------|-------------|
+| [OpenAI](https://platform.openai.com/) | GPT-4o, GPT-4o Mini, GPT-3.5 Turbo | `OPENAI_API_KEY` |
+| [MiniMax](https://www.minimaxi.com/) | MiniMax-M2.7, MiniMax-M2.5-highspeed (204K context) | `MINIMAX_API_KEY` |
+| Any OpenAI-compatible | Custom | `OPENAI_COMPATIBLE_API_KEY` + `OPENAI_COMPATIBLE_BASE_URL` |
+| [OpenRouter](https://openrouter.ai/) | 200+ models (via OAuth) | OAuth in UI |
+
+### Using MiniMax
+
+Set `MINIMAX_API_KEY` in your `.env` file. The app will automatically use the MiniMax API endpoint and default to the `MiniMax-M2.7` model. You can also click the "MiniMax" preset button in the UI to configure it interactively.
+
+```bash
+MINIMAX_API_KEY=your_minimax_api_key
+```
+
 ## Running Locally
 
-After cloning the repo, go to [OpenAI](https://beta.openai.com/account/api-keys) to make an account and put your API key in a file called `.env`.
+After cloning the repo, create a `.env` file with your API key (OpenAI, MiniMax, or any OpenAI-compatible provider).
 
 Then, run the application in the command line and it will be available at `http://localhost:3000`.
 

@@ -30,7 +30,7 @@ export interface OpenAIStreamPayload {
 }
 
 function resolveProviderApiKey(apiKey?: string) {
-  return apiKey || process.env.OPENAI_COMPATIBLE_API_KEY || process.env.OPENAI_API_KEY || ''
+  return apiKey || process.env.OPENAI_COMPATIBLE_API_KEY || process.env.MINIMAX_API_KEY || process.env.OPENAI_API_KEY || ''
 }
 
 function normalizeBaseUrl(baseUrl?: string) {
@@ -44,10 +44,36 @@ function normalizeBaseUrl(baseUrl?: string) {
   return value.replace(/\/+$/, '')
 }
 
+function resolveDefaultBaseUrl(): string {
+  if (process.env.OPENAI_COMPATIBLE_BASE_URL) {
+    return process.env.OPENAI_COMPATIBLE_BASE_URL
+  }
+  // When only MINIMAX_API_KEY is set, default to the MiniMax endpoint.
+  if (process.env.MINIMAX_API_KEY && !process.env.OPENAI_API_KEY) {
+    return 'https://api.minimax.io/v1'
+  }
+  return 'https://api.openai.com/v1'
+}
+
+function isMiniMaxUrl(baseUrl: string): boolean {
+  return baseUrl.includes('minimax.io') || baseUrl.includes('minimax.chat')
+}
+
+function resolveProviderName(baseUrl: string): string {
+  if (process.env.OPENAI_COMPATIBLE_PROVIDER_NAME) {
+    return process.env.OPENAI_COMPATIBLE_PROVIDER_NAME
+  }
+  if (isMiniMaxUrl(baseUrl)) {
+    return 'minimax'
+  }
+  return 'openai-compatible'
+}
+
 function createProvider(apiKey: string, baseUrl?: string) {
+  const resolvedBaseUrl = normalizeBaseUrl(baseUrl) || resolveDefaultBaseUrl()
   return createOpenAICompatible({
-    baseURL: normalizeBaseUrl(baseUrl) || process.env.OPENAI_COMPATIBLE_BASE_URL || 'https://api.openai.com/v1',
-    name: process.env.OPENAI_COMPATIBLE_PROVIDER_NAME || 'openai-compatible',
+    baseURL: resolvedBaseUrl,
+    name: resolveProviderName(resolvedBaseUrl),
     apiKey,
   })
 }
