@@ -30,6 +30,19 @@ Browser extension: https://bibigpt.co/extension
 
 This project uses the [AI SDK OpenAI-compatible provider](https://ai-sdk.dev/providers/openai-compatible-providers) with [Vercel Edge functions](https://vercel.com/features/edge-functions) for streaming, plus [Upstash](https://console.upstash.com/) for Redis cache and rate limiting. It fetches the content on a Bilibili video, sends it in a prompt to an OpenAI-compatible API, then streams the response back to the application.
 
+## Optional: TwelveLabs Pegasus video-native summary（可选：TwelveLabs Pegasus 视频原生总结）
+
+By default BibiGPT summarizes a video from its **transcript**. As an opt-in alternative, you can use [TwelveLabs Pegasus](https://twelvelabs.io) to summarize a video by actually **watching** it — useful when a video has no subtitles, or when on-screen actions and visuals matter as much as the spoken words.
+
+默认情况下，BibiGPT 通过**字幕**来总结视频。作为可选项，你可以使用 [TwelveLabs Pegasus](https://twelvelabs.io) 直接“观看”视频来生成总结——当视频没有字幕，或画面动作与视觉信息和台词同样重要时尤其有用。
+
+This is fully opt-in and non-breaking: when `TWELVELABS_API_KEY` is unset, behavior is unchanged.
+
+- Set `TWELVELABS_API_KEY` in your `.env` (grab a free key at https://twelvelabs.io — there's a generous free tier).
+- Pass a direct, publicly fetchable video URL as `videoConfig.videoUrl` in the `/api/sumup` request body.
+
+When both are present, `/api/sumup` routes the request to Pegasus (`pegasus1.5`) and returns the generated summary. Otherwise the default transcript-based flow runs as before.
+
 ## Saving costs
 
 Projects like this can get expensive so in order to save costs if you want to make your own version and share it publicly, I recommend three things:
