@@ -7,6 +7,8 @@
 Alternate address: https://b.jimmylv.cn
 Browser extension: https://bibigpt.co/extension
 
+Sponsored by [Vectrust](https://api.openai-next.com/register/?aff_code=5F3R) @ OpenDev Org & NextRouter Alliance
+
 ---
 
 ## 🤖 BibiGPT · AI 音视频内容一键总结 & 对话 [https://bibigpt.co](https://bibigpt.co)
@@ -15,6 +17,8 @@ Browser extension: https://bibigpt.co/extension
 
 备用地址：https://b.jimmylv.cn
 浏览器插件: https://bibigpt.co/extension
+
+由 [Vectrust](https://api.openai-next.com/register/?aff_code=5F3R) 赞助 @ OpenDev Org & NextRouter Alliance
 
 ---
 
